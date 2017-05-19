@@ -20,6 +20,7 @@ mkyong http://www.mkyong.com/tutorials/spring-boot-tutorials/
 # Spring Data:  
 
 https://www.youtube.com/watch?v=SrZKku0g-so  
+https://docs.spring.io/spring-data/jpa/docs/current/reference/html/  
 
 # JSF:  
 
