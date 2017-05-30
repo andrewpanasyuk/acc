@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title th:text="${title}"></title>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css"/>
+  <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet"
+        type="text/css"/>
+</head>
+<body>
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><span>Foxminded</span></a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a>Hello, <span th:text="${#authentication.name}"></span></a>
+        </li>
+        <li th:if="${#authentication.name} != 'anonymousUser'">
+          <a th:href="@{/logout}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-6"><a href="/user"><img
+            src="http://villageoffaith.org/uploads/6/2/2/8/62282299/1370146_orig.png"
+            class="center-block img-responsive"/></a></div>
+          <div class="col-md-6"><a href="/admin"><img src="http://bhoovika.in/staff/images/login.gif"
+                                                      class="center-block img-responsive"/></a></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <form role="form" th:action="@{/login}" th:method="post">
+          <div class="form-group">
+            <label class="control-label" for="username">Email address</label>
+            <input class="form-control" id="username" name="username" placeholder="Enter your login" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="password">Password</label>
+            <input class="form-control" id="password" name="password" placeholder="Password" type="password" />
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

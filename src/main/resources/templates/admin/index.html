@@ -1,0 +1,105 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title th:text="${title}"></title>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css"/>
+  <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet"
+        type="text/css"/>
+</head>
+<body>
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span>Foxminded</span></a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a>Hello, <span th:text="${#authentication.name}"></span></a>
+        </li>
+        <li th:if="${#authentication.name} != 'anonymousUser'">
+          <a th:href="@{/logout}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+        <ul class="list-group">
+          <a href="/admin/orders">
+            <li class="list-group-item">Заявки</li>
+          </a>
+          <a href="/admin/students">
+            <li class="list-group-item">Студенты</li>
+          </a>
+          <a href="/admin/employees">
+            <li class="list-group-item">Менторы</li>
+          </a>
+          <a href="/admin/contracts">
+            <li class="list-group-item">Договора</li>
+          </a>
+          <a href="/admin/services">
+            <li class="list-group-item">Услуги</li>
+          </a>
+          <a href="/admin/invoices">
+            <li class="list-group-item">Счета</li>
+          </a>
+          <a href="/admin/payments">
+            <li class="list-group-item">Оплаты</li>
+          </a>
+          <a href="/admin/salaries">
+            <li class="list-group-item">Зарплаты</li>
+          </a>
+        </ul>
+      </div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-3" style="text-align: center">
+            <a href="/admin/orders"><h1>Заявки</h1></a>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+            <a href="/admin/students"><h1>Студенты</h1></a>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+            <a href="/admin/employees"><h1>Менторы</h1></a>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+            <a href="/admin/contracts"><h1>Договора</h1></a>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-md-3" style="text-align: center">
+            <a href="/admin/invoices"><h1>Счета</h1></a>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+            <a href="/admin/payments"><h1>Оплаты</h1></a>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+            <a href="/admin/salaries"><h1>Зарплаты</h1></a>
+          </div>
+          <div class="col-md-3" style="text-align: center">
+            <a href="/admin/services"><h1>Услуги</h1></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
