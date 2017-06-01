@@ -4,13 +4,13 @@ import ua.com.foxminded.accountingsystem.model.Order;
 
 import java.util.List;
 
+/**
+ * Created by Andrew on 01.06.2017.
+ */
 public interface OrderService {
-
-    void delete(Order order);
-
-    Order save(Order order);
-
-    Order findOne(Long id);
-
-    List<Order> findAll();
+    void addOrder(Order order);
+    void removeOrder(Order order);
+    Order updateOrder(Order order);
+    Order getOrderById(Long id);
+    List<Order> getAllOrders();
 }

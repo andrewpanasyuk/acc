@@ -1,119 +1,69 @@
 package ua.com.foxminded.accountingsystem.model;
 
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "orders")
 public class Order implements Serializable {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
-    @SequenceGenerator(name="order_sequence", sequenceName = "order_sequence", initialValue = 50)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @Column(name = "order_name", nullable = false)
     private String order_name;
-
     @Column(name = "open_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate openDate;
-
+    @Temporal(TemporalType.DATE)
+    private Date openDate;
     @Column(name = "queuing_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate queuingDate;
-
+    @Temporal(TemporalType.DATE)
+    private Date queuingDate;
     @Column(name = "close_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate closeDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
-    private Client client;
-
-    @Column(name = "status")
+    @Temporal(TemporalType.DATE)
+    private Date closeDate;
+    //    private Client client;
+//    private Service service;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public String getOrder_name() {
         return order_name;
     }
-
     public void setOrder_name(String order_name) {
         this.order_name = order_name;
     }
-
-    public LocalDate getOpenDate() {
+    public Date getOpenDate() {
         return openDate;
     }
-
-    public void setOpenDate(LocalDate openDate) {
+    public void setOpenDate(Date openDate) {
         this.openDate = openDate;
     }
-
-    public LocalDate getQueuingDate() {
+    public Date getQueuingDate() {
         return queuingDate;
     }
-
-    public void setQueuingDate(LocalDate queuingDate) {
+    public void setQueuingDate(Date queuingDate) {
         this.queuingDate = queuingDate;
     }
-
-    public LocalDate getCloseDate() {
+    public Date getCloseDate() {
         return closeDate;
     }
-
-    public void setCloseDate(LocalDate closeDate) {
+    public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
     }
-
+    public OrderStatus getStatus() {
+        return status;
+    }
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
     @Override
     public String toString() {
-        return "Order{" +
-            "id=" + id +
-            ", order_name='" + order_name + '\'' +
-            ", openDate=" + openDate +
-            ", queuingDate=" + queuingDate +
-            ", closeDate=" + closeDate +
-            '}';
+        return id + " - " + order_name;
     }
 }
