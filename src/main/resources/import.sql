@@ -3,6 +3,6 @@ INSERT INTO users (username, password, enabled) VALUES
     ('user', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE );
 
 INSERT INTO user_roles (id, username, role) VALUES
-    (nextval('hibernate_sequence'), 'admin', 'ADMIN'),
-    (nextval('hibernate_sequence'), 'admin', 'USER'),
-    (nextval('hibernate_sequence'), 'user', 'USER');
+    (1, 'admin', 'ADMIN'),
+    (2, 'admin', 'USER'),
+    (3, 'user', 'USER');

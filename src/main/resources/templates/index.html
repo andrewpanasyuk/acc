@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="col-md-3">
-        <form role="form" th:action="@{/login}" th:method="post">
+        <form role="form" th:action="@{/login}" th:method="post" th:if="${#authentication.name} == 'anonymousUser'">
           <div class="form-group">
             <label class="control-label" for="username">Email address</label>
             <input class="form-control" id="username" name="username" placeholder="Enter your login" type="text" />
