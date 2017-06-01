@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/fragments/head :: head">
+</head>
+<body>
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+      <div class="col-md-10">
+        <table data-toggle="table">
+          <thead>
+          <tr>
+            <th>UserName</th>
+            <th>Enabled</th>
+            <th>Roles</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!--/*@thymesVar id="users" type="java.util.List"*/-->
+          <!--/*@thymesVar id="user" type="ua.com.foxminded.accountingsystem.model.User"*/-->
+          <tr th:each="user : ${users}">
+            <td>
+              <a th:href="@{/admin/users/{username}(username=${user.username})}" th:text="${user.username}">Username</a>
+            </td>
+            <td th:text="${user.enabled}">false/true</td>
+            <td th:text="${#strings.listJoin(user.userRoles, ', ')}">user,admin</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
