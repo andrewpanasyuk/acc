@@ -7,13 +7,15 @@
   <div class="container">
     <div class="row">
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10">
-        <table data-toggle="table">
+      <div class="col-md-10" style="display: grid;">
+        <table data-toggle="table" data-class="table table-striped table-hover"
+               data-pagination="true" data-search="true" data-query-params="queryParams"
+               data-sort-name="username">
           <thead>
           <tr>
-            <th>UserName</th>
-            <th>Enabled</th>
-            <th>Roles</th>
+            <th data-field="username" data-sortable="true" data-sorter="nameSorter">UserName</th>
+            <th data-field="enabled" data-sortable="true" data-sorter="nameSorter">Enabled</th>
+            <th data-field="roles" data-sortable="true" data-sorter="nameSorter">Roles</th>
           </tr>
           </thead>
           <tbody>
