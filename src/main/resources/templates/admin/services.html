@@ -16,9 +16,12 @@
               <th>Description</th>
               <th>Employee rate</th>
               <th>Prices</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody th:remove="all-but-first">
+            <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
+            <!--/*@thymesVar id="services" type="java.util.List"*/-->
             <tr th:each="service : ${services}">
               <td th:text="${serviceStat.count}"></td>
               <td th:text="${service.serviceName}"></td>
@@ -31,7 +34,9 @@
                   </tr>
                 </table>
               </td>
-
+              <td>
+                <a th:href="@{/admin/services/{id}(id=${service.id})}">remove</a>
+              </td>
             </tr>
           </tbody>
         </table>

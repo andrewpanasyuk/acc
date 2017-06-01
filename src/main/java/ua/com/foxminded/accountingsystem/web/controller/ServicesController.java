@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 
 @Controller
-@RequestMapping("/services")
+@RequestMapping("/admin/services")
 public class ServicesController {
 
     private static final Logger logger = LoggerFactory.getLogger(ServicesController.class);
@@ -27,7 +28,14 @@ public class ServicesController {
     public String getAllServices(Model model){
         logger.debug("Get all services!");
         model.addAttribute("services", serviceService.getAllServices());
-        return "services";
+        return "admin/services";
+    }
+
+    @GetMapping("/{id}")
+    public String remove(@PathVariable Long id, Model model){
+        serviceService.remove(id);
+        model.addAttribute("services", serviceService.getAllServices());
+        return "admin/services";
     }
 
 }

@@ -28,8 +28,8 @@ public class ServiceService {
         return repository.save(service);
     }
 
-    public void remove(Service service){
-        repository.delete(service);
+    public void remove(Long id){
+        repository.delete(id);
     }
 
 }
