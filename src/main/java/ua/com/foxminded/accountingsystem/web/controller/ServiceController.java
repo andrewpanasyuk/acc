@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Price;
@@ -14,7 +16,7 @@ import ua.com.foxminded.accountingsystem.service.ServiceService;
 @RequestMapping("/admin/service")
 public class ServiceController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
+    private static final Logger log = LoggerFactory.getLogger(ServiceController.class);
 
     private final ServiceService serviceService;
 
@@ -29,11 +31,9 @@ public class ServiceController {
         return service;
     }
 
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public void initService(Service service){
+    @GetMapping("/{service}")
+    public void setService(@PathVariable Service service) {
+        log.debug("Set service: id="+ service.getId());
         this.service = service;
     }
 

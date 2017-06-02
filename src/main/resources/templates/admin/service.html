@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="UTF-8"/>
+    <title>Service</title>
 </head>
 <body>
-$END$
+<!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
+<form th:object="${service}" method="post">
+
+  <!-- Use th:field to show *{firstName} -->
+  <label for="serviceName">Service name:</label>
+  <input id="serviceName" type="text" th:field="*{serviceName}" th:value="${service.serviceName}" />
+
+  <!-- Use th:field to show *{lastName} -->
+  <label for="description">Description:</label>
+  <input th:field="*{description}" th:value="${service.description}" id="description" type="text" />
+
+  <!--Genre:-->
+  <!--&lt;!&ndash; Iterate on ${genders} &ndash;&gt;-->
+  <!--<div class="radio">-->
+    <!--&lt;!&ndash; Use th:field to check *{gender} &ndash;&gt;-->
+    <!--<input type="radio" />-->
+    <!--<label>Male</label>-->
+  <!--</div>-->
+
+  <!--<label for="paymentMethod">Payment method:</label>-->
+  <!--&lt;!&ndash; Use th:field to select *{paymentMethod} &ndash;&gt;-->
+  <!--<select>-->
+    <!--&lt;!&ndash; Iterate on ${paymentMethods} &ndash;&gt;-->
+    <!--<option>Credit card</option>-->
+  <!--</select>-->
+
+  <!--&lt;!&ndash; Use th:field to show *{balance} &ndash;&gt;-->
+  <!--<label for="balance">Balance (dollars):</label>-->
+  <!--<input type="text" />-->
+
+  <!--<input type="submit" />-->
+</form>
+
 </body>
 </html>
