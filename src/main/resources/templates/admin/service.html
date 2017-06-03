@@ -1,42 +1,52 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Service</title>
+<head th:replace="/admin/fragments/head :: head">
 </head>
 <body>
-<!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
-<form th:object="${service}" method="post">
-
-  <!-- Use th:field to show *{firstName} -->
-  <label for="serviceName">Service name:</label>
-  <input id="serviceName" type="text" th:field="*{serviceName}" th:value="${service.serviceName}" />
-
-  <!-- Use th:field to show *{lastName} -->
-  <label for="description">Description:</label>
-  <input th:field="*{description}" th:value="${service.description}" id="description" type="text" />
-
-  <!--Genre:-->
-  <!--&lt;!&ndash; Iterate on ${genders} &ndash;&gt;-->
-  <!--<div class="radio">-->
-    <!--&lt;!&ndash; Use th:field to check *{gender} &ndash;&gt;-->
-    <!--<input type="radio" />-->
-    <!--<label>Male</label>-->
-  <!--</div>-->
-
-  <!--<label for="paymentMethod">Payment method:</label>-->
-  <!--&lt;!&ndash; Use th:field to select *{paymentMethod} &ndash;&gt;-->
-  <!--<select>-->
-    <!--&lt;!&ndash; Iterate on ${paymentMethods} &ndash;&gt;-->
-    <!--<option>Credit card</option>-->
-  <!--</select>-->
-
-  <!--&lt;!&ndash; Use th:field to show *{balance} &ndash;&gt;-->
-  <!--<label for="balance">Balance (dollars):</label>-->
-  <!--<input type="text" />-->
-
-  <!--<input type="submit" />-->
-</form>
-
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+      <div class="col-md-10">
+        <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
+        <form th:action="@{/admin/service/save}" th:object="${service}" method="post">
+          <div class="form-group">
+            <input type="hidden" th:field="*{id}" />
+            <label for="serviceName">Service name *</label>
+            <input required="required" id="serviceName" type="text" th:field="*{serviceName}" th:value="${service.serviceName}" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label for="description">Description *</label>
+            <input required="required" th:field="*{description}" th:value="${service.description}" id="description" type="text" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label for="employeeRate">Employee rate *</label>
+            <input required="required" th:field="*{employeeRate.price}" th:value="${service.employeeRate.price}" id="employeeRate" type="number" class="form-control"/>
+            <select th:field="*{employeeRate.currency}" th:remove="all-but-first">
+              <option th:each="currency : ${currencies}"
+                      th:value="${currency}" th:text="${currency}">currency</option>
+            </select>
+          </div>
+          <label for="prices">Prices *</label>
+          <div id="prices">
+            <table>
+              <!--/*@thymesVar id="prices" type="ua.com.foxminded.accountingsystem.model.Price"*/-->
+              <tr th:each="price, stat : *{prices}">
+                <input required="required" id="price" type="number" value="0" th:value="${price.price}" th:field="*{prices[__${stat.index}__].price}"/>
+                <select th:field="*{prices[__${stat.index}__].currency}" th:remove="all-but-first">
+                  <option th:each="currency : ${currencies}"
+                          th:value="${currency}" th:text="${currency}">currency</option>
+                </select>
+                <br/>
+              </tr>
+            </table>
+          </div>
+          <button type="submit" class="btn btn-default">save</button>
+        </form>
+        <a th:href="@{/admin/services}" class="btn btn-default" >back</a>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

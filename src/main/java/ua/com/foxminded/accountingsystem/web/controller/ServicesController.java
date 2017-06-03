@@ -8,7 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
+
+import java.util.List;
 
 
 @Controller
@@ -26,12 +29,13 @@ public class ServicesController {
 
     @GetMapping
     public String getAllServices(Model model){
-        logger.debug("Get all services!");
-        model.addAttribute("services", serviceService.getAllServices());
+        List<Service> services = serviceService.getAllServices();
+        logger.debug("Found: "+services.size()+" services!");
+        model.addAttribute("services", services);
         return "admin/services";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/remove/{id}")
     public String remove(@PathVariable Long id, Model model){
         serviceService.remove(id);
         model.addAttribute("services", serviceService.getAllServices());

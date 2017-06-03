@@ -32,4 +32,8 @@ public class ServiceService {
         repository.delete(id);
     }
 
+    public Service getById(Long id){
+        return repository.findOne(id);
+    }
+
 }
