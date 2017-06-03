@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin/services")
 public class ServiceController {
 
     private static final Logger log = LoggerFactory.getLogger(ServiceController.class);
@@ -33,21 +35,34 @@ public class ServiceController {
         this.serviceService = serviceService;
     }
 
-    @RequestMapping("/admin/service/{id}")
+    @GetMapping
+    public String getAllServices(Model model){
+        List<Service> services = serviceService.getAllServices();
+        log.debug("Found: "+services.size()+" services!");
+        model.addAttribute("services", services);
+        return "admin/services";
+    }
+
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable Long id){
+        serviceService.remove(id);
+        return "redirect:/admin/services";
+    }
+
+    @GetMapping("/{id}")
     public String getOneService(@PathVariable Long id, Model model) {
         model.addAttribute("service",serviceService.getById(id));
         model.addAttribute("currencies", Currency.values());
         return "admin/service";
     }
 
-    @RequestMapping(value = "/admin/service/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("service") Service service, Model model){
+    @PostMapping("/save")
+    public String save(@ModelAttribute Service service){
         serviceService.save(service);
-        model.addAttribute("services", serviceService.getAllServices());
-        return "admin/services";
+        return "redirect:/admin/services";
     }
 
-    @RequestMapping(value = "/admin/service/newService")
+    @GetMapping("/newService")
     public String newService(Model model){
         Service service = new Service();
         List<Price> prices = new ArrayList<>();
@@ -68,10 +83,6 @@ public class ServiceController {
         model.addAttribute("service", service);
         model.addAttribute("currencies", Currency.values());
         return "admin/service";
-    }
-
-    public Currency[] getCurrencies(){
-        return Currency.values();
     }
 
 }

@@ -9,31 +9,34 @@
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-10">
         <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
-        <form th:action="@{/admin/service/save}" th:object="${service}" method="post">
+        <!--/*@thymesVar id="price" type="ua.com.foxminded.accountingsystem.model.Price"*/-->
+        <form th:action="@{/admin/services/save}" th:object="${service}" method="post">
           <div class="form-group">
             <input type="hidden" th:field="*{id}" />
-            <label for="serviceName">Service name *</label>
-            <input required="required" id="serviceName" type="text" th:field="*{serviceName}" th:value="${service.serviceName}" class="form-control"/>
+            <label th:for="${#ids.next('serviceName')}">Service name *</label>
+            <input required="required" type="text" th:field="*{serviceName}" class="form-control"/>
           </div>
           <div class="form-group">
             <label for="description">Description *</label>
-            <input required="required" th:field="*{description}" th:value="${service.description}" id="description" type="text" class="form-control"/>
+            <input required="required" th:field="*{description}" id="description" type="text" class="form-control"/>
           </div>
           <div class="form-group">
             <label for="employeeRate">Employee rate *</label>
-            <input required="required" th:field="*{employeeRate.price}" th:value="${service.employeeRate.price}" id="employeeRate" type="number" class="form-control"/>
+            <input required="required" th:field="*{employeeRate.price}" id="employeeRate" type="number" class="form-control"/>
+            <input type="hidden" th:field="*{employeeRate.id}" />
             <select th:field="*{employeeRate.currency}" th:remove="all-but-first">
               <option th:each="currency : ${currencies}"
                       th:value="${currency}" th:text="${currency}">currency</option>
             </select>
           </div>
           <label for="prices">Prices *</label>
+
           <div id="prices">
             <table>
-              <!--/*@thymesVar id="prices" type="ua.com.foxminded.accountingsystem.model.Price"*/-->
-              <tr th:each="price, stat : *{prices}">
-                <input required="required" id="price" type="number" value="0" th:value="${price.price}" th:field="*{prices[__${stat.index}__].price}"/>
-                <select th:field="*{prices[__${stat.index}__].currency}" th:remove="all-but-first">
+              <tr th:each="price, iterItem : *{prices}">
+                <input required="required" type="number" th:field="*{prices[__${iterItem.index}__].price}"/>
+                <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
+                <select th:field="*{prices[__${iterItem.index}__].currency}" th:remove="all-but-first">
                   <option th:each="currency : ${currencies}"
                           th:value="${currency}" th:text="${currency}">currency</option>
                 </select>
