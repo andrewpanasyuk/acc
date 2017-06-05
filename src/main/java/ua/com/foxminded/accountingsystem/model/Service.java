@@ -77,4 +77,38 @@ public class Service implements Serializable {
         this.employeeRate = employeeRate;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Service service = (Service) o;
+
+        if (!id.equals(service.id)) return false;
+        if (!serviceName.equals(service.serviceName)) return false;
+        if (!description.equals(service.description)) return false;
+        if (!prices.equals(service.prices)) return false;
+        return employeeRate.equals(service.employeeRate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + serviceName.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + prices.hashCode();
+        result = 31 * result + employeeRate.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+            "id=" + id +
+            ", serviceName='" + serviceName + '\'' +
+            ", description='" + description + '\'' +
+            ", prices=" + prices +
+            ", employeeRate=" + employeeRate +
+            '}';
+    }
 }

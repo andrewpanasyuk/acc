@@ -31,3 +31,4 @@ INSERT INTO user_roles (id, username, role) VALUES
     (10, 'igor', 'USER'),
     (11, 'lebovskiy', 'USER'),
     (12, 'artem', 'USER');
+
