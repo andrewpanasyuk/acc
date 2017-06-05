@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Price;
 import ua.com.foxminded.accountingsystem.model.Service;
@@ -69,7 +65,9 @@ public class ServiceController {
         Price price1 = new Price();
         Price price2 = new Price();
         Price price3 = new Price();
+
         Price employeeRate = new Price();
+        employeeRate.setCurrency(Currency.UAH);
 
         price1.setCurrency(Currency.UAH);
         price2.setCurrency(Currency.EUR);

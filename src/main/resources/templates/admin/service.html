@@ -21,25 +21,20 @@
             <input required="required" th:field="*{description}" id="description" type="text" class="form-control"/>
           </div>
           <div class="form-group">
-            <label for="employeeRate">Employee rate *</label>
+            <label for="employeeRate" th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
             <input required="required" th:field="*{employeeRate.price}" id="employeeRate" type="number" class="form-control"/>
             <input type="hidden" th:field="*{employeeRate.id}" />
-            <select th:field="*{employeeRate.currency}" th:remove="all-but-first">
-              <option th:each="currency : ${currencies}"
-                      th:value="${currency}" th:text="${currency}">currency</option>
-            </select>
+            <input type="hidden" th:field="*{employeeRate.currency}"/>
           </div>
           <label for="prices">Prices *</label>
 
           <div id="prices">
             <table>
               <tr th:each="price, iterItem : *{prices}">
-                <input required="required" type="number" th:field="*{prices[__${iterItem.index}__].price}"/>
+                <input id="price" type="number" th:field="*{prices[__${iterItem.index}__].price}" />
+                <label for="price" th:text="${price.currency}"></label>
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
-                <select th:field="*{prices[__${iterItem.index}__].currency}" th:remove="all-but-first">
-                  <option th:each="currency : ${currencies}"
-                          th:value="${currency}" th:text="${currency}">currency</option>
-                </select>
+                <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
                 <br/>
               </tr>
             </table>
