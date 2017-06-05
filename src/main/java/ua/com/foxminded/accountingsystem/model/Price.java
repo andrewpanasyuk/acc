@@ -49,15 +49,15 @@ public class Price {
         Price price1 = (Price) o;
 
         if (price != price1.price) return false;
-        if (!id.equals(price1.id)) return false;
+        if (id != null ? !id.equals(price1.id) : price1.id != null) return false;
         return currency == price1.currency;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + price;
-        result = 31 * result + currency.hashCode();
+        result = 31 * result + (currency != null ? currency.hashCode() : 0);
         return result;
     }
 

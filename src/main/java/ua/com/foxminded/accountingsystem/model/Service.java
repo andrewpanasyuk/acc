@@ -84,20 +84,20 @@ public class Service implements Serializable {
 
         Service service = (Service) o;
 
-        if (!id.equals(service.id)) return false;
-        if (!serviceName.equals(service.serviceName)) return false;
-        if (!description.equals(service.description)) return false;
-        if (!prices.equals(service.prices)) return false;
-        return employeeRate.equals(service.employeeRate);
+        if (id != null ? !id.equals(service.id) : service.id != null) return false;
+        if (serviceName != null ? !serviceName.equals(service.serviceName) : service.serviceName != null) return false;
+        if (description != null ? !description.equals(service.description) : service.description != null) return false;
+        if (prices != null ? !prices.equals(service.prices) : service.prices != null) return false;
+        return employeeRate != null ? employeeRate.equals(service.employeeRate) : service.employeeRate == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + serviceName.hashCode();
-        result = 31 * result + description.hashCode();
-        result = 31 * result + prices.hashCode();
-        result = 31 * result + employeeRate.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (prices != null ? prices.hashCode() : 0);
+        result = 31 * result + (employeeRate != null ? employeeRate.hashCode() : 0);
         return result;
     }
 

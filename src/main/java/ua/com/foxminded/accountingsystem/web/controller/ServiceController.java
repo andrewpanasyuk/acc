@@ -16,6 +16,7 @@ import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -60,24 +61,20 @@ public class ServiceController {
 
     @GetMapping("/newService")
     public String newService(Model model){
-        Service service = new Service();
         List<Price> prices = new ArrayList<>();
-        Price price1 = new Price();
-        Price price2 = new Price();
-        Price price3 = new Price();
+        for (Currency currency : Arrays.asList(Currency.values())) {
+            Price price = new Price();
+            price.setCurrency(currency);
+            prices.add(price);
+        }
 
         Price employeeRate = new Price();
         employeeRate.setCurrency(Currency.UAH);
 
-        price1.setCurrency(Currency.UAH);
-        price2.setCurrency(Currency.EUR);
-        price3.setCurrency(Currency.USD);
-        prices.add(price1);
-        prices.add(price2);
-        prices.add(price3);
-
+        Service service = new Service();
         service.setPrices(prices);
         service.setEmployeeRate(employeeRate);
+
         model.addAttribute("service", service);
         model.addAttribute("currencies", Currency.values());
         return "admin/service";
