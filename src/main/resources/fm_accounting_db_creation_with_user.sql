@@ -13,6 +13,8 @@ GRANT ALL PRIVILEGES ON DATABASE fm_accounting_db TO fm_accounting;
 
 ALTER DATABASE fm_accounting_db OWNER TO fm_accounting;
 
+
+
 --
 -- PostgreSQL database dump complete
 --

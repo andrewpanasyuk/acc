@@ -1,5 +1,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/fragments/head :: head">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Order</title>
+  <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.js"></script>
+  <script type="text/javascript"
+          src="/webjars/bootstrap-table/1.11.1/dist/locale/bootstrap-table-ru-RU.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css"/>
+  <!--<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet"-->
+  <!--type="text/css"/>-->
+  <link href="/webjars/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"
+        type="text/css"/>
+  <link href="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.css" rel="stylesheet"
+        type="text/css"/>
 </head>
 <body>
 <div th:replace="/admin/fragments/header :: nav"></div>
@@ -9,45 +25,45 @@
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-6">
         <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-        <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
-        <label>Client: </label>
-        <a th:href="@{/admin/clients/{id}(id=${order.client.id})}"
-           th:text="${order.client.firstName} + ' '  + ${order.client.lastName}"></a>
-        <form th:action="@{/admin/orders}" th:object="${order}" method="post">
-          <input type="hidden" th:field="${order.id}"/>
-          <input type="hidden" th:field="${order.client}"/>
+        <form th:action="@{/admin/orders/update}" th:object="${order}" method="post">
+          <input type="hidden" th:field="${order.id}" />
 
-          <label>Order: </label>
+          <label>Order</label>
           <output type="text" rows="1" th:value="${order.id}"/>
+
           <textarea rows="1" class="form-control" th:field="${order.order_name}" th:text="${order.order_name}"/>
 
-          <label>Order Status:</label>
-          <select th:field="${order.status}" th:remove="all-but-first">
-            <option th:each="status : ${statuses}"
-                    th:value="${status}" th:text="${status}"/>
-          </select>
-          <br/>
+          <label>Open Date</label>
+          <input type="date" th:value="${order.openDate}" th:field="${order.openDate}"/><br/>
 
-          <label>Open Date:</label>
-          <input type="date" th:value="${#temporals.format(order.openDate, 'yyyy-MM-dd')}"
-                 th:field="${order.openDate}"/><br/>
 
-          <label>Queuing Date:</label>
-          <input type="date"
-                 th:value="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'yyyy-MM-dd')} : ''"
-                 th:field="${order.queuingDate}"/><br/>
+          <table>
+            <tr>
+              <th>Client:</th>
+            </tr>
+            <tr>
+              <th>First Name</th>
+              <td th:text="${client.firstName}"/>
+            </tr>
+            <tr>
+              <th>Last Name</th>
+              <td th:text="${client.lastName}"/>
+            </tr>
+          </table>
 
-          <label>Close Date:</label>
-          <input type="date"
-                 th:value="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'yyyy-MM-dd')} : ''"
-                 th:field="${order.closeDate}"/><br/>
+          <label>Queuing Date</label>
+          <input type="text" th:field="${order.queuingDate}" th:value="${order.queuingDate}"/><br/>
 
-          <button type="submit" id="submit" class="btn btn-primary">Save</button>
-          <button th:formaction="@{/admin/orders/remove}" class="btn btn-primary">Remove</button>
+          <label>Close Date</label>
+          <input type="date" th:field="${order.closeDate}" th:value="${order.closeDate}"/>
+
+          <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+
 </body>
 </html>

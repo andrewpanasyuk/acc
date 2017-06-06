@@ -11,30 +11,35 @@ import java.util.List;
 @Service
 public class ClientServiceJPA implements ClientService {
 
-    private final ClientRepository clientRepository;
+    ClientRepository clientRepository;
 
     @Autowired
-    public ClientServiceJPA(ClientRepository clientRepository) {
+    public void setClientRepository(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     @Override
-    public void delete(Client client) {
+    public void addClient(Client client) {
+        clientRepository.save(client);
+    }
+
+    @Override
+    public void removeClient(Client client) {
         clientRepository.delete(client);
     }
 
     @Override
-    public Client save(Client client) {
+    public Client updateClient(Client client) {
         return clientRepository.save(client);
     }
 
     @Override
-    public Client findOne(Long id) {
+    public Client getClientById(Long id) {
         return clientRepository.findOne(id);
     }
 
     @Override
-    public List<Client> findAll() {
+    public List<Client> getAllClients() {
         return clientRepository.findAll();
     }
 }

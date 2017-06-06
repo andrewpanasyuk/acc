@@ -4,13 +4,13 @@ import ua.com.foxminded.accountingsystem.model.Client;
 
 import java.util.List;
 
+/**
+ * Created by Andrew on 04.06.2017.
+ */
 public interface ClientService {
-
-    void delete(Client client);
-
-    Client save(Client client);
-
-    Client findOne(Long id);
-
-    List<Client> findAll();
+    void addClient(Client client);
+    void removeClient(Client client);
+    Client updateClient(Client client);
+    Client getClientById(Long id);
+    List<Client> getAllClients();
 }
