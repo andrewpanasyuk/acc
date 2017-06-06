@@ -1,15 +1,14 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.repository.OrderRepository;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.util.List;
 
-/**
- * Created by Andrew on 01.06.2017.
- */
+@Service
 public class OrderServiceJPA implements OrderService {
     OrderRepository orderRepository;
     @Autowired

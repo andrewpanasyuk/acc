@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/fragments/head :: head">
+</head>
+<body>
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+      <div class="col-md-10">
+        <a class="btn btn-primary" href="/admin/orders/orderAdd">Add new Order</a>
+        <table data-toggle="table">
+          <thead>
+          <tr>
+            <th>id</th>
+            <th>orderName</th>
+            <th>open Date</th>
+            <th>queuing Date</th>
+            <th>close Date</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="order : ${orders}">
+            <td>
+              <p th:text="${order.id}">id</p>
+            </td>
+            <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+            <td th:text="${order.order_name}"></td>
+            <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
+            <td th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
+            <td th:text="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd-MMM-yyyy')} : ''"></td>
+            <td>
+              <a th:href="@{/admin/orders/{id}/order(id=${order.id})}">Update</a> |
+              <a th:href="@{/admin/orders/{id}/remove (id=${order.id})}">Remove</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Hi-->
+</body>
+</html>
