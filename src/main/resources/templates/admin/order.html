@@ -1,0 +1,69 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Order</title>
+  <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.js"></script>
+  <script type="text/javascript"
+          src="/webjars/bootstrap-table/1.11.1/dist/locale/bootstrap-table-ru-RU.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css"/>
+  <!--<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet"-->
+  <!--type="text/css"/>-->
+  <link href="/webjars/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"
+        type="text/css"/>
+  <link href="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.css" rel="stylesheet"
+        type="text/css"/>
+</head>
+<body>
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+      <div class="col-md-6">
+        <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+        <form th:action="@{/admin/orders/update}" th:object="${order}" method="post">
+          <input type="hidden" th:field="${order.id}" />
+
+          <label>Order</label>
+          <output type="text" rows="1" th:value="${order.id}"/>
+
+          <textarea rows="1" class="form-control" th:field="${order.order_name}" th:text="${order.order_name}"/>
+
+          <label>Open Date</label>
+          <input type="date" th:value="${order.openDate}" th:field="${order.openDate}"/><br/>
+
+
+          <table>
+            <tr>
+              <th>Client:</th>
+            </tr>
+            <tr>
+              <th>First Name</th>
+              <td th:text="${client.firstName}"/>
+            </tr>
+            <tr>
+              <th>Last Name</th>
+              <td th:text="${client.lastName}"/>
+            </tr>
+          </table>
+
+          <label>Queuing Date</label>
+          <input type="text" th:field="${order.queuingDate}" th:value="${order.queuingDate}"/><br/>
+
+          <label>Close Date</label>
+          <input type="date" th:field="${order.closeDate}" th:value="${order.closeDate}"/>
+
+          <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
