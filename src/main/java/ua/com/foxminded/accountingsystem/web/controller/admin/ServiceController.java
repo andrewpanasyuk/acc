@@ -64,6 +64,7 @@ public class ServiceController {
         return "redirect:/admin/services";
     }
 
+    //TODO change this decision
     @GetMapping("/newService")
     public String newService(Model model){
         List<Money> monies = new ArrayList<>();

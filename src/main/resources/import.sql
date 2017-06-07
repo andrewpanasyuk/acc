@@ -32,6 +32,7 @@ INSERT INTO user_roles (id, username, role) VALUES
     (11, 'lebovskiy', 'USER'),
     (12, 'artem', 'USER');
 
+
 INSERT INTO money (id, currency, price) VALUES
     (1,0,1000),
     (2,1,2000),
@@ -53,4 +54,3 @@ INSERT INTO service_monies (service_id, monies_id) VALUES
     (2,4),
     (2,5),
     (2,6);
-

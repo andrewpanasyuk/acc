@@ -11,7 +11,7 @@ import java.util.List;
 @org.springframework.stereotype.Service
 public class ServiceService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServiceService.class);
+    private static final Logger log = LoggerFactory.getLogger(ServiceService.class);
 
     private final ServiceRepository repository;
 
