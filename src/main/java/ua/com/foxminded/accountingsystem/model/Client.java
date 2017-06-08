@@ -16,12 +16,8 @@ public class Client {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "client")
     private List<Order> orders;
-
-
-//    private Money balance;
 
 
     public List<Order> getOrders() {

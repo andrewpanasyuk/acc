@@ -35,21 +35,43 @@
 
           <label>Last Name</label>
           <textarea rows="1" class="form-control" th:field="${client.lastName}" th:text="${client.lastName}"/>
-          <!--<input type="text" th:value="${order.openDate}" th:field="${order.openDate}"/><br/>-->
-
-          <!--<label>Queuing Date</label>-->
-          <!--<input type="text" th:field="${order.queuingDate}" th:value="${order.queuingDate}"/><br/>-->
-
-          <!--<label>Close Date</label>-->
-          <!--<input type="text" th:field="${order.closeDate}" th:value="${order.closeDate}"/>-->
 
           <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+          <a class="btn btn-primary" th:href="@{/admin/orders/orderAdd/{id}(id=${client.id})}">Add new Order</a>
+          <label>Orders:</label>
+          <table data-toggle="table">
+            <thead>
+            <tr>
+              <th>id</th>
+              <th>orderName</th>
+              <th>order Status</th>
+              <th>open Date</th>
+              <th>queuing Date</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${client.orders}">
+              <td>
+                <p th:text="${order.id}">id</p>
+              </td>
+              <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+              <td th:text="${order.order_name}"></td>
+              <td th:text="${order.status}"></td>
+              <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
+              <td th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
+              <td>
+                <a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a> |
+                <a th:href="@{/admin/orders/{id}/remove (id=${order.id})}">Remove</a></td>
+            </tr>
+            </tbody>
+          </table>
+          <a class="btn btn-primary" th:href="@{/admin/orders/orderAdd/{id}(id=${client.id})}">Add new Order</a>
         </form>
       </div>
     </div>
   </div>
 </div>
-
 
 </body>
 </html>
