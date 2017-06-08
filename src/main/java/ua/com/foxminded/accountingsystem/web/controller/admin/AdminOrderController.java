@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Order;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 
@@ -34,13 +35,6 @@ public class AdminOrderController {
         return "admin/orders";
     }
 
-    @GetMapping("/{id}")
-    public String getOrderByID(@PathVariable long id, Model model) {
-        model
-            .addAttribute("order", orderService.getOrderById(id));
-        return "admin/order";
-    }
-
 
     @PostMapping(value = "/update")
     public String update(@ModelAttribute Order order) {
@@ -48,14 +42,15 @@ public class AdminOrderController {
         return "redirect:/admin/orders";
     }
 
-    @GetMapping(value = "/{id}/order")
+    @GetMapping(value = "/{id}")
     public String edit(@PathVariable long id,
                        Model model) {
         Order order = orderService.getOrderById(id);
         Client client = order.getClient();
-
         model.addAttribute("order", order)
-            .addAttribute("client", client);
+            .addAttribute("client", client)
+            .addAttribute("localDate", LocalDate.now())
+            .addAttribute("statuses", OrderStatus.values());
         return "admin/order";
     }
 
@@ -67,16 +62,20 @@ public class AdminOrderController {
         return "redirect:/admin/orders";
     }
 
-    @GetMapping(value = "/orderAdd")
-    public String addOrder(Model model) {
+    @GetMapping(value = "/orderAdd/{id}")
+    public String addOrder(@PathVariable long id, Model model) {
+        Client client = clientService.getClientById(id);
         Order order = new Order();
+        order.setClient(client);
+        client.getOrders().add(order);
         order.setOpenDate(LocalDate.now());
-        System.out.println(order);
-        model.addAttribute("order", order);
+        model.addAttribute("order", order)
+            .addAttribute("statuses", OrderStatus.values())
+            .addAttribute("client", client);
         return "admin/order";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
     public String create(@ModelAttribute Order order) {
         orderService.addOrder(order);
         return "redirect:/admin/orders";
