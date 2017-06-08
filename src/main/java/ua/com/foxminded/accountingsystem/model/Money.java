@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,12 @@ import javax.persistence.Table;
 public class Price {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+    @Column(name = "price")
     private int price;
+    @Column(name = "currency")
     private Currency currency;
 
     public Long getId() {
