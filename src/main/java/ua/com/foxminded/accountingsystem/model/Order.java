@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "orders")
@@ -19,31 +18,32 @@ public class Order implements Serializable {
     private String order_name;
 
     @Column(name = "open_date")
-//    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate openDate;
-    //
+
     @Column(name = "queuing_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate queuingDate;
-    //
+
     @Column(name = "close_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate closeDate;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
-////    private Service service;
-//    @Enumerated(EnumType.STRING)
-//    private OrderStatus status;
-//
-//    public Order(String order_name) {
-//        this.order_name = order_name;
-//    }
-//
-//    public Order(){
-//
-//    }
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
 
     public Client getClient() {
         return client;
@@ -69,8 +69,6 @@ public class Order implements Serializable {
         this.order_name = order_name;
     }
 
-//
-
     public LocalDate getOpenDate() {
         return openDate;
     }
@@ -92,17 +90,9 @@ public class Order implements Serializable {
     }
 
     public void setCloseDate(LocalDate closeDate) {
+
         this.closeDate = closeDate;
     }
-
-//    public OrderStatus getStatus() {
-//        return status;
-//    }
-//
-//    public void setStatus(OrderStatus status) {
-//        this.status = status;
-//    }
-
 
     @Override
     public String toString() {
