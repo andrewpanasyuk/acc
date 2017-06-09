@@ -38,8 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-                .antMatchers("/**")
-                .permitAll()
+                .antMatchers("/admin").hasAuthority("ADMIN")
+                .antMatchers("/user").hasAuthority("USER")
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated()
             .and()
                 .formLogin()
                     .loginPage("/login")
@@ -54,5 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .csrf().disable();
 
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("ram").password("ram").roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("ravan").password("ravan").roles("USER");
     }
 }
