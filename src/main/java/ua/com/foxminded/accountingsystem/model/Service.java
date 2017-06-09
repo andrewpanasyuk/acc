@@ -24,7 +24,7 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")
     @SequenceGenerator(name="service_sequence", initialValue=50)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    private long id;
     @Column(name = "service_name")
     private String serviceName;
     @Column(name = "description")
@@ -39,11 +39,11 @@ public class Service {
         employeeRate = new Money();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -86,28 +86,21 @@ public class Service {
 
         Service service = (Service) o;
 
-        if (id != null ? !id.equals(service.id) : service.id != null) return false;
         if (serviceName != null ? !serviceName.equals(service.serviceName) : service.serviceName != null) return false;
-        if (description != null ? !description.equals(service.description) : service.description != null) return false;
-        if (monies != null ? !monies.equals(service.monies) : service.monies != null) return false;
-        return employeeRate != null ? employeeRate.equals(service.employeeRate) : service.employeeRate == null;
+        return description != null ? description.equals(service.description) : service.description == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
+        int result = serviceName != null ? serviceName.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (monies != null ? monies.hashCode() : 0);
-        result = 31 * result + (employeeRate != null ? employeeRate.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Service{" +
-            "id=" + id +
-            ", serviceName='" + serviceName + '\'' +
+            "serviceName='" + serviceName + '\'' +
             ", description='" + description + '\'' +
             ", monies=" + monies +
             ", employeeRate=" + employeeRate +

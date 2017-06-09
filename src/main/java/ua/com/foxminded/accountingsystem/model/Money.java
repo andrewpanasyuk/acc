@@ -17,17 +17,17 @@ public class Money {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="money_sequence")
     @SequenceGenerator(name="money_sequence", initialValue=50)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    private long id;
     @Column(name = "price")
-    private Integer price = 0;
+    private int price = 0;
     @Column(name = "currency")
     private Currency currency;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -52,16 +52,16 @@ public class Money {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Money money1 = (Money) o;
+        Money money = (Money) o;
 
-        if (price != money1.price) return false;
-        if (id != null ? !id.equals(money1.id) : money1.id != null) return false;
-        return currency == money1.currency;
+        if (id != money.id) return false;
+        if (price != money.price) return false;
+        return currency == money.currency;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + price;
         result = 31 * result + (currency != null ? currency.hashCode() : 0);
         return result;
@@ -70,7 +70,8 @@ public class Money {
     @Override
     public String toString() {
         return "Money{" +
-            "price=" + price +
+            "id=" + id +
+            ", price=" + price +
             ", currency=" + currency +
             '}';
     }

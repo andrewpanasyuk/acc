@@ -41,16 +41,14 @@ public class ServiceController {
     }
 
     @PostMapping("/{id}/remove")
-    public String remove(@PathVariable Long id){
+    public String remove(@PathVariable long id){
         log.debug("Remove service with id: "+id);
-        if (id != null) {
-            serviceService.remove(id);
-        }
+        serviceService.remove(id);
         return "redirect:/admin/services";
     }
 
     @GetMapping("/{id}")
-    public String getOneService(@PathVariable Long id, Model model) {
+    public String getOneService(@PathVariable long id, Model model) {
         model.addAttribute("service",serviceService.findById(id));
         model.addAttribute("currencies", Currency.values());
         return "admin/service";
