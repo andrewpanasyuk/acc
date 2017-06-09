@@ -54,13 +54,13 @@ public class AdminOrderController {
         return "admin/order";
     }
 
-
-    @GetMapping(value = "/{id}/remove")
-    public String removeOrder(@PathVariable long id) {
+    @PostMapping(value = "/{id}")
+    public String del(@PathVariable long id) {
         Order order = orderService.getOrderById(id);
         orderService.removeOrder(order);
         return "redirect:/admin/orders";
     }
+
 
     @GetMapping(value = "/orderAdd/{id}")
     public String addOrder(@PathVariable long id, Model model) {
@@ -77,7 +77,7 @@ public class AdminOrderController {
 
     @PostMapping(value = "/create")
     public String create(@ModelAttribute Order order) {
-        orderService.addOrder(order);
+        orderService.updateOrder(order);
         return "redirect:/admin/orders";
     }
 

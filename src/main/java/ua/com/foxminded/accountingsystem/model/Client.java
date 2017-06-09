@@ -1,13 +1,23 @@
 package ua.com.foxminded.accountingsystem.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
 @Table(name = "clients")
 public class Client {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "client_gen", sequenceName = "client_gen")
+    @GeneratedValue(generator = "client_gen")
     private long id;
 
     @Column(name = "first_name", nullable = false)
@@ -16,7 +26,7 @@ public class Client {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 
 

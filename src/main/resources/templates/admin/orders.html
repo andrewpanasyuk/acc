@@ -12,12 +12,11 @@
           <thead>
           <tr>
             <th>id</th>
-            <th>orderName</th>
+            <th>View Order</th>
             <th>order Status</th>
             <th>open Date</th>
             <th>queuing Date</th>
             <th>close Date</th>
-            <th>Action</th>
           </tr>
           </thead>
           <tbody>
@@ -26,14 +25,14 @@
               <p th:text="${order.id}">id</p>
             </td>
             <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-            <td th:text="${order.order_name}"></td>
+            <td>
+              <a th:href="@{/admin/orders/{id}(id=${order.id})}">Order</a>
+            </td>
             <td th:text="${order.status}"></td>
             <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
-            <td th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
+            <td
+              th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
             <td th:text="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd-MMM-yyyy')} : ''"></td>
-            <td>
-              <a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a> |
-              <a th:href="@{/admin/orders/{id}/remove (id=${order.id})}">Remove</a></td>
           </tr>
           </tbody>
         </table>

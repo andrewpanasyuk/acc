@@ -3,15 +3,27 @@ package ua.com.foxminded.accountingsystem.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "orders")
 public class Order implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="order_gen", sequenceName="order_gen")
+    @GeneratedValue(generator="order_gen")
     private long id;
 
     @Column(name = "order_name", nullable = false)
@@ -29,7 +41,7 @@ public class Order implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate closeDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
 
