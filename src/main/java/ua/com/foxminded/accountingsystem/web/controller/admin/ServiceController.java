@@ -56,7 +56,7 @@ public class ServiceController {
         return "admin/service";
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public String save(@ModelAttribute Service service){
         log.debug("Save service: "+service.toString());
         serviceService.save(service);
