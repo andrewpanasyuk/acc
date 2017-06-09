@@ -40,7 +40,7 @@ public class ServiceController {
         return "admin/services";
     }
 
-    @GetMapping("/remove/{id}")
+    @GetMapping("/{id}/remove")
     public String remove(@PathVariable Long id){
         log.debug("Remove service with id: "+id);
         if (id != null) {
