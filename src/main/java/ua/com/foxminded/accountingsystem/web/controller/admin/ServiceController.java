@@ -40,7 +40,7 @@ public class ServiceController {
         return "admin/services";
     }
 
-    @GetMapping("/{id}/remove")
+    @PostMapping("/{id}/remove")
     public String remove(@PathVariable Long id){
         log.debug("Remove service with id: "+id);
         if (id != null) {
@@ -58,6 +58,7 @@ public class ServiceController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Service service){
+        log.debug("Save service: "+service.toString());
         serviceService.save(service);
         return "redirect:/admin/services";
     }
