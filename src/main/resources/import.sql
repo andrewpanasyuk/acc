@@ -31,3 +31,10 @@ INSERT INTO user_roles (id, username, role) VALUES
     (10, 'igor', 'USER'),
     (11, 'lebovskiy', 'USER'),
     (12, 'artem', 'USER');
+
+INSERT INTO  employee_field(id, field_name) VALUES (1,'skype');
+INSERT INTO employee(id,first_name,last_name) VALUES (1,'jack', 'jackson');
+INSERT INTO  employee_field_value(id,employee_fk,employee_field_fk,field_value) VALUES (1,1,1, 'jackSkype');
+INSERT INTO  employee_field(id, field_name) VALUES (1,'skype');
+INSERT INTO employee(id,first_name,last_name) VALUES (2,'rob', 'robinson');
+INSERT INTO  employee_field_value(id,employee_fk,employee_field_fk,field_value) VALUES (2,2,1, 'robSkype');
