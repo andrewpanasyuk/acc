@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,25 +18,26 @@ import java.util.List;
 
 @Entity
 @Table(name = "service")
-public class Service implements Serializable {
+public class Service {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")
+    @SequenceGenerator(name="service_sequence", initialValue=50)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "service_name")
     private String serviceName;
     @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Price> prices;
+    private List<Money> monies;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Price employeeRate;
+    private Money employeeRate;
 
     public Service(){
-        prices = new ArrayList<>();
-        employeeRate = new Price();
+        monies = new ArrayList<>();
+        employeeRate = new Money();
     }
-
 
     public Long getId() {
         return id;
@@ -61,19 +63,19 @@ public class Service implements Serializable {
         this.description = description;
     }
 
-    public List<Price> getPrices() {
-        return prices;
+    public List<Money> getMonies() {
+        return monies;
     }
 
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
+    public void setMonies(List<Money> monies) {
+        this.monies = monies;
     }
 
-    public Price getEmployeeRate() {
+    public Money getEmployeeRate() {
         return employeeRate;
     }
 
-    public void setEmployeeRate(Price employeeRate) {
+    public void setEmployeeRate(Money employeeRate) {
         this.employeeRate = employeeRate;
     }
 
@@ -87,7 +89,7 @@ public class Service implements Serializable {
         if (id != null ? !id.equals(service.id) : service.id != null) return false;
         if (serviceName != null ? !serviceName.equals(service.serviceName) : service.serviceName != null) return false;
         if (description != null ? !description.equals(service.description) : service.description != null) return false;
-        if (prices != null ? !prices.equals(service.prices) : service.prices != null) return false;
+        if (monies != null ? !monies.equals(service.monies) : service.monies != null) return false;
         return employeeRate != null ? employeeRate.equals(service.employeeRate) : service.employeeRate == null;
     }
 
@@ -96,7 +98,7 @@ public class Service implements Serializable {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (prices != null ? prices.hashCode() : 0);
+        result = 31 * result + (monies != null ? monies.hashCode() : 0);
         result = 31 * result + (employeeRate != null ? employeeRate.hashCode() : 0);
         return result;
     }
@@ -107,7 +109,7 @@ public class Service implements Serializable {
             "id=" + id +
             ", serviceName='" + serviceName + '\'' +
             ", description='" + description + '\'' +
-            ", prices=" + prices +
+            ", monies=" + monies +
             ", employeeRate=" + employeeRate +
             '}';
     }

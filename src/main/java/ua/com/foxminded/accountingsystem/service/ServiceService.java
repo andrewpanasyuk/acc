@@ -20,7 +20,7 @@ public class ServiceService {
         this.repository = repository;
     }
 
-    public List<Service> getAllServices(){
+    public List<Service> findAllServices(){
         return repository.findAll();
     }
 
@@ -32,7 +32,7 @@ public class ServiceService {
         repository.delete(id);
     }
 
-    public Service getById(Long id){
+    public Service findById(Long id){
         return repository.findOne(id);
     }
 

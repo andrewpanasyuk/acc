@@ -6,18 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "price")
-public class Price {
+@Table(name = "money")
+public class Money {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="money_sequence")
+    @SequenceGenerator(name="money_sequence", initialValue=50)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "price")
-    private int price;
+    private Integer price = 0;
     @Column(name = "currency")
     private Currency currency;
 
@@ -50,11 +52,11 @@ public class Price {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Price price1 = (Price) o;
+        Money money1 = (Money) o;
 
-        if (price != price1.price) return false;
-        if (id != null ? !id.equals(price1.id) : price1.id != null) return false;
-        return currency == price1.currency;
+        if (price != money1.price) return false;
+        if (id != null ? !id.equals(money1.id) : money1.id != null) return false;
+        return currency == money1.currency;
     }
 
     @Override
@@ -67,9 +69,8 @@ public class Price {
 
     @Override
     public String toString() {
-        return "Price{" +
-            "id=" + id +
-            ", price=" + price +
+        return "Money{" +
+            "price=" + price +
             ", currency=" + currency +
             '}';
     }

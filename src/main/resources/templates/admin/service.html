@@ -9,7 +9,7 @@
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-10">
         <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
-        <!--/*@thymesVar id="price" type="ua.com.foxminded.accountingsystem.model.Price"*/-->
+        <!--/*@thymesVar moneyrice" type="ua.com.foxminded.accountingsystem.model.Money"*/-->
         <form th:action="@{/admin/services/save}" th:object="${service}" method="post">
           <div class="form-group">
             <input type="hidden" th:field="*{id}" />
@@ -17,29 +17,30 @@
             <input required="required" type="text" th:field="*{serviceName}" class="form-control"/>
           </div>
           <div class="form-group">
-            <label for="description">Description *</label>
-            <input required="required" th:field="*{description}" id="description" type="text" class="form-control"/>
+            <label th:for="${#ids.next('description')}">Description *</label>
+            <input required="required" th:field="*{description}" type="text" class="form-control"/>
           </div>
           <div class="form-group">
-            <label for="employeeRate" th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
-            <input required="required" th:field="*{employeeRate.price}" id="employeeRate" type="number" class="form-control"/>
+            <label th:for="${#ids.next('employeeRate.price')}" th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
+            <input required="required" th:field="*{employeeRate.price}" type="number" class="form-control"/>
             <input type="hidden" th:field="*{employeeRate.id}" />
             <input type="hidden" th:field="*{employeeRate.currency}"/>
           </div>
-          <label for="prices">Prices *</label>
+          <label for="monies">Prices *</label>
 
-          <div id="prices">
+          <div id="monies">
             <table>
-              <tr th:each="price, iterItem : *{prices}">
-                <input id="price" type="number" th:field="*{prices[__${iterItem.index}__].price}" />
-                <label for="price" th:text="${price.currency}"></label>
-                <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
-                <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
+              <tr th:each="money, iterItem : *{monies}">
+                <input id="money" type="number" th:field="*{monies[__${iterItem.index}__].price}" />
+                <label for="money" th:text="${money.currency}"></label>
+                <input type="hidden" th:field="*{monies[__${iterItem.index}__].id}"/>
+                <input type="hidden" th:field="*{monies[__${iterItem.index}__].currency}"/>
                 <br/>
               </tr>
             </table>
           </div>
           <button type="submit" class="btn btn-default">save</button>
+          <a th:href="@{/admin/services/remove/{id}(id=${service.id})}" class="btn btn-default">remove</a>
         </form>
         <a th:href="@{/admin/services}" class="btn btn-default" >back</a>
       </div>

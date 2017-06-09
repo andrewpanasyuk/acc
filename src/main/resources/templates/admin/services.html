@@ -17,27 +17,24 @@
               <th>Description</th>
               <th>Employee rate</th>
               <th>Prices</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody th:remove="all-but-first">
-            <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
+          <!--/*@thymesVar id="serviceName" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
             <!--/*@thymesVar id="services" type="java.util.List"*/-->
             <tr th:each="service : ${services}">
               <td th:text="${serviceStat.count}"></td>
-              <td th:text="${service.serviceName}"></td>
+              <td>
+                <a th:text="${service.serviceName}" th:href="@{/admin/services/{id}(id=${service.id})}"></a>
+              </td>
               <td th:text="${service.description}"></td>
               <td th:text="${service.employeeRate.price} + ' ' + ${service.employeeRate.currency}"></td>
               <td>
                 <table>
-                  <tr th:each="price : ${service.prices}">
-                    <td th:text="${price.price} + ' ' + ${price.currency}"></td>
+                  <tr th:each="money : ${service.monies}">
+                    <td th:text="${money.price} + ' ' + ${money.currency}"></td>
                   </tr>
                 </table>
-              </td>
-              <td>
-                <a th:href="@{/admin/services/{id}(id=${service.id})}" class="btn btn-default" >edit</a>
-                <a th:href="@{/admin/services/remove/{id}(id=${service.id})}" class="btn btn-default">remove</a>
               </td>
             </tr>
           </tbody>
