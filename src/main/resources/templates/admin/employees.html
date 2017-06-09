@@ -8,6 +8,11 @@
     <div class="row">
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-10">
+        <!--<form action="#" th:action="@{/admin/employees}"} th:method="post" >-->
+        <!--<input type="hidden" name="_method" value="post" />-->
+        <!--<button type="submit" id="createButton">create employee</button>-->
+        <!--</form>-->
+        <a th:href="@{/admin/employees/createEmployee}" class="btn btn-default" >create employee</a>
         <table data-toggle="table">
           <thead>
           <tr>
@@ -24,9 +29,22 @@
             <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
             <td th:text="${employee.firstName}"></td>
             <td th:text="${employee.lastName}"></td>
-            <!--<td>-->
-              <!--<a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a> |-->
-              <!--<a th:href="@{/admin/orders/{id}/remove (id=${order.id})}">Remove</a></td>-->
+            <div th:each="extraFields : ${employee.extraFields}" >
+            <!--/*@thymesVar id="extraFields" type="ua.com.foxminded.accountingsystem.model.EmployeeFieldValue"*/-->
+            <td th:text="${extraFields.value}"></td>
+            </div>
+            <div>
+              <td>
+              <form action="#" th:action="@{/admin/employees/{id}(id=${employee.id})}" th:method="delete" >
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit" id="deleteButton">Delete</button>
+              </form>
+              <form action="#" th:action="@{/admin/employees/{id}(id=${employee.id})}" th:method="put" >
+                <input type="hidden" name="_method" value="put" />
+                <button type="submit" id="updateButton">Update</button>
+              </form>
+              </td>
+            </div>
           </tr>
           </tbody>
         </table>
