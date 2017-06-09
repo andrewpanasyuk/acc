@@ -19,11 +19,6 @@ public class ClientServiceJPA implements ClientService {
     }
 
     @Override
-    public void addClient(Client client) {
-        clientRepository.save(client);
-    }
-
-    @Override
     public void removeClient(Client client) {
         clientRepository.delete(client);
     }

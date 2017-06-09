@@ -35,7 +35,15 @@ public class AdminClientController {
         return "admin/client";
     }
 
-    @GetMapping(value = "/clientAdd")
+    @PostMapping(value = "/{id}")
+    public String removeClient(@PathVariable long id) {
+        Client client = clientService.getClientById(id);
+        System.out.println(client + "post rem");
+        clientService.removeClient(client);
+        return "redirect:/admin/clients";
+    }
+
+    @GetMapping(value = "/create")
     public String addClient(Model model) {
        Client client = new Client();
         model.addAttribute("client", client);
@@ -44,21 +52,16 @@ public class AdminClientController {
 
     @PostMapping(value = "/create")
     public String create(@ModelAttribute Client client) {
-        clientService.addClient(client);
-        return "redirect:/admin/clients";
-    }
-
-    @GetMapping(value = "/{id}/remove")
-    public String removeOrder(@PathVariable long id) {
-        Client client = clientService.getClientById(id);
-        clientService.removeClient(client);
-        return "redirect:/admin/clients";
-    }
-
-    @PostMapping(value = "/update")
-    public String update(@ModelAttribute Client client) {
+        System.out.println(client + "post cr");
         clientService.updateClient(client);
         return "redirect:/admin/clients";
     }
+
+//    @PostMapping(value = "/update")
+//    public String update(@ModelAttribute Client client) {
+//        System.out.println(client);
+//        clientService.updateClient(client);
+//        return "redirect:/admin/clients";
+//    }
 
 }

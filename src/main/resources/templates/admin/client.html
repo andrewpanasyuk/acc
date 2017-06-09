@@ -1,21 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Order</title>
-  <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.js"></script>
-  <script type="text/javascript"
-          src="/webjars/bootstrap-table/1.11.1/dist/locale/bootstrap-table-ru-RU.min.js"></script>
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
-        type="text/css"/>
-  <!--<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet"-->
-  <!--type="text/css"/>-->
-  <link href="/webjars/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"
-        type="text/css"/>
-  <link href="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.css" rel="stylesheet"
-        type="text/css"/>
+<head th:replace="/admin/fragments/head :: head">
 </head>
 <body>
 <div th:replace="/admin/fragments/header :: nav"></div>
@@ -25,20 +9,26 @@
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-6">
         <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
-        <form th:action="@{/admin/clients/update}" th:object="${client}" method="post">
-          <input type="hidden" th:field="${client.id}" />
+        <form th:action="@{/admin/clients/create}" th:object="${client}" th:method="post">
+          <input type="hidden" th:field="${client.id}"/>
+          <input type="hidden" th:field="${client.orders}"/>
 
           <label>First Name</label>
-          <!--<output type="text" rows="1" th:value="${client.id}"/>-->
-
           <textarea rows="1" class="form-control" th:field="${client.firstName}" th:text="${client.firstName}"/>
 
           <label>Last Name</label>
           <textarea rows="1" class="form-control" th:field="${client.lastName}" th:text="${client.lastName}"/>
 
-          <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-          <a class="btn btn-primary" th:href="@{/admin/orders/orderAdd/{id}(id=${client.id})}">Add new Order</a>
+          <button type="submit" id="submit" class="btn btn-primary">Save</button>
+        </form>
+
+        <form th:action="@{/admin/clients/{id}(id=${client.id})}" th:object="${client}" th:method="post">
+          <button type="submit" class="btn btn-primary">Delete</button>
+        </form>
+
+        <form th:object="${client}">
           <label>Orders:</label>
+          <a class="btn btn-primary" th:href="@{/admin/orders/orderAdd/{id}(id=${client.id})}">Add new Order</a>
           <table data-toggle="table">
             <thead>
             <tr>
@@ -59,14 +49,14 @@
               <td th:text="${order.order_name}"></td>
               <td th:text="${order.status}"></td>
               <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
-              <td th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
+              <td
+                th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
               <td>
-                <a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a> |
-                <a th:href="@{/admin/orders/{id}/remove (id=${order.id})}">Remove</a></td>
+                <a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a>
+              </td>
             </tr>
             </tbody>
           </table>
-          <a class="btn btn-primary" th:href="@{/admin/orders/orderAdd/{id}(id=${client.id})}">Add new Order</a>
         </form>
       </div>
     </div>

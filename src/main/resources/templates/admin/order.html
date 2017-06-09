@@ -1,21 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Order</title>
-  <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.js"></script>
-  <script type="text/javascript"
-          src="/webjars/bootstrap-table/1.11.1/dist/locale/bootstrap-table-ru-RU.min.js"></script>
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
-        type="text/css"/>
-  <!--<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet"-->
-  <!--type="text/css"/>-->
-  <link href="/webjars/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"
-        type="text/css"/>
-  <link href="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.css" rel="stylesheet"
-        type="text/css"/>
+<head th:replace="/admin/fragments/head :: head">
 </head>
 <body>
 <div th:replace="/admin/fragments/header :: nav"></div>
@@ -25,43 +9,49 @@
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-6">
         <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-        <label>Client:</label>
-        <textarea rows="1" class="form-control" th:text="${client.firstName}"/>
-        <textarea rows="1" class="form-control" th:text="${client.lastName}"/>
-        <form th:action="@{/admin/orders/update}" th:object="${order}" method="post">
+        <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
+        <label>Client: </label>
+        <a th:href="@{/admin/clients/{id}(id=${client.id})}"
+           th:text="${client.firstName} + ' '  + ${client.lastName}"></a>
+        <form th:action="@{/admin/orders/create}" th:object="${order}" method="post">
           <input type="hidden" th:field="${order.id}"/>
           <input type="hidden" th:field="${order.client}"/>
 
-
-
-          <label>Order</label>
+          <label>Order: </label>
           <output type="text" rows="1" th:value="${order.id}"/>
 
           <textarea rows="1" class="form-control" th:field="${order.order_name}" th:text="${order.order_name}"/>
 
-          <label>Order Status</label>
+          <label>Order Status:</label>
           <select th:field="${order.status}" th:remove="all-but-first">
             <option th:each="status : ${statuses}"
                     th:value="${status}" th:text="${status}"/>
           </select>
           <br/>
 
-          <label>Open Date</label>
-          <input type="date" th:value="${#temporals.format(order.openDate, 'yyyy-MM-dd')}" th:field="${order.openDate}"/><br/>
+          <label>Open Date:</label>
+          <input type="date" th:value="${#temporals.format(order.openDate, 'yyyy-MM-dd')}"
+                 th:field="${order.openDate}"/><br/>
 
-          <label>Queuing Date</label>
-          <input type="date" th:value="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'yyyy-MM-dd')} : ''" th:field="${order.queuingDate}"/><br/>
+          <label>Queuing Date:</label>
+          <input type="date"
+                 th:value="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'yyyy-MM-dd')} : ''"
+                 th:field="${order.queuingDate}"/><br/>
 
-          <label>Close Date</label>
-          <input type="date" th:value="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'yyyy-MM-dd')} : ''" th:field="${order.closeDate}"/><br/>
+          <label>Close Date:</label>
+          <input type="date"
+                 th:value="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'yyyy-MM-dd')} : ''"
+                 th:field="${order.closeDate}"/><br/>
 
-          <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" id="submit" class="btn btn-primary">Save</button>
+
+        </form>
+        <form th:action="@{/admin/orders/{id}(id=${order.id})}" th:object="${order}" th:method="post">
+          <button class="btn btn-primary">Remove</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-
 </body>
 </html>
