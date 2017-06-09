@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -12,12 +13,12 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Table(name = "clients")
+@Table(name = "client")
 public class Client {
 
     @Id
-    @SequenceGenerator(name = "client_gen", sequenceName = "client_gen")
-    @GeneratedValue(generator = "client_gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_generator")
+    @SequenceGenerator(name="client_generator", sequenceName = "client_generator", initialValue = 10)
     private long id;
 
     @Column(name = "first_name", nullable = false)
@@ -28,7 +29,6 @@ public class Client {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
-
 
     public List<Order> getOrders() {
         return orders;
