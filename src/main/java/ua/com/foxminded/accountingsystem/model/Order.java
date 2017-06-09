@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,8 +23,8 @@ import java.time.LocalDate;
 public class Order implements Serializable {
 
     @Id
-    @SequenceGenerator(name="order_gen", sequenceName="order_gen")
-    @GeneratedValue(generator="order_gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_generator")
+    @SequenceGenerator(name="order_generator", sequenceName = "order_generator", initialValue = 10)
     private long id;
 
     @Column(name = "order_name", nullable = false)
@@ -102,7 +103,6 @@ public class Order implements Serializable {
     }
 
     public void setCloseDate(LocalDate closeDate) {
-
         this.closeDate = closeDate;
     }
 

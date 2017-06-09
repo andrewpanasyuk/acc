@@ -20,7 +20,6 @@ public class AdminOrderController {
     private final OrderService orderService;
     private final ClientService clientService;
 
-
     @Autowired
     public AdminOrderController(OrderService orderService, ClientService clientService) {
         this.orderService = orderService;
@@ -34,7 +33,6 @@ public class AdminOrderController {
             .addAttribute("orders", orders);
         return "admin/orders";
     }
-
 
     @PostMapping(value = "/update")
     public String update(@ModelAttribute Order order) {
@@ -60,7 +58,6 @@ public class AdminOrderController {
         orderService.removeOrder(order);
         return "redirect:/admin/orders";
     }
-
 
     @GetMapping(value = "/orderAdd/{id}")
     public String addOrder(@PathVariable long id, Model model) {
