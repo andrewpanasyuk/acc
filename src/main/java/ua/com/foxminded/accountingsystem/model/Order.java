@@ -28,7 +28,7 @@ public class Order implements Serializable {
     private long id;
 
     @Column(name = "order_name", nullable = false)
-    private String order_name;
+    private String orderName;
 
     @Column(name = "open_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -74,12 +74,12 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public String getOrder_name() {
-        return order_name;
+    public String getOrderName() {
+        return orderName;
     }
 
-    public void setOrder_name(String order_name) {
-        this.order_name = order_name;
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
     }
 
     public LocalDate getOpenDate() {
@@ -110,7 +110,7 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
             "id=" + id +
-            ", order_name='" + order_name + '\'' +
+            ", orderName='" + orderName + '\'' +
             ", openDate=" + openDate +
             ", queuingDate=" + queuingDate +
             ", closeDate=" + closeDate +

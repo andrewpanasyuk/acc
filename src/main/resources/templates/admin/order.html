@@ -19,7 +19,7 @@
 
           <label>Order: </label>
           <output type="text" rows="1" th:value="${order.id}"/>
-          <textarea rows="1" class="form-control" th:field="${order.order_name}" th:text="${order.order_name}"/>
+          <textarea rows="1" class="form-control" th:field="${order.orderName}" th:text="${order.orderName}"/>
 
           <label>Order Status:</label>
           <select th:field="${order.status}" th:remove="all-but-first">

@@ -43,7 +43,7 @@
                 <p th:text="${order.id}">id</p>
               </td>
               <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-              <td th:text="${order.order_name}"></td>
+              <td th:text="${order.orderName}"></td>
               <td th:text="${order.status}"></td>
               <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
               <td
