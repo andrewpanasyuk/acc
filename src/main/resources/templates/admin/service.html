@@ -41,7 +41,7 @@
           </div>
           <button type="submit" class="btn btn-default">save</button>
         </form>
-        <form method="POST" th:action="@{/admin/services/{id}/remove(id=${service.id})}" >
+        <form method="POST" th:action="@{/admin/services/{id}/delete(id=${service.id})}" >
           <button type="submit" class="btn btn-default">remove</button>
         </form>
         <a th:href="@{/admin/services}" class="btn btn-default" >back</a>

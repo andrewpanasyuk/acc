@@ -32,7 +32,7 @@ public class ServiceService {
         repository.delete(id);
     }
 
-    public Service findById(long id){
+    public Service findOne(long id){
         return repository.findOne(id);
     }
 

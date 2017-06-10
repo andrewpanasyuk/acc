@@ -40,8 +40,8 @@ public class ServiceController {
         return "admin/services";
     }
 
-    @PostMapping("/{id}/remove")
-    public String remove(@PathVariable long id){
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable long id){
         log.debug("Remove service with id: "+id);
         if (id == 0){
             return "redirect:/admin/services";
@@ -52,7 +52,7 @@ public class ServiceController {
 
     @GetMapping("/{id}")
     public String getOneService(@PathVariable long id, Model model) {
-        model.addAttribute("service",serviceService.findById(id));
+        model.addAttribute("service",serviceService.findOne(id));
         model.addAttribute("currencies", Currency.values());
         return "admin/service";
     }
