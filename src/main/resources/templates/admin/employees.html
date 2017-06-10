@@ -12,39 +12,26 @@
         <!--<input type="hidden" name="_method" value="post" />-->
         <!--<button type="submit" id="createButton">create employee</button>-->
         <!--</form>-->
-        <a th:href="@{/admin/employees/createEmployee}" class="btn btn-default" >create employee</a>
+        <a th:href="@{/admin/employee/createEmployee}" class="btn btn-primary">create employee</a>
         <table data-toggle="table">
           <thead>
           <tr>
             <th>id</th>
-            <th>first name</th>
-            <th>last name</th>
+            <th>name</th>
           </tr>
           </thead>
           <tbody>
+          <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
+
           <tr th:each="employee : ${employees}">
             <td>
               <p th:text="${employee.id}">id</p>
             </td>
-            <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
-            <td th:text="${employee.firstName}"></td>
-            <td th:text="${employee.lastName}"></td>
-            <div th:each="extraFields : ${employee.extraFields}" >
-            <!--/*@thymesVar id="extraFields" type="ua.com.foxminded.accountingsystem.model.EmployeeFieldValue"*/-->
-            <td th:text="${extraFields.value}"></td>
-            </div>
-            <div>
-              <td>
-              <form action="#" th:action="@{/admin/employees/{id}(id=${employee.id})}" th:method="delete" >
-                <input type="hidden" name="_method" value="delete" />
-                <button type="submit" id="deleteButton">Delete</button>
-              </form>
-              <form action="#" th:action="@{/admin/employees/{id}(id=${employee.id})}" th:method="put" >
-                <input type="hidden" name="_method" value="put" />
-                <button type="submit" id="updateButton">Update</button>
-              </form>
-              </td>
-            </div>
+            <td>
+              <a th:href="@{'/admin/employee/'+${employee.id}}">
+                <span th:text="${employee.firstName}"></span>
+              </a>
+            </td>
           </tr>
           </tbody>
         </table>

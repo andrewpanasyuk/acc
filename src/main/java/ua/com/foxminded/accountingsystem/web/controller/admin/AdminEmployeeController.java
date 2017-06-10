@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/employees")
+@RequestMapping("/admin/")
 public class AdminEmployeeController {
 
     private final EmployeeService employeeService;
@@ -33,7 +33,8 @@ public class AdminEmployeeController {
 
     }
 
-    @GetMapping
+
+    @GetMapping(value = "employees")
     public String getAllEmployees(Model model) {
         List<Employee> employees = employeeService.findAll();
         model.addAttribute("employees", employees);
@@ -41,26 +42,33 @@ public class AdminEmployeeController {
 
     }
 
-    @PutMapping(value = "/{id}")
+    @GetMapping(value = "employee/{id}")
+    public String getEmployee(@PathVariable long id, Model model){
+        Employee employee = employeeService.findOne(id);
+        model.addAttribute("employee", employee);
+        return "/admin/employee";
+    }
+
+    @PutMapping(value = "employee/{id}")
     public String updateEmployee(@ModelAttribute Employee employee , Model model) {
         model.addAttribute("employee",employee);
         return "/admin/employee";
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "employee/{id}")
     public String removeEmployee(@PathVariable long id) {
         Employee employee = employeeService.findOne(id);
         employeeService.delete(employee);
-        return "redirect:/admin/employees";
+        return "redirect:/admin/employee";
     }
 
-    @PostMapping
+    @PostMapping(value = "employee")
     public String save(@ModelAttribute Employee employee){
         employeeService.save(employee);
         return "redirect:/admin/employees";
     }
 
-    @GetMapping(value = "/createEmployee")
+    @GetMapping(value = "employee/createEmployee")
     public String createEmployee(Model model){
         model.addAttribute("employee", new Employee());
         return "admin/employee";

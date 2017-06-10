@@ -19,17 +19,17 @@ import java.util.List;
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
     //EAGER?
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee",fetch = FetchType.EAGER, orphanRemoval = true)
     private List<EmployeeFieldValue> extraFields;
 
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
