@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface ClientService {
 
-    void removeClient(Client client);
+    void delete(Client client);
 
-    Client updateClient(Client client);
+    Client save(Client client);
 
-    Client getClientById(Long id);
+    Client findOne(Long id);
 
-    List<Client> getAllClients();
+    List<Client> findAll();
 }
