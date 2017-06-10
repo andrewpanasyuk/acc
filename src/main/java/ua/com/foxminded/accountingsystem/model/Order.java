@@ -23,8 +23,8 @@ import java.time.LocalDate;
 public class Order implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_generator")
-    @SequenceGenerator(name="order_generator", sequenceName = "order_generator", initialValue = 10)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
+    @SequenceGenerator(name="order_sequence", sequenceName = "order_sequence", initialValue = 50)
     private long id;
 
     @Column(name = "order_name", nullable = false)
