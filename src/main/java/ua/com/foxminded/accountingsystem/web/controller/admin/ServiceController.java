@@ -46,7 +46,7 @@ public class ServiceController {
         if (id == 0){
             return "redirect:/admin/services";
         }
-        serviceService.remove(id);
+        serviceService.delete(id);
         return "redirect:/admin/services";
     }
 

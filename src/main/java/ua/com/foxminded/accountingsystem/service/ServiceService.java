@@ -28,11 +28,11 @@ public class ServiceService {
         return repository.save(service);
     }
 
-    public void remove(Long id){
+    public void delete(long id){
         repository.delete(id);
     }
 
-    public Service findById(Long id){
+    public Service findById(long id){
         return repository.findOne(id);
     }
 
