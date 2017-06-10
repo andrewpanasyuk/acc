@@ -42,9 +42,9 @@ public class AdminEmployeeController {
     }
 
     @PutMapping(value = "/{id}")
-    public String updateEmployee(@ModelAttribute Employee employee) {
-        employeeService.save(employee);
-        return "redirect:/admin/employees";
+    public String updateEmployee(@ModelAttribute Employee employee , Model model) {
+        model.addAttribute("employee",employee);
+        return "/admin/employee";
     }
 
     @DeleteMapping(value = "/{id}")
@@ -57,7 +57,7 @@ public class AdminEmployeeController {
     @PostMapping
     public String save(@ModelAttribute Employee employee){
         employeeService.save(employee);
-        return "redirect:/admin/employess";
+        return "redirect:/admin/employees";
     }
 
     @GetMapping(value = "/createEmployee")

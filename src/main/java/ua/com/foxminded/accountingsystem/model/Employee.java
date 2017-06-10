@@ -18,22 +18,22 @@ import java.util.List;
 @Table(name = "employee")
 public class Employee implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
     //EAGER?
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee",fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee",fetch = FetchType.EAGER)
     private List<EmployeeFieldValue> extraFields;
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,5 +59,16 @@ public class Employee implements Serializable {
 
     public void setExtraFields(List<EmployeeFieldValue> extraFields) {
         this.extraFields = extraFields;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", extraFields=" + extraFields +
+            '}';
     }
 }
