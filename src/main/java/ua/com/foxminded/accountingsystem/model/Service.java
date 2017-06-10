@@ -21,14 +21,17 @@ public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")
     @SequenceGenerator(name="service_sequence", initialValue=50)
-    @Column(name = "id", updatable = false, nullable = false)
     private long id;
+
     @Column(name = "service_name")
     private String name;
+
     @Column(name = "description")
     private String description;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Money> prices;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money employeeRate;
 

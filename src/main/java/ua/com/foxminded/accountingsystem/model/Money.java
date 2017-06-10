@@ -16,10 +16,11 @@ public class Money {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="money_sequence")
     @SequenceGenerator(name="money_sequence", initialValue=50)
-    @Column(name = "id", updatable = false, nullable = false)
     private long id;
+
     @Column(name = "price")
     private int price;
+
     @Column(name = "currency")
     private Currency currency;
 
