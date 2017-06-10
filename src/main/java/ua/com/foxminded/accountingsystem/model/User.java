@@ -26,8 +26,11 @@ public class User {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
+    @Column(name = "email", nullable = false)
+    private String email;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserRole> userRoles = new HashSet<UserRole>();
+    private Set<UserRole> userRoles = new HashSet<>();
 
     public void addRole(UserRole userRole) {
         userRoles.add(userRole);
@@ -71,6 +74,14 @@ public class User {
         this.userRoles = userRoles;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -88,14 +99,19 @@ public class User {
         if (!password.equals(user.password)) {
             return false;
         }
+        if (!email.equals(user.email)) {
+            return false;
+        }
         return enabled.equals(user.enabled);
     }
 
     @Override
     public int hashCode() {
-        int result = username.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + enabled.hashCode();
+        int result;
+        result = username != null ? username.hashCode() : 0;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
     }
 
@@ -103,7 +119,9 @@ public class User {
     public String toString() {
         return "User{" +
             "username='" + username + '\'' +
+            ", password='" + password + '\'' +
             ", enabled=" + enabled +
+            ", email='" + email + '\'' +
             ", userRoles=" + userRoles +
             '}';
     }
