@@ -21,7 +21,7 @@
 
           <button type="submit" id="submit" class="btn btn-primary">Save</button>
           <button th:formaction="@{/admin/clients/remove}" type="submit" class="btn btn-primary">Delete</button>
-          <button th:formaction="@{/admin/orders/addOrder}" type="submit" class="btn btn-primary">Add new Order</button>
+          <a th:href="@{/admin/orders/new?clientId={id} (id=${client.id})}" type="submit" class="btn btn-primary">Add new Order</a>
         </form>
 
         <form th:object="${client}">

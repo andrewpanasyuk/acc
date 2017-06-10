@@ -26,27 +26,24 @@ public class AdminOrderController {
         this.clientService = clientService;
     }
 
-    @GetMapping
-    public String getAllOrders(Model model) {
-        List<Order> orders = orderService.getAllOrders();
-        model
-            .addAttribute("orders", orders);
-        return "admin/orders";
+    @PostMapping
+    public String create(@ModelAttribute Order order) {
+        orderService.save(order);
+        return "redirect:/admin/orders";
     }
 
-    @PostMapping(value = "/update")
-    public String update(@ModelAttribute Order order) {
-        orderService.updateOrder(order);
-        return "redirect:/admin/orders";
+    @GetMapping
+    public String getAllOrders(Model model) {
+        List<Order> orders = orderService.findAll();
+        model.addAttribute("orders", orders);
+        return "admin/orders";
     }
 
     @GetMapping(value = "/{id}")
     public String getOrderById(@PathVariable long id,
                        Model model) {
-        Order order = orderService.getOrderById(id);
-        Client client = order.getClient();
+        Order order = orderService.findOne(id);
         model.addAttribute("order", order)
-            .addAttribute("client", client)
             .addAttribute("localDate", LocalDate.now())
             .addAttribute("statuses", OrderStatus.values());
         return "admin/order";
@@ -54,13 +51,14 @@ public class AdminOrderController {
 
     @PostMapping(value = "/remove")
     public String removeOrder(@ModelAttribute Order order) {
-        orderService.removeOrder(order);
+        orderService.delete(order);
         return "redirect:/admin/orders";
     }
 
-    @PostMapping(value = "/addOrder")
-    public String addOrder(Client client, Model model) {
+    @GetMapping(value = "/new")
+    public String addOrder(@RequestParam long clientId, Model model) {
         Order order = new Order();
+        Client client = clientService.findOne(clientId);
         order.setClient(client);
         client.getOrders().add(order);
         order.setOpenDate(LocalDate.now());
@@ -68,12 +66,6 @@ public class AdminOrderController {
             .addAttribute("statuses", OrderStatus.values())
             .addAttribute("client", client);
         return "admin/order";
-    }
-
-    @PostMapping(value = "/create")
-    public String create(@ModelAttribute Order order) {
-        orderService.updateOrder(order);
-        return "redirect:/admin/orders";
     }
 
 }
