@@ -26,6 +26,12 @@ public class AdminClientController {
         return "admin/clients";
     }
 
+    @PostMapping
+    public String create(@ModelAttribute Client client) {
+        clientService.updateClient(client);
+        return "redirect:/admin/clients";
+    }
+
     @GetMapping("/{id}")
     public String getClientByID(@PathVariable long id, Model model) {
         model
@@ -33,9 +39,8 @@ public class AdminClientController {
         return "admin/client";
     }
 
-    @PostMapping(value = "/{id}")
-    public String removeClient(@PathVariable long id) {
-        Client client = clientService.getClientById(id);
+    @PostMapping(value = "/remove")
+    public String removeClient(@ModelAttribute Client client) {
         clientService.removeClient(client);
         return "redirect:/admin/clients";
     }
@@ -45,12 +50,6 @@ public class AdminClientController {
        Client client = new Client();
         model.addAttribute("client", client);
         return "admin/client";
-    }
-
-    @PostMapping(value = "/create")
-    public String create(@ModelAttribute Client client) {
-        clientService.updateClient(client);
-        return "redirect:/admin/clients";
     }
 
 }

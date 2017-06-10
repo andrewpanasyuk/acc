@@ -19,7 +19,6 @@
 
           <label>Order: </label>
           <output type="text" rows="1" th:value="${order.id}"/>
-
           <textarea rows="1" class="form-control" th:field="${order.order_name}" th:text="${order.order_name}"/>
 
           <label>Order Status:</label>
@@ -44,10 +43,7 @@
                  th:field="${order.closeDate}"/><br/>
 
           <button type="submit" id="submit" class="btn btn-primary">Save</button>
-
-        </form>
-        <form th:action="@{/admin/orders/{id}(id=${order.id})}" th:object="${order}" th:method="post">
-          <button class="btn btn-primary">Remove</button>
+          <button th:formaction="@{/admin/orders/remove}" class="btn btn-primary">Remove</button>
         </form>
       </div>
     </div>
