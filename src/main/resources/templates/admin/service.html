@@ -26,15 +26,15 @@
             <input type="hidden" th:field="*{employeeRate.id}" />
             <input type="hidden" th:field="*{employeeRate.currency}"/>
           </div>
-          <label for="moneyList">Prices *</label>
+          <label for="prices">Prices *</label>
 
-          <div id="moneyList">
+          <div id="prices">
             <table>
-              <tr th:each="money, iterItem : *{moneyList}">
-                <input id="money" type="number" th:field="*{moneyList[__${iterItem.index}__].price}" />
+              <tr th:each="money, iterItem : *{prices}">
+                <input id="money" type="number" th:field="*{prices[__${iterItem.index}__].price}" />
                 <label for="money" th:text="${money.currency}"></label>
-                <input type="hidden" th:field="*{moneyList[__${iterItem.index}__].id}"/>
-                <input type="hidden" th:field="*{moneyList[__${iterItem.index}__].currency}"/>
+                <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
+                <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
                 <br/>
               </tr>
             </table>

@@ -28,12 +28,12 @@ public class Service {
     @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Money> moneyList;
+    private List<Money> prices;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money employeeRate;
 
     public Service(){
-        moneyList = new ArrayList<>();
+        prices = new ArrayList<>();
         employeeRate = new Money();
     }
 
@@ -61,12 +61,12 @@ public class Service {
         this.description = description;
     }
 
-    public List<Money> getMoneyList() {
-        return moneyList;
+    public List<Money> getPrices() {
+        return prices;
     }
 
-    public void setMoneyList(List<Money> moneyList) {
-        this.moneyList = moneyList;
+    public void setPrices(List<Money> prices) {
+        this.prices = prices;
     }
 
     public Money getEmployeeRate() {
@@ -100,7 +100,7 @@ public class Service {
         return "Service{" +
             "name='" + name + '\'' +
             ", description='" + description + '\'' +
-            ", moneyList=" + moneyList +
+            ", prices=" + prices +
             ", employeeRate=" + employeeRate +
             '}';
     }

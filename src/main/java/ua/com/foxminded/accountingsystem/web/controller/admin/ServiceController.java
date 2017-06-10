@@ -77,7 +77,7 @@ public class ServiceController {
         employeeRate.setCurrency(Currency.UAH);
 
         Service service = new Service();
-        service.setMoneyList(monies);
+        service.setPrices(monies);
         service.setEmployeeRate(employeeRate);
 
         model.addAttribute("service", service);

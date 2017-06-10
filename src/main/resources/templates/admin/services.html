@@ -31,7 +31,7 @@
               <td th:text="${service.employeeRate.price} + ' ' + ${service.employeeRate.currency}"></td>
               <td>
                 <table>
-                  <tr th:each="money : ${service.moneyList}">
+                  <tr th:each="money : ${service.prices}">
                     <td th:text="${money.price} + ' ' + ${money.currency}"></td>
                   </tr>
                 </table>
