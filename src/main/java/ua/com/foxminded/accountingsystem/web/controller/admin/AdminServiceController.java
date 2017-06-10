@@ -21,29 +21,29 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/services")
-public class ServiceController {
+public class AdminServiceController {
 
-    private static final Logger log = LoggerFactory.getLogger(ServiceController.class);
+    private static final Logger log = LoggerFactory.getLogger(AdminServiceController.class);
 
     private final ServiceService serviceService;
 
     @Autowired
-    public ServiceController(ServiceService serviceService) {
+    public AdminServiceController(ServiceService serviceService) {
         this.serviceService = serviceService;
     }
 
     @GetMapping
-    public String getAllServices(Model model){
+    public String getAllServices(Model model) {
         List<Service> services = serviceService.findAll();
-        log.debug("Found: "+services.size()+" services!");
+        log.debug("Found: " + services.size() + " services!");
         model.addAttribute("services", services);
         return "admin/services";
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable long id){
-        log.debug("Remove service with id: "+id);
-        if (id <= 0){
+    public String delete(@PathVariable long id) {
+        log.debug("Remove service with id: " + id);
+        if (id <= 0) {
             return "redirect:/admin/services";
         }
         serviceService.delete(id);
@@ -52,20 +52,20 @@ public class ServiceController {
 
     @GetMapping("/{id}")
     public String getOneService(@PathVariable long id, Model model) {
-        model.addAttribute("service",serviceService.findOne(id));
+        model.addAttribute("service", serviceService.findOne(id));
         model.addAttribute("currencies", Currency.values());
         return "admin/service";
     }
 
     @PostMapping
-    public String save(@ModelAttribute Service service){
-        log.debug("Save service: "+service.toString());
+    public String save(@ModelAttribute Service service) {
+        log.debug("Save service: " + service.toString());
         serviceService.save(service);
         return "redirect:/admin/services";
     }
 
     @GetMapping("/new")
-    public String newService(Model model){
+    public String newService(Model model) {
         List<Money> monies = new ArrayList<>();
         for (Currency currency : Arrays.asList(Currency.values())) {
             Money money = new Money();

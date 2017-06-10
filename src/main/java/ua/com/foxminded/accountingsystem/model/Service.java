@@ -20,7 +20,7 @@ public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")
-    @SequenceGenerator(name="service_sequence", initialValue=50)
+    @SequenceGenerator(name = "service_sequence", initialValue = 50)
     private long id;
 
     @Column(name = "service_name")
@@ -35,7 +35,7 @@ public class Service {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money employeeRate;
 
-    public Service(){
+    public Service() {
         prices = new ArrayList<>();
         employeeRate = new Money();
     }

@@ -12,7 +12,7 @@
         <!--/*@thymesVar moneyrice" type="ua.com.foxminded.accountingsystem.model.Money"*/-->
         <form th:action="@{/admin/services}" th:object="${service}" method="post">
           <div class="form-group">
-            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{id}"/>
             <label th:for="${#ids.next('name')}">Service name *</label>
             <input required="required" type="text" th:field="*{name}" class="form-control"/>
           </div>
@@ -21,9 +21,10 @@
             <input required="required" th:field="*{description}" type="text" class="form-control"/>
           </div>
           <div class="form-group">
-            <label th:for="${#ids.next('employeeRate.price')}" th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
+            <label th:for="${#ids.next('employeeRate.price')}"
+                   th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
             <input required="required" th:field="*{employeeRate.price}" type="number" class="form-control"/>
-            <input type="hidden" th:field="*{employeeRate.id}" />
+            <input type="hidden" th:field="*{employeeRate.id}"/>
             <input type="hidden" th:field="*{employeeRate.currency}"/>
           </div>
           <label for="prices">Prices *</label>
@@ -31,7 +32,7 @@
           <div id="prices">
             <table>
               <tr th:each="money, iterItem : *{prices}">
-                <input id="money" type="number" th:field="*{prices[__${iterItem.index}__].price}" />
+                <input id="money" type="number" th:field="*{prices[__${iterItem.index}__].price}"/>
                 <label for="money" th:text="${money.currency}"></label>
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
@@ -41,10 +42,10 @@
           </div>
           <button type="submit" class="btn btn-default">save</button>
         </form>
-        <form method="POST" th:action="@{/admin/services/{id}/delete(id=${service.id})}" >
+        <form method="POST" th:action="@{/admin/services/{id}/delete(id=${service.id})}">
           <button type="submit" class="btn btn-default">remove</button>
         </form>
-        <a th:href="@{/admin/services}" class="btn btn-default" >back</a>
+        <a th:href="@{/admin/services}" class="btn btn-default">back</a>
       </div>
     </div>
   </div>

@@ -8,35 +8,35 @@
     <div class="row">
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-10">
-        <a th:href="@{/admin/services/new}" class="btn btn-default" >new service</a>
+        <a th:href="@{/admin/services/new}" class="btn btn-default">new service</a>
         <table data-toggle="table">
           <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Employee rate</th>
-              <th>Prices</th>
-            </tr>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Employee rate</th>
+            <th>Prices</th>
+          </tr>
           </thead>
           <tbody th:remove="all-but-first">
           <!--/*@thymesVar nameName" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
-            <!--/*@thymesVar id="services" type="java.util.List"*/-->
-            <tr th:each="service : ${services}">
-              <td th:text="${serviceStat.count}"></td>
-              <td>
-                <a th:text="${service.name}" th:href="@{/admin/services/{id}(id=${service.id})}"></a>
-              </td>
-              <td th:text="${service.description}"></td>
-              <td th:text="${service.employeeRate.price} + ' ' + ${service.employeeRate.currency}"></td>
-              <td>
-                <table>
-                  <tr th:each="money : ${service.prices}">
-                    <td th:text="${money.price} + ' ' + ${money.currency}"></td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
+          <!--/*@thymesVar id="services" type="java.util.List"*/-->
+          <tr th:each="service : ${services}">
+            <td th:text="${serviceStat.count}"></td>
+            <td>
+              <a th:text="${service.name}" th:href="@{/admin/services/{id}(id=${service.id})}"></a>
+            </td>
+            <td th:text="${service.description}"></td>
+            <td th:text="${service.employeeRate.price} + ' ' + ${service.employeeRate.currency}"></td>
+            <td>
+              <table>
+                <tr th:each="money : ${service.prices}">
+                  <td th:text="${money.price} + ' ' + ${money.currency}"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
