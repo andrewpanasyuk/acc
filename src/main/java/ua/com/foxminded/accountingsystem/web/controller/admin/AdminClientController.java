@@ -20,28 +20,26 @@ public class AdminClientController {
 
     @GetMapping
     public String getAllClients(Model model) {
-        List<Client> clients = clientService.getAllClients();
-        model
-            .addAttribute("clients", clients);
+        List<Client> clients = clientService.findAll();
+        model.addAttribute("clients", clients);
         return "admin/clients";
     }
 
     @PostMapping
     public String create(@ModelAttribute Client client) {
-        clientService.updateClient(client);
+        clientService.save(client);
         return "redirect:/admin/clients";
     }
 
     @GetMapping("/{id}")
     public String getClientByID(@PathVariable long id, Model model) {
-        model
-            .addAttribute("client", clientService.getClientById(id));
+        model.addAttribute("client", clientService.findOne(id));
         return "admin/client";
     }
 
     @PostMapping(value = "/remove")
     public String removeClient(@ModelAttribute Client client) {
-        clientService.removeClient(client);
+        clientService.delete(client);
         return "redirect:/admin/clients";
     }
 

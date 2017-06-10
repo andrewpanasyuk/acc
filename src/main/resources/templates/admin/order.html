@@ -11,9 +11,9 @@
         <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
         <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
         <label>Client: </label>
-        <a th:href="@{/admin/clients/{id}(id=${client.id})}"
-           th:text="${client.firstName} + ' '  + ${client.lastName}"></a>
-        <form th:action="@{/admin/orders/create}" th:object="${order}" method="post">
+        <a th:href="@{/admin/clients/{id}(id=${order.client.id})}"
+           th:text="${order.client.firstName} + ' '  + ${order.client.lastName}"></a>
+        <form th:action="@{/admin/orders}" th:object="${order}" method="post">
           <input type="hidden" th:field="${order.id}"/>
           <input type="hidden" th:field="${order.client}"/>
 

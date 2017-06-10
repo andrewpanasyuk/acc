@@ -10,30 +10,31 @@ import java.util.List;
 
 @Service
 public class OrderServiceJPA implements OrderService {
-    OrderRepository orderRepository;
+
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public void setOrderRepository(OrderRepository orderRepository) {
+    public OrderServiceJPA(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
     @Override
-    public void removeOrder(Order order) {
+    public void delete(Order order) {
         orderRepository.delete(order);
     }
 
     @Override
-    public Order updateOrder(Order order) {
+    public Order save(Order order) {
         return orderRepository.save(order);
     }
 
     @Override
-    public Order getOrderById(Long id) {
+    public Order findOne(Long id) {
         return orderRepository.findOne(id);
     }
 
     @Override
-    public List<Order> getAllOrders() {
+    public List<Order> findAll() {
         return orderRepository.findAll();
     }
 }
