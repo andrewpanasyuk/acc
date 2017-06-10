@@ -86,9 +86,15 @@ INSERT INTO contracts(id, contract_date,  order_id, employee_id, payment_type) V
     (1, '2017-06-01', 1, 1, 'PREPAYMENT'),
     (2, '2017-06-10',  2, 2, 'DELAY');
 
-INSERT INTO  employee_field(id, field_name) VALUES (1,'skype');
-INSERT INTO employee(id,first_name,last_name) VALUES (1,'jack', 'jackson');
-INSERT INTO  employee_field_value(id,employee_fk,employee_field_fk,field_value) VALUES (1,1,1, 'jackSkype');
-INSERT INTO  employee_field(id, field_name) VALUES (1,'skype');
-INSERT INTO employee(id,first_name,last_name) VALUES (2,'rob', 'robinson');
-INSERT INTO  employee_field_value(id,employee_fk,employee_field_fk,field_value) VALUES (2,2,1, 'robSkype');
+INSERT INTO employee(id,first_name,last_name) VALUES
+(1,'jack', 'jackson'),
+(2,'rob', 'robinson'),
+(3,'peter', 'peterson');
+
+INSERT INTO  employee_field(id, field_name) VALUES
+(1,'skype'),
+(2, 'email');
+INSERT INTO  employee_field_value(id,employee_fk,employee_field_fk,field_value) VALUES
+(1,1,1, 'jackSkype'),
+(2,2,1, 'robSkype'),
+(3,3,2,'peter@mail.com');
