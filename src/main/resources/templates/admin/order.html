@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/fragments/head :: head">
+</head>
+<body>
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+      <div class="col-md-6">
+        <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+        <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
+        <label>Client: </label>
+        <a th:href="@{/admin/clients/{id}(id=${order.client.id})}"
+           th:text="${order.client.firstName} + ' '  + ${order.client.lastName}"></a>
+        <form th:action="@{/admin/orders}" th:object="${order}" method="post">
+          <input type="hidden" th:field="${order.id}"/>
+          <input type="hidden" th:field="${order.client}"/>
+
+          <label>Order: </label>
+          <output type="text" rows="1" th:value="${order.id}"/>
+          <textarea rows="1" class="form-control" th:field="${order.orderName}" th:text="${order.orderName}"/>
+
+          <label>Order Status:</label>
+          <select th:field="${order.status}" th:remove="all-but-first">
+            <option th:each="status : ${statuses}"
+                    th:value="${status}" th:text="${status}"/>
+          </select>
+          <br/>
+
+          <label>Open Date:</label>
+          <input type="date" th:value="${#temporals.format(order.openDate, 'yyyy-MM-dd')}"
+                 th:field="${order.openDate}"/><br/>
+
+          <label>Queuing Date:</label>
+          <input type="date"
+                 th:value="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'yyyy-MM-dd')} : ''"
+                 th:field="${order.queuingDate}"/><br/>
+
+          <label>Close Date:</label>
+          <input type="date"
+                 th:value="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'yyyy-MM-dd')} : ''"
+                 th:field="${order.closeDate}"/><br/>
+
+          <button type="submit" id="submit" class="btn btn-primary">Save</button>
+          <button th:formaction="@{/admin/orders/remove}" class="btn btn-primary">Remove</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

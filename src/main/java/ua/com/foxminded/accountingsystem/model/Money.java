@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.model;
 
 
-public class Price {
+public class Money {
+
 }

@@ -16,4 +16,3 @@ ALTER DATABASE fm_accounting_db OWNER TO fm_accounting;
 --
 -- PostgreSQL database dump complete
 --
-
