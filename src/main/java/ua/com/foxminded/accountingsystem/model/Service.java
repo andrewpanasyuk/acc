@@ -34,7 +34,6 @@ public class Service {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money employeeRate;
 
-    //TODO Something wrong, change this decision
     public Service(){
         monies = new ArrayList<>();
         employeeRate = new Money();
