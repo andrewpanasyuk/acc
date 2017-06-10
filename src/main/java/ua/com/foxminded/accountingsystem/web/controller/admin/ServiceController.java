@@ -43,7 +43,7 @@ public class ServiceController {
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable long id){
         log.debug("Remove service with id: "+id);
-        if (id == 0){
+        if (id <= 0){
             return "redirect:/admin/services";
         }
         serviceService.delete(id);
