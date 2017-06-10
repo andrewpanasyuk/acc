@@ -24,16 +24,16 @@ public class Service {
     @Column(name = "id", updatable = false, nullable = false)
     private long id;
     @Column(name = "service_name")
-    private String serviceName;
+    private String name;
     @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Money> monies;
+    private List<Money> moneyList;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money employeeRate;
 
     public Service(){
-        monies = new ArrayList<>();
+        moneyList = new ArrayList<>();
         employeeRate = new Money();
     }
 
@@ -45,12 +45,12 @@ public class Service {
         this.id = id;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getName() {
+        return name;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -61,12 +61,12 @@ public class Service {
         this.description = description;
     }
 
-    public List<Money> getMonies() {
-        return monies;
+    public List<Money> getMoneyList() {
+        return moneyList;
     }
 
-    public void setMonies(List<Money> monies) {
-        this.monies = monies;
+    public void setMoneyList(List<Money> moneyList) {
+        this.moneyList = moneyList;
     }
 
     public Money getEmployeeRate() {
@@ -84,13 +84,13 @@ public class Service {
 
         Service service = (Service) o;
 
-        if (serviceName != null ? !serviceName.equals(service.serviceName) : service.serviceName != null) return false;
+        if (name != null ? !name.equals(service.name) : service.name != null) return false;
         return description != null ? description.equals(service.description) : service.description == null;
     }
 
     @Override
     public int hashCode() {
-        int result = serviceName != null ? serviceName.hashCode() : 0;
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
@@ -98,9 +98,9 @@ public class Service {
     @Override
     public String toString() {
         return "Service{" +
-            "serviceName='" + serviceName + '\'' +
+            "name='" + name + '\'' +
             ", description='" + description + '\'' +
-            ", monies=" + monies +
+            ", moneyList=" + moneyList +
             ", employeeRate=" + employeeRate +
             '}';
     }

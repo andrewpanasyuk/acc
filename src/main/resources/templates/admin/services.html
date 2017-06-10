@@ -20,18 +20,18 @@
             </tr>
           </thead>
           <tbody th:remove="all-but-first">
-          <!--/*@thymesVar id="serviceName" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
+          <!--/*@thymesVar nameName" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
             <!--/*@thymesVar id="services" type="java.util.List"*/-->
             <tr th:each="service : ${services}">
               <td th:text="${serviceStat.count}"></td>
               <td>
-                <a th:text="${service.serviceName}" th:href="@{/admin/services/{id}(id=${service.id})}"></a>
+                <a th:text="${service.name}" th:href="@{/admin/services/{id}(id=${service.id})}"></a>
               </td>
               <td th:text="${service.description}"></td>
               <td th:text="${service.employeeRate.price} + ' ' + ${service.employeeRate.currency}"></td>
               <td>
                 <table>
-                  <tr th:each="money : ${service.monies}">
+                  <tr th:each="money : ${service.moneyList}">
                     <td th:text="${money.price} + ' ' + ${money.currency}"></td>
                   </tr>
                 </table>
