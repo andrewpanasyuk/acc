@@ -16,9 +16,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user_roles",
     uniqueConstraints = @UniqueConstraint(
-        columnNames = { "role", "username" }))
+        columnNames = {"role", "username"}))
 public class UserRole {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_role_sequence")
     @SequenceGenerator(name="user_role_sequence", initialValue=50)
@@ -64,9 +63,7 @@ public class UserRole {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         UserRole userRole = (UserRole) o;
-
         if (!id.equals(userRole.id)) {
             return false;
         }
