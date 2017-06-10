@@ -33,14 +33,14 @@ INSERT INTO user_roles (id, username, role) VALUES
     (12, 'artem', 'USER');
 
 INSERT INTO money (id, currency, price) VALUES
-    (1,0,1000),
-    (2,1,2000),
-    (3,2,3000),
-    (4,0,4000),
-    (5,1,5000),
-    (6,2,6000),
-    (7,1,3500),
-    (8,1,3500);
+    (1,'USD',1000),
+    (2,'UAH',2000),
+    (3,'EUR',3000),
+    (4,'USD',4000),
+    (5,'UAH',5000),
+    (6,'EUR',6000),
+    (7,'UAH',3500),
+    (8,'UAH',3500);
 
 INSERT INTO service (id, service_name, description, employee_rate_id) VALUES
     (1, 'java', 'java description', 7),
