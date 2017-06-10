@@ -64,7 +64,7 @@ public class ServiceController {
         return "redirect:/admin/services";
     }
 
-    @GetMapping("/newService")
+    @GetMapping("/new")
     public String newService(Model model){
         List<Money> monies = new ArrayList<>();
         for (Currency currency : Arrays.asList(Currency.values())) {
