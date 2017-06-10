@@ -34,7 +34,7 @@ public class ServiceController {
 
     @GetMapping
     public String getAllServices(Model model){
-        List<Service> services = serviceService.findAllServices();
+        List<Service> services = serviceService.findAll();
         log.debug("Found: "+services.size()+" services!");
         model.addAttribute("services", services);
         return "admin/services";

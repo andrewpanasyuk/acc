@@ -20,7 +20,7 @@ public class ServiceService {
         this.repository = repository;
     }
 
-    public List<Service> findAllServices(){
+    public List<Service> findAll(){
         return repository.findAll();
     }
 
