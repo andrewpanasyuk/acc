@@ -17,14 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private SuccessHandler successHandler;
+    private final SuccessAuthHandler successAuthHandler;
 
     private final DataSource dataSource;
 
     @Autowired
-    public SecurityConfig(@Qualifier("dataSource") DataSource dataSource) {
+    public SecurityConfig(@Qualifier("dataSource") DataSource dataSource, SuccessAuthHandler successAuthHandler) {
         this.dataSource = dataSource;
+        this.successAuthHandler = successAuthHandler;
     }
 
     @Autowired
@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/admin").hasAuthority("ADMIN")
-                .antMatchers("/user").hasAuthority("USER")
+                .antMatchers("/user").authenticated()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
             .and()
@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .successHandler(successHandler)
+                    .successHandler(successAuthHandler)
                 .permitAll()
             .and()
                 .logout()
@@ -60,11 +60,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .csrf().disable();
 
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("ram").password("ram").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("ravan").password("ravan").roles("USER");
     }
 }

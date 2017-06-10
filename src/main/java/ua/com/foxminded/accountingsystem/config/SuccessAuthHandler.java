@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Set;
 
 @Component
-public class SuccessHandler implements AuthenticationSuccessHandler {
+public class SuccessAuthHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -21,10 +21,11 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                                         Authentication authentication) throws IOException, ServletException {
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+
         if (roles.contains("ADMIN")) {
             response.sendRedirect("/admin");
         } else if (roles.contains("USER")){
-            response.sendRedirect("/user");
+            response.sendRedirect("/");
         }
 
     }
