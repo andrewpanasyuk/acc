@@ -41,7 +41,7 @@ public class AdminOrderController {
     }
 
     @GetMapping(value = "/{id}")
-    public String edit(@PathVariable long id,
+    public String getOrderById(@PathVariable long id,
                        Model model) {
         Order order = orderService.getOrderById(id);
         Client client = order.getClient();
@@ -52,16 +52,14 @@ public class AdminOrderController {
         return "admin/order";
     }
 
-    @PostMapping(value = "/{id}")
-    public String del(@PathVariable long id) {
-        Order order = orderService.getOrderById(id);
+    @PostMapping(value = "/remove")
+    public String removeOrder(@ModelAttribute Order order) {
         orderService.removeOrder(order);
         return "redirect:/admin/orders";
     }
 
-    @GetMapping(value = "/orderAdd/{id}")
-    public String addOrder(@PathVariable long id, Model model) {
-        Client client = clientService.getClientById(id);
+    @PostMapping(value = "/addOrder")
+    public String addOrder(Client client, Model model) {
         Order order = new Order();
         order.setClient(client);
         client.getOrders().add(order);
