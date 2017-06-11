@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,9 +61,13 @@ public class AdminServiceController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute Service service) {
-        log.debug("Save service: " + service.toString());
-        serviceService.save(service);
+    public String save(@ModelAttribute("service") @Valid Service service, BindingResult result) {
+        if (result.hasErrors()){
+            return "admin/service";
+        } else {
+            log.debug("Save service: " + service.toString());
+            serviceService.save(service);
+        }
         return "redirect:/admin/services";
     }
 
