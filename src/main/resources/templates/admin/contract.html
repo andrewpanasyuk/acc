@@ -12,7 +12,12 @@
           <div class="form-group">
             <input type="hidden" th:field="*{id}" />
             <label th:for="${#ids.next('paymentType')}">Payment type</label>
-            <input type="text" th:field="*{paymentType}" class="form-control"/>
+            <!--<input type="text" th:field="*{paymentType}" class="form-control"/>-->
+            <select th:field = "*{paymentType}" class="form-control">
+              <option th:each="paymentTypeValue : ${paymentTypeValues}"
+                th:value="${paymentTypeValue}"
+                th:text="${paymentTypeValue}"/>
+            </select>
             <label th:for="${#ids.next('contractDate')}">Contract Date</label>
             <input type="date" th:field="*{contractDate}" class="form-control"/><br/>
           </div>

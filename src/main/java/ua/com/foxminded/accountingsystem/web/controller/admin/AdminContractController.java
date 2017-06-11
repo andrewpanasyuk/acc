@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 
 import java.time.LocalDate;
@@ -45,6 +46,7 @@ public class AdminContractController {
     @GetMapping("/{id}")
     public String getContract(@PathVariable Long id, Model model) {
         model.addAttribute("contract", contractService.getContractById(id));
+        model.addAttribute("paymentTypeValues", PaymentType.values());
         return "admin/contract";
     }
 
@@ -59,6 +61,7 @@ public class AdminContractController {
         Contract contract = new Contract();
         contract.setContractDate(LocalDate.now());
         model.addAttribute("contract", contract);
+        model.addAttribute("paymentTypeValues", PaymentType.values());
         return "admin/contract";
     }
 
