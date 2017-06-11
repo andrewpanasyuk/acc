@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.model.User;
 import ua.com.foxminded.accountingsystem.service.UserService;
 
@@ -27,11 +28,12 @@ public class IndexController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user) {
+    public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         user.setEnabled(true);
         userService.save(user);
         logger.info("Saved user with username {} and email {}", user.getUsername(), user.getEmail());
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("username", user.getUsername());
+        return "redirect:/welcome.html";
     }
 
 }
