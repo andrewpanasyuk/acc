@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @Column(name = "username", unique = true, nullable = false, length = 30)
     private String username;
@@ -90,9 +89,7 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         User user = (User) o;
-
         if (!username.equals(user.username)) {
             return false;
         }
