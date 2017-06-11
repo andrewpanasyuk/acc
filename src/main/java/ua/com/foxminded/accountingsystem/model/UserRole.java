@@ -76,8 +76,8 @@ public class UserRole {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + user.hashCode();
-        result = 31 * result + role.hashCode();
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 
