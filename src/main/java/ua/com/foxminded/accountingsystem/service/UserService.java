@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.User;
+import ua.com.foxminded.accountingsystem.model.UserRole;
 import ua.com.foxminded.accountingsystem.repository.UserRepository;
 
 @Service
@@ -31,6 +32,12 @@ public class UserService {
 
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        if(user.getUserRoles().size() == 0){
+            UserRole userRole = new UserRole();
+            userRole.setRole("USER");
+            userRole.setUser(user);
+            user.addRole(userRole);
+        }
         userRepository.save(user);
     }
 }
