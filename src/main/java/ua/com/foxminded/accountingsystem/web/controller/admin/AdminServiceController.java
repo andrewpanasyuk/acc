@@ -41,7 +41,7 @@ public class AdminServiceController {
         return "admin/services";
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable long id) {
         log.debug("Remove service with id: " + id);
         if (id <= 0) {
