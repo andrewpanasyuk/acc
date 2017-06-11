@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -23,8 +24,9 @@ import java.util.List;
 public class Contract implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_sequence")
+    @SequenceGenerator(name = "contract_sequence", sequenceName = "contract_sequence", initialValue = 50)
+    private long id;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "contract_date")
