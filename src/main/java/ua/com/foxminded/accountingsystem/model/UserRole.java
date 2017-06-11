@@ -21,7 +21,7 @@ public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_role_sequence")
     @SequenceGenerator(name = "user_role_sequence", initialValue = 50)
-    private Integer id;
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username", nullable = false)
@@ -31,11 +31,11 @@ public class UserRole {
     @Column(name = "role", nullable = false, length = 45)
     private String role;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -64,7 +64,7 @@ public class UserRole {
             return false;
         }
         UserRole userRole = (UserRole) o;
-        if (!id.equals(userRole.id)) {
+        if (id != userRole.id) {
             return false;
         }
         if (!user.equals(userRole.user)) {
@@ -75,7 +75,7 @@ public class UserRole {
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = id;
         result = 31 * result + user.hashCode();
         result = 31 * result + role.hashCode();
         return result;
