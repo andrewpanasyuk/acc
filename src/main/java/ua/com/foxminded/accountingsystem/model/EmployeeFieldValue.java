@@ -17,6 +17,7 @@ public class EmployeeFieldValue implements Serializable {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private long id;
     @ManyToOne
     @JoinColumn(name = "employee_fk")

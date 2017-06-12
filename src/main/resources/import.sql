@@ -32,15 +32,18 @@ INSERT INTO user_roles (id, username, role) VALUES
     (11, 'lebovskiy', 'USER'),
     (12, 'artem', 'USER');
 
-INSERT INTO employee(id,first_name,last_name) VALUES
-(1,'jack', 'jackson'),
-(2,'rob', 'robinson'),
-(3,'peter', 'peterson');
+INSERT INTO employee(id,first_name,last_name,max_load) VALUES
+(1,'jack', 'jackson',10),
+(2,'rob', 'robinson',10),
+(3,'peter', 'peterson',10);
 
 INSERT INTO  employee_field(id, field_name) VALUES
 (1,'skype'),
 (2, 'email');
 INSERT INTO  employee_field_value(id,employee_fk,employee_field_fk,field_value) VALUES
 (1,1,1, 'jackSkype'),
-(2,2,1, 'robSkype'),
-(3,3,2,'peter@mail.com');
+(2,1,2, NULL ),
+(3,2,1, 'robSkype'),
+(4,2,2, 'rob@mail.com'),
+(5,3,1, 'peterSkype'),
+(6,3,2,'peter@mail.com');

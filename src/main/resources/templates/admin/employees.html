@@ -8,11 +8,36 @@
     <div class="row">
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-10">
-        <!--<form action="#" th:action="@{/admin/employees}"} th:method="post" >-->
-        <!--<input type="hidden" name="_method" value="post" />-->
-        <!--<button type="submit" id="createButton">create employee</button>-->
-        <!--</form>-->
-        <a th:href="@{/admin/employee/createEmployee}" class="btn btn-primary">create employee</a>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Create Employee</button>
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create Employee</h4>
+              </div>
+              <div class="modal-body">
+                <form  th:action="@{/admin/employee/}" th:object="${employee}" method="post">
+                  <div class="form-group">
+                    <input type="hidden" th:value="${id}"/>
+                    <label th:for="employee">employee first name : </label>
+                    <input required="required" type="text" th:field="*{firstName}" id="firstName" name="firstName"  class="form-control"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName">employee last name : </label>
+                    <input required="required" th:field="*{lastName}" id="lastName" type="text" class="form-control"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName">employee max load : </label>
+                    <input required="required" th:field="*{maxLoadByStudents}" id="maxLoadByStudents" type="text" class="form-control"/>
+                  </div>
+                  <button type="submit" class="btn btn-primary">save</button>
+                </form>
+                <button type="submit" class="btn btn-primary">close</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <table data-toggle="table">
           <thead>
           <tr>
@@ -22,14 +47,13 @@
           </thead>
           <tbody>
           <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
-
           <tr th:each="employee : ${employees}">
             <td>
               <p th:text="${employee.id}">id</p>
             </td>
             <td>
               <a th:href="@{'/admin/employee/'+${employee.id}}">
-                <span th:text="${employee.firstName}"></span>
+                <span th:text="${employee.firstName} + ' ' +${employee.lastName}"></span>
               </a>
             </td>
           </tr>
@@ -42,3 +66,5 @@
 
 </body>
 </html>
+
+
