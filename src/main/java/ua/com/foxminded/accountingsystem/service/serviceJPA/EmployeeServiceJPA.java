@@ -1,25 +1,26 @@
-package ua.com.foxminded.accountingsystem.service;
+package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.repository.EmployeeRepository;
+import ua.com.foxminded.accountingsystem.service.EmployeeService;
 
 import java.util.List;
 
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceJPA implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceJPA(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    public EmployeeServiceImpl() {
+    public EmployeeServiceJPA() {
     }
 
 
