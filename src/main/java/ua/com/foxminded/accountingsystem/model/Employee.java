@@ -28,7 +28,7 @@ public class Employee implements Serializable {
     @Column(name = "max_load")
     private int maxLoadByStudents;
     //EAGER?
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER)
     private List<EmployeeFieldValue> extraFields;
 
 
