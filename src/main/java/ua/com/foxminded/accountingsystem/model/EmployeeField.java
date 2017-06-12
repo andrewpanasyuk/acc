@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class EmployeeField implements Serializable {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private long id;
     @Column(name = "field_name", nullable = false)
     private String name;

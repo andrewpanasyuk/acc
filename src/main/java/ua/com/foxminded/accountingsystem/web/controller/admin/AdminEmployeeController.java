@@ -10,15 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Employee;
-import ua.com.foxminded.accountingsystem.model.Order;
-import ua.com.foxminded.accountingsystem.model.Price;
-import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -30,7 +24,6 @@ public class AdminEmployeeController {
     @Autowired
     public AdminEmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
-
     }
 
 
@@ -38,20 +31,23 @@ public class AdminEmployeeController {
     public String getAllEmployees(Model model) {
         List<Employee> employees = employeeService.findAll();
         model.addAttribute("employees", employees);
+        model.addAttribute("employee", new Employee());
         return "admin/employees";
 
     }
 
     @GetMapping(value = "employee/{id}")
-    public String getEmployee(@PathVariable long id, Model model){
+    public String getEmployee(@PathVariable long id, Model model) {
         Employee employee = employeeService.findOne(id);
         model.addAttribute("employee", employee);
+        model.addAttribute("newObj",false);
         return "/admin/employee";
     }
 
     @PutMapping(value = "employee/{id}")
-    public String updateEmployee(@ModelAttribute Employee employee , Model model) {
-        model.addAttribute("employee",employee);
+    public String updateEmployee(@PathVariable long id, @ModelAttribute Employee employee, Model model) {
+        model.addAttribute("employee", employeeService.findOne(id));
+        model.addAttribute("newObj",true);
         return "/admin/employee";
     }
 
@@ -59,18 +55,19 @@ public class AdminEmployeeController {
     public String removeEmployee(@PathVariable long id) {
         Employee employee = employeeService.findOne(id);
         employeeService.delete(employee);
-        return "redirect:/admin/employee";
+        return "redirect:/admin/employees";
     }
 
     @PostMapping(value = "employee")
-    public String save(@ModelAttribute Employee employee){
+    public String save(@ModelAttribute Employee employee) {
         employeeService.save(employee);
         return "redirect:/admin/employees";
     }
 
     @GetMapping(value = "employee/createEmployee")
-    public String createEmployee(Model model){
+    public String createEmployee(Model model) {
         model.addAttribute("employee", new Employee());
+        model.addAttribute("newObj",true);
         return "admin/employee";
     }
 
