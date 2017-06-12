@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.CascadeType;
@@ -33,8 +34,7 @@ public class Service {
     @Column(name = "service_name")
     private String name;
 
-    @NotNull(message = "It is required field")
-    @Size(min = 2)
+    @NotBlank(message = "It is required field")
     @Column(name = "description")
     private String description;
 
