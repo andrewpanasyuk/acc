@@ -8,18 +8,21 @@ import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.User;
 import ua.com.foxminded.accountingsystem.model.UserRole;
 import ua.com.foxminded.accountingsystem.repository.UserRepository;
+import ua.com.foxminded.accountingsystem.repository.UserRoleRepository;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final UserRoleRepository userRoleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
+                       UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userRoleRepository = userRoleRepository;
     }
 
     public List<User> findAll() {
@@ -32,11 +35,13 @@ public class UserService {
 
     public void create(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        if(user.getUserRoles().size() == 0){
-            UserRole userRole = new UserRole();
+        UserRole userRole;
+        userRole = userRoleRepository.findByRole("USER");
+        if (userRole == null) {
+            userRole = new UserRole();
             userRole.setRole("USER");
-            user.addRole(userRole);
         }
+        user.addRole(userRole);
         userRepository.save(user);
     }
 }

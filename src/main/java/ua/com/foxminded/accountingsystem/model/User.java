@@ -2,13 +2,7 @@ package ua.com.foxminded.accountingsystem.model;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -28,17 +22,21 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+     @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "users_user_role",
+        joinColumns = @JoinColumn(name = "username"),
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<UserRole> userRoles = new HashSet<>();
 
     public void addRole(UserRole userRole) {
         userRoles.add(userRole);
-        userRole.setUser(this);
     }
 
     public void removeRole(UserRole userRole) {
         userRoles.remove(userRole);
-        userRole.setUser(null);
     }
 
     public String getUsername() {

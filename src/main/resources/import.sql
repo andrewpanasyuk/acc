@@ -18,19 +18,24 @@ INSERT INTO users (username, password, enabled, email) VALUES
     ('lebovskiy', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'lebovskiy@mail.com' ),
     ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com' );
 
-INSERT INTO user_roles (id, username, role) VALUES
-    (1, 'admin', 'ADMIN'),
-    (2, 'admin', 'USER'),
-    (3, 'user', 'USER'),
-    (4, 'megaadmin', 'ADMIN'),
-    (5, 'megaadmin', 'USER'),
-    (6, 'jack', 'USER'),
-    (7, 'martin', 'USER'),
-    (8, 'chuck', 'USER'),
-    (9, 'bob', 'USER'),
-    (10, 'igor', 'USER'),
-    (11, 'lebovskiy', 'USER'),
-    (12, 'artem', 'USER');
+
+INSERT INTO user_role (id, role) VALUES
+    (1, 'ADMIN'),
+    (2, 'USER');
+
+INSERT INTO users_user_role (username, role_id) VALUES
+    ('admin', 1),
+    ('admin', 2),
+    ('user', 2),
+    ('megaadmin', 1),
+    ('megaadmin', 2),
+    ('jack', 2),
+    ('martin', 2),
+    ('chuck', 2),
+    ('bob', 2),
+    ('igor', 2),
+    ('lebovskiy', 2),
+    ('artem', 2);
 
 INSERT INTO money (id, currency, price) VALUES
     (1, 'USD', 1000),
