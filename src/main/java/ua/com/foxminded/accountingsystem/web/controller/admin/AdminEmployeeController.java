@@ -31,7 +31,7 @@ public class AdminEmployeeController {
     public String getAllEmployees(Model model) {
         List<Employee> employees = employeeService.findAll();
         model.addAttribute("employees", employees);
-        model.addAttribute("employee", new Employee());
+        model.addAttribute("newEmployee", new Employee());
         return "admin/employees";
 
     }

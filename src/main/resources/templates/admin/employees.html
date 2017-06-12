@@ -17,7 +17,7 @@
                 <h4 class="modal-title">Create Employee</h4>
               </div>
               <div class="modal-body">
-                <form  th:action="@{/admin/employee/}" th:object="${employee}" method="post">
+                <form  th:action="@{/admin/employee/}" th:object="${newEmployee}" method="post">
                   <div class="form-group">
                     <input type="hidden" th:value="${id}"/>
                     <label th:for="employee">employee first name : </label>
@@ -32,8 +32,8 @@
                     <input required="required" th:field="*{maxLoadByStudents}" id="maxLoadByStudents" type="text" class="form-control"/>
                   </div>
                   <button type="submit" class="btn btn-primary">save</button>
+                  <button type="submit" class="btn btn-primary">close</button>
                 </form>
-                <button type="submit" class="btn btn-primary">close</button>
               </div>
             </div>
           </div>
@@ -63,7 +63,6 @@
     </div>
   </div>
 </div>
-
 </body>
 </html>
 
