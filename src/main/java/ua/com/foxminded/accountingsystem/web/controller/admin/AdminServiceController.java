@@ -65,7 +65,7 @@ public class AdminServiceController {
         if (result.hasErrors()){
             return "admin/service";
         } else {
-            log.debug("Save service: " + service.toString());
+            log.debug("Save service: " + service);
             serviceService.save(service);
         }
         return "redirect:/admin/services";
