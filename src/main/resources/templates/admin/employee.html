@@ -3,78 +3,40 @@
 </head>
 <body>
 <div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10">
-        <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
-        <!--/*@thymesVar id="employeeField" type="ua.com.foxminded.accountingsystem.model.EmployeeField"*/-->
-
-        <table data-toggle="table">
-          <thead>
-          <tr>
-            <th>id</th>
-            <th>first name</th>
-            <th>last name</th>
-            <th>max load</th>
-            <div th:each="extraFields : ${employee.extraFields}">
-              <th th:text="${extraFields.field.name}"></th>
-            </div>
-          </tr>
-          </thead>
-          <tbody>
-            <td>
-              <p th:text="${employee.id}">id</p>
-            </td>
-            <td>
-              <p th:text="${employee.firstName}"/>
-            </td>
-            <td>
-              <p th:text="${employee.lastName}"/>
-            </td>
-            <td>
-              <p th:text="${employee.maxLoadByStudents}"/>
-            </td>
-            <div th:each="extraFields : ${employee.extraFields}" >
-              <!--/*@thymesVar id="extraFields" type="ua.com.foxminded.accountingsystem.model.EmployeeFieldValue"*/-->
-              <td th:text="${extraFields.value}"></td>
-            </div>
-          <td>
-            <form action="#" th:action="@{/admin/employee/{id}(id=${employee.id})}" th:method="delete"  >
-              <button type="submit" id="deleteButton" class="btn btn-danger"  >Delete</button>
-            </form>
-            <form action="#" th:action="@{/admin/employee/{id}(id=${employee.id})}" th:method="put" >
-              <button type="submit" id="updateButton" class="btn btn-primary" >Update</button>
-            </form>
-            <a th:href="@{/admin/employees}" class="btn btn-primary">back</a>
-          </td>
-          </tbody>
-        </table>
-
-
-        <form th:if="${newObj}" th:action="@{/admin/employee/}" th:object="${employee}" method="post">
-
+<div class="container">
+  <div class="row">
+  </div>
+  <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+  <div class="col-md-10">
+    <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
+    <!--/*@thymesVar id="employeeField" type="ua.com.foxminded.accountingsystem.model.EmployeeField"*/-->
+    <form th:object="${employee}" th:action="@{/admin/employee/{id}(id=${employee.id})}" th:method="put">
+      <div class="form-group">
+        <label for="id">id : </label>
+        <p th:text="${employee.id}"  id="id"class="form-control">id</p>
+        <div class="form-group">
           <div class="form-group">
-            <input type="hidden" th:field="*{id}"/>
-            <label th:for="employee">employee first name : </label>
-            <input required="required" type="text" th:field="*{firstName}" id="firstName" name="firstName"  class="form-control"/>
+            <label for="firstName">first name : </label>
+            <input required="required" th:field="*{firstName}" id="firstName" type="text" class="form-control"/>
           </div>
           <div class="form-group">
-            <label for="lastName">employee last name : </label>
+            <label for="lastName">last name : </label>
             <input required="required" th:field="*{lastName}" id="lastName" type="text" class="form-control"/>
           </div>
-          <!--<div class="form-group" th:each="employeeField: ${employee.extraFields}">-->
-          <!--<label th:for="${employeeField.field.name}" th:text="${employeeField.field.name}" ></label>-->
-          <!--<input required="required" th:value="*{employeeField.value}" th:id="${employeeField.field.name}" type="text" class="form-control"/>-->
-          <!--</div>-->
-          <a th:href="@{/admin/employees}" class="btn btn-primary">back</a>
+          <div class="form-group">
+            <label for="maxLoad">max load : </label>
+            <input required="required" th:field="*{maxLoadByStudents}" id="maxLoad" type="text"
+                   class="form-control"/>
+          </div>
           <button type="submit" class="btn btn-primary">save</button>
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
+    <form th:action="@{/admin/employee/{id}(id=${employee.id})}" th:method="delete">
+      <button type="submit" class="btn btn-danger">delete</button>
+    </form>
+    <a th:href="@{/admin/employees}" class="btn btn-primary">back</a>
   </div>
 </div>
 </body>
 </html>
-

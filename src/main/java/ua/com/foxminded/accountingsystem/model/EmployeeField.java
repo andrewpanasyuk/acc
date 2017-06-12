@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "employee_field")
 public class EmployeeField implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "field_name", nullable = false)
