@@ -30,7 +30,7 @@ public class IndexController {
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         user.setEnabled(true);
-        userService.save(user);
+        userService.create(user);
         logger.info("Saved user with username {} and email {}", user.getUsername(), user.getEmail());
         redirectAttributes.addFlashAttribute("username", user.getUsername());
         return "redirect:/welcome.html";
