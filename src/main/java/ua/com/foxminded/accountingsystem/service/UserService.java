@@ -35,7 +35,6 @@ public class UserService {
         if(user.getUserRoles().size() == 0){
             UserRole userRole = new UserRole();
             userRole.setRole("USER");
-            userRole.setUser(user);
             user.addRole(userRole);
         }
         userRepository.save(user);
