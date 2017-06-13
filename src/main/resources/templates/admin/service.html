@@ -25,10 +25,9 @@
           <div class="form-group">
             <label th:for="${#ids.next('employeeRate.price')}"
                    th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
-            <input th:field="*{employeeRate.price}" type="number" class="form-control"/>
             <output th:if="${#fields.hasErrors('employeeRate')}" th:errors="*{employeeRate}" class="text-danger">Employee rate error</output>
-            <input th:id="*{employeeRate.price}" th:name="*{employeeRate.price}"
-                   th:value="*{employeeRate.price > 0} ? *{employeeRate.price} : 'empty'"
+            <input th:value="*{employeeRate.price > 0} ? *{employeeRate.price}"
+                   th:id="*{'employeeRate.price'}" th:name="*{'employeeRate.price'}"
                    type="number" class="form-control"/>
             <input type="hidden" th:field="*{employeeRate.id}"/>
             <input type="hidden" th:field="*{employeeRate.currency}"/>
@@ -38,14 +37,13 @@
           <div id="prices">
             <table>
               <tr th:each="money, iterItem : *{prices}">
-                <input id="money" type="number" th:field="*{prices[__${iterItem.index}__].price}"/>
-                <!--<label for="money" th:text="${money.currency}"></label>-->
+                <input type="number" th:value="*{prices[__${iterItem.index}__].price > 0} ? *{prices[__${iterItem.index}__].price}"
+                       th:id="*{'prices[__${iterItem.index}__].price'}" th:name="*{'prices[__${iterItem.index}__].price'}"/>
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
                 <select th:field="*{prices[__${iterItem.index}__].currency}">
                   <option th:each="currency : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
                           th:value="${currency}"
-                          <!--th:selected="${currency == T(ua.com.foxminded.accountingsystem.model.Currency)}"-->
                           th:text="${currency}">currency</option>
                 </select>
                 <button type="submit" name="removeMoney" th:value="${iterItem.index}" class="btn btn-default">remove</button>
