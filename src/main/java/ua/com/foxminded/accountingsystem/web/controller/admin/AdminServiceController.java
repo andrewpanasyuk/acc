@@ -76,18 +76,15 @@ public class AdminServiceController {
 
     @GetMapping("/new")
     public String newService(Model model) {
-//        List<Money> moneyList = new ArrayList<>();
-//        for (Currency currency : Arrays.asList(Currency.values())) {
-//            Money money = new Money();
-//            money.setCurrency(currency);
-//            moneyList.add(money);
-//        }
+        List<Money> moneyList = new ArrayList<>();
+
+        moneyList.add(new Money());
 
         Money employeeRate = new Money();
         employeeRate.setCurrency(Currency.UAH);
 
         Service service = new Service();
-//        service.setPrices(moneyList);
+        service.setPrices(moneyList);
         service.setEmployeeRate(employeeRate);
 
         model.addAttribute("service", service);
@@ -109,7 +106,6 @@ public class AdminServiceController {
         log.debug("Delete money field ");
         int moneyId = Integer.valueOf(request.getParameter("removeMoney"));
         service.getPrices().remove(moneyId);
-//        model.addAttribute("service", service);
         return "/admin/service";
     }
 
