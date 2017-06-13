@@ -36,14 +36,15 @@
             <table>
               <tr th:each="money, iterItem : *{prices}">
                 <input id="money" type="number" th:field="*{prices[__${iterItem.index}__].price}"/>
-                <label for="money" th:text="${money.currency}"></label>
+                <!--<label for="money" th:text="${money.currency}"></label>-->
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
-                <!--<select th:field="${money.price}">-->
-                  <!--<option th:each="currency : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"-->
-                          <!--th:value="${currency}"-->
-                          <!--th:text="${currency}">currency</option>-->
-                <!--</select>-->
+                <select th:field="*{prices[__${iterItem.index}__].currency}">
+                  <option th:each="currency : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
+                          th:value="${currency}"
+                          <!--th:selected="${currency == T(ua.com.foxminded.accountingsystem.model.Currency)}"-->
+                          th:text="${currency}">currency</option>
+                </select>
                 <button type="submit" name="removeMoney" th:value="${iterItem.index}" class="btn btn-default">remove</button>
                 <br/>
               </tr>
