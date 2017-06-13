@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.web.controller.admin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,23 +76,41 @@ public class AdminServiceController {
 
     @GetMapping("/new")
     public String newService(Model model) {
-        List<Money> monies = new ArrayList<>();
-        for (Currency currency : Arrays.asList(Currency.values())) {
-            Money money = new Money();
-            money.setCurrency(currency);
-            monies.add(money);
-        }
+//        List<Money> moneyList = new ArrayList<>();
+//        for (Currency currency : Arrays.asList(Currency.values())) {
+//            Money money = new Money();
+//            money.setCurrency(currency);
+//            moneyList.add(money);
+//        }
 
         Money employeeRate = new Money();
         employeeRate.setCurrency(Currency.UAH);
 
         Service service = new Service();
-        service.setPrices(monies);
+//        service.setPrices(moneyList);
         service.setEmployeeRate(employeeRate);
 
         model.addAttribute("service", service);
         model.addAttribute("currencies", Currency.values());
         return "admin/service";
+    }
+
+    @PostMapping(params = "addMoney")
+    public String addMoney(@ModelAttribute Service service, final BindingResult bindingResult){
+        if (service.getPrices().size() < Currency.values().length) {
+            log.debug("Add new money field to service: "+service);
+            service.getPrices().add(new Money());
+        }
+        return "/admin/service";
+    }
+
+    @PostMapping(params = "removeMoney")
+    public String removeMoney(@ModelAttribute Service service, HttpServletRequest request){
+        log.debug("Delete money field ");
+        int moneyId = Integer.valueOf(request.getParameter("removeMoney"));
+        service.getPrices().remove(moneyId);
+//        model.addAttribute("service", service);
+        return "/admin/service";
     }
 
 }
