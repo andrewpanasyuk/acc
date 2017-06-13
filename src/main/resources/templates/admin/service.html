@@ -27,6 +27,9 @@
                    th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
             <input th:field="*{employeeRate.price}" type="number" class="form-control"/>
             <output th:if="${#fields.hasErrors('employeeRate')}" th:errors="*{employeeRate}" class="text-danger">Employee rate error</output>
+            <input th:id="*{employeeRate.price}" th:name="*{employeeRate.price}"
+                   th:value="*{employeeRate.price > 0} ? *{employeeRate.price} : 'empty'"
+                   type="number" class="form-control"/>
             <input type="hidden" th:field="*{employeeRate.id}"/>
             <input type="hidden" th:field="*{employeeRate.currency}"/>
           </div>
