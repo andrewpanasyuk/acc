@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -27,7 +28,7 @@ public class Order implements Serializable {
     @SequenceGenerator(name="order_sequence", sequenceName = "order_sequence", initialValue = 50)
     private long id;
 
-    @Column(name = "order_name", nullable = false)
+    @Column(name = "order_name")
     private String orderName;
 
     @Column(name = "open_date")
@@ -46,9 +47,22 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
+//    @Column(name = "service_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id")
+    private Service service;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
 
     public OrderStatus getStatus() {
         return status;

@@ -9,6 +9,7 @@ import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
+import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,15 +20,18 @@ public class AdminOrderController {
 
     private final OrderService orderService;
     private final ClientService clientService;
+    private final ServiceService service;
 
     @Autowired
-    public AdminOrderController(OrderService orderService, ClientService clientService) {
+    public AdminOrderController(OrderService orderService, ClientService clientService, ServiceService service) {
         this.orderService = orderService;
         this.clientService = clientService;
+        this.service = service;
     }
 
     @PostMapping
     public String create(@ModelAttribute Order order) {
+        System.out.println(order.getService().getName());
         orderService.save(order);
         return "redirect:/admin/orders";
     }
@@ -45,7 +49,8 @@ public class AdminOrderController {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
             .addAttribute("localDate", LocalDate.now())
-            .addAttribute("statuses", OrderStatus.values());
+            .addAttribute("statuses", OrderStatus.values())
+            .addAttribute("services", service.findAll());
         return "admin/order";
     }
 
@@ -64,7 +69,7 @@ public class AdminOrderController {
         order.setOpenDate(LocalDate.now());
         model.addAttribute("order", order)
             .addAttribute("statuses", OrderStatus.values())
-            .addAttribute("client", client);
+            .addAttribute("services", service.findAll());
         return "admin/order";
     }
 
