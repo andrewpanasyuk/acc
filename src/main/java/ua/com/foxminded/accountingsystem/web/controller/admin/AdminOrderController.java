@@ -54,9 +54,9 @@ public class AdminOrderController {
         return "admin/order";
     }
 
-    @PostMapping(value = "/remove")
-    public String removeOrder(@ModelAttribute Order order) {
-        orderService.delete(order);
+    @DeleteMapping(value = "/{id}")
+    public String removeOrder(@PathVariable long id) {
+        orderService.delete(orderService.findOne(id));
         return "redirect:/admin/orders";
     }
 

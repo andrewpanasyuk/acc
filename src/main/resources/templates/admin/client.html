@@ -20,8 +20,11 @@
           <textarea rows="1" class="form-control" th:field="${client.lastName}" th:text="${client.lastName}"/>
 
           <button type="submit" id="submit" class="btn btn-primary">Save</button>
-          <button th:formaction="@{/admin/clients/remove}" type="submit" class="btn btn-danger">Delete</button>
           <a th:href="@{/admin/orders/new?clientId={id} (id=${client.id})}" type="submit" class="btn btn-primary">Add new Order</a>
+        </form>
+
+        <form th:action="@{/admin/clients/{id}(id=${client.id})}" th:method="delete">
+          <button type="submit" class="btn btn-danger">delete</button>
         </form>
 
         <form th:object="${client}">
@@ -55,6 +58,7 @@
             </tbody>
           </table>
         </form>
+
       </div>
     </div>
   </div>
