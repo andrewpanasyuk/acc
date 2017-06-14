@@ -34,9 +34,9 @@ public class UserService {
     }
 
     public void create(User user) {
+        user.setEnabled(true);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        UserRole userRole;
-        userRole = userRoleRepository.findByRole("USER");
+        UserRole userRole = userRoleRepository.findByRole("USER");
         if (userRole == null) {
             userRole = new UserRole();
             userRole.setRole("USER");
