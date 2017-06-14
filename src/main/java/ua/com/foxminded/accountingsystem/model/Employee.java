@@ -28,9 +28,8 @@ public class Employee implements Serializable {
     @Column(name = "max_load")
     private int maxLoadByStudents;
     //EAGER?
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<EmployeeFieldValue> extraFields;
-
 
     public long getId() {
         return id;
@@ -72,13 +71,5 @@ public class Employee implements Serializable {
         this.maxLoadByStudents = maxLoadByStudents;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-            "id=" + id +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", extraFields=" + extraFields +
-            '}';
-    }
+
 }
