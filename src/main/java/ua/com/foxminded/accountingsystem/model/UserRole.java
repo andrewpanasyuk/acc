@@ -45,6 +45,7 @@ public class UserRole {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         UserRole userRole = (UserRole) o;
         return role.equals(userRole.role);
     }
