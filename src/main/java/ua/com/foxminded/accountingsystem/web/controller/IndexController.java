@@ -23,7 +23,6 @@ public class IndexController {
     @GetMapping("/")
     public String getIndex(Model model) {
         model.addAttribute("title", "Foxminded Accounting System");
-        model.addAttribute("user", new User());
         return "index";
     }
 

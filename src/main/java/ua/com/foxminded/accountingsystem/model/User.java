@@ -104,9 +104,9 @@ public class User {
     public int hashCode() {
         int result;
         result = username != null ? username.hashCode() : 0;
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + password.hashCode();
+        result = 31 * result + enabled.hashCode();
+        result = 31 * result + email.hashCode();
         return result;
     }
 

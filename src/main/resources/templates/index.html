@@ -85,20 +85,20 @@
                     </div>
                   </div>
                 </form>
-                <form id="register-form" role="form" th:action="@{/register}" th:object="${user}"
+                <form id="register-form" role="form" th:action="@{/register}"
                       th:method="post" th:if="${#authentication.name} == 'anonymousUser'"
                       style="display: none;">
                   <div class="form-group">
-                    <input type="text" name="username" id="username" tabindex="1" class="form-control"
-                           placeholder="Username" value="" th:field="*{username}"/>
+                    <input type="text" name="username" id="register-username" tabindex="1" class="form-control"
+                           placeholder="Username" value=""/>
                   </div>
                   <div class="form-group">
                     <input type="email" name="email" id="email" tabindex="1" class="form-control"
-                           placeholder="Email Address" value="" th:field="*{email}"/>
+                           placeholder="Email Address" value=""/>
                   </div>
                   <div class="form-group">
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control"
-                           placeholder="Password" th:field="*{password}"/>
+                    <input type="password" name="password" id="register-password" tabindex="2" class="form-control"
+                           placeholder="Password"/>
                   </div>
                   <div class="form-group">
                     <div class="row">
