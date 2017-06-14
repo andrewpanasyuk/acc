@@ -40,35 +40,35 @@
 
           <div id="prices">
             <table>
-              <tr th:each="money, iterItem : *{prices}">
-                <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
+              <tbody th:each="money, iterItem : *{prices}">
+              <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
 
-                <input type="number"
-                       th:value="*{prices[__${iterItem.index}__].price > 0} ? *{prices[__${iterItem.index}__].price}"
-                       th:id="*{'prices[__${iterItem.index}__].price'}"
-                       th:name="*{'prices[__${iterItem.index}__].price'}"
-                       required="required" min="1" max="2147483647"/>
-                <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
+              <input type="number"
+                     th:value="*{prices[__${iterItem.index}__].price > 0} ? *{prices[__${iterItem.index}__].price}"
+                     th:id="*{'prices[__${iterItem.index}__].price'}"
+                     th:name="*{'prices[__${iterItem.index}__].price'}"
+                     required="required" min="1" max="2147483647"/>
+              <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
 
-                <label th:if="*{prices[__${iterItem.index}__].currency != null}"
-                       th:for="*{'prices[__${iterItem.index}__].price'}"
-                       th:text="*{prices[__${iterItem.index}__].currency}">currency</label>
+              <label th:if="*{prices[__${iterItem.index}__].currency != null}"
+                     th:for="*{'prices[__${iterItem.index}__].price'}"
+                     th:text="*{prices[__${iterItem.index}__].currency}">currency</label>
 
-                <select th:if="*{prices[__${iterItem.index}__].currency == null}"
-                        th:field="*{prices[__${iterItem.index}__].currency}">
-                  <!--/*@thymesVar id="currencies" type="java.util.List"*/-->
-                  <option th:each="currency : ${currencies}"
-                          th:value="${currency}"
-                          th:text="${currency}">currency
-                  </option>
-                </select>
-                <button type="submit" name="moneyIdToRemove" th:value="${iterItem.index}" class="btn btn-primary">remove
-                </button>
-                <output th:if="${#fields.hasErrors('prices[__${iterItem.index}__].price')}"
-                        th:errors="*{prices[__${iterItem.index}__].price}" class="text-danger">Price error
-                </output>
-                <br/>
-              </tr>
+              <select th:if="*{prices[__${iterItem.index}__].currency == null}"
+                      th:field="*{prices[__${iterItem.index}__].currency}">
+                <!--/*@thymesVar id="currencies" type="java.util.List"*/-->
+                <option th:each="currency : ${currencies}"
+                        th:value="${currency}"
+                        th:text="${currency}">currency
+                </option>
+              </select>
+              <button type="submit" name="moneyIdToRemove" th:value="${iterItem.index}" class="btn btn-primary">remove
+              </button>
+              <output th:if="${#fields.hasErrors('prices[__${iterItem.index}__].price')}"
+                      th:errors="*{prices[__${iterItem.index}__].price}" class="text-danger">Price error
+              </output>
+              <br/>
+              </tbody>
             </table>
           </div>
           <button th:name="addMoney" type="submit" class="btn btn-primary">add price</button>
