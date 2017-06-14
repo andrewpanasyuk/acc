@@ -18,7 +18,6 @@ import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,10 +105,10 @@ public class AdminServiceController {
         return "/admin/service";
     }
 
-    @PostMapping(params = "removeMoney")
-    public String removeMoney(@ModelAttribute Service service, @RequestParam("removeMoney") int id) {
+    @PostMapping(params = "moneyIdToRemove")
+    public String removeMoney(@ModelAttribute Service service, @RequestParam int moneyIdToRemove) {
         log.debug("Delete money field");
-        service.getPrices().remove(id);
+        service.getPrices().remove(moneyIdToRemove);
         return "/admin/service";
     }
 

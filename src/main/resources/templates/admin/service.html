@@ -62,7 +62,7 @@
                           th:text="${currency}">currency
                   </option>
                 </select>
-                <button type="submit" name="removeMoney" th:value="${iterItem.index}" class="btn btn-primary">remove
+                <button type="submit" name="moneyIdToRemove" th:value="${iterItem.index}" class="btn btn-primary">remove
                 </button>
                 <output th:if="${#fields.hasErrors('prices[__${iterItem.index}__].price')}"
                         th:errors="*{prices[__${iterItem.index}__].price}" class="text-danger">Price error
@@ -75,7 +75,7 @@
           <button type="submit" class="btn btn-primary">save</button>
         </form>
         <form th:action="@{/admin/services/{id}(id=${service.id})}" th:method="delete">
-          <button type="submit" class="btn btn-default">remove</button>
+          <button type="submit" class="btn btn-danger">remove</button>
         </form>
         <a th:href="@{/admin/services}" class="btn btn-primary">back</a>
       </div>
