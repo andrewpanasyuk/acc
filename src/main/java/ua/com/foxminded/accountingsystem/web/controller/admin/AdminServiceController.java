@@ -93,11 +93,17 @@ public class AdminServiceController {
     }
 
     @PostMapping(params = "addMoney")
-    public String addMoney(@ModelAttribute Service service, final BindingResult bindingResult){
+    public String addMoney(@ModelAttribute Service service, Model model){
+        List<Currency> currencies = new ArrayList<>(Arrays.asList(Currency.values()));
+        for (Money money : service.getPrices()){
+            currencies.remove(money.getCurrency());
+        }
         if (service.getPrices().size() < Currency.values().length) {
             log.debug("Add new money field to service: "+service);
             service.getPrices().add(new Money());
         }
+
+        model.addAttribute("currencies", currencies);
         return "/admin/service";
     }
 
