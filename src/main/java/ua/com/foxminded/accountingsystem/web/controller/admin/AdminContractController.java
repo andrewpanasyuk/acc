@@ -37,7 +37,7 @@ public class AdminContractController {
         return "admin/contracts";
     }
 
-    @PostMapping("/{id}")
+    @DeleteMapping("/{id}")
     public String remove(@PathVariable Long id){
         contractService.remove(id);
         return "redirect:/admin/contracts";
@@ -50,13 +50,13 @@ public class AdminContractController {
         return "admin/contract";
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public String save(@ModelAttribute Contract contract){
         contractService.save(contract);
         return "redirect:/admin/contracts";
     }
 
-    @GetMapping("/newContract")
+    @GetMapping("/new")
     public String newContract(Model model){
         Contract contract = new Contract();
         contract.setContractDate(LocalDate.now());
