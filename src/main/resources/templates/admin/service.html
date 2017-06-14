@@ -38,23 +38,24 @@
             <table>
               <tr th:each="money, iterItem : *{prices}">
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
+
                 <input type="number"
                        th:value="*{prices[__${iterItem.index}__].price > 0} ? *{prices[__${iterItem.index}__].price}"
                        th:id="*{'prices[__${iterItem.index}__].price'}"
                        th:name="*{'prices[__${iterItem.index}__].price'}"/>
                 <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
-                <span th:if="*{prices[__${iterItem.index}__].currency != null}">
-                  <label th:for="*{'prices[__${iterItem.index}__].price'}"
-                         th:text="*{prices[__${iterItem.index}__].currency}">currency</label>
-                </span>
-                <span th:if="*{prices[__${iterItem.index}__].currency == null}">
-                  <select th:field="*{prices[__${iterItem.index}__].currency}">
-                    <!--/*@thymesVar id="currencies" type="java.util.List"*/-->
-                    <option th:each="currency : ${currencies}"
-                            th:value="${currency}"
-                            th:text="${currency}">currency</option>
-                  </select>
-                </span>
+
+                <label th:if="*{prices[__${iterItem.index}__].currency != null}"
+                       th:for="*{'prices[__${iterItem.index}__].price'}"
+                       th:text="*{prices[__${iterItem.index}__].currency}">currency</label>
+
+                <select th:if="*{prices[__${iterItem.index}__].currency == null}"
+                        th:field="*{prices[__${iterItem.index}__].currency}">
+                  <!--/*@thymesVar id="currencies" type="java.util.List"*/-->
+                  <option th:each="currency : ${currencies}"
+                          th:value="${currency}"
+                          th:text="${currency}">currency</option>
+                </select>
                 <button type="submit" name="removeMoney" th:value="${iterItem.index}" class="btn btn-primary">remove
                 </button>
                 <br/>
