@@ -8,6 +8,5 @@ import java.io.Serializable;
 @Entity
 public class Invoice implements Serializable {
     @Id
-    @GeneratedValue
-    private Long id;
+    private long id;
 }

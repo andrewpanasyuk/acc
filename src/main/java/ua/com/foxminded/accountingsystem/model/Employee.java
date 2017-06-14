@@ -10,6 +10,5 @@ import java.io.Serializable;
 @Table(name = "employees")
 public class Employee implements Serializable{
     @Id
-    @GeneratedValue
-    private Long id;
+    private long id;
 }
