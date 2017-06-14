@@ -63,7 +63,9 @@ public class UserRole {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         UserRole userRole = (UserRole) o;
+
         if (!id.equals(userRole.id)) {
             return false;
         }
