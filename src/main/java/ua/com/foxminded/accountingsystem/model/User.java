@@ -102,8 +102,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result;
-        result = username != null ? username.hashCode() : 0;
+        int result = username.hashCode();
         result = 31 * result + password.hashCode();
         result = 31 * result + enabled.hashCode();
         result = 31 * result + email.hashCode();
