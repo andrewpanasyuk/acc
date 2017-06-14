@@ -3,7 +3,6 @@ package ua.com.foxminded.accountingsystem.web.controller.admin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
@@ -65,7 +63,9 @@ public class AdminServiceController {
 
     @PostMapping
     public String save(@ModelAttribute("service") @Valid Service service, BindingResult result) {
-        if (result.hasErrors()){
+        log.debug("Try to save service: " + service);
+        if (result.hasErrors()) {
+            log.debug("Binding result: " + result.getAllErrors());
             return "admin/service";
         } else {
             log.debug("Save service: " + service);
@@ -77,7 +77,6 @@ public class AdminServiceController {
     @GetMapping("/new")
     public String newService(Model model) {
         List<Money> moneyList = new ArrayList<>();
-
         moneyList.add(new Money());
 
         Money employeeRate = new Money();
@@ -93,13 +92,13 @@ public class AdminServiceController {
     }
 
     @PostMapping(params = "addMoney")
-    public String addMoney(@ModelAttribute Service service, Model model){
+    public String addMoney(@ModelAttribute Service service, Model model) {
         List<Currency> currencies = new ArrayList<>(Arrays.asList(Currency.values()));
-        for (Money money : service.getPrices()){
+        for (Money money : service.getPrices()) {
             currencies.remove(money.getCurrency());
         }
         if (service.getPrices().size() < Currency.values().length) {
-            log.debug("Add new money field to service: "+service);
+            log.debug("Add new money field to service: " + service);
             service.getPrices().add(new Money());
         }
 
@@ -108,7 +107,7 @@ public class AdminServiceController {
     }
 
     @PostMapping(params = "removeMoney")
-    public String removeMoney(@ModelAttribute Service service, HttpServletRequest request){
+    public String removeMoney(@ModelAttribute Service service, HttpServletRequest request) {
         log.debug("Delete money field ");
         int moneyId = Integer.valueOf(request.getParameter("removeMoney"));
         service.getPrices().remove(moneyId);
@@ -116,3 +115,4 @@ public class AdminServiceController {
     }
 
 }
+
