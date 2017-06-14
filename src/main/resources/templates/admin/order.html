@@ -29,14 +29,15 @@
 
           <div class="form-group">
             <div class="col-sm-4">
+              <!--<label >Service: </label>-->
               <label for="serviceName">Service: </label>
             </div>
             <div class="col-sm-8">
-              <select id="serviceName" th:field="${order.service}" th:remove="all-but-first" class="form-control"
-                      type="text">
+              <select id="serviceName" th:field="${order.service}" class="form-control">
+                <option value="">Select Service</option>
                 <option th:each="service : ${services}"
-                        th:value ="${service.id}"
-                        th:text="${order.service != null} ? ${order.service.name} : ${service.name}"/>
+                        th:value="${service.id}"
+                        th:text="${order.service != null} ? ${order.service.name} : ${service.name}"></option>
               </select>
             </div>
           </div>
@@ -46,10 +47,11 @@
               <label for="orderStatus">Order Status: </label>
             </div>
             <div class="col-sm-8">
-              <select id="orderStatus" th:field="${order.status}" th:remove="all-but-first" class="form-control"
-                      th:value="${order.status != null} ? ${order.status} : 'select Status'" type="text">
+              <select id="orderStatus" th:field="${order.status}" class="form-control">
+                <option value="">Select Service</option>
                 <option th:each="status : ${statuses}"
-                        th:value="${status}" th:text="${status}"/>
+                        th:value="${status}"
+                        th:text="${status}"/>
               </select>
             </div>
           </div>
