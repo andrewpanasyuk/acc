@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
@@ -67,23 +68,22 @@ public class AdminServiceController {
         if (result.hasErrors()) {
             log.debug("Binding result: " + result.getAllErrors());
             return "admin/service";
-        } else {
-            log.debug("Save service: " + service);
-            serviceService.save(service);
         }
+        log.debug("Save service: " + service);
+        serviceService.save(service);
         return "redirect:/admin/services";
     }
 
     @GetMapping("/new")
     public String newService(Model model) {
-        List<Money> moneyList = new ArrayList<>();
-        moneyList.add(new Money());
+        List<Money> prices = new ArrayList<>();
+        prices.add(new Money());
 
         Money employeeRate = new Money();
         employeeRate.setCurrency(Currency.UAH);
 
         Service service = new Service();
-        service.setPrices(moneyList);
+        service.setPrices(prices);
         service.setEmployeeRate(employeeRate);
 
         model.addAttribute("service", service);
@@ -107,10 +107,9 @@ public class AdminServiceController {
     }
 
     @PostMapping(params = "removeMoney")
-    public String removeMoney(@ModelAttribute Service service, HttpServletRequest request) {
-        log.debug("Delete money field ");
-        int moneyId = Integer.valueOf(request.getParameter("removeMoney"));
-        service.getPrices().remove(moneyId);
+    public String removeMoney(@ModelAttribute Service service, @RequestParam("removeMoney") int id) {
+        log.debug("Delete money field");
+        service.getPrices().remove(id);
         return "/admin/service";
     }
 
