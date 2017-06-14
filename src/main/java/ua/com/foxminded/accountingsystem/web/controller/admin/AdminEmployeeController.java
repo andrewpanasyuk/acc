@@ -29,14 +29,14 @@ public class AdminEmployeeController {
     @Autowired
     public AdminEmployeeController(EmployeeService employeeService, EmployeeFieldService employeeFieldService) {
         this.employeeService = employeeService;
-        this.employeeFieldService=employeeFieldService;
+        this.employeeFieldService = employeeFieldService;
     }
 
 
     @GetMapping(value = "employees")
     public String getAllEmployees(Model model) {
         model.addAttribute("employees", employeeService.findAll());
-        model.addAttribute("newEmployee", new Employee());
+        model.addAttribute("employee", new Employee());
         return "admin/employees";
 
     }
@@ -44,18 +44,17 @@ public class AdminEmployeeController {
     @GetMapping(value = "employee/{id}")
     public String getEmployee(@PathVariable long id, Model model) {
         model.addAttribute("employee", employeeService.findOne(id));
-        return "/admin/employee";
+        return "admin/employee";
     }
 
     @PutMapping(value = "employee/{id}")
-    public String updateEmployee(@PathVariable long id,@ModelAttribute("employee") Employee employee) {
+    public String updateEmployee(@PathVariable long id, @ModelAttribute("employee") Employee employee) {
         employeeService.save(employee);
         return "redirect:/admin/employees";
     }
 
     @DeleteMapping(value = "employee/{id}")
-    public String removeEmployee(@PathVariable long id) {
-        Employee employee = employeeService.findOne(id);
+    public String removeEmployee(@ModelAttribute Employee employee) {
         employeeService.delete(employee);
         return "redirect:/admin/employees";
     }
@@ -75,7 +74,7 @@ public class AdminEmployeeController {
     }
 
     @GetMapping(value = "employee/createEmployee")
-    public String createEmployee(Model model) {
+    public String createEmployee(@ModelAttribute Employee employee, Model model) {
         model.addAttribute("employee", new Employee());
         return "admin/employee";
     }
