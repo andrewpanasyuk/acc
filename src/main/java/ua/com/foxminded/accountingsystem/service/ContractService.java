@@ -11,13 +11,11 @@ import java.util.List;
  */
 public interface ContractService {
 
-    List<Contract> getAllContracts();
+    List<Contract> findAll();
 
-    List<Contract> getAllContractsByOrder(Order order);
+    Contract findOne(Long id);
 
-    Contract getContractById(Long id);
-
-    void remove(Long id);
+    void delete(Long id);
 
     Contract save(Contract contract);
 

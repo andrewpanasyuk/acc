@@ -33,19 +33,19 @@ public class AdminContractController {
     public String getAllContracts(Model model){
         model
             .addAttribute("title", "Contract management")
-            .addAttribute("contracts", contractService.getAllContracts());
+            .addAttribute("contracts", contractService.findAll());
         return "admin/contracts";
     }
 
     @DeleteMapping("/{id}")
     public String remove(@PathVariable Long id){
-        contractService.remove(id);
+        contractService.delete(id);
         return "redirect:/admin/contracts";
     }
 
     @GetMapping("/{id}")
     public String getContract(@PathVariable Long id, Model model) {
-        model.addAttribute("contract", contractService.getContractById(id));
+        model.addAttribute("contract", contractService.findOne(id));
         model.addAttribute("paymentTypeValues", PaymentType.values());
         return "admin/contract";
     }

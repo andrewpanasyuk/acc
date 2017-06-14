@@ -23,24 +23,18 @@ public class ContractServiceImpl implements ContractService {
 
 
     @Override
-    public List<Contract> getAllContracts() {
+    public List<Contract> findAll() {
         return contractRepository.findAll();
     }
 
 
     @Override
-    public List<Contract> getAllContractsByOrder(Order order) {
-        return null;
-    }
-
-
-    @Override
-    public Contract getContractById(Long id) {
-        return contractRepository.getOne(id);
+    public Contract findOne(Long id) {
+        return contractRepository.findOne(id);
     }
 
     @Override
-    public void remove(Long id) {
+    public void delete(Long id) {
         contractRepository.delete(id);
     }
 
