@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class EmployeeFieldServiceJPA implements EmployeeFieldService {
 
-    private final EmployeeFieldRepository employeeFieldRepository;
+    private EmployeeFieldRepository employeeFieldRepository;
 
     @Autowired
     public EmployeeFieldServiceJPA(EmployeeFieldRepository employeeFieldRepository) {
