@@ -60,12 +60,11 @@ public class AdminEmployeeController {
     }
 
     @PostMapping(value = "employee")
-    public String save(@ModelAttribute Employee employee) {
+    public String save(@ModelAttribute(name = "employee") Employee employee) {
         List<EmployeeField> employeeFields = employeeFieldService.findAll();
         employee.setExtraFields(new ArrayList<>());
         for (EmployeeField employeeField : employeeFields) {
             EmployeeFieldValue employeeFieldValue = new EmployeeFieldValue();
-            employeeFieldValue.setEmployee(employee);
             employeeFieldValue.setField(employeeField);
             employee.getExtraFields().add(employeeFieldValue);
         }

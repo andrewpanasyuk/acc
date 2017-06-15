@@ -10,12 +10,12 @@ import ua.com.foxminded.accountingsystem.service.EmployeeFieldService;
 import java.util.List;
 
 @Service
-public class EmoloyeeFieldServiceJPA implements EmployeeFieldService {
+public class EmployeeFieldServiceJPA implements EmployeeFieldService {
 
     private EmployeeFieldRepository employeeFieldRepository;
 
     @Autowired
-    public EmoloyeeFieldServiceJPA(EmployeeFieldRepository employeeFieldRepository) {
+    public EmployeeFieldServiceJPA(EmployeeFieldRepository employeeFieldRepository) {
         this.employeeFieldRepository = employeeFieldRepository;
     }
 

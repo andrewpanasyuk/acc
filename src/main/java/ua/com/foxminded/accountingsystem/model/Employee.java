@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -18,8 +19,8 @@ import java.util.List;
 @Table(name = "employee")
 public class Employee implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
+    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_seq", initialValue = 50, allocationSize = 10)
     private long id;
     @Column(name = "first_name")
     private String firstName;
