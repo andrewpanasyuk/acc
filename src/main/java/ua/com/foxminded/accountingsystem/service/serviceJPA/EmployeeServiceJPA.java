@@ -46,4 +46,9 @@ public class EmployeeServiceJPA implements EmployeeService {
         employeeRepository.delete(employee);
 
     }
+
+    @Override
+    public void delete(long id) {
+        employeeRepository.delete(id);
+    }
 }

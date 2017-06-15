@@ -54,8 +54,8 @@ public class AdminEmployeeController {
     }
 
     @DeleteMapping(value = "employee/{id}")
-    public String removeEmployee(@ModelAttribute Employee employee) {
-        employeeService.delete(employee);
+    public String removeEmployee(@PathVariable long id) {
+        employeeService.delete(id);
         return "redirect:/admin/employees";
     }
 
