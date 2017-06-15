@@ -35,10 +35,15 @@
             <div class="col-sm-8">
               <select id="serviceName" th:field="${order.service}" class="form-control">
                 <option value="">Select Service</option>
+
                 <option th:each="service : ${services}"
                         th:value="${service.id}"
                         th:text="${order.service != null} ? ${order.service.name} : ${service.name}"></option>
               </select>
+              <output th:if="${#fields.hasErrors('service')}" th:errors="${order.service}" class="text-danger">Name
+                Error
+              </output>
+
             </div>
           </div>
 
@@ -53,6 +58,9 @@
                         th:value="${status}"
                         th:text="${status}"/>
               </select>
+              <output th:if="${#fields.hasErrors('status')}" th:errors="${order.status}" class="text-danger">Name
+                Error
+              </output>
             </div>
           </div>
 

@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -25,7 +26,7 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
-    @SequenceGenerator(name="order_sequence", sequenceName = "order_sequence", initialValue = 50)
+    @SequenceGenerator(name = "order_sequence", sequenceName = "order_sequence", initialValue = 50)
     private long id;
 
     @Column(name = "order_name")
@@ -47,11 +48,12 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
-//    @Column(name = "service_id")
+    @NotNull(message = "You have to choose 'Service'")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
     private Service service;
 
+    @NotNull(message = "You have to set 'Status'")
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;

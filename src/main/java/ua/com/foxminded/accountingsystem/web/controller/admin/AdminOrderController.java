@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.web.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Order;
@@ -11,6 +12,7 @@ import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,8 +32,15 @@ public class AdminOrderController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute Order order) {
-        System.out.println(order.getService().getName());
+    public String create(@Valid Order order, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            Client client = clientService.findOne(order.getClient().getId());
+            order.setOpenDate(LocalDate.now());
+            model.addAttribute("order", order)
+                .addAttribute("statuses", OrderStatus.values())
+                .addAttribute("services", service.findAll());
+            return "admin/order";
+        }
         orderService.save(order);
         return "redirect:/admin/orders";
     }
