@@ -66,13 +66,13 @@ INSERT INTO client (id, first_name, last_name) VALUES
     (4, 'Selezneva', 'Alisa'),
     (5, 'Hatabych', 'Old');
 
-INSERT INTO orders (id, order_name, status, client_id, open_date, queuing_date, close_date) VALUES
-    (1, 'Java', 'ACTIVE', 1, '2017-01-24', '2017-01-25', NULL),
-    (2, 'Java', 'WAITING', 2, '2017-04-04', '2017-04-05', NULL),
-    (3, 'Java', 'FROZEN', 3, '2016-12-20', '2017-01-10', NULL),
-    (4, 'Java', 'COMPLETED', 4, '2015-11-14', '2015-12-20', '2016-05-22'),
-    (5, 'Java', 'ACTIVE', 4, '2016-11-15', '2016-11-15', NULL),
-    (6, 'Java', 'ACTIVE', 5, '2016-11-24', '2016-11-12', NULL),
-    (7, 'Java', 'ACTIVE', 5, '2017-01-01', '2017-01-01', NULL),
-    (8, 'Java', 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
-    (9, 'Java', 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);
+INSERT INTO orders (id, service_id, status, client_id, open_date, queuing_date, close_date) VALUES
+    (1, 1, 'ACTIVE', 1, '2017-01-24', '2017-01-25', NULL),
+    (2, 1, 'WAITING', 2, '2017-04-04', '2017-04-05', NULL),
+    (3, 2, 'FROZEN', 3, '2016-12-20', '2017-01-10', NULL),
+    (4, 1, 'COMPLETED', 4, '2015-11-14', '2015-12-20', '2016-05-22'),
+    (5, 2, 'ACTIVE', 4, '2016-11-15', '2016-11-15', NULL),
+    (6, 2, 'ACTIVE', 5, '2016-11-24', '2016-11-12', NULL),
+    (7, 1, 'ACTIVE', 5, '2017-01-01', '2017-01-01', NULL),
+    (8, 1, 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
+    (9, 2, 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);
