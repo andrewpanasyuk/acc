@@ -17,11 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final SuccessAuthHandler successAuthHandler;
+
     private final DataSource dataSource;
 
     @Autowired
-    public SecurityConfig(@Qualifier("dataSource") DataSource dataSource) {
+    public SecurityConfig(@Qualifier("dataSource") DataSource dataSource, SuccessAuthHandler successAuthHandler) {
         this.dataSource = dataSource;
+        this.successAuthHandler = successAuthHandler;
     }
 
     @Autowired
@@ -38,14 +41,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-                .antMatchers("/**")
-                .permitAll()
+                .antMatchers("/admin").hasAuthority("ADMIN")
+                .antMatchers("/user").authenticated()
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated()
             .and()
                 .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login")
                     .usernameParameter("username")
                     .passwordParameter("password")
+                    .successHandler(successAuthHandler)
                 .permitAll()
             .and()
                 .logout()
