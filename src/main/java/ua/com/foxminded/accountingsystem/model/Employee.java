@@ -85,7 +85,8 @@ public class Employee implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
     }
-
 }
