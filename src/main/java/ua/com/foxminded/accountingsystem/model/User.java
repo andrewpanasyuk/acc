@@ -5,9 +5,10 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -25,17 +26,24 @@ public class User {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserRole> userRoles = new HashSet<UserRole>();
+    @Column(name = "email", nullable = false)
+    private String email;
+
+     @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "users_user_role",
+        joinColumns = @JoinColumn(name = "username"),
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<UserRole> userRoles = new HashSet<>();
 
     public void addRole(UserRole userRole) {
         userRoles.add(userRole);
-        userRole.setUser(this);
     }
 
     public void removeRole(UserRole userRole) {
         userRoles.remove(userRole);
-        userRole.setUser(null);
     }
 
     public String getUsername() {
@@ -70,6 +78,14 @@ public class User {
         this.userRoles = userRoles;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -85,6 +101,9 @@ public class User {
         if (!password.equals(user.password)) {
             return false;
         }
+        if (!email.equals(user.email)) {
+            return false;
+        }
         return enabled.equals(user.enabled);
     }
 
@@ -93,6 +112,7 @@ public class User {
         int result = username.hashCode();
         result = 31 * result + password.hashCode();
         result = 31 * result + enabled.hashCode();
+        result = 31 * result + email.hashCode();
         return result;
     }
 
@@ -101,6 +121,7 @@ public class User {
         return "User{" +
             "username='" + username + '\'' +
             ", enabled=" + enabled +
+            ", email='" + email + '\'' +
             ", userRoles=" + userRoles +
             '}';
     }

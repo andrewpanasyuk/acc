@@ -3,13 +3,16 @@ package ua.com.foxminded.accountingsystem.web.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
+import ua.com.foxminded.accountingsystem.service.ServiceService;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,15 +22,21 @@ public class AdminOrderController {
 
     private final OrderService orderService;
     private final ClientService clientService;
+    private final ServiceService service;
 
     @Autowired
-    public AdminOrderController(OrderService orderService, ClientService clientService) {
+    public AdminOrderController(OrderService orderService, ClientService clientService, ServiceService service) {
         this.orderService = orderService;
         this.clientService = clientService;
+        this.service = service;
     }
 
     @PostMapping
-    public String create(@ModelAttribute Order order) {
+    public String create(@Valid Order order, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("services", service.findAll());
+            return "admin/order";
+        }
         orderService.save(order);
         return "redirect:/admin/orders";
     }
@@ -45,13 +54,13 @@ public class AdminOrderController {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
             .addAttribute("localDate", LocalDate.now())
-            .addAttribute("statuses", OrderStatus.values());
+            .addAttribute("services", service.findAll());
         return "admin/order";
     }
 
-    @PostMapping(value = "/remove")
-    public String removeOrder(@ModelAttribute Order order) {
-        orderService.delete(order);
+    @DeleteMapping(value = "/{id}")
+    public String removeOrder(@PathVariable long id) {
+        orderService.delete(orderService.findOne(id));
         return "redirect:/admin/orders";
     }
 
@@ -63,8 +72,7 @@ public class AdminOrderController {
         client.getOrders().add(order);
         order.setOpenDate(LocalDate.now());
         model.addAttribute("order", order)
-            .addAttribute("statuses", OrderStatus.values())
-            .addAttribute("client", client);
+            .addAttribute("services", service.findAll());
         return "admin/order";
     }
 

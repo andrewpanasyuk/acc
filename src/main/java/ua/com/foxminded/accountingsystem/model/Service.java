@@ -1,5 +1,8 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,16 +29,22 @@ public class Service {
     @SequenceGenerator(name = "service_sequence", initialValue = 50)
     private long id;
 
+    @NotNull(message = "It is required field")
+    @Size(min = 2, max = 50)
     @Column(name = "service_name")
     private String name;
 
+    @NotBlank(message = "It is required field")
     @Column(name = "description")
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @NotEmpty(message = "At least one price is required")
+    @Valid
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Money> prices;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @NotNull(message = "It is required field")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Money employeeRate;
 
     public Service() {
