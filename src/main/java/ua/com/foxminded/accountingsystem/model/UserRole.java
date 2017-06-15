@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -15,11 +16,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user_roles",
     uniqueConstraints = @UniqueConstraint(
-        columnNames = { "role", "username" }))
+        columnNames = {"role", "username"}))
 public class UserRole {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_role_sequence")
+    @SequenceGenerator(name = "user_role_sequence", initialValue = 50)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
