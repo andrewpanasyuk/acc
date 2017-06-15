@@ -1,6 +1,5 @@
 package ua.com.foxminded.accountingsystem.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -18,8 +18,8 @@ import java.io.Serializable;
 public class EmployeeFieldValue implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_field_value_sequence")
+    @SequenceGenerator(name = "employee_field_value_sequence", sequenceName = "employee_field_value_seq", initialValue = 50, allocationSize = 10)
     private long id;
     @ManyToOne
     @JoinColumn(name = "employee_fk")
