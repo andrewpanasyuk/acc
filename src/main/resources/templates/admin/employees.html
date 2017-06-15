@@ -20,21 +20,21 @@
               </div>
               <div class="modal-body">
                 <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
-                <form th:action="@{/admin/employee/}" th:object="${employee}" method="post">
+                <form th:action="@{/admin/employees/}" th:object="${employee}" method="post">
                   <div class="form-group">
                     <label th:for="firstName">employee first name : </label>
-                    <input required="true" type="text" th:value="${employee.firstName}" id="firstName" name="firstName"
-                           class="form-control"/>
+                    <input required="true" type="text" th:field="*{firstName}" th:value="${employee.firstName}"
+                           id="firstName" name="firstName" class="form-control"/>
                   </div>
                   <div class="form-group">
                     <label for="lastName">employee last name : </label>
-                    <input required="true" th:field="${employee.lastName}" id="lastName" type="text"
-                           class="form-control"/>
+                    <input required="true" th:field="${employee.lastName}" th:value="${employee.lastName}"
+                           name="lastName" id="lastName" type="text" class="form-control"/>
                   </div>
                   <div class="form-group">
-                    <label for="maxLoadByStudents">employee max load : </label>
-                    <input required="required" th:field="${employee.maxLoadByStudents}" id="maxLoadByStudents"
-                           type="text" class="form-control"/>
+                    <label for="maxClients">employee max load : </label>
+                    <input required="required" th:field="${employee.maxClients}"
+                           id="maxClients" name="maxClients" type="text" class="form-control"/>
                   </div>
                   <button type="submit" class="btn btn-primary">save</button>
                 </form>
@@ -56,7 +56,7 @@
               <p th:text="${emp.id}">id</p>
             </td>
             <td>
-              <a th:href="@{'/admin/employee/'+${emp.id}}">
+              <a th:href="@{'/admin/employees/'+${emp.id}}">
                 <span th:text="${emp.firstName} + ' ' +${emp.lastName}"></span>
               </a>
             </td>

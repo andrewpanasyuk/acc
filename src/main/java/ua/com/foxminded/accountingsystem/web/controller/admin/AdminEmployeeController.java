@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/")
+@RequestMapping("/admin/employees")
 public class AdminEmployeeController {
 
     private final EmployeeService employeeService;
@@ -33,7 +33,7 @@ public class AdminEmployeeController {
     }
 
 
-    @GetMapping(value = "employees")
+    @GetMapping()
     public String getAllEmployees(Model model) {
         model.addAttribute("employees", employeeService.findAll());
         model.addAttribute("employee", new Employee());
@@ -41,43 +41,36 @@ public class AdminEmployeeController {
 
     }
 
-    @GetMapping(value = "employee/{id}")
+    @GetMapping(value = "{id}")
     public String getEmployee(@PathVariable long id, Model model) {
         model.addAttribute("employee", employeeService.findOne(id));
         return "admin/employee";
     }
 
-    @PutMapping(value = "employee/{id}")
+    @PutMapping(value = "{id}")
     public String updateEmployee(@PathVariable long id, @ModelAttribute("employee") Employee employee) {
         employeeService.save(employee);
         return "redirect:/admin/employees";
     }
 
-    @DeleteMapping(value = "employee/{id}")
+    @DeleteMapping(value = "{id}")
     public String removeEmployee(@PathVariable long id) {
         employeeService.delete(id);
         return "redirect:/admin/employees";
     }
 
-    @PostMapping(value = "employee")
+    @PostMapping
     public String save(@ModelAttribute(name = "employee") Employee employee) {
         List<EmployeeField> employeeFields = employeeFieldService.findAll();
         employee.setExtraFields(new ArrayList<>());
         for (EmployeeField employeeField : employeeFields) {
             EmployeeFieldValue employeeFieldValue = new EmployeeFieldValue();
-            employeeFieldValue.setField(employeeField);
+            employeeFieldValue.setEmployeeField(employeeField);
             employee.getExtraFields().add(employeeFieldValue);
         }
         employeeService.save(employee);
         return "redirect:/admin/employees";
     }
-
-    @GetMapping(value = "employee/createEmployee")
-    public String createEmployee(@ModelAttribute Employee employee, Model model) {
-        model.addAttribute("employee", new Employee());
-        return "admin/employee";
-    }
-
 
 }
 

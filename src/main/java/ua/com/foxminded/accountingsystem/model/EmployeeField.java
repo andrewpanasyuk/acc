@@ -15,9 +15,9 @@ import java.io.Serializable;
 public class EmployeeField implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_field_sequence")
-    @SequenceGenerator(name = "employee_field_sequence", sequenceName = "employee_field_seq", initialValue = 50, allocationSize = 10)
+    @SequenceGenerator(name = "employee_field_sequence", sequenceName = "employee_field_sequence", initialValue = 50, allocationSize = 10)
     private long id;
-    @Column(name = "field_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
 
@@ -37,4 +37,11 @@ public class EmployeeField implements Serializable {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "EmployeeField{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            '}';
+    }
 }
