@@ -54,10 +54,11 @@
             <div class="col-sm-8">
               <select id="orderStatus" th:field="${order.status}" class="form-control">
                 <option value="">Select Service</option>
-                <option th:each="status : ${statuses}"
+                <option th:each="status : ${T(ua.com.foxminded.accountingsystem.model.OrderStatus).values()}"
                         th:value="${status}"
                         th:text="${status}"/>
               </select>
+
               <output th:if="${#fields.hasErrors('status')}" th:errors="${order.status}" class="text-danger">Name
                 Error
               </output>

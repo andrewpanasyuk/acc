@@ -34,8 +34,7 @@ public class AdminOrderController {
     @PostMapping
     public String create(@Valid Order order, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("statuses", OrderStatus.values())
-                .addAttribute("services", service.findAll());
+            model.addAttribute("services", service.findAll());
             return "admin/order";
         }
         orderService.save(order);
@@ -55,7 +54,6 @@ public class AdminOrderController {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
             .addAttribute("localDate", LocalDate.now())
-            .addAttribute("statuses", OrderStatus.values())
             .addAttribute("services", service.findAll());
         return "admin/order";
     }
@@ -74,7 +72,6 @@ public class AdminOrderController {
         client.getOrders().add(order);
         order.setOpenDate(LocalDate.now());
         model.addAttribute("order", order)
-            .addAttribute("statuses", OrderStatus.values())
             .addAttribute("services", service.findAll());
         return "admin/order";
     }
