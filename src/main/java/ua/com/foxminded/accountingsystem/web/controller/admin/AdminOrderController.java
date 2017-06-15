@@ -34,10 +34,7 @@ public class AdminOrderController {
     @PostMapping
     public String create(@Valid Order order, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            Client client = clientService.findOne(order.getClient().getId());
-            order.setOpenDate(LocalDate.now());
-            model.addAttribute("order", order)
-                .addAttribute("statuses", OrderStatus.values())
+            model.addAttribute("statuses", OrderStatus.values())
                 .addAttribute("services", service.findAll());
             return "admin/order";
         }
