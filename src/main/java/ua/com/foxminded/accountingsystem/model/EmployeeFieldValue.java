@@ -19,15 +19,15 @@ public class EmployeeFieldValue implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_field_value_sequence")
-    @SequenceGenerator(name = "employee_field_value_sequence", sequenceName = "employee_field_value_seq", initialValue = 50, allocationSize = 10)
+    @SequenceGenerator(name = "employee_field_value_sequence", sequenceName = "employee_field_value_sequnce", initialValue = 50)
     private long id;
     @ManyToOne
     @JoinColumn(name = "employee_fk")
     private Employee employee;
     @OneToOne
     @JoinColumn(name = "employee_field_fk")
-    private EmployeeField field;
-    @Column(name = "field_value")
+    private EmployeeField employeeField;
+    @Column(name = "value")
     private String value;
 
 
@@ -47,12 +47,12 @@ public class EmployeeFieldValue implements Serializable {
         this.employee = employee;
     }
 
-    public EmployeeField getField() {
-        return field;
+    public EmployeeField getEmployeeField() {
+        return employeeField;
     }
 
-    public void setField(EmployeeField field) {
-        this.field = field;
+    public void setEmployeeField(EmployeeField employeeField) {
+        this.employeeField = employeeField;
     }
 
     public String getValue() {
@@ -63,5 +63,13 @@ public class EmployeeFieldValue implements Serializable {
         this.value = value;
     }
 
-
+    @Override
+    public String toString() {
+        return "EmployeeFieldValue{" +
+            "id=" + id +
+            ", employee=" + employee +
+            ", employeeField=" + employeeField +
+            ", value='" + value + '\'' +
+            '}';
+    }
 }

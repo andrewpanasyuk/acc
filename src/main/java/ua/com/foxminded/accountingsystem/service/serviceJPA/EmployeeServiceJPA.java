@@ -12,17 +12,14 @@ import java.util.List;
 @Service
 public class EmployeeServiceJPA implements EmployeeService {
 
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
 
     @Autowired
     public EmployeeServiceJPA(EmployeeRepository employeeRepository) {
+
         this.employeeRepository = employeeRepository;
     }
-
-    public EmployeeServiceJPA() {
-    }
-
 
     @Override
     public List<Employee> findAll() {

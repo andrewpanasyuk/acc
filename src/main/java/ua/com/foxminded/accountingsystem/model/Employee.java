@@ -20,15 +20,15 @@ import java.util.List;
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
-    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_seq", initialValue = 50, allocationSize = 10)
+    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", initialValue = 50)
     private long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "max_load")
-    private int maxLoadByStudents;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
+    private int maxClients;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<EmployeeFieldValue> extraFields;
 
     public long getId() {
@@ -63,13 +63,29 @@ public class Employee implements Serializable {
         this.extraFields = extraFields;
     }
 
-    public int getMaxLoadByStudents() {
-        return maxLoadByStudents;
+    public int getMaxClients() {
+        return maxClients;
     }
 
-    public void setMaxLoadByStudents(int maxLoadByStudents) {
-        this.maxLoadByStudents = maxLoadByStudents;
+    public void setMaxClients(int maxClients) {
+        this.maxClients = maxClients;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
+
+        Employee employee = (Employee) o;
+
+        if (maxClients != employee.maxClients) return false;
+        if (!firstName.equals(employee.firstName)) return false;
+        return lastName.equals(employee.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
 
 }
