@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.ContractService;
+import ua.com.foxminded.accountingsystem.service.EmployeeService;
 
 import java.time.LocalDate;
 
@@ -23,10 +24,12 @@ import java.time.LocalDate;
 public class AdminContractController {
 
     private final ContractService contractService;
+    private final EmployeeService employeeService;
 
     @Autowired
-    public AdminContractController(ContractService contractService) {
+    public AdminContractController(ContractService contractService, EmployeeService employeeService) {
         this.contractService = contractService;
+        this.employeeService = employeeService;
     }
 
     @GetMapping
@@ -47,6 +50,7 @@ public class AdminContractController {
     public String getContract(@PathVariable Long id, Model model) {
         model.addAttribute("contract", contractService.findOne(id));
         model.addAttribute("paymentTypeValues", PaymentType.values());
+        model.addAttribute("employees", employeeService.findAll());
         return "admin/contract";
     }
 
@@ -62,6 +66,7 @@ public class AdminContractController {
         contract.setContractDate(LocalDate.now());
         model.addAttribute("contract", contract);
         model.addAttribute("paymentTypeValues", PaymentType.values());
+        model.addAttribute("employees", employeeService.findAll());
         return "admin/contract";
     }
 

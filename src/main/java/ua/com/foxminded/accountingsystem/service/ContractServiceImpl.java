@@ -3,7 +3,6 @@ package ua.com.foxminded.accountingsystem.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Contract;
-import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 
 import java.util.List;
