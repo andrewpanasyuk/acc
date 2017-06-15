@@ -42,7 +42,7 @@
         </div>
       </div>
     </form>
-    <form th:object="${employee}" th:action="@{/admin/employee/{id}(id=${employee.id})}" th:method="delete">
+    <form th:action="@{/admin/employee/{id}(id=${employee.id})}" th:method="delete">
       <button type="submit" class="btn btn-danger">delete</button>
     </form>
     <a th:href="@{/admin/employees}" class="btn btn-primary">back</a>
