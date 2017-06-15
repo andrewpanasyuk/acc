@@ -19,6 +19,15 @@
             </select>
             <label th:for="${#ids.next('contractDate')}">Contract Date</label>
             <input type="date" th:field="*{contractDate}" class="form-control"/><br/>
+            <a th:href="@{/admin/orders/{id}(id=${contract.order.id})}"
+               th:text="'Order: ' + ${contract.order.orderName} + ' from ' + ${contract.order.openDate}" ></a>
+            <select id="employee" th:field="${contract.employee}" class="form-control">
+              <option value="">Select Employee</option>
+              <option th:each="employee : ${employees}"
+                      th:value="${employee.id}"
+                      th:text="${contract.employee != null} ? ${contract.employee.firstName} + ${contract.employee.lastName}: ${employee.firstName} + ${employee.lastName}">
+              </option>
+            </select>
           </div>
           <button type="submit" class="btn btn-primary">Save</button>
         </form>

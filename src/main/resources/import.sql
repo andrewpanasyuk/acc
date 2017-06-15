@@ -77,10 +77,10 @@ INSERT INTO orders (id, order_name, status, client_id, open_date, queuing_date, 
     (8, 'Java', 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
     (9, 'Java', 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);
 
-INSERT INTO employees(id) VALUES
-    (1),
-    (2),
-    (3);
+INSERT INTO employees(id, first_name, last_name) VALUES
+    (1, 'Ivan', 'Ivanov'),
+    (2, 'Petr', 'Petrov'),
+    (3, 'Obi van', 'Kenobi');
 
 INSERT INTO contracts(id, contract_date,  order_id, employee_id, payment_type) VALUES
     (1, '2017-06-01', 1, 1, 'PREPAYMENT'),

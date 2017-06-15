@@ -36,7 +36,7 @@ public class Contract implements Serializable {
     private Order order;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Money money;
+    private Money price;
 
     @Column(name = "payment_type")
     @Enumerated(EnumType.STRING)
@@ -73,10 +73,10 @@ public class Contract implements Serializable {
     public Contract() {
     }
 
-    public Contract(LocalDate contractDate, Order order, Money money, PaymentType paymentType, LocalDate openContract, Employee employee, Money employeeRate, LocalDate datePayment, List<Invoice> invoices, LocalDate closeContract, CloseType closeType, String closingDescription) {
+    public Contract(LocalDate contractDate, Order order, Money price, PaymentType paymentType, LocalDate openContract, Employee employee, Money employeeRate, LocalDate datePayment, List<Invoice> invoices, LocalDate closeContract, CloseType closeType, String closingDescription) {
         this.contractDate = contractDate;
         this.order = order;
-        this.money = money;
+        this.price = price;
         this.paymentType = paymentType;
         this.openContract = openContract;
         this.employee = employee;
@@ -112,12 +112,12 @@ public class Contract implements Serializable {
         this.order = order;
     }
 
-    public Money getMoney() {
-        return money;
+    public Money getPrice() {
+        return price;
     }
 
-    public void setMoney(Money money) {
-        this.money = money;
+    public void setMoney(Money price) {
+        this.price = price;
     }
 
     public PaymentType getPaymentType() {
