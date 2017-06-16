@@ -11,6 +11,8 @@
         <form th:action="@{/admin/contracts}" th:object="${contract}" method="post">
           <div class="form-group">
             <input type="hidden" th:field="*{id}" />
+            <!--<input type="hidden" th:field="${contract.employee}"/>-->
+            <!--<input type="hidden" th:field="${contract.order}"/>-->
             <label th:for="${#ids.next('paymentType')}">Payment type</label>
             <select th:field = "*{paymentType}" class="form-control">
               <option th:each="paymentTypeValue : ${paymentTypeValues}"
@@ -21,8 +23,12 @@
             <input type="date" th:field="*{contractDate}" class="form-control"/><br/>
             <a th:href="@{/admin/orders/{id}(id=${contract.order.id})}"
                th:text="'Order: ' + ${contract.order.orderName} + ' from ' + ${contract.order.openDate}" ></a>
-            <select id="employee" th:field="${contract.employee}" class="form-control">
-              <option value="">Select Employee</option>
+            <select th:field="*{employee}" class="form-control">
+              <!--<option value="">Select Employee</option>-->
+<!--              <div th:each="employee, iterItem : ${employees}">
+                <input type="text" th:field="${employees[__${iterItem.index}__].id}" />
+
+              </div>-->
               <option th:each="employee : ${employees}"
                       th:value="${employee.id}"
                       th:text="${contract.employee != null} ? ${contract.employee.firstName} + ${contract.employee.lastName}: ${employee.firstName} + ${employee.lastName}">
