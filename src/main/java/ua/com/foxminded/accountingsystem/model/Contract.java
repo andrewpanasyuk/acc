@@ -29,16 +29,18 @@ public class Contract implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_sequence")
     @SequenceGenerator(name = "contract_sequence", sequenceName = "contract_sequence", initialValue = 50)
-    private long id;
+    private Long id;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "contract_date")
     private LocalDate contractDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "price_id")
     private Money price;
 
     @Column(name = "payment_type")
@@ -49,18 +51,20 @@ public class Contract implements Serializable {
     @Column(name = "open_contract")
     private LocalDate openContract;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_rate_id")
     private Money employeeRate;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_payment")
     private LocalDate datePayment;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "invoice_id")
     private List<Invoice> invoices;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")

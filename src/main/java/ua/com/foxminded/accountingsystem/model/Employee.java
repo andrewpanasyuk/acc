@@ -15,7 +15,7 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
     @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", initialValue = 50)
-    private long id;
+    private Long id;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
