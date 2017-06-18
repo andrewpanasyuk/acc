@@ -21,17 +21,17 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
     @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", initialValue = 50)
-    private long id;
+    private Long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "max_load")
+    @Column(name = "max_clients")
     private int maxClients;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<EmployeeFieldValue> extraFields;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -71,6 +71,7 @@ public class Employee implements Serializable {
         this.maxClients = maxClients;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,6 +79,8 @@ public class Employee implements Serializable {
 
         Employee employee = (Employee) o;
 
+        if(id==null) return false;
+        if (id != employee.id) return false;
         if (maxClients != employee.maxClients) return false;
         if (!firstName.equals(employee.firstName)) return false;
         return lastName.equals(employee.lastName);
@@ -85,8 +88,9 @@ public class Employee implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        return result;
+        if(id==null){
+            return 31;
+        }
+        return id.hashCode();
     }
 }

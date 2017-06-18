@@ -26,7 +26,7 @@
             </td>
             <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
             <td>
-              <a th:href="@{/admin/orders/{id}(id=${order.id})}">Order</a>
+              <a th:href="@{/admin/orders/{id}(id=${order.id})}" th:text="${order.service != null} ? ${order.service.name} : 'Order'"></a>
             </td>
             <td th:text="${order.status}"></td>
             <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>

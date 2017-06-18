@@ -37,9 +37,9 @@ public class AdminClientController {
         return "admin/client";
     }
 
-    @PostMapping(value = "/remove")
-    public String removeClient(@ModelAttribute Client client) {
-        clientService.delete(client);
+    @DeleteMapping("/{id}")
+    public String removeClient(@PathVariable long id) {
+        clientService.delete(clientService.findOne(id));
         return "redirect:/admin/clients";
     }
 

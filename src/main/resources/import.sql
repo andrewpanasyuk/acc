@@ -37,7 +37,7 @@ INSERT INTO users_user_role (username, role_id) VALUES
     ('lebovskiy', 2),
     ('artem', 2);
 
-INSERT INTO employee (id, first_name, last_name, max_load) VALUES
+INSERT INTO employee (id, first_name, last_name, max_clients) VALUES
     (1, 'jack', 'jackson', 10),
     (2, 'rob', 'robinson', 10),
     (3, 'peter', 'peterson', 10);
@@ -45,8 +45,8 @@ INSERT INTO employee (id, first_name, last_name, max_load) VALUES
 INSERT INTO employee_field (id, name) VALUES
     (1, 'skype'),
     (2, 'email');
-    
-INSERT INTO employee_field_value (id, employee_fk, employee_field_fk, value) VALUES
+
+INSERT INTO employee_field_value (id, employee_id, employee_field_id, value) VALUES
     (1, 1, 1, 'jackSkype'),
     (2, 1, 2, NULL),
     (3, 2, 1, 'robSkype'),
@@ -83,13 +83,13 @@ INSERT INTO client (id, first_name, last_name) VALUES
     (4, 'Selezneva', 'Alisa'),
     (5, 'Hatabych', 'Old');
 
-INSERT INTO orders (id, order_name, status, client_id, open_date, queuing_date, close_date) VALUES
-    (1, 'Java', 'ACTIVE', 1, '2017-01-24', '2017-01-25', NULL),
-    (2, 'Java', 'WAITING', 2, '2017-04-04', '2017-04-05', NULL),
-    (3, 'Java', 'FROZEN', 3, '2016-12-20', '2017-01-10', NULL),
-    (4, 'Java', 'COMPLETED', 4, '2015-11-14', '2015-12-20', '2016-05-22'),
-    (5, 'Java', 'ACTIVE', 4, '2016-11-15', '2016-11-15', NULL),
-    (6, 'Java', 'ACTIVE', 5, '2016-11-24', '2016-11-12', NULL),
-    (7, 'Java', 'ACTIVE', 5, '2017-01-01', '2017-01-01', NULL),
-    (8, 'Java', 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
-    (9, 'Java', 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);
+INSERT INTO orders (id, service_id, status, client_id, open_date, queuing_date, close_date) VALUES
+    (1, 1, 'ACTIVE', 1, '2017-01-24', '2017-01-25', NULL),
+    (2, 1, 'WAITING', 2, '2017-04-04', '2017-04-05', NULL),
+    (3, 2, 'FROZEN', 3, '2016-12-20', '2017-01-10', NULL),
+    (4, 1, 'COMPLETED', 4, '2015-11-14', '2015-12-20', '2016-05-22'),
+    (5, 2, 'ACTIVE', 4, '2016-11-15', '2016-11-15', NULL),
+    (6, 2, 'ACTIVE', 5, '2016-11-24', '2016-11-12', NULL),
+    (7, 1, 'ACTIVE', 5, '2017-01-01', '2017-01-01', NULL),
+    (8, 1, 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
+    (9, 2, 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);

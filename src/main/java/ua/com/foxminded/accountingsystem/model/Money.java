@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "money")
@@ -23,6 +24,7 @@ public class Money {
     @Column(name = "price")
     private int price;
 
+    @NotNull
     @Column(name = "currency")
     @Enumerated(EnumType.STRING)
     private Currency currency;
