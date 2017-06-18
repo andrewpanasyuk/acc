@@ -16,16 +16,16 @@ public class EmployeeField implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_field_sequence")
     @SequenceGenerator(name = "employee_field_sequence", sequenceName = "employee_field_sequence", initialValue = 50, allocationSize = 10)
-    private long id;
+    private Long id;
     @Column(name = "name", nullable = false)
     private String name;
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,6 +35,24 @@ public class EmployeeField implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EmployeeField)) return false;
+
+        EmployeeField that = (EmployeeField) o;
+        if(!(that.getName().equals(((EmployeeField) o).getName()))){
+         return false;
+        }
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 
     @Override

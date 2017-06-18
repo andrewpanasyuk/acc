@@ -20,22 +20,22 @@ public class EmployeeFieldValue implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_field_value_sequence")
     @SequenceGenerator(name = "employee_field_value_sequence", sequenceName = "employee_field_value_sequnce", initialValue = 50)
-    private long id;
+    private Long id;
     @ManyToOne
-    @JoinColumn(name = "employee_fk")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
     @OneToOne
-    @JoinColumn(name = "employee_field_fk")
+    @JoinColumn(name = "employee_field_id")
     private EmployeeField employeeField;
     @Column(name = "value")
     private String value;
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,11 +64,28 @@ public class EmployeeFieldValue implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EmployeeFieldValue)) return false;
+
+        EmployeeFieldValue that = (EmployeeFieldValue) o;
+        if(!(that.getValue().equals(((EmployeeFieldValue) o).getValue()))){
+            return false;
+        }
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
     public String toString() {
         return "EmployeeFieldValue{" +
             "id=" + id +
             ", employee=" + employee +
-            ", employeeField=" + employeeField +
             ", value='" + value + '\'' +
             '}';
     }
