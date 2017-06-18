@@ -29,8 +29,7 @@
               <option value="">Select Employee</option>
               <option th:each="employee : ${employees}"
                       th:value="${employee.id}"
-                      th:text="${contract.employee != null} ? ${contract.employee.firstName} +
-                        ${contract.employee.lastName}: ${employee.firstName} + ${employee.lastName}">
+                      th:text="${employee.firstName} + ' ' + ${employee.lastName}">
               </option>
             </select>
           </div>

@@ -78,23 +78,6 @@ public class Contract implements Serializable {
     @Column(name = "closing_description")
     private String closingDescription;
 
-    public Contract() {
-    }
-
-    public Contract(LocalDate contractDate, Order order, Money price, PaymentType paymentType, LocalDate openContract, Employee employee, Money employeeRate, LocalDate datePayment, List<Invoice> invoices, LocalDate closeContract, CloseType closeType, String closingDescription) {
-        this.contractDate = contractDate;
-        this.order = order;
-        this.price = price;
-        this.paymentType = paymentType;
-        this.openContract = openContract;
-        this.employee = employee;
-        this.employeeRate = employeeRate;
-        this.datePayment = datePayment;
-        this.invoices = invoices;
-        this.closeContract = closeContract;
-        this.closeType = closeType;
-        this.closingDescription = closingDescription;
-    }
 
     public Long getId() {
         return id;
@@ -124,7 +107,7 @@ public class Contract implements Serializable {
         return price;
     }
 
-    public void setMoney(Money price) {
+    public void setPrice(Money price) {
         this.price = price;
     }
 
@@ -198,6 +181,30 @@ public class Contract implements Serializable {
 
     public void setClosingDescription(String closingDescription) {
         this.closingDescription = closingDescription;
+    }
+
+    @Override
+    public String toString() {
+        return "Contract{" +
+            "id=" + id +
+            ", contractDate=" + contractDate +
+            ", order=" + order +
+            '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contract contract = (Contract) o;
+
+        return getId() != null ? getId().equals(contract.getId()) : contract.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
     }
 
 }
