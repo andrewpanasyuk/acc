@@ -9,14 +9,11 @@ import ua.com.foxminded.accountingsystem.model.User;
 import ua.com.foxminded.accountingsystem.model.UserRole;
 import ua.com.foxminded.accountingsystem.repository.UserRepository;
 import ua.com.foxminded.accountingsystem.repository.UserRoleRepository;
-
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
                        UserRoleRepository userRoleRepository) {
@@ -24,15 +21,12 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userRoleRepository = userRoleRepository;
     }
-
     public List<User> findAll() {
         return userRepository.findAll();
     }
-
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
     public void create(User user) {
         user.setEnabled(true);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

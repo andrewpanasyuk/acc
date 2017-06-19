@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/fragments/head :: head">
+</head>
+<body>
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="container">
+  <div class="row">
+  </div>
+  <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+  <div class="col-md-10">
+    <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
+    <form class="form-horizontal" th:object="${employee}" th:action="@{/admin/employees/{id}(id=${employee.id})}" th:method="put">
+      <div class="form-group">
+        <input type="hidden" th:value="${employee.id}" id="id"/>
+          <div class="form-group" >
+            <label for="firstName"  >first name : </label>
+            <input th:field="*{firstName}" th:value="${employee.firstName}" name="firstName" id="firstName" type="text"
+                   class="form-control"   />
+          </div>
+          <div class="form-group" >
+            <label for="lastName" >last name : </label>
+            <input th:field="*{lastName}" th:value="${employee.lastName}" name="lastName" id="lastName" type="text"
+                   class="form-control"  />
+          </div>
+          <div class="form-group">
+            <label for="maxClients" >max load : </label>
+            <input required="required" th:field="*{maxClients}" name="maxClients" th:value="${employee.maxClients}"
+                   id="maxClients" type="text" class="form-control"/>
+          </div>
+            <div class="form-group"  name="extraFields" th:each="extraField, iterItem : *{extraFields}">
+              <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].id}"/>
+              <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employee}"/>
+              <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employeeField}"/>
+              <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employeeField.id}"/>
+              <label th:text="${extraField.employeeField.name}"></label>
+              <input th:field="*{extraFields[__${iterItem.index}__].value}" th:value="${extraField.value}" name="value"
+                     type="text" class="form-control"/>
+            </div>
+        <button type="submit" class="btn btn-primary">save</button>
+        <a th:href="@{/admin/employees}" class="btn btn-primary">back</a>
+      </div>
+    </form>
+    <div class="form-group" >
+    <form class="form-horizontal" th:action="@{/admin/employees/{id}(id=${employee.id})}" th:method="delete">
+      <button type="submit" class="btn btn-danger">delete</button>
+    </form>
+  </div>
+  </div>
+</div>
+</body>
+</html>

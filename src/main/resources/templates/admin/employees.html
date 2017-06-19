@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/fragments/head :: head">
+</head>
+<body>
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+      <div class="col-md-10">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Create
+          Employee
+        </button>
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create Employee</h4>
+              </div>
+              <div class="modal-body">
+                <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
+                <form th:action="@{/admin/employees/}" th:object="${employee}" method="post">
+                  <div class="form-group">
+                    <label th:for="firstName">employee first name : </label>
+                    <input required="true" type="text" th:field="*{firstName}" th:value="${employee.firstName}"
+                           id="firstName" name="firstName" class="form-control"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName">employee last name : </label>
+                    <input required="true" th:field="${employee.lastName}" th:value="${employee.lastName}"
+                           name="lastName" id="lastName" type="text" class="form-control"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="maxClients">employee max load : </label>
+                    <input required="required" th:field="${employee.maxClients}"
+                           id="maxClients" name="maxClients" type="text" class="form-control"/>
+                  </div>
+                  <button type="submit" class="btn btn-primary">save</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table data-toggle="table">
+          <thead>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!--/*@thymesVar id="emp" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
+          <tr th:each="emp : ${employees}">
+            <td>
+              <p th:text="${emp.id}">id</p>
+            </td>
+            <td>
+              <a th:href="@{'/admin/employees/'+${emp.id}}">
+                <span th:text="${emp.firstName} + ' ' +${emp.lastName}"></span>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
