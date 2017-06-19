@@ -1,3 +1,4 @@
+]
 INSERT INTO users (username, password, enabled, email) VALUES
     ('admin', '$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq', TRUE, 'admin@mail.com' ),
     ('user', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'user@mail.com' ),
@@ -18,7 +19,6 @@ INSERT INTO users (username, password, enabled, email) VALUES
     ('lebovskiy', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'lebovskiy@mail.com' ),
     ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com' );
 
-
 INSERT INTO user_role (id, role) VALUES
     (1, 'ADMIN'),
     (2, 'USER');
@@ -36,6 +36,23 @@ INSERT INTO users_user_role (username, role_id) VALUES
     ('igor', 2),
     ('lebovskiy', 2),
     ('artem', 2);
+
+INSERT INTO employee (id, first_name, last_name, max_clients) VALUES
+    (1, 'jack', 'jackson', 10),
+    (2, 'rob', 'robinson', 10),
+    (3, 'peter', 'peterson', 10);
+
+INSERT INTO employee_field (id, name) VALUES
+    (1, 'skype'),
+    (2, 'email');
+
+INSERT INTO employee_field_value (id, employee_id, employee_field_id, value) VALUES
+    (1, 1, 1, 'jackSkype'),
+    (2, 1, 2, NULL),
+    (3, 2, 1, 'robSkype'),
+    (4, 2, 2, 'rob@mail.com'),
+    (5, 3, 1, 'peterSkype'),
+    (6, 3, 2, 'peter@mail.com');
 
 INSERT INTO money (id, currency, price) VALUES
     (1, 'USD', 1000),
