@@ -91,7 +91,7 @@ public class Employee implements Serializable {
 
         Employee employee = (Employee) o;
 
-        if(id==null) return false;
+        if (id == null) return false;
         if (id != employee.id) return false;
         if (maxClients != employee.maxClients) return false;
         if (!firstName.equals(employee.firstName)) return false;
@@ -100,9 +100,7 @@ public class Employee implements Serializable {
 
     @Override
     public int hashCode() {
-        if(id==null){
-            return 31;
-        }
-        return id.hashCode();
+        return id != null ? id.hashCode() : 0;
     }
 }
+
