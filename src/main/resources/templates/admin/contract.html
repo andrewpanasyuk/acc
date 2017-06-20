@@ -10,12 +10,9 @@
       <div class="col-md-6">
         <form th:action="@{/admin/contracts}" th:object="${contract}" method="post">
           <input type="hidden" th:field="*{id}" />
-          <input type="hidden" th:field="*{order}"/>
           <div class="form-group">
             <a th:href="@{/admin/orders/{id}(id=${contract.order.id})}"
                th:text="'Order: ' + ${contract.order.orderName} + ' from ' + ${contract.order.openDate}" ></a>
-            <br/>
-            <br/>
             <br/>
             <label th:for="${#ids.next('contractDate')}">Contract Date</label>
             <input type="date" th:field="*{contractDate}" class="form-control"/><br/>
@@ -24,69 +21,33 @@
             <label th:for="${#ids.next('paymentType')}">Payment type</label>
             <select th:field = "*{paymentType}" class="form-control">
               <option value="">Select payment type</option>
-              <option th:each="paymentTypeValue : ${T(ua.com.foxminded.accountingsystem.model.PaymentType).values()}"
+              <option th:each="paymentTypeValue : ${paymentTypeValues}"
                       th:value="${paymentTypeValue}"
                       th:text="${paymentTypeValue}"/>
             </select>
-            <output th:if="${#fields.hasErrors('paymentType')}" th:errors="*{paymentType}" class="text-danger">Payment Type
-              Error
-            </output>
           </div>
           <div class="form-group">
-            <label th:for="${#ids.next('openDate')}">Date of opening contract</label>
-            <input type="date" th:field="*{openDate}" class="form-control"/><br/>
-            <label th:for="${#ids.next('paymentDate')}">Payment date</label>
-            <input type="date" th:field="*{paymentDate}" class="form-control"/><br/>
-            <label th:for="${#ids.next('price')}">Price</label>
-            <div th:id="price">
-              <div class="col-sm-8">
-                <input th:value="*{price.price > 0} ? *{price.price}"
-                       th:id="*{'price.price'}" th:name="*{'price.price'}"
-                       type="number" class="form-control" required="required" min="0" max="2147483647"/>
-                <input type="hidden" th:field="*{price.id}"/>
-              </div>
-              <div class="col-sm-4">
-                <select th:field="*{price.currency}" class="form-control">
-                  <option th:each="currencyTypeValue : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
-                          th:value="${currencyTypeValue}"
-                          th:text="${currencyTypeValue}"/>
-                </select>
-              </div>
-            </div>
-            <output th:if="${#fields.hasErrors('price')}" th:errors="${contract.price}" class="text-danger">Price
-              Error
-            </output>
+            <label th:for="${#ids.next('openContract')}">Date of opening contract</label>
+            <input type="date" th:field="*{openContract}" class="form-control"/><br/>
+            <label th:for="${#ids.next('datePayment')}">Paymet date</label>
+            <input type="date" th:field="*{datePayment}" class="form-control"/><br/>
           </div>
           <div class="form-group">
-            <label th:for="${#ids.next('employee')}">Employee</label>
-            <select th:field="*{employee}" class="form-control">
+            <select th:field="${contract.employee}" class="form-control">
               <option value="">Select Employee</option>
               <option th:each="employee : ${employees}"
                       th:value="${employee.id}"
                       th:text="${employee.firstName} + ' ' + ${employee.lastName}">
               </option>
             </select>
-            <output th:if="${#fields.hasErrors('employee')}" th:errors="*{employee}" class="text-danger">Employee
-              Error
-            </output>
-            <label th:for="${#ids.next('employeeRate.price')}"
-                   th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
-            <output th:if="${#fields.hasErrors('employeeRate.price')}" th:errors="*{employeeRate.price}"
-                    class="text-danger">Employee rate error
-            </output>
-            <input th:value="*{employeeRate.price > 0} ? *{employeeRate.price}"
-                   th:id="*{'employeeRate.price'}" th:name="*{'employeeRate.price'}"
-                   type="number" class="form-control" required="required" min="0" max="2147483647"/>
-            <input type="hidden" th:field="*{employeeRate.id}"/>
-            <input type="hidden" th:field="*{employeeRate.currency}"/>
           </div>
           <div class="form-group">
-            <label th:for="${#ids.next('closeDate')}">Date of closing contract</label>
-            <input type="date" th:field="*{closeDate}" class="form-control"/><br/>
+            <label th:for="${#ids.next('closeContract')}">Date of closing contract</label>
+            <input type="date" th:field="*{closeContract}" class="form-control"/><br/>
             <label th:for="${#ids.next('closeType')}">Close type</label>
             <select th:field = "*{closeType}" class="form-control">
               <option value="">Close contract (select type of closing)</option>
-              <option th:each="closeTypeValue : ${T(ua.com.foxminded.accountingsystem.model.CloseType).values()}"
+              <option th:each="closeTypeValue : ${closeTypeValues}"
                       th:value="${closeTypeValue}"
                       th:text="${closeTypeValue}"/>
             </select>
