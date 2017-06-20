@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ua.com.foxminded.accountingsystem.model.CloseType;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
+import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.time.LocalDate;
 
@@ -25,11 +29,14 @@ public class AdminContractController {
 
     private final ContractService contractService;
     private final EmployeeService employeeService;
+    private final OrderService orderService;
+
 
     @Autowired
-    public AdminContractController(ContractService contractService, EmployeeService employeeService) {
+    public AdminContractController(ContractService contractService, EmployeeService employeeService, OrderService orderService) {
         this.contractService = contractService;
         this.employeeService = employeeService;
+        this.orderService = orderService;
     }
 
     @GetMapping
@@ -50,6 +57,7 @@ public class AdminContractController {
     public String getContract(@PathVariable Long id, Model model) {
         model.addAttribute("contract", contractService.findOne(id));
         model.addAttribute("paymentTypeValues", PaymentType.values());
+        model.addAttribute("closeTypeValues", CloseType.values());
         model.addAttribute("employees", employeeService.findAll());
         return "admin/contract";
     }
@@ -61,11 +69,14 @@ public class AdminContractController {
     }
 
     @GetMapping("/new")
-    public String newContract(Model model){
+    public String newContract(@RequestParam long orderId, Model model){
         Contract contract = new Contract();
+        Order order = orderService.findOne(orderId);
+        contract.setOrder(order);
         contract.setContractDate(LocalDate.now());
         model.addAttribute("contract", contract);
         model.addAttribute("paymentTypeValues", PaymentType.values());
+        model.addAttribute("closeTypeValues", CloseType.values());
         model.addAttribute("employees", employeeService.findAll());
         return "admin/contract";
     }
