@@ -55,10 +55,9 @@ public class AdminContractController {
 
     @GetMapping("/{id}")
     public String getContract(@PathVariable Long id, Model model) {
-        model.addAttribute("contract", contractService.findOne(id));
-        model.addAttribute("paymentTypeValues", PaymentType.values());
-        model.addAttribute("closeTypeValues", CloseType.values());
-        model.addAttribute("employees", employeeService.findAll());
+        model
+            .addAttribute("contract", contractService.findOne(id))
+            .addAttribute("employees", employeeService.findAll());
         return "admin/contract";
     }
 
@@ -74,10 +73,9 @@ public class AdminContractController {
         Order order = orderService.findOne(orderId);
         contract.setOrder(order);
         contract.setContractDate(LocalDate.now());
-        model.addAttribute("contract", contract);
-        model.addAttribute("paymentTypeValues", PaymentType.values());
-        model.addAttribute("closeTypeValues", CloseType.values());
-        model.addAttribute("employees", employeeService.findAll());
+        model
+            .addAttribute("contract", contract)
+            .addAttribute("employees", employeeService.findAll());
         return "admin/contract";
     }
 
