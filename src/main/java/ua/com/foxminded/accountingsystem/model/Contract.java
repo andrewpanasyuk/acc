@@ -21,10 +21,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "contracts")
+@Table(name = "contract")
 public class Contract implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_sequence")
@@ -48,8 +48,8 @@ public class Contract implements Serializable {
     private PaymentType paymentType;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "open_contract")
-    private LocalDate openContract;
+    @Column(name = "open_date")
+    private LocalDate openDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
@@ -60,16 +60,16 @@ public class Contract implements Serializable {
     private Money employeeRate;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "date_payment")
-    private LocalDate datePayment;
+    @Column(name = "payment_date")
+    private LocalDate paymentDate;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id")
     private List<Invoice> invoices;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "close_contract")
-    private LocalDate closeContract;
+    @Column(name = "close_date")
+    private LocalDate closeDate;
 
     @Column(name = "close_type")
     @Enumerated(EnumType.STRING)
@@ -119,12 +119,12 @@ public class Contract implements Serializable {
         this.paymentType = paymentType;
     }
 
-    public LocalDate getOpenContract() {
-        return openContract;
+    public LocalDate getOpenDate() {
+        return openDate;
     }
 
-    public void setOpenContract(LocalDate openContract) {
-        this.openContract = openContract;
+    public void setOpenDate(LocalDate openDate) {
+        this.openDate = openDate;
     }
 
     public Employee getEmployee() {
@@ -143,12 +143,12 @@ public class Contract implements Serializable {
         this.employeeRate = employeeRate;
     }
 
-    public LocalDate getDatePayment() {
-        return datePayment;
+    public LocalDate getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setDatePayment(LocalDate datePayment) {
-        this.datePayment = datePayment;
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public List<Invoice> getInvoices() {
@@ -159,12 +159,12 @@ public class Contract implements Serializable {
         this.invoices = invoices;
     }
 
-    public LocalDate getCloseContract() {
-        return closeContract;
+    public LocalDate getCloseDate() {
+        return closeDate;
     }
 
-    public void setCloseContract(LocalDate closeContract) {
-        this.closeContract = closeContract;
+    public void setCloseDate(LocalDate closeDate) {
+        this.closeDate = closeDate;
     }
 
     public CloseType getCloseType() {
@@ -199,12 +199,11 @@ public class Contract implements Serializable {
 
         Contract contract = (Contract) o;
 
-        return getId() != null ? getId().equals(contract.getId()) : contract.getId() == null;
+        return id != null ? id.equals(contract.id) : contract.id == null;
     }
 
     @Override
     public int hashCode() {
-        return getId() != null ? getId().hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
-
 }
