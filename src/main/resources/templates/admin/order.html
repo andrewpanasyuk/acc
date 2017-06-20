@@ -97,6 +97,7 @@
                      th:field="${order.closeDate}"/><br/>
             </div>
           </div>
+          <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}"  type="submit" class="btn btn-primary" >New contract</a>
           <button type="submit" id="submit" class="btn btn-primary">Save</button>
         </form>
         <form th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">

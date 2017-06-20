@@ -11,18 +11,26 @@
         <form th:action="@{/admin/contracts}" th:object="${contract}" method="post">
           <input type="hidden" th:field="*{id}" />
           <div class="form-group">
+            <a th:href="@{/admin/orders/{id}(id=${contract.order.id})}"
+               th:text="'Order: ' + ${contract.order.orderName} + ' from ' + ${contract.order.openDate}" ></a>
+            <br/>
+            <label th:for="${#ids.next('contractDate')}">Contract Date</label>
+            <input type="date" th:field="*{contractDate}" class="form-control"/><br/>
+          </div>
+          <div class="form-group">
             <label th:for="${#ids.next('paymentType')}">Payment type</label>
             <select th:field = "*{paymentType}" class="form-control">
+              <option value="">Select payment type</option>
               <option th:each="paymentTypeValue : ${paymentTypeValues}"
-                th:value="${paymentTypeValue}"
-                th:text="${paymentTypeValue}"/>
+                      th:value="${paymentTypeValue}"
+                      th:text="${paymentTypeValue}"/>
             </select>
           </div>
           <div class="form-group">
-            <label th:for="${#ids.next('contractDate')}">Contract Date</label>
-            <input type="date" th:field="*{contractDate}" class="form-control"/><br/>
-            <a th:href="@{/admin/orders/{id}(id=${contract.order.id})}"
-             th:text="'Order: ' + ${contract.order.orderName} + ' from ' + ${contract.order.openDate}" ></a>
+            <label th:for="${#ids.next('openContract')}">Date of opening contract</label>
+            <input type="date" th:field="*{openContract}" class="form-control"/><br/>
+            <label th:for="${#ids.next('datePayment')}">Paymet date</label>
+            <input type="date" th:field="*{datePayment}" class="form-control"/><br/>
           </div>
           <div class="form-group">
             <select th:field="${contract.employee}" class="form-control">
@@ -31,6 +39,17 @@
                       th:value="${employee.id}"
                       th:text="${employee.firstName} + ' ' + ${employee.lastName}">
               </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label th:for="${#ids.next('closeContract')}">Date of closing contract</label>
+            <input type="date" th:field="*{closeContract}" class="form-control"/><br/>
+            <label th:for="${#ids.next('closeType')}">Close type</label>
+            <select th:field = "*{closeType}" class="form-control">
+              <option value="">Close contract (select type of closing)</option>
+              <option th:each="closeTypeValue : ${closeTypeValues}"
+                      th:value="${closeTypeValue}"
+                      th:text="${closeTypeValue}"/>
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Save</button>
