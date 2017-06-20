@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AdminEmployeeConrollerTest {
+public class AdminEmployeeControllerTest {
 
 
     @Autowired
@@ -50,14 +50,6 @@ public class AdminEmployeeConrollerTest {
 
     }
 
-//    @Test
-//    public void getEmployeeOnWeb() throws Exception {
-//            this.mockMvc.perform(get("/admin/employees/{1}",1).accept(
-//            MediaType.parseMediaType("text/html;charset=UTF-8")))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType("text/html;charset=UTF-8"));
-//
-//    }
 
     @Test
     public void saveEmployeeOnWeb() throws Exception {
