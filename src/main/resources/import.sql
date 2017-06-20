@@ -93,27 +93,6 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, queuing_date, 
     (8, 1, 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
     (9, 2, 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);
 
-INSERT INTO employees(id, first_name, last_name) VALUES
-    (1, 'Ivan', 'Ivanov'),
-    (2, 'Petr', 'Petrov'),
-    (3, 'Obi van', 'Kenobi');
-
 INSERT INTO contracts(id, contract_date,  order_id, employee_id, payment_type) VALUES
     (1, '2017-06-01', 1, 1, 'PREPAYMENT'),
     (2, '2017-06-10',  2, 2, 'DELAY');
-
-INSERT INTO employee(id,first_name,last_name,max_load) VALUES
-(1,'jack', 'jackson',10),
-(2,'rob', 'robinson',10),
-(3,'peter', 'peterson',10);
-
-INSERT INTO  employee_field(id, field_name) VALUES
-(1,'skype'),
-(2, 'email');
-INSERT INTO  employee_field_value(id,employee_fk,employee_field_fk,field_value) VALUES
-(1,1,1, 'jackSkype'),
-(2,1,2, NULL ),
-(3,2,1, 'robSkype'),
-(4,2,2, 'rob@mail.com'),
-(5,3,1, 'peterSkype'),
-(6,3,2,'peter@mail.com');
