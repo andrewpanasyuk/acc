@@ -2,14 +2,11 @@ package ua.com.foxminded.accountingsystem.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -27,9 +24,6 @@ public class Invoice implements Serializable {
     @Column(name = "creation_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate creationDate;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Money money;
 
     @Column(name = "period_from")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -57,14 +51,6 @@ public class Invoice implements Serializable {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public Money getSum() {
-        return money;
-    }
-
-    public void setSum(Money money) {
-        this.money = money;
     }
 
     public LocalDate getPaymentPeriodFrom() {
@@ -97,7 +83,6 @@ public class Invoice implements Serializable {
         if (!(o instanceof Invoice)) return false;
         Invoice invoice = (Invoice) o;
         return (this.creationDate.equals(((Invoice) o).creationDate)) &&
-            (this.money.equals(((Invoice) o).money)) &&
             (this.paymentPeriodFrom.equals(((Invoice) o).paymentPeriodFrom)) &&
             (this.paymentPeriodTo.equals(((Invoice) o).paymentPeriodTo)) &&
             (this.isEmployeePayment.equals(((Invoice) o).isEmployeePayment));
@@ -105,13 +90,11 @@ public class Invoice implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + money.hashCode();
-        result = 31 * result + creationDate.hashCode();
-        result = 31 * result + paymentPeriodFrom.hashCode();
-        result = 31 * result + paymentPeriodTo.hashCode();
-        result = 31 * result + (isEmployeePayment ? 31 : 0);
-        return result;
+        if (id == null) {
+            return 31;
+        }
+        return id.hashCode();
+
     }
 
     @Override
@@ -119,7 +102,6 @@ public class Invoice implements Serializable {
         return "Invoice{" +
             "id=" + id +
             ", creationDate=" + creationDate +
-            ", money=" + money +
             ", paymentPeriodFrom=" + paymentPeriodFrom +
             ", paymentPeriodTo=" + paymentPeriodTo +
             ", isEmployeePayment=" + isEmployeePayment +

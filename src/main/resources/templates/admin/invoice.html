@@ -7,7 +7,6 @@
   <div class="container">
     <div class="row">
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-
       <div class="col-md-6">
         <!--<label>Contract: </label>-->
         <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
@@ -19,27 +18,36 @@
 
 
           <label>Creation date:</label>
-          <input type="date" th:value="${#temporals.format(invoice.creationDate, 'yyyy-MM-dd')}"
+
+          <input type="date"
+                 th:value="${invoice.creationDate != null} ? ${#temporals.format(invoice.creationDate, 'yyyy-MM-dd')} : ''"
                  th:field="${invoice.creationDate}"/>
           <br/>
 
           <label>Employee payment: </label>
           <output type="text" rows="1" th:value="${invoice.id}"/>
+
           <textarea rows="1" class="form-control" th:field="${invoice.isEmployeePayment}"
                     th:text="${invoice.isEmployeePayment}"/>
           <br/>
 
           <label>Payment period from:</label>
-          <input type="date" th:value="${#temporals.format(invoice.paymentPeriodFrom, 'yyyy-MM-dd')}"
+
+          <input type="date"
+                 th:value="${invoice.paymentPeriodFrom != null} ? ${#temporals.format(invoice.paymentPeriodFrom, 'yyyy-MM-dd')} : ''"
                  th:field="${invoice.paymentPeriodFrom}"/><br/>
 
           <label>Payment period to :</label>
-          <input type="date" th:value="${#temporals.format(invoice.paymentPeriodTo, 'yyyy-MM-dd')}"
+
+          <input type="date"
+                 th:value="${invoice.paymentPeriodTo != null} ? ${#temporals.format(invoice.paymentPeriodTo, 'yyyy-MM-dd')} : ''"
                  th:field="${invoice.paymentPeriodTo}"/><br/>
 
 
           <button type="submit" id="submit" class="btn btn-primary">Save</button>
-          <button th:formaction="@{/admin/invoices/remove}" class="btn btn-primary">Remove</button>
+        </form>
+        <form th:action="@{/admin/invoices/{id} (id=${invoice.id})}" th:method="delete">
+          <button type="submit" class="btn btn-primary">Remove</button>
         </form>
       </div>
     </div>

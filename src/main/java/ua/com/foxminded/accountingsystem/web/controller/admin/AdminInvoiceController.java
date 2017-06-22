@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -36,7 +35,7 @@ public class AdminInvoiceController {
     @GetMapping(value = "/{id}")
     public String getInvoiceById(@PathVariable long id, Model model) {
         Invoice invoice = invoiceService.findById(id);
-        model.addAttribute("localDate", LocalDate.now())
+        model
             .addAttribute("invoice", invoice);
         return "admin/invoice";
     }
