@@ -21,7 +21,7 @@ public class ClientFieldValue implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_field_value_sequence")
     @SequenceGenerator(name = "client_field_value_sequence", sequenceName = "client_field_value_sequence",
         initialValue = 50)
-    private long id;
+    private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name="client_field_id")
@@ -34,11 +34,11 @@ public class ClientFieldValue implements Serializable{
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
