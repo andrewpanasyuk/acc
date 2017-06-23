@@ -100,16 +100,19 @@
         </form>
         <form id="deleteOrder" th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">
         </form>
-        <div class="btn-group col-md-8 col-sm-6 col-xs-4" role="group">
+        <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group">
           <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
         </div>
-        <div class="pull-right col-md-4 col-sm-6 col-xs-8">
+        <div class="pull-right col-md-6 col-sm-3 col-xs-12">
           <div class="btn-group btn-group-justified" role="group">
             <div class="btn-group" role="group">
               <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
             </div>
             <div class="btn-group" role="group">
               <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
+            </div>
+            <div class="btn-group" role="group">
+              <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary" >New contract</a>
             </div>
           </div>
         </div>
