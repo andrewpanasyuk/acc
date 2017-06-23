@@ -44,13 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-                .antMatchers("/admin").hasAuthority("ADMIN")
-                .antMatchers("/user").authenticated()
-                .antMatchers("/**").permitAll()
-                .anyRequest().authenticated()
+            .antMatchers("/admin/**").hasAuthority("ADMIN")
+            .antMatchers("/user/**").authenticated()
+            .antMatchers("/**").permitAll()
+            .anyRequest().authenticated()
             .and()
                 .formLogin()
-                    .loginPage("/login")
+                    .loginPage("/")
                     .loginProcessingUrl("/login")
                     .usernameParameter("username")
                     .passwordParameter("password")

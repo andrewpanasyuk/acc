@@ -25,6 +25,7 @@ public class ServiceService {
     }
 
     public Service save(Service service){
+        log.debug("Save service to db: "+service);
         return repository.save(service);
     }
 
