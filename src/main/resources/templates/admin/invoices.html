@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/fragments/head :: head">
+</head>
+<body>
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+      <div class="col-md-10">
+        <table data-toggle="table">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Invoice</th>
+            <th>Creation date</th>
+            <th>Employee payment</th>
+            <th>Date from</th>
+            <th>Date to</th>
+          </tr>
+          </thead>
+          <tbody th:remove="all-but-first">
+          <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
+          <tr th:each="invoice : ${invoices}">
+            <td th:text="${invoice.id}"></td>
+            <td>
+              <a th:href="@{/admin/invoices/{id} (id = ${invoice.id})}">Invoice</a>
+            </td>
+            <td th:text="${invoice.creationDate}"></td>
+            <td th:text="${invoice.isEmployeePayment}"></td>
+            <td th:text="${invoice.paymentPeriodFrom}"></td>
+            <td th:text="${invoice.paymentPeriodTo}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
