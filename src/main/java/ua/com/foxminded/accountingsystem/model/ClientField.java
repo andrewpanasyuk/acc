@@ -17,16 +17,16 @@ public class ClientField implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_field_sequence")
     @SequenceGenerator(name = "client_field_sequence", sequenceName = "client_field_sequence", initialValue = 50)
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
