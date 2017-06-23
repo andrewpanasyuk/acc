@@ -93,6 +93,6 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, queuing_date, 
     (8, 1, 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
     (9, 2, 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);
 
-INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type) VALUES
-    (1, '2017-06-01', 1, 1, 'PREPAYMENT'),
-    (2, '2017-06-10',  2, 2, 'DELAY');
+INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type, price_id, employee_rate_id) VALUES
+    (1, '2017-06-01', 1, 1, 'PREPAYMENT', 5, 2),
+    (2, '2017-06-10',  2, 2, 'DELAY', 5, 2);
