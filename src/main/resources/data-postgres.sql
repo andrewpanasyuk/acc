@@ -104,3 +104,7 @@ INSERT INTO invoice (id, creation_date, employee_payment, period_from, period_to
     (6, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
     (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
     (8, '2000-01-01', TRUE, '2000-01-01', '2000-01-01');
+
+INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type, price_id, employee_rate_id) VALUES
+    (1, '2017-06-01', 1, 1, 'PREPAYMENT', 5, 2),
+    (2, '2017-06-10',  2, 2, 'DELAY', 5, 2);
