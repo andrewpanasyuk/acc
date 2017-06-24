@@ -24,6 +24,11 @@ public class ClientServiceJPA implements ClientService {
     }
 
     @Override
+    public void delete(Long id) {
+        clientRepository.delete(id);
+    }
+
+    @Override
     public Client save(Client client) {
         return clientRepository.save(client);
     }

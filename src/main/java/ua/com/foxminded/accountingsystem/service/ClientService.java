@@ -8,6 +8,8 @@ public interface ClientService {
 
     void delete(Client client);
 
+    void delete(Long id);
+
     Client save(Client client);
 
     Client findOne(Long id);
