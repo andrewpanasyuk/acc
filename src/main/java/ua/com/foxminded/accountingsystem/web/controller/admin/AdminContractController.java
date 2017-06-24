@@ -68,9 +68,7 @@ public class AdminContractController {
 
     @GetMapping("/new")
     public String newContract(@RequestParam long orderId, Model model){
-        Order order = orderService.findOne(orderId);
-
-        Contract contract = contractService.create(order);
+        Contract contract = contractService.returnNew(orderId);
 
         model
             .addAttribute("contract", contract)

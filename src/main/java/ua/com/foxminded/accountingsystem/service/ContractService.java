@@ -16,6 +16,6 @@ public interface ContractService {
 
     Contract save(Contract contract);
 
-    Contract create(Order order);
+    Contract returnNew(Long orderId);
 
 }

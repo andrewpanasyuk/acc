@@ -70,7 +70,7 @@ public class Contract implements Serializable {
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id")
     private List<Invoice> invoices;
 

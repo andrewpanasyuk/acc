@@ -1,4 +1,4 @@
-package ua.com.foxminded.accountingsystem.service;
+package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,18 +7,23 @@ import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
+import ua.com.foxminded.accountingsystem.service.ContractService;
+import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class ContractServiceImpl implements ContractService {
+public class ContractServiceJPA implements ContractService {
 
     private final ContractRepository contractRepository;
+    private final OrderService orderService;
+
 
     @Autowired
-    public ContractServiceImpl(ContractRepository contractRepository) {
+    public ContractServiceJPA(ContractRepository contractRepository, OrderService orderService) {
         this.contractRepository = contractRepository;
+        this.orderService = orderService;
     }
 
 
@@ -44,7 +49,9 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public Contract create(Order order){
+    public Contract returnNew(Long orderId){
+
+        Order order = orderService.findOne(orderId);
 
         Contract contract = new Contract();
 
