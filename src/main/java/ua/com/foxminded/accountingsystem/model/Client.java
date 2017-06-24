@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "client")
-public class Client implements Serializable{
+public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,14 +29,11 @@ public class Client implements Serializable{
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClientFieldValue> extraFields;
-
-    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
-    private PersonalAccount personalAccount;
 
     public List<Order> getOrders() {
         return orders;
@@ -47,12 +43,12 @@ public class Client implements Serializable{
         this.orders = orders;
     }
 
-    public void addOrder(Order order){
+    public void addOrder(Order order) {
         orders.add(order);
         order.setClient(this);
     }
 
-    public void removeOrder(Order order){
+    public void removeOrder(Order order) {
         orders.remove(order);
         order.setClient(null);
     }
@@ -89,23 +85,14 @@ public class Client implements Serializable{
         this.extraFields = extraFields;
     }
 
-    public void addClientFieldValue(ClientFieldValue clientFieldValue){
+    public void addClientFieldValue(ClientFieldValue clientFieldValue) {
         extraFields.add(clientFieldValue);
         clientFieldValue.setClient(this);
     }
 
-    public void removeClientFieldValue(ClientFieldValue clientFieldValue){
+    public void removeClientFieldValue(ClientFieldValue clientFieldValue) {
         extraFields.remove(clientFieldValue);
         clientFieldValue.setClient(null);
-    }
-
-    public PersonalAccount getPersonalAccount() {
-        return personalAccount;
-    }
-
-    public void setPersonalAccount(PersonalAccount personalAccount) {
-        this.personalAccount = personalAccount;
-        personalAccount.setClient(this);
     }
 
     @Override
@@ -120,7 +107,7 @@ public class Client implements Serializable{
 
     @Override
     public int hashCode() {
-        if(id==null){
+        if (id == null) {
             return 31;
         }
         return id.hashCode();
