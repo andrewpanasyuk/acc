@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Contract;
-import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
-import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import javax.validation.Valid;
 
@@ -24,14 +22,12 @@ public class AdminContractController {
 
     private final ContractService contractService;
     private final EmployeeService employeeService;
-    private final OrderService orderService;
 
 
     @Autowired
-    public AdminContractController(ContractService contractService, EmployeeService employeeService, OrderService orderService) {
+    public AdminContractController(ContractService contractService, EmployeeService employeeService) {
         this.contractService = contractService;
         this.employeeService = employeeService;
-        this.orderService = orderService;
     }
 
     @GetMapping
