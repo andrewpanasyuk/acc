@@ -3,13 +3,14 @@ package ua.com.foxminded.accountingsystem.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Currency;
+import ua.com.foxminded.accountingsystem.model.Money;
+import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Created by Dmytro Kushnir on 03.06.17.
- */
 @Service
 public class ContractServiceImpl implements ContractService {
 
@@ -41,4 +42,32 @@ public class ContractServiceImpl implements ContractService {
     public Contract save(Contract contract) {
         return contractRepository.save(contract);
     }
+
+    @Override
+    public Contract create(Order order){
+
+        Contract contract = new Contract();
+
+        Money employeeRate = new Money();
+        employeeRate.setPrice(order.getService().getEmployeeRate().getPrice());
+        employeeRate.setCurrency(Currency.UAH);
+
+        Money price = new Money();
+        for (Money curPrice: order.getService().getPrices()) {
+            if (curPrice.getCurrency() == Currency.UAH){
+                price.setPrice(curPrice.getPrice());
+            }
+        }
+        price.setCurrency(Currency.UAH);
+
+        contract.setOrder(order);
+        contract.setContractDate(LocalDate.now());
+        contract.setEmployeeRate(employeeRate);
+        contract.setPrice(price);
+
+        return contract;
+
+    }
 }
+
+
