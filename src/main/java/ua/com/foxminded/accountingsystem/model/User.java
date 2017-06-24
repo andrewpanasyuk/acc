@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "users")
+@Table(name = "fm_users")
 public class User {
     @Id
     @Column(name = "username", unique = true, nullable = false, length = 30)
@@ -33,7 +33,7 @@ public class User {
         CascadeType.PERSIST,
         CascadeType.MERGE
     })
-    @JoinTable(name = "users_user_role",
+    @JoinTable(name = "fm_users_user_role",
         joinColumns = @JoinColumn(name = "username"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<UserRole> userRoles = new HashSet<>();
