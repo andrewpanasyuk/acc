@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.ClientField;
 import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
+import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.repository.ClientFieldRepository;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
@@ -34,7 +35,13 @@ public class AdminClientController {
     }
 
     @PutMapping
-    public String update(@ModelAttribute Client client) {
+    public String create(@ModelAttribute Client client) {
+        clientService.save(client);
+        return "redirect:/admin/clients";
+    }
+
+    @PutMapping(value = "{id}")
+    public String update(@PathVariable long id, @ModelAttribute("client") Client client) {
         clientService.save(client);
         return "redirect:/admin/clients";
     }
@@ -54,15 +61,6 @@ public class AdminClientController {
     @GetMapping(value = "/create")
     public String addClient(Model model) {
         Client client = new Client();
-
-        List<ClientField> clientFields = clientFieldService.findAll();
-        client.setExtraFields(new ArrayList<>());
-        for(ClientField clientField: clientFields){
-            ClientFieldValue clientFieldValue = new ClientFieldValue();
-            clientFieldValue.setClientField(clientField);
-            client.addClientFieldValue(clientFieldValue);
-        }
-
         model.addAttribute("client", client);
         return "admin/client";
     }
