@@ -45,7 +45,7 @@ public class UserRepositoryTest extends AbstractRepositoryTest<UserRepository> {
     }
 
     @Test
-    @DataSet(value = "users/stored-users.xml")
+    @DataSet(value = "users/stored-services.xml")
     public void userCanBeFoundByDifferentMethods() {
         assertThat(repository.findAll(), hasItems(admin, user));
         assertThat(repository.findOne(admin.getUsername()), samePropertyValuesAs(admin));
@@ -55,7 +55,7 @@ public class UserRepositoryTest extends AbstractRepositoryTest<UserRepository> {
     }
 
     @Test
-    @DataSet(value = "users/stored-users.xml")
+    @DataSet(value = "users/stored-services.xml")
     public void ifNoUserFoundReturnNull() {
         assertThat(repository.findOne("NoSuchUsername"), nullValue());
     }
@@ -68,7 +68,7 @@ public class UserRepositoryTest extends AbstractRepositoryTest<UserRepository> {
 
     @Test
     @Commit
-    @DataSet(value = "users/stored-users.xml")
+    @DataSet(value = "users/stored-services.xml")
     @ExpectedDataSet("users/expected-users.xml")
     public void shouldDeleteByEntity() {
         repository.delete(user);
@@ -76,7 +76,7 @@ public class UserRepositoryTest extends AbstractRepositoryTest<UserRepository> {
 
     @Test
     @Commit
-    @DataSet(value = "users/stored-users.xml")
+    @DataSet(value = "users/stored-services.xml")
     @ExpectedDataSet("users/expected-users.xml")
     public void shouldDeleteById() {
         repository.delete(user.getUsername());

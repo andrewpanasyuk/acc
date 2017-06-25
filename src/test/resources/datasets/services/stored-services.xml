@@ -1,0 +1,6 @@
+<dataset>
+    <MONEY id="1" currency="UAH" price="1000" />
+    <MONEY id="2" currency="UAH" price="2000" />
+    <SERVICE id="1" service_name="java test" description="java description" employee_rate_id="1" />
+    <SERVICE id="2" service_name="javascript test" description="javascript description" employee_rate_id="2" />
+</dataset>
