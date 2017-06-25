@@ -38,7 +38,7 @@
 
                 <option th:each="service : ${services}"
                         th:value="${service.id}"
-                        th:text="${order.service != null} ? ${order.service.name} : ${service.name}"></option>
+                        th:text="${service.name}"></option>
               </select>
               <output th:if="${#fields.hasErrors('service')}" th:errors="${order.service}" class="text-danger">Name
                 Error
