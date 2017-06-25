@@ -65,6 +65,13 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
 
     @Test
     @Commit
+    @DataSet(value = "services/stored-services.xml", cleanAfter = true)
+    public void ifServiceNotFoundByIdReturnNull() {
+        assertThat(repository.findOne(10L), nullValue());
+    }
+
+    @Test
+    @Commit
     @DataSet(value = "services/stored-services.xml")
     @ExpectedDataSet("services/expected-services.xml")
     public void deleteServiceById() {
