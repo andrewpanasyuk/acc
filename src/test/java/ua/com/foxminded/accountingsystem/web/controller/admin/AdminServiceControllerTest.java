@@ -1,11 +1,10 @@
-package ua.com.foxminded.accountingsystem.web;
+package ua.com.foxminded.accountingsystem.web.controller.admin;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -13,7 +12,6 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
-import ua.com.foxminded.accountingsystem.web.controller.admin.AdminServiceController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +23,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-public class ServiceControllerTest {
+public class AdminServiceControllerTest {
 
     @Mock
     private ServiceService serviceService;
