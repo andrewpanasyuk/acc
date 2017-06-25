@@ -21,14 +21,14 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
         service.setName("java test");
         service.getEmployeeRate().setCurrency(Currency.UAH);
         Money money = new Money();
-        money.setCurrency(Currency.EUR);
+        money.setCurrency(Currency.UAH);
         service.getPrices().add(money);
         service.setDescription("java description");
     }
 
     @Test
     @Commit
-    @DataSet(value = "services/empty.xml")
+    @DataSet(value = "services/empty.xml", cleanBefore = true)
     @ExpectedDataSet("services/expected-services.xml")
     public void addService() {
         repository.save(service);
@@ -48,21 +48,12 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
         assertEquals("java test", repository.findOne(1L).getName());
     }
 
+    @Test
+    @Commit
+    @DataSet(value = "services/stored-services.xml")
+    @ExpectedDataSet("services/expected-services.xml")
+    public void deleteServiceById() {
+        repository.delete(2L);
+    }
 
-
-//    @Test
-//    public void testFindAll(){
-//        assertEquals(2, repository.findAll().size());
-//    }
-//
-//    @Test
-//    public void testFindOne(){
-//        assertEquals("java", repository.findOne(1L).getName());
-//    }
-//
-//    @Test
-//    public void testSave(){
-//        repository.save(service);
-//        assertEquals(3, repository.findAll().size());
-//    }
 }
