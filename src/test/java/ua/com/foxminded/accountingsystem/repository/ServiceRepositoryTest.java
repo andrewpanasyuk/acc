@@ -4,25 +4,14 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Commit;
-import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
 
-import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
-
-@RunWith(SpringRunner.class)
-@DataJpaTest
 public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceRepository> {
-
-//    @Autowired
-//    private ServiceRepository repository;
 
     private static Service service;
 
