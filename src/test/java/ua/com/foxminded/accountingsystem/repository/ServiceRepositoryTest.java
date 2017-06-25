@@ -9,6 +9,8 @@ import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 
 public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceRepository> {
@@ -46,6 +48,13 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
     @DataSet(value = "services/stored-services.xml", cleanAfter = true)
     public void testFindOneServiceById() {
         assertEquals("java test", repository.findOne(1L).getName());
+    }
+
+    @Test
+    @Commit
+    @DataSet(value = "services/stored-services.xml", cleanAfter = true)
+    public void ifServiceNotFoundByIdReturnNull() {
+        assertThat(repository.findOne(10L), nullValue());
     }
 
     @Test
