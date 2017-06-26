@@ -48,7 +48,9 @@ public class AdminOrderController {
     @GetMapping
     public String getAllOrders(Model model) {
         List<Order> orders = orderService.findAll();
-        model.addAttribute("orders", orders);
+        model
+            .addAttribute("title", "Orders")
+            .addAttribute("orders", orders);
         return "admin/orders";
     }
 
@@ -57,6 +59,7 @@ public class AdminOrderController {
                        Model model) {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
+            .addAttribute("title", "Order: " + order.getId())
             .addAttribute("localDate", LocalDate.now())
             .addAttribute("services", service.findAll());
         return "admin/order";
