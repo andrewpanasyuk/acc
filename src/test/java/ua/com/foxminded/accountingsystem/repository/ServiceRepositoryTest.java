@@ -37,21 +37,18 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
     }
 
     @Test
-    @Commit
     @DataSet(value = "services/stored-services.xml", cleanAfter = true)
     public void testFindAllServices() {
         assertEquals(2, repository.findAll().size());
     }
 
     @Test
-    @Commit
     @DataSet(value = "services/stored-services.xml", cleanAfter = true)
     public void testFindOneServiceById() {
         assertEquals("java test", repository.findOne(1L).getName());
     }
 
     @Test
-    @Commit
     @DataSet(value = "services/stored-services.xml", cleanAfter = true)
     public void ifServiceNotFoundByIdReturnNull() {
         assertThat(repository.findOne(10L), nullValue());
