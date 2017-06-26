@@ -15,6 +15,7 @@ import ua.com.foxminded.accountingsystem.model.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -69,8 +70,6 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
     public void findAllOrderTest() {
         assertEquals(2, repository.findAll().size());
-        assertTrue(repository.findOne(1L).equals(order));
-        assertTrue(repository.findOne(2L).equals(order_1));
     }
 
     @Test
@@ -82,9 +81,10 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     @Test
     @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
     public void deleteOrderByIdTest() {
-        assertTrue(!repository.findOne(2L).equals(null));
+        List<Order>ordersBefore = repository.findAll();
+        assertTrue(repository.findAll().equals(ordersBefore));
         repository.delete(2L);
-        assertNull(repository.findOne(2L));
+        assertTrue(!repository.findAll().equals(ordersBefore));
 
     }
 }
