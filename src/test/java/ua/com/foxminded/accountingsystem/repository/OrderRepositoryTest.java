@@ -59,13 +59,15 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
 
     @Test
     @Commit
-    @DataSet(value = "orders/expected-orders.xml", disableConstraints = true, cleanBefore = true)
+//    @DataSet(value = "orders/expected-orders.xml", disableConstraints = true, cleanBefore = true)
+    @DataSet(value = "orders/empty.xml", disableConstraints = true, cleanBefore = true)
+    @ExpectedDataSet("orders/expected-orders.xml")
     public void addOrder() {
         repository.save(order);
     }
 
     @Test
-    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true, cleanAfter = true)
+    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
     public void findAllOrderTest() {
         assertEquals(2, repository.findAll().size());
         assertEquals(repository.findAll().get(0).getId(), order.getId());
@@ -73,13 +75,13 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     }
 
     @Test
-    @DataSet(value = "orders/stored-orders.xml" , disableConstraints = true, cleanAfter = true)
+    @DataSet(value = "orders/stored-orders.xml" , disableConstraints = true)
     public void findOrderByIdTest() {
         assertEquals(order_1.getId(), repository.findOne(2L).getId());
     }
 
     @Test
-    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true, cleanAfter = true)
+    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
     public void deleteOrderByIdTest() {
         assertTrue(!repository.findOne(2L).equals(null));
         repository.delete(2L);
