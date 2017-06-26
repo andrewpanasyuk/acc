@@ -24,12 +24,12 @@
                  th:field="${invoice.creationDate}"/>
           <br/>
 
-          <label>Employee payment: </label>
-          <output type="text" rows="1" th:value="${invoice.id}"/>
+          <label>Employee payment:</label>
+          <output type="text" rows="1" th:value="${invoice.id}"></output>
 
           <textarea rows="1" class="form-control" th:field="${invoice.isEmployeePayment}"
-                    th:text="${invoice.isEmployeePayment}"/>
-          <br/>
+                    th:text="${invoice.isEmployeePayment}"></textarea><br/>
+
 
           <label>Payment period from:</label>
 
