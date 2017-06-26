@@ -77,7 +77,7 @@ INSERT INTO service_prices (service_id, prices_id) VALUES
     (2, 5),
     (2, 6);
 
-INSERT INTO client (id, first_name, last_name) VALUES
+INSERT INTO client (id, last_name, first_name) VALUES
     (1, 'Ivanov', 'Ivan'),
     (2, 'Petrov', 'Sergey'),
     (3, 'Pupkin', 'Adolf'),

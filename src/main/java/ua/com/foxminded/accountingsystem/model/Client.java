@@ -1,5 +1,8 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +18,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "client")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -29,9 +33,11 @@ public class Client implements Serializable {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClientFieldValue> extraFields;
 

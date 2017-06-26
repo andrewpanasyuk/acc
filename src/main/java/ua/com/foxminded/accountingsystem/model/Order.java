@@ -1,6 +1,8 @@
 package ua.com.foxminded.accountingsystem.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "orders")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order implements Serializable {
 
     @Id
@@ -44,6 +47,7 @@ public class Order implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate closeDate;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
