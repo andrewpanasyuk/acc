@@ -17,7 +17,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="client_field_value")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ClientFieldValue implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -34,7 +33,6 @@ public class ClientFieldValue implements Serializable{
     @Column(name="value")
     private String value;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;

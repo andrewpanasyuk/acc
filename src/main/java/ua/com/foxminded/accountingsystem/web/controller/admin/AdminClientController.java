@@ -24,15 +24,15 @@ public class AdminClientController {
 
     @GetMapping
     public String getAllClients(Model model) {
-        List<Client> clients = clientService.findAll();
-        model.addAttribute("clients", clients);
+        model.addAttribute("clients", clientService.findAll());
+        model.addAttribute("client", new Client());
         return "admin/clients";
     }
 
-    @PutMapping
+    @PostMapping
     public String create(@ModelAttribute Client client) {
-        clientService.create(client);
-        return "redirect:/admin/clients";
+        Client savedClient = clientService.create(client);
+        return "redirect:/admin/clients/" + savedClient.getId();
     }
 
     @PutMapping(value = "{id}")
