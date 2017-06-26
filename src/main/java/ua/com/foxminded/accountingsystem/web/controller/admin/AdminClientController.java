@@ -5,14 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Client;
-import ua.com.foxminded.accountingsystem.model.ClientField;
-import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
-import ua.com.foxminded.accountingsystem.model.Employee;
-import ua.com.foxminded.accountingsystem.repository.ClientFieldRepository;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,13 +31,13 @@ public class AdminClientController {
 
     @PutMapping
     public String create(@ModelAttribute Client client) {
-        clientService.save(client);
+        clientService.create(client);
         return "redirect:/admin/clients";
     }
 
     @PutMapping(value = "{id}")
     public String update(@PathVariable long id, @ModelAttribute("client") Client client) {
-        clientService.save(client);
+        clientService.create(client);
         return "redirect:/admin/clients";
     }
 

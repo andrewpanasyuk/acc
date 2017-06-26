@@ -37,7 +37,7 @@ public class ClientServiceJPA implements ClientService {
     }
 
     @Override
-    public Client save(Client client) {
+    public Client create(Client client) {
         List<ClientField> clientFields = clientFieldService.findAll();
         if(client.getExtraFields() == null){
             client.setExtraFields(new ArrayList<>());
@@ -54,6 +54,11 @@ public class ClientServiceJPA implements ClientService {
             }
         }
 
+        return clientRepository.save(client);
+    }
+
+    @Override
+    public Client update(Client client){
         return clientRepository.save(client);
     }
 
