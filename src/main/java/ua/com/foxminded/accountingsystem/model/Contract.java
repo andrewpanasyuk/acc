@@ -195,7 +195,7 @@ public class Contract implements Serializable {
         return "Contract{" +
             "id=" + id +
             ", contractDate=" + contractDate +
-            ", order=" + order +
+            ", orders=" + order +
             '}';
     }
 
