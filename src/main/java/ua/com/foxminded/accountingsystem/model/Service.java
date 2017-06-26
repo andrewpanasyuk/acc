@@ -96,9 +96,7 @@ public class Service {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Service service = (Service) o;
-
         if (name != null ? !name.equals(service.name) : service.name != null) return false;
         return description != null ? description.equals(service.description) : service.description == null;
     }
