@@ -131,20 +131,6 @@ public class Order implements Serializable {
             '}';
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//
-//        if (this == o) return true;
-//        if (!(o instanceof Order)) return false;
-//
-//        Order order = (Order) o;
-////        if (order.id == null) return false;
-////        if (openDate != order.openDate) return false;
-////        if (service != order.service) return false;
-//        return id.equals(order.getId());
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -155,10 +141,10 @@ public class Order implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = openDate != null ? openDate.hashCode() : 0;
-        result = 31 * result + (client != null ? client.hashCode() : 0);
-        result = 31 * result + (service != null ? service.hashCode() : 0);
-        return result;
+        if(id==null){
+            return 31;
+        }
+        return id.hashCode();
     }
 
 }
