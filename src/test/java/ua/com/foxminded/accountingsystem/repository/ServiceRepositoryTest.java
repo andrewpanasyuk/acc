@@ -32,33 +32,33 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
 
     @Test
     @Commit
-    @DataSet(value = "services/empty.xml")
+    @DataSet(value = "services/empty.xml", cleanBefore = true)
     @ExpectedDataSet("services/expected-services.xml")
     public void addService() {
         repository.save(service);
     }
 
     @Test
-    @DataSet(value = "services/stored-services.xml", cleanAfter = true)
+    @DataSet(value = "services/stored-services.xml")
     public void testFindAllServices() {
         assertEquals(2, repository.findAll().size());
     }
 
     @Test
-    @DataSet(value = "services/stored-services.xml", cleanAfter = true)
+    @DataSet(value = "services/stored-services.xml")
     public void testFindOneServiceById() {
         assertEquals("java test", repository.findOne(1L).getName());
     }
 
     @Test
-    @DataSet(value = "services/stored-services.xml", cleanAfter = true)
+    @DataSet(value = "services/stored-services.xml")
     public void ifServiceNotFoundByIdReturnNull() {
         assertThat(repository.findOne(10L), nullValue());
     }
 
     @Test
     @Commit
-    @DataSet(value = "services/stored-services.xml", cleanAfter = true)
+    @DataSet(value = "services/stored-services.xml")
     @ExpectedDataSet("services/expected-services.xml")
     public void deleteServiceById() {
         repository.delete(2L);
