@@ -22,8 +22,10 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
         service = new Service();
         service.setName("java test");
         service.getEmployeeRate().setCurrency(Currency.UAH);
+
         Money money = new Money();
         money.setCurrency(Currency.UAH);
+
         service.getPrices().add(money);
         service.setDescription("java description");
     }
