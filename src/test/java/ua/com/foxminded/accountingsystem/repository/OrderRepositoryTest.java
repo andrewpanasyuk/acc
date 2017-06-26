@@ -7,11 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.Client;
+import ua.com.foxminded.accountingsystem.model.Currency;
+import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -26,11 +29,13 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     public void init() {
         Service service = new Service();
         service.setId(1L);
+
         Service service_1 = new Service();
         service_1.setId(2L);
 
         Client client = new Client();
         client.setId(1L);
+
         Client client_1 = new Client();
         client_1.setId(2L);
 
@@ -54,28 +59,27 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
 
     @Test
     @Commit
-    @DataSet(value = "orders/empty.xml", disableConstraints = true, strategy = SeedStrategy.CLEAN_INSERT)
-    @ExpectedDataSet("orders/expected-orders.xml")
+    @DataSet(value = "orders/expected-orders.xml", disableConstraints = true, cleanBefore = true)
     public void addOrder() {
         repository.save(order);
     }
 
     @Test
-    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
+    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true, cleanAfter = true)
     public void findAllOrderTest() {
         assertEquals(2, repository.findAll().size());
-        assertTrue(repository.findAll().contains(order));
-        assertTrue(repository.findAll().contains(order_1));
+        assertEquals(repository.findAll().get(0).getId(), order.getId());
+        assertEquals(repository.findAll().get(1).getId(), order_1.getId());
     }
 
     @Test
-    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
+    @DataSet(value = "orders/stored-orders.xml" , disableConstraints = true, cleanAfter = true)
     public void findOrderByIdTest() {
-        assertEquals(order_1, repository.findOne(2L));
+        assertEquals(order_1.getId(), repository.findOne(2L).getId());
     }
 
     @Test
-    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
+    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true, cleanAfter = true)
     public void deleteOrderByIdTest() {
         assertTrue(!repository.findOne(2L).equals(null));
         repository.delete(2L);

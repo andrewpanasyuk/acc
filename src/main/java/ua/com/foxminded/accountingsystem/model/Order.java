@@ -124,24 +124,45 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
             "id=" + id +
-            ", service='" + service.getName() + '\'' +
+            ", orderName='" + orderName + '\'' +
             ", openDate=" + openDate +
             ", queuingDate=" + queuingDate +
             ", closeDate=" + closeDate +
             '}';
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//
+//        if (this == o) return true;
+//        if (!(o instanceof Order)) return false;
+//
+//        Order order = (Order) o;
+////        if (order.id == null) return false;
+////        if (openDate != order.openDate) return false;
+////        if (service != order.service) return false;
+//        return id.equals(order.getId());
+//    }
+
+
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
-        if (!(o instanceof Order)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Order order = (Order) o;
-        if (id == null) return false;
-        if (id != order.id) return false;
-        if (openDate != order.openDate) return false;
-        if (service != order.service) return false;
-        return client.equals(order.client);
+        if (!openDate.equals(order.openDate)) return false;
+        if (!client.equals(order.client)) return false;
+        if (!service.equals(order.service)) return false;
+        return id.equals(order.id);
     }
+
+    @Override
+    public int hashCode() {
+        int result = openDate != null ? openDate.hashCode() : 0;
+        result = 31 * result + (client != null ? client.hashCode() : 0);
+        result = 31 * result + (service != null ? service.hashCode() : 0);
+        return result;
+    }
+
 }
