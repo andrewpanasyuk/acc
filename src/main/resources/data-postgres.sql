@@ -77,12 +77,49 @@ INSERT INTO service_prices (service_id, prices_id) VALUES
     (2, 5),
     (2, 6);
 
-INSERT INTO client (id, first_name, last_name) VALUES
+INSERT INTO client (id, last_name, first_name) VALUES
     (1, 'Ivanov', 'Ivan'),
     (2, 'Petrov', 'Sergey'),
     (3, 'Pupkin', 'Adolf'),
     (4, 'Selezneva', 'Alisa'),
-    (5, 'Hatabych', 'Old');
+    (5, 'Hatabych', 'Old'),
+    (6, 'Sidorov', 'Ivan'),
+    (7, 'Smith', 'Sergey'),
+    (8, 'Pupkin', 'Adolf'),
+    (9, 'Waylon', 'Dalton'),
+    (10, 'Ivanov', 'Ivan'),
+    (11, 'Cruz', 'Marcus'),
+    (12, 'Shaffer', 'Joanna');
+
+INSERT INTO client_field (id, name) VALUES
+    (1, 'skype'),
+    (2, 'email');
+
+INSERT INTO client_field_value (id, client_id, client_field_id, value) VALUES
+    (1, 1, 1, 'ivanSkype'),
+    (2, 1, 2, 'ivan@mail.com'),
+    (3, 2, 1, 'petrovSkype'),
+    (4, 2, 2, 'petrob@mail.com'),
+    (5, 3, 1, 'adolfSkype'),
+    (6, 3, 2, 'adolf@mail.com'),
+    (7, 4, 1, 'alisaSkype'),
+    (8, 4, 2, 'alisa@mail.com'),
+    (9, 5, 1, 'oldSkype'),
+    (10, 5, 2, NULL),
+    (11, 6, 1, NULL),
+    (12, 6, 2, 'sidorov@mail.com'),
+    (13, 7, 1, NULL),
+    (14, 7, 2, NULL),
+    (15, 8, 1, NULL),
+    (16, 8, 2, NULL),
+    (17, 9, 1, NULL),
+    (18, 9, 2, NULL),
+    (19, 10, 1, NULL),
+    (20, 10, 2, NULL),
+    (21, 11, 1, NULL),
+    (22, 11, 2, NULL),
+    (23, 12, 1, NULL),
+    (24, 12, 2, NULL);
 
 INSERT INTO orders (id, service_id, status, client_id, open_date, queuing_date, close_date) VALUES
     (1, 1, 'ACTIVE', 1, '2017-01-24', '2017-01-25', NULL),
