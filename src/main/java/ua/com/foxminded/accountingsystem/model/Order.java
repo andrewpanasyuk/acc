@@ -133,20 +133,6 @@ public class Order implements Serializable {
             '}';
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//
-//        if (this == o) return true;
-//        if (!(o instanceof Order)) return false;
-//
-//        Order order = (Order) o;
-////        if (order.id == null) return false;
-////        if (openDate != order.openDate) return false;
-////        if (service != order.service) return false;
-//        return id.equals(order.getId());
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
