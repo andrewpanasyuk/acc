@@ -7,11 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.Client;
+import ua.com.foxminded.accountingsystem.model.Currency;
+import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -26,11 +29,13 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     public void init() {
         Service service = new Service();
         service.setId(1L);
+
         Service service_1 = new Service();
         service_1.setId(2L);
 
         Client client = new Client();
         client.setId(1L);
+
         Client client_1 = new Client();
         client_1.setId(2L);
 
@@ -54,7 +59,7 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
 
     @Test
     @Commit
-    @DataSet(value = "orders/empty.xml", disableConstraints = true, strategy = SeedStrategy.CLEAN_INSERT)
+    @DataSet(value = "orders/empty.xml", disableConstraints = true, cleanBefore = true)
     @ExpectedDataSet("orders/expected-orders.xml")
     public void addOrder() {
         repository.save(order);
@@ -64,12 +69,12 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
     public void findAllOrderTest() {
         assertEquals(2, repository.findAll().size());
-        assertTrue(repository.findAll().contains(order));
-        assertTrue(repository.findAll().contains(order_1));
+        assertTrue(repository.findOne(1L).equals(order));
+        assertTrue(repository.findOne(2L).equals(order_1));
     }
 
     @Test
-    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
+    @DataSet(value = "orders/stored-orders.xml" , disableConstraints = true)
     public void findOrderByIdTest() {
         assertEquals(order_1, repository.findOne(2L));
     }
