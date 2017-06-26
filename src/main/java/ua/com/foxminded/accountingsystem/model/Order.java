@@ -25,7 +25,7 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
     @SequenceGenerator(name = "order_sequence", sequenceName = "order_sequence", initialValue = 50)
-    private long id;
+    private Long id;
 
     @Column(name = "order_name")
     private String orderName;
@@ -80,11 +80,11 @@ public class Order implements Serializable {
         this.client = client;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -124,10 +124,24 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
             "id=" + id +
-            ", orderName='" + orderName + '\'' +
+            ", service='" + service.getName() + '\'' +
             ", openDate=" + openDate +
             ", queuingDate=" + queuingDate +
             ", closeDate=" + closeDate +
             '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+
+        Order order = (Order) o;
+        if (id == null) return false;
+        if (id != order.id) return false;
+        if (openDate != order.openDate) return false;
+        if (service != order.service) return false;
+        return client.equals(order.client);
     }
 }

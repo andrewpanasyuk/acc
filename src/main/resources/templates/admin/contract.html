@@ -13,7 +13,7 @@
           <input type="hidden" th:field="*{order}"/>
           <div class="form-group">
             <a th:href="@{/admin/orders/{id}(id=${contract.order.id})}"
-               th:text="'Order: ' + ${contract.order.orderName} + ' from ' + ${contract.order.openDate}" ></a>
+               th:text="'Order: ' + ${contract.order.service.name} + ' from ' + ${contract.order.openDate}" ></a>
             <br/>
             <br/>
             <br/>
