@@ -10,9 +10,9 @@ import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientServiceJPA implements ClientService {
@@ -38,15 +38,14 @@ public class ClientServiceJPA implements ClientService {
 
     @Override
     public Client save(Client client) {
-
         List<ClientField> clientFields = clientFieldService.findAll();
-        Set<ClientField> clientFieldsOfCurrentClient = new HashSet<>();
         if(client.getExtraFields() == null){
             client.setExtraFields(new ArrayList<>());
         }
-        for(ClientFieldValue clientFieldValue: client.getExtraFields()){
-            clientFieldsOfCurrentClient.add(clientFieldValue.getClientField());
-        }
+
+        Set<ClientField> clientFieldsOfCurrentClient = client.getExtraFields().stream()
+            .map(ClientFieldValue::getClientField).collect(Collectors.toSet());
+
         for(ClientField clientField: clientFields){
             if(!clientFieldsOfCurrentClient.contains(clientField)){
                 ClientFieldValue clientFieldValue = new ClientFieldValue();
