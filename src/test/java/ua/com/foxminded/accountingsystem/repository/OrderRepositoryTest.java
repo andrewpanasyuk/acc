@@ -59,7 +59,6 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
 
     @Test
     @Commit
-//    @DataSet(value = "orders/expected-orders.xml", disableConstraints = true, cleanBefore = true)
     @DataSet(value = "orders/empty.xml", disableConstraints = true, cleanBefore = true)
     @ExpectedDataSet("orders/expected-orders.xml")
     public void addOrder() {
@@ -70,14 +69,14 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     @DataSet(value = "orders/stored-orders.xml", disableConstraints = true)
     public void findAllOrderTest() {
         assertEquals(2, repository.findAll().size());
-        assertEquals(repository.findAll().get(0).getId(), order.getId());
-        assertEquals(repository.findAll().get(1).getId(), order_1.getId());
+        assertTrue(repository.findOne(1L).equals(order));
+        assertTrue(repository.findOne(2L).equals(order_1));
     }
 
     @Test
     @DataSet(value = "orders/stored-orders.xml" , disableConstraints = true)
     public void findOrderByIdTest() {
-        assertEquals(order_1.getId(), repository.findOne(2L).getId());
+        assertEquals(order_1, repository.findOne(2L));
     }
 
     @Test

@@ -149,11 +149,7 @@ public class Order implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Order order = (Order) o;
-        if (!openDate.equals(order.openDate)) return false;
-        if (!client.equals(order.client)) return false;
-        if (!service.equals(order.service)) return false;
         return id.equals(order.id);
     }
 
