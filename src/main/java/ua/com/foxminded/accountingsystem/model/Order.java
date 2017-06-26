@@ -124,7 +124,7 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
             "id=" + id +
-            ", orderName='" + orderName + '\'' +
+            ", service='" + service.getName() + '\'' +
             ", openDate=" + openDate +
             ", queuingDate=" + queuingDate +
             ", closeDate=" + closeDate +
@@ -133,18 +133,15 @@ public class Order implements Serializable {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Order)) return false;
+
         Order order = (Order) o;
-        return id.equals(order.id);
+        if (id == null) return false;
+        if (id != order.id) return false;
+        if (openDate != order.openDate) return false;
+        if (service != order.service) return false;
+        return client.equals(order.client);
     }
-
-    @Override
-    public int hashCode() {
-        if(id==null){
-            return 31;
-        }
-        return id.hashCode();
-    }
-
 }

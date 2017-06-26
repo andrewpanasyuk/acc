@@ -60,6 +60,7 @@ public class AdminOrderController {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
             .addAttribute("title", "Order: " + order.getId())
+            .addAttribute("localDate", LocalDate.now())
             .addAttribute("services", service.findAll());
         return "admin/order";
     }
