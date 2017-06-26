@@ -141,10 +141,10 @@ public class Order implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = openDate != null ? openDate.hashCode() : 0;
-        result = 31 * result + (client != null ? client.hashCode() : 0);
-        result = 31 * result + (service != null ? service.hashCode() : 0);
-        return result;
+        if(id==null){
+            return 31;
+        }
+        return id.hashCode();
     }
 
 }
