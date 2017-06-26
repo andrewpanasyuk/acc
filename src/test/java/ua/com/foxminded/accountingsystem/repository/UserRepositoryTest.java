@@ -2,7 +2,6 @@ package ua.com.foxminded.accountingsystem.repository;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import com.github.database.rider.core.api.dataset.SeedStrategy;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
@@ -38,7 +37,7 @@ public class UserRepositoryTest extends AbstractRepositoryTest<UserRepository> {
 
     @Test
     @Commit
-    @DataSet(value = "users/empty.xml", strategy = SeedStrategy.CLEAN_INSERT)
+    @DataSet(value = "users/empty.xml")
     @ExpectedDataSet("users/expected-users.xml")
     public void addUser() {
         repository.save(admin);

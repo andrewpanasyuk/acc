@@ -1,5 +1,8 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -11,21 +14,27 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "fm_users")
 public class User {
     @Id
+    @NotEmpty
+    @Size(min = 3, max = 30)
     @Column(name = "username", unique = true, nullable = false, length = 30)
     private String username;
 
-    @NotNull
+    @NotEmpty
+    @Size(min = 8)
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
-    @Column(name = "enabled", nullable = false)
+    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default false")
     private Boolean enabled;
 
+    @Email
+    @NotEmpty
     @Column(name = "email", nullable = false)
     private String email;
 
@@ -88,32 +97,17 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        if (!username.equals(user.username)) {
-            return false;
-        }
-        if (!password.equals(user.password)) {
-            return false;
-        }
-        if (!email.equals(user.email)) {
-            return false;
-        }
-        return enabled.equals(user.enabled);
+
+        return username != null ? username.equals(user.username) : user.username == null;
     }
 
     @Override
     public int hashCode() {
-        int result = username.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + enabled.hashCode();
-        result = 31 * result + email.hashCode();
-        return result;
+        return username != null ? username.hashCode() : 0;
     }
 
     @Override

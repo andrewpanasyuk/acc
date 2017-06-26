@@ -3,10 +3,16 @@ package ua.com.foxminded.accountingsystem.web.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ua.com.foxminded.accountingsystem.model.User;
 import ua.com.foxminded.accountingsystem.service.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/users")
@@ -34,6 +40,15 @@ public class AdminUserController {
             .addAttribute("title", username + " management")
             .addAttribute("user", userService.findByUsername(username));
         return "admin/user";
+    }
+
+    @PostMapping
+    public String addUser(@ModelAttribute @Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/users";
+        }
+        userService.create(user);
+        return "admin/users";
     }
 
 }
