@@ -12,38 +12,37 @@
         <form th:action="@{/admin/invoices}" th:object="${invoice}" method="post">
           <input type="hidden" th:field="${invoice.id}"/>
 
-
-          <label>Creation date:</label>
-
-          <input type="date"
+          <label>Creation date:</label><br/>
+          <input type="date" style="width:165px;height:35px"
                  th:value="${invoice.creationDate != null} ? ${#temporals.format(invoice.creationDate, 'yyyy-MM-dd')} : ''"
-                 th:field="${invoice.creationDate}"/>
-          <br/>
-
-          <label>Employee payment:</label>
-          <output type="text" rows="1" th:value="${invoice.id}"></output>
-
-          <textarea rows="1" class="form-control" th:field="${invoice.isEmployeePayment}"
-                    th:text="${invoice.isEmployeePayment}"></textarea><br/>
+                 th:field="${invoice.creationDate}"/><br/>
 
 
-          <label>Payment period from:</label>
+          <label>Employee payment:</label><br/>
+          <!--<output type="text" rows="1" th:value="${invoice.id}"></output>-->
+          <select id="invoiceEmployeePayment" style="width:165px;height:35px" th:field="${invoice.isEmployeePayment}"
+                  class="form-control">
+            <option value="">Select option</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
 
-          <input type="date"
+
+          <label>Payment period from:</label><br/>
+          <input type="date" style="width:165px;height:35px"
                  th:value="${invoice.paymentPeriodFrom != null} ? ${#temporals.format(invoice.paymentPeriodFrom, 'yyyy-MM-dd')} : ''"
                  th:field="${invoice.paymentPeriodFrom}"/><br/>
 
-          <label>Payment period to :</label>
-
-          <input type="date"
+          <label>Payment period to :</label><br/>
+          <input type="date" style="width:165px;height:35px"
                  th:value="${invoice.paymentPeriodTo != null} ? ${#temporals.format(invoice.paymentPeriodTo, 'yyyy-MM-dd')} : ''"
                  th:field="${invoice.paymentPeriodTo}"/><br/>
 
-
-          <button type="submit" id="submit" class="btn btn-primary">Save</button>
+          <br/>
+          <button type="submit" id="submit" class="btn btn-primary" style="height:40px;width:80px">Save</button>
         </form>
         <form th:action="@{/admin/invoices/{id} (id=${invoice.id})}" th:method="delete">
-          <button type="submit" class="btn btn-primary">Remove</button>
+          <button type="submit" class="btn btn-primary" style="height:40px;width:80px">Remove</button>
         </form>
 </section>
 </body>
