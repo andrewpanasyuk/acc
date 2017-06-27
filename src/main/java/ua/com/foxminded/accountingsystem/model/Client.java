@@ -1,15 +1,6 @@
 package ua.com.foxminded.accountingsystem.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -38,6 +29,9 @@ public class Client implements Serializable {
     public List<Order> getOrders() {
         return orders;
     }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private PersonalAccount personalAccount;
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
@@ -93,6 +87,14 @@ public class Client implements Serializable {
     public void removeClientFieldValue(ClientFieldValue clientFieldValue) {
         extraFields.remove(clientFieldValue);
         clientFieldValue.setClient(null);
+    }
+
+    public PersonalAccount getPersonalAccount() {
+        return personalAccount;
+    }
+
+    public void setPersonalAccount(PersonalAccount personalAccount) {
+        this.personalAccount = personalAccount;
     }
 
     @Override

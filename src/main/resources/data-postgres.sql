@@ -77,19 +77,36 @@ INSERT INTO service_prices (service_id, prices_id) VALUES
     (2, 5),
     (2, 6);
 
-INSERT INTO client (id, last_name, first_name) VALUES
-    (1, 'Ivanov', 'Ivan'),
-    (2, 'Petrov', 'Sergey'),
-    (3, 'Pupkin', 'Adolf'),
-    (4, 'Selezneva', 'Alisa'),
-    (5, 'Hatabych', 'Old'),
-    (6, 'Sidorov', 'Ivan'),
-    (7, 'Smith', 'Sergey'),
-    (8, 'Pupkin', 'Adolf'),
-    (9, 'Waylon', 'Dalton'),
-    (10, 'Ivanov', 'Ivan'),
-    (11, 'Cruz', 'Marcus'),
-    (12, 'Shaffer', 'Joanna');
+INSERT INTO personal_account (id) VALUES
+    (1),
+    (2),
+    (3),
+    (4),
+    (5);
+
+INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
+    (1, 1),
+    (1, 6),
+    (2, 2),
+    (3, 3),
+    (3, 7),
+    (3, 8),
+    (4, 4),
+    (5, 5);
+
+INSERT INTO client (id, last_name, first_name, personal_account_id) VALUES
+    (1, 'Ivanov', 'Ivan',1),
+    (2, 'Petrov', 'Sergey', 2),
+    (3, 'Pupkin', 'Adolf', 3),
+    (4, 'Selezneva', 'Alisa', 4),
+    (5, 'Hatabych', 'Old', 5),
+    (6, 'Sidorov', 'Ivan', 5),
+    (7, 'Smith', 'Sergey', 4),
+    (8, 'Pupkin', 'Adolf', 3),
+    (9, 'Waylon', 'Dalton', 2),
+    (10, 'Ivanov', 'Ivan', 1),
+    (11, 'Cruz', 'Marcus', 1),
+    (12, 'Shaffer', 'Joanna', 2);
 
 INSERT INTO client_field (id, name) VALUES
     (1, 'skype'),
