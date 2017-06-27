@@ -8,7 +8,7 @@
     <div class="row">
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
       <div class="col-md-10">
-        <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+        <!--/*@thymesVar ordersrder" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
         <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
         <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
         <!--/*@thymesVar id="services" type="java.util.List<ua.com.foxminded.accountingsystem.model.Service>"*/-->
@@ -38,7 +38,7 @@
 
                 <option th:each="service : ${services}"
                         th:value="${service.id}"
-                        th:text="${order.service != null} ? ${order.service.name} : ${service.name}"></option>
+                        th:text="${service.name}"></option>
               </select>
               <output th:if="${#fields.hasErrors('service')}" th:errors="${order.service}" class="text-danger">Name
                 Error
