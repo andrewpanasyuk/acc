@@ -28,6 +28,7 @@
           <button type="submit" class="btn btn-danger">delete</button>
         </form>
 
+        <div class="display-grid">
         <form th:object="${client}">
           <label>Orders:</label>
           <table data-toggle="table">
@@ -59,6 +60,29 @@
             </tbody>
           </table>
         </form>
+        </div>
+        <br/>
+        <div class="display-grid">
+          <h4>Balance:</h4>
+          <table data-toggle="table">
+            <thead>
+            <tr>
+              <th>id</th>
+              <th>Currency</th>
+              <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="money : ${client.personalAccount.money}">
+              <td th:text="${client.personalAccount.id}"></td>
+              <td th:text="${money.currency}"></td>
+              <td th:text="${money.price}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <br/>
+        <br/>
       </div>
     </div>
   </div>
