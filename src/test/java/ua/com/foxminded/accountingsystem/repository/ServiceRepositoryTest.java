@@ -32,7 +32,7 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
 
     @Test
     @Commit
-    @DataSet(value = "services/empty.xml")
+    @DataSet(value = "services/empty.xml", cleanBefore = true)
     @ExpectedDataSet("services/expected-services.xml")
     public void addService() {
         repository.save(service);
@@ -58,7 +58,7 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
 
     @Test
     @Commit
-    @DataSet(value = "services/stored-services.xml", cleanAfter = true)
+    @DataSet(value = "services/stored-services.xml", cleanBefore = true)
     @ExpectedDataSet("services/expected-services.xml")
     public void deleteServiceById() {
         repository.delete(2L);
