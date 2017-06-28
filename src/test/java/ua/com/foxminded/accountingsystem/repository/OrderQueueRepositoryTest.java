@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.repository;
 
+
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import org.junit.Before;
@@ -37,7 +38,10 @@ public class OrderQueueRepositoryTest extends AbstractRepositoryTest<OrderQueueR
         orderQueue_1.setOrder(order_1);
         orderQueue_1.setPriority(Priority.HIGH);
         orderQueue_1.setQueuingDate(LocalDate.of(2015, 10, 01));
+
+
     }
+
 
     @Test
     @Commit
@@ -54,7 +58,7 @@ public class OrderQueueRepositoryTest extends AbstractRepositoryTest<OrderQueueR
     }
 
     @Test
-    @DataSet(value = "queues/stored-queues.xml", disableConstraints = true)
+    @DataSet(value = "queues/stored-queues.xml" , disableConstraints = true)
     public void findOrderByIdTest() {
         assertEquals(orderQueue_1, repository.findOne(2L));
     }
@@ -66,4 +70,5 @@ public class OrderQueueRepositoryTest extends AbstractRepositoryTest<OrderQueueR
     public void deleteOrderByIdTest() {
         repository.delete(2L);
     }
+
 }

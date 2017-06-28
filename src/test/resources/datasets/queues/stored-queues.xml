@@ -1,4 +1,4 @@
 <dataset>
-    <ORDER_QUEUE id = "1" queuing_date="2010-01-24" priority = "NORMAL" order_id = "1"/>
-    <ORDER_QUEUE id = "2" queuing_date="2015-10-01" priority = "HIGH" order_id = "2"/>
+    <QUEUE id = "1" queuing_date="2010-01-24" priority = "NORMAL" order_id = "1"/>
+    <QUEUE id = "2" queuing_date="2015-10-01" priority = "HIGH" order_id = "2"/>
 </dataset>
