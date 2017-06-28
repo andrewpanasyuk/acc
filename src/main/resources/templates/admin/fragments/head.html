@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:fragment="head">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head layout:fragment="head">
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/css/AdminLTE.min.css"/>
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/css/skins/_all-skins.min.css"/>
   <title th:text="${title}"></title>
   <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.js"></script>
   <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/locale/bootstrap-table-ru-RU.min.js"></script>
   <script type="text/javascript" src="/js/main.js"></script>
+  <script type="text/javascript" src="/js/app.js"></script>
+  <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+  <script src="/plugins/fastclick/fastclick.js"></script>
   <link href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-  <link href="/webjars/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
   <link href="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.css" rel="stylesheet" type="text/css"/>
   <link href="/css/main.css" rel="stylesheet" type="text/css"/>
 </head>

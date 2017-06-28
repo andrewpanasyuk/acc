@@ -3,36 +3,120 @@
 <head>
 </head>
 <body>
-<div th:fragment="menu" class="col-md-2">
-  <ul class="list-group">
-    <a href="/admin/orders">
-      <li class="list-group-item">Заявки</li>
-    </a>
-    <a href="/admin/clients">
-      <li class="list-group-item">Студенты</li>
-    </a>
-    <a href="/admin/employees">
-      <li class="list-group-item">Менторы</li>
-    </a>
-    <a href="/admin/contracts">
-      <li class="list-group-item">Договора</li>
-    </a>
-    <a href="/admin/services">
-      <li class="list-group-item">Услуги</li>
-    </a>
-    <a href="/admin/invoices">
-      <li class="list-group-item">Счета</li>
-    </a>
-    <a href="/admin/payments">
-      <li class="list-group-item">Оплаты</li>
-    </a>
-    <a href="/admin/salaries">
-      <li class="list-group-item">Зарплаты</li>
-    </a>
-    <a href="/admin/users">
-      <li class="list-group-item">Пользователи</li>
-    </a>
-  </ul>
-</div>
+  <aside class="main-sidebar" th:fragment="menu">
+    <section class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <li>
+          <a th:href="@{/admin}">
+            <i class="fa fa-th"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/orders}">
+            <i class="fa fa-edit"></i> <span>Заявки</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-blue">2</small>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa fa-spinner"></i> <span>Очередь</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-blue">5</small>
+              <small class="label pull-right bg-red">2</small>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/clients}">
+            <i class="fa fa-user"></i> <span>Клиенты</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/employees}">
+            <i class="fa fa-user"></i> <span>Менторы</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span>Договора</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a th:href="@{/admin/orders}"><i class="fa fa-circle-o"></i> Все</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Активные</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Замороженные</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Закрытые</a></li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{/admin/services}">
+            <i class="fa fa-table"></i> <span>Услуги</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/invoices}">
+            <i class="fa fa-edit"></i> <span>Счета</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa fa-usd"></i> <span>Зарплаты</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/users}">
+            <i class="fa fa-users"></i> <span>Пользователи</span>
+          </a>
+        </li>
+        <li class="header">Отчеты</li>
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+        <li class="header">Конфигурация</li>
+        <li>
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Доп. поля</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!--<ul class="list-group">-->
+    <!--<a href="/admin/orders">-->
+      <!--<li class="list-group-item">Заявки</li>-->
+    <!--</a>-->
+    <!--<a href="/admin/clients">-->
+      <!--<li class="list-group-item">Студенты</li>-->
+    <!--</a>-->
+    <!--<a href="/admin/employees">-->
+      <!--<li class="list-group-item">Менторы</li>-->
+    <!--</a>-->
+    <!--<a href="/admin/contracts">-->
+      <!--<li class="list-group-item">Договора</li>-->
+    <!--</a>-->
+    <!--<a href="/admin/services">-->
+      <!--<li class="list-group-item">Услуги</li>-->
+    <!--</a>-->
+    <!--<a href="/admin/invoices">-->
+      <!--<li class="list-group-item">Счета</li>-->
+    <!--</a>-->
+    <!--<a href="/admin/payments">-->
+      <!--<li class="list-group-item">Оплаты</li>-->
+    <!--</a>-->
+    <!--<a href="/admin/salaries">-->
+      <!--<li class="list-group-item">Зарплаты</li>-->
+    <!--</a>-->
+    <!--<a href="/admin/users">-->
+      <!--<li class="list-group-item">Пользователи</li>-->
+    <!--</a>-->
+  <!--</ul>-->
 </body>
 </html>

@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <th:block layout:include="admin/fragments/head"></th:block>
+</head>
+<body class="skin-yellow fixed sidebar-mini">
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div th:replace="/admin/fragments/leftMenu :: menu"></div>
+<!-- Content Wrapper. Contains page content -->
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header display-grid">
+    <section layout:fragment="content">
+    </section>
+  </section>
+</div>
+</body>
+</html>

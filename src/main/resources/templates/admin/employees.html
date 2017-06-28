@@ -1,13 +1,9 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/fragments/head :: head">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
 </head>
 <body>
-<div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10 display-grid">
+<section layout:fragment="content">
         <div id="fixed-table-toolbar--buttons" class="pull-left search">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create
             Employee
@@ -66,10 +62,7 @@
           </tr>
           </tbody>
         </table>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
 </body>
 </html>
 
