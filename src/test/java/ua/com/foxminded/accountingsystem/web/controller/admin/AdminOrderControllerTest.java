@@ -62,7 +62,6 @@ public class AdminOrderControllerTest {
 
     @Test
     public void ordersAddedToModel() {
-        System.out.println(orders.size());
         Model model = new ExtendedModelMap();
         assertThat(controller.getAllOrders(model), equalTo("admin/orders"));
         assertThat(model.asMap(), hasEntry("orders", orders));
@@ -76,7 +75,7 @@ public class AdminOrderControllerTest {
     }
 
     @Test
-    public void oneUserAddedToModel() {
+    public void oneOrderAddedToModel() {
         Model model = new ExtendedModelMap();
         assertThat(controller.getOrderById(order_1.getId(), model), equalTo("admin/order"));
         assertThat(model.asMap(), hasEntry("order", order_1));
