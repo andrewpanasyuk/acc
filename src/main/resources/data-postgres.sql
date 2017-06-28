@@ -162,3 +162,6 @@ INSERT INTO invoice (id, creation_date, employee_payment, period_from, period_to
 INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type, price_id, employee_rate_id) VALUES
     (1, '2017-06-01', 1, 1, 'PREPAYMENT', 5, 2),
     (2, '2017-06-10',  2, 2, 'DELAY', 5, 2);
+
+INSERT INTO queue (id, queuing_date, priority, order_id) VALUES
+    (1, '2017-01-01', 'NORMAL', 1);
