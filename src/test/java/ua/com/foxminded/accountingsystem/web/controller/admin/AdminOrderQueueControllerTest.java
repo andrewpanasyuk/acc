@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
-import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.util.Arrays;
 
@@ -25,16 +24,13 @@ public class AdminOrderQueueControllerTest {
     @Mock
     private OrderQueueService orderQueueService;
 
-    @Mock
-    private OrderService orderService;
-
     private MockMvc mockMvc;
 
     private AdminOrderQueueController controller;
 
     @Before
     public void init() {
-        controller = new AdminOrderQueueController(orderQueueService, orderService);
+        controller = new AdminOrderQueueController(orderQueueService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
