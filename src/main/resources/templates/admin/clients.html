@@ -1,68 +1,62 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/fragments/head :: head">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
 </head>
 <body>
-<div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10 display-grid">
-        <div id="fixed-table-toolbar--buttons" class="pull-left search">
-          <!--<a class="btn btn-primary" href="/admin/clients/create">Create Client</a>-->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            Create Client
-          </button>
+<section layout:fragment="content">
+  <div id="fixed-table-toolbar--buttons" class="pull-left search">
+    <!--<a class="btn btn-primary" href="/admin/clients/create">Create Client</a>-->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+      Create Client
+    </button>
+  </div>
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create Client</h4>
         </div>
-        <div id="myModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create Client</h4>
-              </div>
-              <div class="modal-body">
-                <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
-                <form th:action="@{/admin/clients/}" th:object="${client}" method="post">
-                  <div class="form-group">
-                    <label th:for="firstName">client first name : </label>
-                    <input required="true" type="text" th:field="*{firstName}" th:value="${client.firstName}"
-                           id="firstName" name="firstName" class="form-control"/>
-                  </div>
-                  <div class="form-group">
-                    <label for="lastName">client last name : </label>
-                    <input required="true" th:field="${client.lastName}" th:value="${client.lastName}"
-                           name="lastName" id="lastName" type="text" class="form-control"/>
-                  </div>
-                  <button type="submit" class="btn btn-primary">save</button>
-                </form>
-              </div>
+        <div class="modal-body">
+          <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
+          <form th:action="@{/admin/clients/}" th:object="${client}" method="post">
+            <div class="form-group">
+              <label th:for="firstName">client first name : </label>
+              <input required="true" type="text" th:field="*{firstName}" th:value="${client.firstName}"
+                     id="firstName" name="firstName" class="form-control"/>
             </div>
-          </div>
+            <div class="form-group">
+              <label for="lastName">client last name : </label>
+              <input required="true" th:field="${client.lastName}" th:value="${client.lastName}"
+                     name="lastName" id="lastName" type="text" class="form-control"/>
+            </div>
+            <button type="submit" class="btn btn-primary">save</button>
+          </form>
         </div>
-        <table data-toggle="table" data-class="table table-striped table-hover"
-               data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true"
-               data-query-params="queryParams" data-sort-name="name">
-          <thead>
-          <tr>
-            <th data-field="id" data-sortable="true" data-sorter="nameSorter">id</th>
-            <th data-field="name" data-sortable="true" data-sorter="nameSorter">Name</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:each="client : ${clients}">
-            <td th:text="${client.id}"></td>
-            <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
-            <td>
-              <a th:href="@{/admin/clients/{id}(id=${client.id})}"
-                 th:text="${client.firstName} + ' ' + ${client.lastName}">id</a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
-</div>
+  <table data-toggle="table" data-class="table table-striped table-hover"
+         data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true"
+         data-query-params="queryParams" data-sort-name="name">
+    <thead>
+    <tr>
+      <th data-field="id" data-sortable="true" data-sorter="nameSorter">id</th>
+      <th data-field="name" data-sortable="true" data-sorter="nameSorter">Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+      <td th:text="${client.id}"></td>
+      <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
+      <td>
+        <a th:href="@{/admin/clients/{id}(id=${client.id})}"
+           th:text="${client.firstName} + ' ' + ${client.lastName}">id</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
 </body>
 </html>

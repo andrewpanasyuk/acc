@@ -1,13 +1,9 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/fragments/head :: head">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
 </head>
 <body>
-<div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10">
+<section layout:fragment="content">
         <h3>Employee info:</h3>
         <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
         <form id="saveEmployee" class="form-horizontal" th:object="${employee}"
@@ -75,9 +71,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
 </body>
 </html>

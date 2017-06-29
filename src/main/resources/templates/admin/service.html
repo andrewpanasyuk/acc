@@ -1,13 +1,9 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/fragments/head :: head">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
 </head>
 <body>
-<div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10">
+<section layout:fragment="content">
         <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
         <!--/*@thymesVar moneyrice" type="ua.com.foxminded.accountingsystem.model.Money"*/-->
         <form th:action="@{/admin/services}" th:object="${service}" method="post">
@@ -78,9 +74,6 @@
           <button type="submit" class="btn btn-danger">remove</button>
         </form>
         <a th:href="@{/admin/services}" class="btn btn-primary">back</a>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
 </body>
 </html>
