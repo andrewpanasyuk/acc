@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-  <th:block layout:include="admin/fragments/head"></th:block>
+  <object th:include="admin/fragments/head :: head" th:remove="tag" />
 </head>
 <body class="skin-yellow fixed sidebar-mini">
 <div th:replace="/admin/fragments/header :: nav"></div>
