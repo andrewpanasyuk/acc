@@ -149,16 +149,15 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, queuing_date, 
     (8, 1, 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
     (9, 2, 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);
 
-INSERT INTO invoice (id, creation_date, employee_payment, period_from, period_to) VALUES
-    (1, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (2, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (3, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (4, '2000-01-01', FALSE, '2000-01-01', '2000-01-01'),
-    (5, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (6, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (8, '2000-01-01', TRUE, '2000-01-01', '2000-01-01');
 
+INSERT INTO invoice (id, creation_date, employee_paid, period_from, period_to, contract_id, money_id) VALUES
+    (1, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 1),
+    (2, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 2),
+    (3, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 3),
+    (4, '2000-01-01', FALSE, '2000-01-01', '2000-01-01', 2, 4),
+    (5, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 5),
+    (6, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 6),
+    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 7);
 INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type, price_id, employee_rate_id) VALUES
     (1, '2017-06-01', 1, 1, 'PREPAYMENT', 5, 2),
     (2, '2017-06-01', 1, 2, 'PREPAYMENT', 5, 2),
