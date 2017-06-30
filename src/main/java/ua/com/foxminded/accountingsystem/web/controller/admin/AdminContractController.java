@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Order;
+import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
@@ -31,8 +32,7 @@ public class AdminContractController {
 
 
     @Autowired
-    public AdminContractController(ContractService contractService, EmployeeService employeeService,
-                                   OrderService orderService, OrderQueueService orderQueueService) {
+    public AdminContractController(ContractService contractService, EmployeeService employeeService, OrderService orderService, OrderQueueService orderQueueService) {
         this.contractService = contractService;
         this.employeeService = employeeService;
         this.orderService = orderService;
@@ -40,7 +40,7 @@ public class AdminContractController {
     }
 
     @GetMapping
-    public String getAllContracts(Model model) {
+    public String getAllContracts(Model model){
         model
             .addAttribute("title", "Contract management")
             .addAttribute("contracts", contractService.findAll());
@@ -48,7 +48,7 @@ public class AdminContractController {
     }
 
     @DeleteMapping("/{id}")
-    public String remove(@PathVariable Long id) {
+    public String remove(@PathVariable Long id){
         contractService.delete(id);
         return "redirect:/admin/contracts";
     }
@@ -62,21 +62,28 @@ public class AdminContractController {
     }
 
     @PostMapping()
-    public String save(@Valid Contract contract, BindingResult bindingResult, Model model) {
+    public String save(@Valid Contract contract, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()) {
             model.addAttribute("employees", employeeService.findAll());
             return "admin/contract";
         }
+        Order order = contract.getOrder();
+        order.setStatus(OrderStatus.ACTIVE);
+        orderService.save(order);
         contractService.save(contract);
-        if (orderQueueService.findQueueItemByOrder(contract.getOrder()) != null) {
-            orderQueueService.delete(orderQueueService.findQueueItemByOrder(contract.getOrder()));
+
+        if(orderQueueService.findQueueByOrderId(order.getId())!= null){
+            orderQueueService.delete(orderQueueService.findQueueByOrderId(order.getId()));
         }
+
         return "redirect:/admin/contracts";
     }
 
     @GetMapping("/new")
-    public String newContract(@RequestParam long orderId, Model model) {
+    public String newContract(@RequestParam long orderId, Model model){
         Contract contract = contractService.returnNew(orderId);
+
+
         model
             .addAttribute("contract", contract)
             .addAttribute("employees", employeeService.findAll());
