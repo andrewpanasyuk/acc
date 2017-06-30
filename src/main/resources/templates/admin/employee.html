@@ -82,16 +82,18 @@
               <thead>
               <tr>
                 <th>id</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
               </tr>
               </thead>
               <tbody>
                 <tr th:each="client : ${relatedClients}">
-                <td th:text="${client.id}"></td>
-                <td th:text="${client.firstName}"></td>
-                <td th:text="${client.lastName}"></td>
-              </tr>
+                  <td th:text="${client.id}"></td>
+                  <td>
+                    <a th:href="@{'/admin/clients/'+${client.id}}">
+                      <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
+                    </a>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

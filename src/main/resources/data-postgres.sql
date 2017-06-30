@@ -96,13 +96,13 @@ INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
 
 INSERT INTO client (id, last_name, first_name, personal_account_id) VALUES
     (1, 'Ivanov', 'Ivan',1),
-    (2, 'Petrov', 'Sergey', 2),
+    (2, 'Petrov', 'Sergey', null),
     (3, 'Pupkin', 'Adolf', 3),
     (4, 'Selezneva', 'Alisa', 4),
     (5, 'Hatabych', 'Old', 5),
     (6, 'Sidorov', 'Ivan', 5),
     (7, 'Smith', 'Sergey', 4),
-    (8, 'Pupkin', 'Adolf', 3),
+    (8, 'Pupkin', 'Adolf', null),
     (9, 'Waylon', 'Dalton', 2),
     (10, 'Ivanov', 'Ivan', 1),
     (11, 'Cruz', 'Marcus', 1),
