@@ -69,7 +69,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="money : ${client.personalAccount.money}">
+            <tr th:each="money : ${client.personalAccount != null} ? ${client.personalAccount.money}">
               <td th:text="${client.personalAccount.id}"></td>
               <td th:text="${money.currency}"></td>
               <td th:text="${money.price}"></td>

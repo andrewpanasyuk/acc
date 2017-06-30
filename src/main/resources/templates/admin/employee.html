@@ -71,6 +71,32 @@
             </div>
           </div>
         </div>
+        <br/>
+        <br/>
+        <h3>Related clients:</h3>
+        <br/>
+        <form id="showStudents" class="form-horizontal">
+          <div class="display-grid">
+            <table data-toggle="table">
+              <thead>
+              <tr>
+                <th>id</th>
+                <th>Name</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr th:each="client : ${relatedClients}">
+                  <td th:text="${client.id}"></td>
+                  <td>
+                    <a th:href="@{'/admin/clients/'+${client.id}}">
+                      <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
 </section>
 </body>
 </html>

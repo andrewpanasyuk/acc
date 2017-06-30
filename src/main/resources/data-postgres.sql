@@ -96,13 +96,13 @@ INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
 
 INSERT INTO client (id, last_name, first_name, personal_account_id) VALUES
     (1, 'Ivanov', 'Ivan',1),
-    (2, 'Petrov', 'Sergey', 2),
+    (2, 'Petrov', 'Sergey', null),
     (3, 'Pupkin', 'Adolf', 3),
     (4, 'Selezneva', 'Alisa', 4),
     (5, 'Hatabych', 'Old', 5),
     (6, 'Sidorov', 'Ivan', 5),
     (7, 'Smith', 'Sergey', 4),
-    (8, 'Pupkin', 'Adolf', 3),
+    (8, 'Pupkin', 'Adolf', null),
     (9, 'Waylon', 'Dalton', 2),
     (10, 'Ivanov', 'Ivan', 1),
     (11, 'Cruz', 'Marcus', 1),
@@ -161,4 +161,7 @@ INSERT INTO invoice (id, creation_date, employee_payment, period_from, period_to
 
 INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type, price_id, employee_rate_id) VALUES
     (1, '2017-06-01', 1, 1, 'PREPAYMENT', 5, 2),
-    (2, '2017-06-10',  2, 2, 'DELAY', 5, 2);
+    (2, '2017-06-01', 1, 2, 'PREPAYMENT', 5, 2),
+    (3, '2017-06-10', 2, 2, 'PREPAYMENT', 5, 2),
+    (4, '2017-06-15', 5, 3, 'PREPAYMENT', 5, 2),
+    (5, '2017-06-20',  6, 2, 'DELAY', 5, 2);
