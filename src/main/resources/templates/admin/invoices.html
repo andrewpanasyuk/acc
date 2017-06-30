@@ -1,16 +1,11 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/fragments/head :: head">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
 </head>
 <body>
-<div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+<section layout:fragment="content">
       <div class="col-md-10 display-grid">
-        <!--<div id="fixed-table-toolbar&#45;&#45;buttons" class="pull-left search">-->
-        <!--<a th:href="@{/admin/invoices/new?contractID=1}" class="btn btn-danger">Create Invoice</a>-->
-        <!--</div>-->
         <table data-toggle="table" data-class="table table-striped table-hover"
                data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
           <thead>
@@ -42,8 +37,6 @@
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
-</div>
+</section>
 </body>
 </html>
