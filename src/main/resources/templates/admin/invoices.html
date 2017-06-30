@@ -7,7 +7,10 @@
   <div class="container">
     <div class="row">
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10">
+      <div class="col-md-10 display-grid">
+        <!--<div id="fixed-table-toolbar&#45;&#45;buttons" class="pull-left search">-->
+        <!--<a th:href="@{/admin/invoices/new?contractID=1}" class="btn btn-danger">Create Invoice</a>-->
+        <!--</div>-->
         <table data-toggle="table" data-class="table table-striped table-hover"
                data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
           <thead>
@@ -15,7 +18,9 @@
             <th>ID</th>
             <th>Invoice</th>
             <th>Creation date</th>
-            <th>Employee payment</th>
+            <th>Contact ID</th>
+            <th>Amount due</th>
+            <th>Employee paid</th>
             <th>Date from</th>
             <th>Date to</th>
           </tr>
@@ -28,7 +33,9 @@
               <a th:href="@{/admin/invoices/{id} (id = ${invoice.id})}">Invoice</a>
             </td>
             <td th:text="${invoice.creationDate}"></td>
-            <td th:text="${invoice.isEmployeePayment}"></td>
+            <td th:text="${invoice.contract.id}"></td>
+            <td th:text="${invoice.price.getCurrency()} + ' ' + ${invoice.price.price}"></td>
+            <td th:text="${invoice.employeePaid}"></td>
             <td th:text="${invoice.paymentPeriodFrom}"></td>
             <td th:text="${invoice.paymentPeriodTo}"></td>
           </tr>
