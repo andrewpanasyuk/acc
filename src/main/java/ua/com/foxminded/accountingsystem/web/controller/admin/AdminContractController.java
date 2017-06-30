@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Order;
+import ua.com.foxminded.accountingsystem.model.OrderQueue;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
+import ua.com.foxminded.accountingsystem.service.OrderQueueService;
+import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import javax.validation.Valid;
 
@@ -22,12 +27,16 @@ public class AdminContractController {
 
     private final ContractService contractService;
     private final EmployeeService employeeService;
+    private final OrderService orderService;
+    private final OrderQueueService orderQueueService;
 
 
     @Autowired
-    public AdminContractController(ContractService contractService, EmployeeService employeeService) {
+    public AdminContractController(ContractService contractService, EmployeeService employeeService, OrderService orderService, OrderQueueService orderQueueService) {
         this.contractService = contractService;
         this.employeeService = employeeService;
+        this.orderService = orderService;
+        this.orderQueueService = orderQueueService;
     }
 
     @GetMapping
@@ -58,13 +67,22 @@ public class AdminContractController {
             model.addAttribute("employees", employeeService.findAll());
             return "admin/contract";
         }
+        Order order = contract.getOrder();
+        order.setStatus(OrderStatus.ACTIVE);
+        orderService.save(order);
         contractService.save(contract);
+
+        if(orderQueueService.findQueueByOrderId(order.getId())!= null){
+            orderQueueService.delete(orderQueueService.findQueueByOrderId(order.getId()));
+        }
+
         return "redirect:/admin/contracts";
     }
 
     @GetMapping("/new")
     public String newContract(@RequestParam long orderId, Model model){
         Contract contract = contractService.returnNew(orderId);
+
 
         model
             .addAttribute("contract", contract)

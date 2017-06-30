@@ -7,7 +7,7 @@
   <div class="container">
     <div class="row">
       <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10">
+      <div class="col-md-10 display-grid">
         <table data-toggle="table" data-class="table table-striped table-hover"
                data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
           <thead>
@@ -17,6 +17,7 @@
             <th>Client</th>
             <th>queuing Date</th>
             <th>Priority</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>
@@ -30,6 +31,10 @@
             <td
               th:text="${queue.queuingDate != null} ? ${#temporals.format(queue.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
             <td th:text="${queue.priority}"></td>
+            <td>
+                <a th:href="@{/admin/contracts/new?orderId={id}(id=${queue.order.id})}">Contract</a> |
+                <a th:href="@{/admin/queues/{id}(id=${queue.id})}">Remove</a>
+            </td>
           </tr>
           </tbody>
         </table>

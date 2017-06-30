@@ -1,16 +1,21 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="admin/mainTemplate">
-<head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/fragments/head :: head">
 </head>
 <body>
-<section layout:fragment="content">
-        <!--/*@thymesVar ordersrder" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+<div th:replace="/admin/fragments/header :: nav"></div>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
+      <div class="col-md-10">
+        <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
         <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
         <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
         <!--/*@thymesVar id="services" type="java.util.List<ua.com.foxminded.accountingsystem.model.Service>"*/-->
         <form id="saveOrder" class="form-horizontal" th:action="@{/admin/orders}" th:object="${order}" method="post">
           <input type="hidden" th:field="${order.id}"/>
           <input type="hidden" th:field="${order.client}"/>
+          <input type="hidden" th:field="${order.status}"/>
 
           <div class="form-group">
             <div class="col-sm-2">
@@ -48,16 +53,7 @@
               <label for="orderStatus">Order Status: </label>
             </div>
             <div class="col-sm-10">
-              <select id="orderStatus" th:field="${order.status}" class="form-control">
-                <option value="">Select Service</option>
-                <option th:each="status : ${T(ua.com.foxminded.accountingsystem.model.OrderStatus).values()}"
-                        th:value="${status}"
-                        th:text="${status}"/>
-              </select>
-
-              <output th:if="${#fields.hasErrors('status')}" th:errors="${order.status}" class="text-danger">Name
-                Error
-              </output>
+              <output id="orderStatus" th:text="${order.status}"/>
             </div>
           </div>
 
@@ -108,10 +104,16 @@
               <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
             </div>
             <div class="btn-group" role="group">
-              <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary" >New contract</a>
+              <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary" th:disabled="!${order.id gt null}">New contract</a>
+            </div>
+            <div class="btn-group" role="group">
+              <a th:href="@{/admin/queues/new?orderId={id}(id=${order.id})}" class="btn btn-primary" th:disabled="!${order.id gt null}" >Queue</a>
             </div>
           </div>
         </div>
-</section>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
