@@ -13,4 +13,6 @@ public interface InvoiceService {
     Invoice save(Invoice invoice);
 
     void delete(Invoice invoice);
+
+    Invoice assemble(Long contractId);
 }
