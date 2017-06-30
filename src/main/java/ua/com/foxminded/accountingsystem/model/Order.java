@@ -51,7 +51,6 @@ public class Order implements Serializable {
     @JoinColumn(name = "service_id")
     private Service service;
 
-    @NotNull(message = "You have to set 'Status'")
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Order;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
@@ -75,6 +76,7 @@ public class AdminOrderController {
         Order order = new Order();
         Client client = clientService.findOne(clientId);
         order.setClient(client);
+        order.setStatus(OrderStatus.NEW);
         client.getOrders().add(order);
         order.setOpenDate(LocalDate.now());
         model.addAttribute("order", order)
