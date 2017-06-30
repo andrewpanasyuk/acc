@@ -14,5 +14,5 @@ public interface InvoiceService {
 
     void delete(Invoice invoice);
 
-    Invoice createInvoiceByContractId(Long contractId);
+    Invoice assemble(Long contractId);
 }

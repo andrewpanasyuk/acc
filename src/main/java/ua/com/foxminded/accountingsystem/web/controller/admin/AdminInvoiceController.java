@@ -55,7 +55,7 @@ public class AdminInvoiceController {
 
     @GetMapping("/new")
     public String addInvoice(@RequestParam long contractID, Model model) {
-        Invoice invoice = invoiceService.createInvoiceByContractId(contractID);
+        Invoice invoice = invoiceService.assemble(contractID);
         model.addAttribute("invoice", invoice);
         return "admin/invoice";
     }

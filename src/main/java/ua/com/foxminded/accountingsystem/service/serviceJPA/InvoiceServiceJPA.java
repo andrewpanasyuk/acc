@@ -42,16 +42,21 @@ public class InvoiceServiceJPA implements InvoiceService {
         invoiceRepository.delete(invoice);
     }
 
-    public Invoice createInvoiceByContractId(Long contractId) {
+
+    //Assembling Invoice object from available information in Contract
+    public Invoice assemble(Long contractId) {
+        //Initialization block
         Contract contract = contractRepository.findOne(contractId);
         Invoice invoice = new Invoice();
         Money amountForInvoice = contract.getPrice();
 
+        //Date logic block
         LocalDate contractPaymentDate = contract.getPaymentDate();
         LocalDate currentDate = LocalDate.now();
         long monthsPassedSinceFirstPayment = MONTHS.between(contractPaymentDate, currentDate);
         LocalDate paymentDate = contractPaymentDate.plusMonths(monthsPassedSinceFirstPayment + 1L);
 
+        //Setting block
         invoice.setPaymentPeriodTo(paymentDate);
         invoice.setPaymentPeriodFrom(paymentDate.minusMonths(1L));
         invoice.setPrice(amountForInvoice);
