@@ -161,4 +161,7 @@ INSERT INTO invoice (id, creation_date, employee_payment, period_from, period_to
 
 INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type, price_id, employee_rate_id) VALUES
     (1, '2017-06-01', 1, 1, 'PREPAYMENT', 5, 2),
-    (2, '2017-06-10',  2, 2, 'DELAY', 5, 2);
+    (2, '2017-06-01', 1, 2, 'PREPAYMENT', 5, 2),
+    (3, '2017-06-10', 2, 2, 'PREPAYMENT', 5, 2),
+    (4, '2017-06-15', 5, 3, 'PREPAYMENT', 5, 2),
+    (5, '2017-06-20',  6, 2, 'DELAY', 5, 2);

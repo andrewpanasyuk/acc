@@ -44,6 +44,7 @@ public class AdminEmployeeController {
     @GetMapping(value = "{id}")
     public String getEmployee(@PathVariable long id, Model model) {
         model.addAttribute("employee", employeeService.findOne(id));
+        model.addAttribute("relatedClients", employeeService.findRelatedClients(id));
         return "admin/employee";
     }
 

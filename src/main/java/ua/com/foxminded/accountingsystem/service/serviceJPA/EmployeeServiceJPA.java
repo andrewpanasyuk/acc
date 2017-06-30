@@ -2,12 +2,12 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.repository.EmployeeRepository;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 
 import java.util.List;
-
 
 @Service
 public class EmployeeServiceJPA implements EmployeeService {
@@ -47,5 +47,10 @@ public class EmployeeServiceJPA implements EmployeeService {
     @Override
     public void delete(long id) {
         employeeRepository.delete(id);
+    }
+
+    @Override
+    public List<Client> findRelatedClients(Long id) {
+       return employeeRepository.findRelatedClients(id);
     }
 }
