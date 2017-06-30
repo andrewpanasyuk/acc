@@ -25,7 +25,7 @@
             <td>
               <p th:text="${order.id}">id</p>
             </td>
-            <!--/*@thymesVar ordersrder" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+            <!--/*@thymesVar order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
             <td>
               <a th:href="@{/admin/orders/{id}(id=${order.id})}" th:text="${order.service != null} ? ${order.service.name} : 'Order'"></a>
             </td>
