@@ -1,29 +1,9 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title th:text="${title}"></title>
-  <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.js"></script>
-  <script type="text/javascript"
-          src="/webjars/bootstrap-table/1.11.1/dist/locale/bootstrap-table-ru-RU.min.js"></script>
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
-        type="text/css"/>
-  <!--<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet"-->
-  <!--type="text/css"/>-->
-  <link href="/webjars/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"
-        type="text/css"/>
-  <link href="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.css" rel="stylesheet"
-        type="text/css"/>
 </head>
 <body>
-<div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-6">
+<section layout:fragment="content">
         <!--/*@thymesVar id="user" type="ua.com.foxminded.accountingsystem.model.User"*/-->
         <form class="form-horizontal" role="form" th:object="${user}">
           <div class="form-group">
@@ -52,9 +32,6 @@
             </div>
           </div>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
 </body>
 </html>
