@@ -21,8 +21,8 @@ import java.time.LocalDate;
 public class OrderQueue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
-    @SequenceGenerator(name = "order_sequence", sequenceName = "order_sequence", initialValue = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "queue_sequence")
+    @SequenceGenerator(name = "queue_sequence", sequenceName = "queue_sequence", initialValue = 50)
     private Long id;
 
     @Column(name = "queuing_date")

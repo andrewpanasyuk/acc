@@ -2,6 +2,7 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.repository.OrderQueueRepository;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
@@ -36,5 +37,10 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     @Override
     public List<OrderQueue> findAll() {
         return orderQueueRepository.findAll();
+    }
+
+    @Override
+    public OrderQueue findQueueByOrderId(Long id) {
+        return orderQueueRepository.findQueueByOrderId(id);
     }
 }
