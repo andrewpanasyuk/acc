@@ -1,119 +1,116 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/fragments/head :: head">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
 </head>
 <body>
-<div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10">
-        <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-        <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
-        <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
-        <!--/*@thymesVar id="services" type="java.util.List<ua.com.foxminded.accountingsystem.model.Service>"*/-->
-        <form id="saveOrder" class="form-horizontal" th:action="@{/admin/orders}" th:object="${order}" method="post">
-          <input type="hidden" th:field="${order.id}"/>
-          <input type="hidden" th:field="${order.client}"/>
-          <input type="hidden" th:field="${order.status}"/>
+<section layout:fragment="content">
+  <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+  <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
+  <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
+  <!--/*@thymesVar id="services" type="java.util.List<ua.com.foxminded.accountingsystem.model.Service>"*/-->
+  <form id="saveOrder" class="form-horizontal" th:action="@{/admin/orders}" th:object="${order}" method="post">
+    <input type="hidden" th:field="${order.id}"/>
+    <input type="hidden" th:field="${order.client}"/>
+    <input type="hidden" th:field="${order.status}"/>
+    <input type="hidden" th:field="${order.openDate}"/>
 
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="client">Client: </label>
-            </div>
-            <div class="col-sm-10">
-              <label id="client">
-                <a th:href="@{/admin/clients/{id}(id=${order.client.id})}"
-                   th:text="${order.client.firstName} + ' '  + ${order.client.lastName}"></a>
-              </label>
-            </div>
-          </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="client">Client: </label>
+      </div>
+      <div class="col-sm-10">
+        <label id="client">
+          <a th:href="@{/admin/clients/{id}(id=${order.client.id})}"
+             th:text="${order.client.firstName} + ' '  + ${order.client.lastName}"></a>
+        </label>
+      </div>
+    </div>
 
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="serviceName">Service: </label>
-            </div>
-            <div class="col-sm-10">
-              <select id="serviceName" th:field="${order.service}" class="form-control">
-                <option value="">Select Service</option>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="serviceName">Service: </label>
+      </div>
+      <div class="col-sm-10">
+        <select id="serviceName" th:field="${order.service}" class="form-control">
+          <option value="">Select Service</option>
 
-                <option th:each="service : ${services}"
-                        th:value="${service.id}"
-                        th:text="${service.name}"></option>
-              </select>
-              <output th:if="${#fields.hasErrors('service')}" th:errors="${order.service}" class="text-danger">Name
-                Error
-              </output>
+          <option th:each="service : ${services}"
+                  th:value="${service.id}"
+                  th:text="${service.name}"></option>
+        </select>
+        <output th:if="${#fields.hasErrors('service')}" th:errors="${order.service}" class="text-danger">Name
+          Error
+        </output>
 
-            </div>
-          </div>
+      </div>
+    </div>
 
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="orderStatus">Order Status: </label>
-            </div>
-            <div class="col-sm-10">
-              <output id="orderStatus" th:text="${order.status}"/>
-            </div>
-          </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="orderStatus">Order Status: </label>
+      </div>
+      <div class="col-sm-10">
+        <output id="orderStatus" th:text="${order.status}"/>
+      </div>
+    </div>
 
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="openDate">Open Date: </label>
-            </div>
-            <div class="col-sm-10">
-              <input id="openDate" class="form-control" type="date"
-                     th:value="${#temporals.format(order.openDate, 'yyyy-MM-dd')}"
-                     th:field="${order.openDate}"/>
-            </div>
-          </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="openDate">Open Date: </label>
+      </div>
+      <div class="col-sm-10">
+        <output id="openDate" th:text="${order.openDate}"></output>
+        <!--<input id="openDate" class="form-control" type="date"-->
+        <!--th:value="${#temporals.format(order.openDate, 'yyyy-MM-dd')}"-->
+        <!--th:field="${order.openDate}"/>-->
+      </div>
+    </div>
 
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="queuingDate">Queuing Date: </label>
-            </div>
-            <div class="col-sm-10">
-              <input id="queuingDate" type="date" class="form-control"
-                     th:value="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'yyyy-MM-dd')} : ''"
-                     th:field="${order.queuingDate}"/>
-            </div>
-          </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="queuingDate">Queuing Date: </label>
+      </div>
+      <div class="col-sm-10">
+        <input id="queuingDate" type="date" class="form-control"
+               th:value="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'yyyy-MM-dd')} : ''"
+               th:field="${order.queuingDate}"/>
+      </div>
+    </div>
 
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="closeDate">Close Date: </label>
-            </div>
-            <div class="col-sm-10">
-              <input id="closeDate" type="date" class="form-control"
-                     th:value="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'yyyy-MM-dd')} : ''"
-                     th:field="${order.closeDate}"/><br/>
-            </div>
-          </div>
-        </form>
-        <form id="deleteOrder" th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">
-        </form>
-        <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group">
-          <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
-        </div>
-        <div class="pull-right col-md-6 col-sm-3 col-xs-12">
-          <div class="btn-group btn-group-justified" role="group">
-            <div class="btn-group" role="group">
-              <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
-            </div>
-            <div class="btn-group" role="group">
-              <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
-            </div>
-            <div class="btn-group" role="group">
-              <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary" th:disabled="!${order.id gt null}">New contract</a>
-            </div>
-            <div class="btn-group" role="group">
-              <a th:href="@{/admin/queues/new?orderId={id}(id=${order.id})}" class="btn btn-primary" th:disabled="!${order.id gt null}" >Queue</a>
-            </div>
-          </div>
-        </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="closeDate">Close Date: </label>
+      </div>
+      <div class="col-sm-10">
+        <input id="closeDate" type="date" class="form-control"
+               th:value="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'yyyy-MM-dd')} : ''"
+               th:field="${order.closeDate}"/><br/>
+      </div>
+    </div>
+  </form>
+  <form id="deleteOrder" th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">
+  </form>
+  <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group">
+    <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
+  </div>
+  <div class="pull-right col-md-6 col-sm-3 col-xs-12">
+    <div class="btn-group btn-group-justified" role="group">
+      <div class="btn-group" role="group">
+        <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
+      </div>
+      <div class="btn-group" role="group">
+        <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary"
+           th:disabled="!${order.id gt null}">New contract</a>
+      </div>
+      <div class="btn-group" role="group">
+        <a th:href="@{/admin/queues/new?orderId={id}(id=${order.id})}" class="btn btn-primary"
+           th:disabled="!${order.id gt null}">Queue</a>
       </div>
     </div>
   </div>
-</div>
+</section>
 </body>
 </html>
