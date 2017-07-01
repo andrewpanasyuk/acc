@@ -47,7 +47,6 @@ public class OrderQueueServiceJPA implements OrderQueueService {
         return orderQueueRepository.findByOrderId(id);
     }
 
-    @Override
     public OrderQueue create(Order order) {
         OrderQueue orderQueue = new OrderQueue();
         orderQueue.setQueuingDate(LocalDate.now());
