@@ -26,12 +26,10 @@ public class ContractServiceJPA implements ContractService {
         this.orderService = orderService;
     }
 
-
     @Override
     public List<Contract> findAll() {
         return contractRepository.findAll();
     }
-
 
     @Override
     public Contract findOne(Long id) {
