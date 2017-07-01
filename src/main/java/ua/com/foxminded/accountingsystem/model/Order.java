@@ -140,7 +140,7 @@ public class Order implements Serializable {
 
     @Override
     public int hashCode() {
-        if(id==null){
+        if (id == null) {
             return 31;
         }
         return id.hashCode();
