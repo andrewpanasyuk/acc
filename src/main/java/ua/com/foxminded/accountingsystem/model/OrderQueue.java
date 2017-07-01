@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "queue")
+@Table(name = "order_queue")
 public class OrderQueue {
 
     @Id
