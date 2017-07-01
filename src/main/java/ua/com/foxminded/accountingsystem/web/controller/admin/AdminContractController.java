@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Order;
-import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
@@ -32,7 +31,8 @@ public class AdminContractController {
 
 
     @Autowired
-    public AdminContractController(ContractService contractService, EmployeeService employeeService, OrderService orderService, OrderQueueService orderQueueService) {
+    public AdminContractController(ContractService contractService, EmployeeService employeeService,
+                                   OrderService orderService, OrderQueueService orderQueueService) {
         this.contractService = contractService;
         this.employeeService = employeeService;
         this.orderService = orderService;
@@ -72,8 +72,8 @@ public class AdminContractController {
         orderService.save(order);
         contractService.save(contract);
 
-        if(orderQueueService.findQueueByOrderId(order.getId())!= null){
-            orderQueueService.delete(orderQueueService.findQueueByOrderId(order.getId()));
+        if(orderQueueService.findByOrderId(order.getId())!= null){
+            orderQueueService.delete(orderQueueService.findByOrderId(order.getId()));
         }
 
         return "redirect:/admin/contracts";
