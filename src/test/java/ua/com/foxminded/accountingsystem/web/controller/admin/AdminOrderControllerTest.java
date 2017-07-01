@@ -36,6 +36,7 @@ public class AdminOrderControllerTest {
     private AdminOrderController controller;
 
     private MockMvc mockMvc;
+    private Model model;
 
     private static Order order_1;
     private static Order order_2;
@@ -54,6 +55,7 @@ public class AdminOrderControllerTest {
 
     @Before
     public void init() {
+        model = new ExtendedModelMap();
         controller = new AdminOrderController(orderService, clientService, serviceService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(orderService.findAll()).thenReturn(Arrays.asList(order_1, order_2));
@@ -62,28 +64,24 @@ public class AdminOrderControllerTest {
 
     @Test
     public void ordersAddedToModel() {
-        Model model = new ExtendedModelMap();
         assertThat(controller.getAllOrders(model), equalTo("admin/orders"));
         assertThat(model.asMap(), hasEntry("orders", orders));
     }
 
     @Test
     public void ordersTitleAddedToModel() {
-        Model model = new ExtendedModelMap();
         assertThat(controller.getAllOrders(model), equalTo("admin/orders"));
         assertThat(model.asMap(), hasEntry("title", "Orders"));
     }
 
     @Test
     public void oneOrderAddedToModel() {
-        Model model = new ExtendedModelMap();
         assertThat(controller.getOrderById(order_1.getId(), model), equalTo("admin/order"));
         assertThat(model.asMap(), hasEntry("order", order_1));
     }
 
     @Test
     public void userTitleAddedToModel() {
-        Model model = new ExtendedModelMap();
         assertThat(controller.getOrderById(order_1.getId(), model), equalTo("admin/order"));
         assertThat(model.asMap(), hasEntry("title", "Order: " + order_1.getId()));
     }

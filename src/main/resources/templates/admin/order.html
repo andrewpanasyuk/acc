@@ -1,13 +1,9 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/fragments/head :: head">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
 </head>
 <body>
-<div th:replace="/admin/fragments/header :: nav"></div>
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div th:replace="/admin/fragments/leftMenu :: menu"></div>
-      <div class="col-md-10">
+<section layout:fragment="content">
         <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
         <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
         <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
@@ -92,7 +88,7 @@
         </form>
         <form id="deleteOrder" th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">
         </form>
-        <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group">
+        <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group" th:if="!${order.id == null}">
           <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
         </div>
         <div class="pull-right col-md-6 col-sm-3 col-xs-12">
@@ -103,17 +99,14 @@
             <div class="btn-group" role="group">
               <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
             </div>
-            <div class="btn-group" role="group">
-              <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary" th:disabled="!${order.id gt null}">New contract</a>
+            <div class="btn-group" role="group" th:if="!${order.id == null}">
+              <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary">New contract</a>
             </div>
-            <div class="btn-group" role="group">
-              <a th:href="@{/admin/queues/new?orderId={id}(id=${order.id})}" class="btn btn-primary" th:disabled="!${order.id gt null}" >Queue</a>
+            <div class="btn-group" role="group" th:if="!${order.id == null}">
+              <a th:href="@{/admin/queues/new?orderId={id}(id=${order.id})}" class="btn btn-primary">Queue</a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
 </body>
 </html>
