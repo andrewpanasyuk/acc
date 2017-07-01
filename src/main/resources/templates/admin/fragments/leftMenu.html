@@ -48,7 +48,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a th:href="@{/admin/orders}"><i class="fa fa-circle-o"></i> Все</a></li>
+            <li><a th:href="@{/admin/contracts}"><i class="fa fa-circle-o"></i> Все</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Активные</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Замороженные</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Закрытые</a></li>
@@ -59,10 +59,20 @@
             <i class="fa fa-table"></i> <span>Услуги</span>
           </a>
         </li>
-        <li>
-          <a th:href="@{/admin/invoices}">
-            <i class="fa fa-edit"></i> <span>Счета</span>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i>
+            <span>Счета</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a th:href="@{/admin/invoices}"><i class="fa fa-circle-o"></i> Все</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Выставление</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Просроченные</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Закрытые</a></li>
+          </ul>
         </li>
         <li>
           <a href="#">
