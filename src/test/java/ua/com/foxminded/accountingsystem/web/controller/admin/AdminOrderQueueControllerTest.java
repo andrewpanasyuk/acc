@@ -41,7 +41,7 @@ public class AdminOrderQueueControllerTest {
     @Test
     public void queueTitleAddedToModel() {
         Model model = new ExtendedModelMap();
-        assertThat(controller.getQueues(model), equalTo("admin/queue"));
+        assertThat(controller.getQueues(model), equalTo("admin/queues"));
         assertThat(model.asMap(), hasEntry("title", "Queue"));
     }
 

@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
+import ua.com.foxminded.accountingsystem.model.Priority;
 import ua.com.foxminded.accountingsystem.repository.OrderQueueRepository;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -40,7 +43,22 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     }
 
     @Override
-    public OrderQueue findQueueByOrderId(Long id) {
-        return orderQueueRepository.findQueueByOrderId(id);
+    public OrderQueue findByOrderId(Long id) {
+        return orderQueueRepository.findByOrderId(id);
+    }
+
+    @Override
+    public OrderQueue create(Order order) {
+        OrderQueue orderQueue = new OrderQueue();
+        orderQueue.setQueuingDate(LocalDate.now());
+        if (order.getStatus().equals(OrderStatus.NEW)){
+            orderQueue.setPriority(Priority.NORMAL);
+        } else {
+            orderQueue.setPriority(Priority.HIGH);
+        }
+        order.setStatus(OrderStatus.WAITING);
+        order.setQueuingDate(LocalDate.now());
+        orderQueue.setOrder(order);
+        return orderQueue;
     }
 }
