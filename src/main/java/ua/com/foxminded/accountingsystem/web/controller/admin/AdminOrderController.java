@@ -18,7 +18,6 @@ import ua.com.foxminded.accountingsystem.service.OrderService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -57,7 +56,7 @@ public class AdminOrderController {
 
     @GetMapping(value = "/{id}")
     public String getOrderById(@PathVariable long id,
-                       Model model) {
+                               Model model) {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
             .addAttribute("title", "Order: " + order.getId())
@@ -83,5 +82,4 @@ public class AdminOrderController {
             .addAttribute("services", service.findAll());
         return "admin/order";
     }
-
 }
