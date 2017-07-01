@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Order;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
+import ua.com.foxminded.accountingsystem.service.OrderQueueService;
+import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import javax.validation.Valid;
 
@@ -22,16 +26,21 @@ public class AdminContractController {
 
     private final ContractService contractService;
     private final EmployeeService employeeService;
+    private final OrderService orderService;
+    private final OrderQueueService orderQueueService;
 
 
     @Autowired
-    public AdminContractController(ContractService contractService, EmployeeService employeeService) {
+    public AdminContractController(ContractService contractService, EmployeeService employeeService,
+                                   OrderService orderService, OrderQueueService orderQueueService) {
         this.contractService = contractService;
         this.employeeService = employeeService;
+        this.orderService = orderService;
+        this.orderQueueService = orderQueueService;
     }
 
     @GetMapping
-    public String getAllContracts(Model model){
+    public String getAllContracts(Model model) {
         model
             .addAttribute("title", "Contract management")
             .addAttribute("contracts", contractService.findAll());
@@ -39,7 +48,7 @@ public class AdminContractController {
     }
 
     @DeleteMapping("/{id}")
-    public String remove(@PathVariable Long id){
+    public String remove(@PathVariable Long id) {
         contractService.delete(id);
         return "redirect:/admin/contracts";
     }
@@ -53,7 +62,7 @@ public class AdminContractController {
     }
 
     @PostMapping()
-    public String save(@Valid Contract contract, BindingResult bindingResult, Model model){
+    public String save(@Valid Contract contract, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("employees", employeeService.findAll());
             return "admin/contract";
@@ -63,12 +72,18 @@ public class AdminContractController {
     }
 
     @GetMapping("/new")
-    public String newContract(@RequestParam long orderId, Model model){
+    public String newContract(@RequestParam long orderId, Model model) {
         Contract contract = contractService.returnNew(orderId);
+        Order order = contract.getOrder();
+        order.setStatus(OrderStatus.ACTIVE);
 
         model
             .addAttribute("contract", contract)
             .addAttribute("employees", employeeService.findAll());
+
+        if (orderQueueService.findByOrderId(order.getId()) != null) {
+            orderQueueService.delete(orderQueueService.findByOrderId(order.getId()));
+        }
         return "admin/contract";
     }
 
