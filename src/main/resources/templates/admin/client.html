@@ -34,7 +34,6 @@
               <th>Service</th>
               <th>order Status</th>
               <th>open Date</th>
-              <th>queuing Date</th>
               <th>Action</th>
             </tr>
             </thead>
@@ -47,8 +46,6 @@
               <td th:text="${order.service != null} ? ${order.service.name} : 'order'"></td>
               <td th:text="${order.status}"></td>
               <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
-              <td
-                th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
               <td>
                 <a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a>
               </td>
