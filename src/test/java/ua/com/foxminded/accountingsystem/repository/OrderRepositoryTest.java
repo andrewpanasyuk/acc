@@ -39,7 +39,6 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
         order.setService(service);
         order.setClient(client);
         order.setOpenDate(LocalDate.of(2017, 01, 24));
-        order.setQueuingDate(LocalDate.of(2017, 01, 25));
         order.setCloseDate(LocalDate.of(2017, 01, 25));
 
         order_1 = new Order();
