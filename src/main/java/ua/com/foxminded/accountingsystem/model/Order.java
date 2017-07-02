@@ -27,9 +27,6 @@ public class Order implements Serializable {
     @SequenceGenerator(name = "order_sequence", sequenceName = "order_sequence", initialValue = 50)
     private Long id;
 
-    @Column(name = "order_name")
-    private String orderName;
-
     @Column(name = "open_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate openDate;
@@ -83,14 +80,6 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public String getOrderName() {
-        return orderName;
-    }
-
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
-    }
-
     public LocalDate getOpenDate() {
         return openDate;
     }
@@ -111,7 +100,6 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
             "id=" + id +
-            ", orderName='" + orderName + '\'' +
             ", openDate=" + openDate +
             ", closeDate=" + closeDate +
             '}';
