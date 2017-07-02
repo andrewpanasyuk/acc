@@ -68,22 +68,18 @@ public class AdminContractController {
             return "admin/contract";
         }
         contractService.save(contract);
+        if (orderQueueService.findQueueItemByOrder(contract.getOrder()) != null) {
+            orderQueueService.delete(orderQueueService.findQueueItemByOrder(contract.getOrder()));
+        }
         return "redirect:/admin/contracts";
     }
 
     @GetMapping("/new")
     public String newContract(@RequestParam long orderId, Model model) {
         Contract contract = contractService.returnNew(orderId);
-        Order order = contract.getOrder();
-        order.setStatus(OrderStatus.ACTIVE);
-
         model
             .addAttribute("contract", contract)
             .addAttribute("employees", employeeService.findAll());
-
-        if (orderQueueService.findByOrderId(order.getId()) != null) {
-            orderQueueService.delete(orderQueueService.findByOrderId(order.getId()));
-        }
         return "admin/contract";
     }
 

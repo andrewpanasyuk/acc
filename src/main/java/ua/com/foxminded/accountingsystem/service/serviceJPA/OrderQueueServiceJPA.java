@@ -7,7 +7,9 @@ import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.Priority;
 import ua.com.foxminded.accountingsystem.repository.OrderQueueRepository;
+import ua.com.foxminded.accountingsystem.repository.OrderRepository;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
+import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,10 +18,12 @@ import java.util.List;
 public class OrderQueueServiceJPA implements OrderQueueService {
 
     private final OrderQueueRepository orderQueueRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderQueueServiceJPA(OrderQueueRepository orderQueueRepository) {
+    public OrderQueueServiceJPA(OrderQueueRepository orderQueueRepository, OrderRepository orderRepository) {
         this.orderQueueRepository = orderQueueRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -43,11 +47,12 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     }
 
     @Override
-    public OrderQueue findByOrderId(Long id) {
-        return orderQueueRepository.findByOrderId(id);
+    public OrderQueue findQueueItemByOrder(Order order) {
+        return orderQueueRepository.findQueueItemByOrder(order);
     }
 
-    public OrderQueue create(Order order) {
+    public OrderQueue createQueueItemByOrderId(Long id) {
+        Order order = orderRepository.findOne(id);
         OrderQueue orderQueue = new OrderQueue();
         orderQueue.setQueuingDate(LocalDate.now());
         if (order.getStatus().equals(OrderStatus.NEW)){
@@ -57,6 +62,7 @@ public class OrderQueueServiceJPA implements OrderQueueService {
         }
         order.setStatus(OrderStatus.WAITING);
         orderQueue.setOrder(order);
+        save(orderQueue);
         return orderQueue;
     }
 }
