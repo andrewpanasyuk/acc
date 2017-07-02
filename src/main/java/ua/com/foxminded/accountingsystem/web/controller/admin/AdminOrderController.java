@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -55,8 +53,7 @@ public class AdminOrderController {
     }
 
     @GetMapping(value = "/{id}")
-    public String getOrderById(@PathVariable long id,
-                       Model model) {
+    public String getOrderById(@PathVariable long id, Model model) {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
             .addAttribute("title", "Order: " + order.getId())
@@ -72,14 +69,9 @@ public class AdminOrderController {
 
     @GetMapping(value = "/new")
     public String addOrder(@RequestParam long clientId, Model model) {
-        Order order = new Order();
-        Client client = clientService.findOne(clientId);
-        order.setClient(client);
-        client.getOrders().add(order);
-        order.setOpenDate(LocalDate.now());
+        Order order = orderService.createOrderByClientId(clientId);
         model.addAttribute("order", order)
             .addAttribute("services", service.findAll());
         return "admin/order";
     }
-
 }

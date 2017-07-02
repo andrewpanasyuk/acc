@@ -8,8 +8,6 @@ import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/admin/clients")
 public class AdminClientController {

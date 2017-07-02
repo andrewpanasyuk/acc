@@ -27,16 +27,9 @@ public class Order implements Serializable {
     @SequenceGenerator(name = "order_sequence", sequenceName = "order_sequence", initialValue = 50)
     private Long id;
 
-    @Column(name = "order_name")
-    private String orderName;
-
     @Column(name = "open_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate openDate;
-
-    @Column(name = "queuing_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate queuingDate;
 
     @Column(name = "close_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -51,7 +44,6 @@ public class Order implements Serializable {
     @JoinColumn(name = "service_id")
     private Service service;
 
-    @NotNull(message = "You have to set 'Status'")
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -88,28 +80,12 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public String getOrderName() {
-        return orderName;
-    }
-
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
-    }
-
     public LocalDate getOpenDate() {
         return openDate;
     }
 
     public void setOpenDate(LocalDate openDate) {
         this.openDate = openDate;
-    }
-
-    public LocalDate getQueuingDate() {
-        return queuingDate;
-    }
-
-    public void setQueuingDate(LocalDate queuingDate) {
-        this.queuingDate = queuingDate;
     }
 
     public LocalDate getCloseDate() {
@@ -124,9 +100,7 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
             "id=" + id +
-            ", orderName='" + orderName + '\'' +
             ", openDate=" + openDate +
-            ", queuingDate=" + queuingDate +
             ", closeDate=" + closeDate +
             '}';
     }
@@ -141,7 +115,7 @@ public class Order implements Serializable {
 
     @Override
     public int hashCode() {
-        if(id==null){
+        if (id == null) {
             return 31;
         }
         return id.hashCode();

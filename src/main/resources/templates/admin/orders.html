@@ -13,7 +13,6 @@
             <th>View Order</th>
             <th>order Status</th>
             <th>open Date</th>
-            <th>queuing Date</th>
             <th>close Date</th>
           </tr>
           </thead>
@@ -22,14 +21,12 @@
             <td>
               <p th:text="${order.id}">id</p>
             </td>
-            <!--/*@thymesVar ordersrder" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+            <!--/*@thymesVar order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
             <td>
               <a th:href="@{/admin/orders/{id}(id=${order.id})}" th:text="${order.service != null} ? ${order.service.name} : 'Order'"></a>
             </td>
             <td th:text="${order.status}"></td>
             <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
-            <td
-              th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
             <td th:text="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd-MMM-yyyy')} : ''"></td>
           </tr>
           </tbody>
