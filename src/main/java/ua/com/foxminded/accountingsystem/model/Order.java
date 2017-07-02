@@ -34,10 +34,6 @@ public class Order implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate openDate;
 
-    @Column(name = "queuing_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate queuingDate;
-
     @Column(name = "close_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate closeDate;
@@ -103,14 +99,6 @@ public class Order implements Serializable {
         this.openDate = openDate;
     }
 
-    public LocalDate getQueuingDate() {
-        return queuingDate;
-    }
-
-    public void setQueuingDate(LocalDate queuingDate) {
-        this.queuingDate = queuingDate;
-    }
-
     public LocalDate getCloseDate() {
         return closeDate;
     }
@@ -125,7 +113,6 @@ public class Order implements Serializable {
             "id=" + id +
             ", orderName='" + orderName + '\'' +
             ", openDate=" + openDate +
-            ", queuingDate=" + queuingDate +
             ", closeDate=" + closeDate +
             '}';
     }

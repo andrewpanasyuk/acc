@@ -13,7 +13,7 @@
             <th>View Order</th>
             <th>order Status</th>
             <th>open Date</th>
-            <th>queuing Date</th>
+            <!--<th>queuing Date</th>-->
             <th>close Date</th>
           </tr>
           </thead>
@@ -28,8 +28,6 @@
             </td>
             <td th:text="${order.status}"></td>
             <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
-            <td
-              th:text="${order.queuingDate != null} ? ${#temporals.format(order.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
             <td th:text="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd-MMM-yyyy')} : ''"></td>
           </tr>
           </tbody>
