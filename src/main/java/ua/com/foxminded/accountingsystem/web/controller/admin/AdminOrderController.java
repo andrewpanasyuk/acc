@@ -54,8 +54,7 @@ public class AdminOrderController {
     }
 
     @GetMapping(value = "/{id}")
-    public String getOrderById(@PathVariable long id,
-                               Model model) {
+    public String getOrderById(@PathVariable long id, Model model) {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
             .addAttribute("title", "Order: " + order.getId())
@@ -71,8 +70,7 @@ public class AdminOrderController {
 
     @GetMapping(value = "/new")
     public String addOrder(@RequestParam long clientId, Model model) {
-        Client client = clientService.findOne(clientId);
-        Order order = orderService.create(client);
+        Order order = orderService.createOrderByClientId(clientId);
         model.addAttribute("order", order)
             .addAttribute("services", service.findAll());
         return "admin/order";

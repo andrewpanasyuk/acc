@@ -6,6 +6,7 @@ import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Order;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
@@ -50,6 +51,7 @@ public class ContractServiceJPA implements ContractService {
     public Contract returnNew(Long orderId){
 
         Order order = orderService.findOne(orderId);
+        order.setStatus(OrderStatus.ACTIVE);
 
         Contract contract = new Contract();
 

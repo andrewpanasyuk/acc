@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    Order create(Client client);
+    Order createOrderByClientId(Long id);
 
     void delete(Order order);
 
