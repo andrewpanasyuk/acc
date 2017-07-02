@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Contract;
-import ua.com.foxminded.accountingsystem.model.Order;
-import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
@@ -68,15 +66,15 @@ public class AdminContractController {
             return "admin/contract";
         }
         contractService.save(contract);
-        if (orderQueueService.findQueueItemByOrder(contract.getOrder()) != null) {
-            orderQueueService.delete(orderQueueService.findQueueItemByOrder(contract.getOrder()));
+        if (orderQueueService.findQueueByOrder(contract.getOrder()) != null) {
+            orderQueueService.delete(orderQueueService.findQueueByOrder(contract.getOrder()));
         }
         return "redirect:/admin/contracts";
     }
 
     @GetMapping("/new")
     public String newContract(@RequestParam long orderId, Model model) {
-        Contract contract = contractService.returnNew(orderId);
+        Contract contract = contractService.prepareNewByOrderId(orderId);
         model
             .addAttribute("contract", contract)
             .addAttribute("employees", employeeService.findAll());

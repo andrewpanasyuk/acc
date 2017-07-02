@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderQueueService {
 
-    OrderQueue createQueueItemByOrderId(Long id);
+    OrderQueue createQueueByOrderId(Long id);
 
     void delete(OrderQueue orderQueue);
 
@@ -17,6 +17,6 @@ public interface OrderQueueService {
 
     List<OrderQueue> findAll();
 
-    OrderQueue findQueueItemByOrder(Order order);
+    OrderQueue findQueueByOrder(Order order);
 
 }

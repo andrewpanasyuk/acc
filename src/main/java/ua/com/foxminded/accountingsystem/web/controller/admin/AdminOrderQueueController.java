@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
@@ -44,7 +43,7 @@ public class AdminOrderQueueController {
 
     @GetMapping(value = "/new")
     public String addOrder(@RequestParam long orderId) {
-        orderQueueService.createQueueItemByOrderId(orderId);
+        orderQueueService.createQueueByOrderId(orderId);
         return "redirect:/admin/queues";
     }
 }

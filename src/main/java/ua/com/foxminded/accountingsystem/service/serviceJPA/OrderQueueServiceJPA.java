@@ -9,7 +9,6 @@ import ua.com.foxminded.accountingsystem.model.Priority;
 import ua.com.foxminded.accountingsystem.repository.OrderQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.OrderRepository;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
-import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -47,11 +46,11 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     }
 
     @Override
-    public OrderQueue findQueueItemByOrder(Order order) {
-        return orderQueueRepository.findQueueItemByOrder(order);
+    public OrderQueue findQueueByOrder(Order order) {
+        return orderQueueRepository.findByOrder(order);
     }
 
-    public OrderQueue createQueueItemByOrderId(Long id) {
+    public OrderQueue createQueueByOrderId(Long id) {
         Order order = orderRepository.findOne(id);
         OrderQueue orderQueue = new OrderQueue();
         orderQueue.setQueuingDate(LocalDate.now());
@@ -62,7 +61,7 @@ public class OrderQueueServiceJPA implements OrderQueueService {
         }
         order.setStatus(OrderStatus.WAITING);
         orderQueue.setOrder(order);
-        save(orderQueue);
+        orderQueueRepository.save(orderQueue);
         return orderQueue;
     }
 }

@@ -6,5 +6,5 @@ import ua.com.foxminded.accountingsystem.model.OrderQueue;
 
 public interface OrderQueueRepository extends JpaRepository<OrderQueue, Long> {
 
-    OrderQueue findQueueItemByOrder(Order order);
+    OrderQueue findByOrder(Order order);
 }

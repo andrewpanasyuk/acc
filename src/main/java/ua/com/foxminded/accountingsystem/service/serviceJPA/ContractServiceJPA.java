@@ -48,7 +48,7 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public Contract returnNew(Long orderId){
+    public Contract prepareNewByOrderId(Long orderId){
 
         Order order = orderService.findOne(orderId);
         order.setStatus(OrderStatus.ACTIVE);
