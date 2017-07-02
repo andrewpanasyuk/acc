@@ -138,16 +138,16 @@ INSERT INTO client_field_value (id, client_id, client_field_id, value) VALUES
     (23, 12, 1, NULL),
     (24, 12, 2, NULL);
 
-INSERT INTO orders (id, service_id, status, client_id, open_date, queuing_date, close_date) VALUES
-    (1, 1, 'ACTIVE', 1, '2017-01-24', '2017-01-25', NULL),
-    (2, 1, 'WAITING', 2, '2017-04-04', '2017-04-05', NULL),
-    (3, 2, 'FROZEN', 3, '2016-12-20', '2017-01-10', NULL),
-    (4, 1, 'COMPLETED', 4, '2015-11-14', '2015-12-20', '2016-05-22'),
-    (5, 2, 'ACTIVE', 4, '2016-11-15', '2016-11-15', NULL),
-    (6, 2, 'ACTIVE', 5, '2016-11-24', '2016-11-12', NULL),
-    (7, 1, 'ACTIVE', 5, '2017-01-01', '2017-01-01', NULL),
-    (8, 1, 'WAITING', 1, '2017-02-24', '2017-05-25', NULL),
-    (9, 2, 'FROZEN', 1, '2016-10-01', '2016-10-01', NULL);
+INSERT INTO orders (id, service_id, status, client_id, open_date, close_date) VALUES
+    (1, 1, 'ACTIVE', 1, '2017-01-24', NULL),
+    (2, 1, 'WAITING', 2, '2017-04-04', NULL),
+    (3, 2, 'FROZEN', 3, '2016-12-20', NULL),
+    (4, 1, 'COMPLETED', 4, '2015-11-14', '2016-05-22'),
+    (5, 2, 'ACTIVE', 4, '2016-11-15', NULL),
+    (6, 2, 'ACTIVE', 5, '2016-11-24', NULL),
+    (7, 1, 'ACTIVE', 5, '2017-01-01', NULL),
+    (8, 1, 'WAITING', 1, '2017-02-24', NULL),
+    (9, 2, 'FROZEN', 1, '2016-10-01', NULL);
 
 INSERT INTO invoice (id, creation_date, employee_payment, period_from, period_to) VALUES
     (1, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
