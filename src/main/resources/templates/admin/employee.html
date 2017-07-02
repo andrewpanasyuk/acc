@@ -74,7 +74,7 @@
         </div>
         <br/>
         <br/>
-        <h3>Related clients:</h3>
+        <h3>Active students:</h3>
         <br/>
         <form id="showStudents" class="form-horizontal">
           <div class="display-grid">
@@ -83,16 +83,24 @@
               <tr>
                 <th>id</th>
                 <th>Name</th>
+                <th>Order</th>
+                <th>Type of payment</th>
               </tr>
               </thead>
               <tbody>
-                <tr th:each="client : ${relatedClients}">
-                  <td th:text="${client.id}"></td>
+                <tr th:each="client : ${relatedActiveClients}">
+                  <td th:text="${client.clientId}"></td>
                   <td>
-                    <a th:href="@{'/admin/clients/'+${client.id}}">
+                    <a th:href="@{'/admin/clients/'+${client.clientId}}">
                       <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
                     </a>
                   </td>
+                  <td>
+                    <a th:href="@{'/admin/orders/'+${client.orderId}}">
+                      <span th:text="${client.orderId}"></span>
+                    </a>
+                  </td>
+                  <td th:text="${client.contractPaymentType}"></td>
                 </tr>
               </tbody>
             </table>
