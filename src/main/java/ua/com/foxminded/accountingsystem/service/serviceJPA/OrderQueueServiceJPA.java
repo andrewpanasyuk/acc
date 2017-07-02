@@ -56,7 +56,6 @@ public class OrderQueueServiceJPA implements OrderQueueService {
             orderQueue.setPriority(Priority.HIGH);
         }
         order.setStatus(OrderStatus.WAITING);
-        order.setQueuingDate(LocalDate.now());
         orderQueue.setOrder(order);
         return orderQueue;
     }
