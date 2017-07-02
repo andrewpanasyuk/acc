@@ -168,9 +168,3 @@ INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type, pr
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id) VALUES
     (1, '2017-01-01', 'NORMAL', 1);
-
-INSERT INTO queue (id, queuing_date, priority, order_id) VALUES
-    (1, '2017-01-01', 'NORMAL', 1);
-
-INSERT INTO order_queue (id, queuing_date, priority, order_id) VALUES
-    (1, '2017-01-01', 'NORMAL', 1);
