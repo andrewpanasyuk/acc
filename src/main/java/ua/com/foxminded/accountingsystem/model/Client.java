@@ -1,5 +1,8 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +19,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "client")
-public class Client implements Serializable {
+public class Client extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,12 +33,16 @@ public class Client implements Serializable {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @NotAudited
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
 
+    @NotAudited
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClientFieldValue> extraFields;
 
+
+    @NotAudited
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PersonalAccount personalAccount;
 
