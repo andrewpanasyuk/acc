@@ -11,6 +11,7 @@ import ua.com.foxminded.accountingsystem.repository.OrderRepository;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -42,7 +43,9 @@ public class OrderQueueServiceJPA implements OrderQueueService {
 
     @Override
     public List<OrderQueue> findAll() {
-        return orderQueueRepository.findAll();
+        List<OrderQueue> orderQueues = orderQueueRepository.findAll();
+        Collections.sort(orderQueues);
+        return orderQueues;
     }
 
     @Override

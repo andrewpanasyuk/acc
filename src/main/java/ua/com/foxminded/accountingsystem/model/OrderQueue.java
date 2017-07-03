@@ -18,7 +18,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "order_queue")
-public class OrderQueue {
+public class OrderQueue implements Comparable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_queue_sequence")
@@ -83,5 +83,15 @@ public class OrderQueue {
             return 31;
         }
         return id.hashCode();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        OrderQueue orderQueue = (OrderQueue) o;
+        int value = getPriority().name().compareTo(orderQueue.getPriority().name());
+        if (value != 0) {
+            return value;
+        }
+        return getQueuingDate().compareTo(orderQueue.getQueuingDate());
     }
 }
