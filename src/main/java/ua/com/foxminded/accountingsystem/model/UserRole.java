@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_role_sequence")
-    @SequenceGenerator(name = "user_role_sequence", initialValue = 50)
+    @SequenceGenerator(name = "user_role_sequence", sequenceName = "user_role_sequence", initialValue = 50)
     private int id;
 
     @NotNull

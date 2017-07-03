@@ -26,7 +26,7 @@ public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")
-    @SequenceGenerator(name = "service_sequence", initialValue = 50)
+    @SequenceGenerator(name = "service_sequence", sequenceName = "service_sequence", initialValue = 50)
     private long id;
 
     @NotNull(message = "It is required field")

@@ -18,7 +18,7 @@ public class Money {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "money_sequence")
-    @SequenceGenerator(name = "money_sequence", initialValue = 50)
+    @SequenceGenerator(name = "money_sequence", sequenceName = "money_sequence", initialValue = 50)
     private long id;
 
     @Column(name = "price")
