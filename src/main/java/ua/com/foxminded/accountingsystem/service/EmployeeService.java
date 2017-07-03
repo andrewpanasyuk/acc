@@ -19,6 +19,8 @@ public interface EmployeeService {
 
     void delete(long id);
 
-    List<Client> findRelatedClients(Long id);
+    List<Client> findAllRelatedClients(Long id);
+
+    List<Object[]> findRelatedActiveClientsAndContracts(Long id);
 
 }

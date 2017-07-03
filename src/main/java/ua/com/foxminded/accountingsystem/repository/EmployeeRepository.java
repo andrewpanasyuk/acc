@@ -12,5 +12,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query("select distinct client from Client client "
            + "inner join client.orders cl_orders, Contract contract "
            + "where contract.order = cl_orders and contract.employee.id = ?1")
-    List<Client> findRelatedClients(Long employeeId);
+    List<Client> findAllRelatedClients(Long employeeId);
+
+    @Query("select distinct client, contract from Client client "
+        + "inner join client.orders cl_orders, Contract contract "
+        + "where contract.order = cl_orders "
+        + "and contract.employee.id = ?1 "
+        + "and contract.closeType is null "
+        + "and contract.order.status = ua.com.foxminded.accountingsystem.model.OrderStatus.ACTIVE")
+    List<Object[]> findRelatedActiveClientsAndContracts(Long employeeId);
 }

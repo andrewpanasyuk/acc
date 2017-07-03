@@ -14,7 +14,6 @@ public class EmployeeServiceJPA implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-
     @Autowired
     public EmployeeServiceJPA(EmployeeRepository employeeRepository) {
 
@@ -50,7 +49,12 @@ public class EmployeeServiceJPA implements EmployeeService {
     }
 
     @Override
-    public List<Client> findRelatedClients(Long id) {
-       return employeeRepository.findRelatedClients(id);
+    public List<Client> findAllRelatedClients(Long id) {
+       return employeeRepository.findAllRelatedClients(id);
+    }
+
+    @Override
+    public List<Object[]> findRelatedActiveClientsAndContracts(Long id) {
+        return employeeRepository.findRelatedActiveClientsAndContracts(id);
     }
 }
