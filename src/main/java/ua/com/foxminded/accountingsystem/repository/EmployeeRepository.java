@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Employee;
+import ua.com.foxminded.accountingsystem.service.dto.ClientViewDTO;
 
 import java.util.List;
 
@@ -14,11 +15,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
            + "where contract.order = cl_orders and contract.employee.id = ?1")
     List<Client> findAllRelatedClients(Long employeeId);
 
-    @Query("select distinct client, contract from Client client "
-        + "inner join client.orders cl_orders, Contract contract "
+    @Query("select distinct new ua.com.foxminded.accountingsystem.service.dto.ClientViewDTO"
+        + "(client.id, client.firstName, client.lastName, contract.order.id, contract.paymentType) "
+        + "from Client client inner join client.orders cl_orders, Contract contract "
         + "where contract.order = cl_orders "
         + "and contract.employee.id = ?1 "
         + "and contract.closeType is null "
         + "and contract.order.status = ua.com.foxminded.accountingsystem.model.OrderStatus.ACTIVE")
-    List<Object[]> findRelatedActiveClientsAndContracts(Long employeeId);
+    List<ClientViewDTO> findRelatedActiveClients(Long employeeId);
 }
