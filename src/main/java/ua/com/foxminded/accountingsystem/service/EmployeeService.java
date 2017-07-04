@@ -20,5 +20,7 @@ public interface EmployeeService {
     void delete(long id);
 
     List<Client> findRelatedClients(Long id);
+    
+    Employee findByUsername(String username);
 
 }
