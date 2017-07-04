@@ -42,12 +42,10 @@ INSERT INTO fm_users_user_role (username, role_id) VALUES
     ('mentor', 2),
     ('mentor', 3);
 
-INSERT INTO employee (id, first_name, last_name, max_clients) VALUES
-    (1, 'jack', 'jackson', 10),
-    (2, 'rob', 'robinson', 10),
-    (3, 'peter', 'peterson', 10);
-    
 INSERT INTO employee (id, first_name, last_name, max_clients, username) VALUES
+    (1, 'jack', 'jackson', 10, NULL),
+    (2, 'rob', 'robinson', 10, NULL),
+    (3, 'peter', 'peterson', 10, NULL),
     (4, 'Evgeniy', 'Smorodskiy', 10, 'mentor');
     
 INSERT INTO employee_field (id, name) VALUES

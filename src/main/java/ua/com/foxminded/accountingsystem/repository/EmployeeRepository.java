@@ -14,5 +14,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
            + "where contract.order = cl_orders and contract.employee.id = ?1")
     List<Client> findRelatedClients(Long employeeId);
     
-    Employee findByUser(User user);
+    Employee findByUser_username(String username);
 }

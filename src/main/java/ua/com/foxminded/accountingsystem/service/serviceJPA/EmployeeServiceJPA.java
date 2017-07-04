@@ -57,12 +57,6 @@ public class EmployeeServiceJPA implements EmployeeService {
 
     @Override
     public Employee findByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        
-        if (user == null) {
-            return null;
-        }
-        
-        return employeeRepository.findByUser(user);
+        return employeeRepository.findByUser_username(username);
     }
 }
