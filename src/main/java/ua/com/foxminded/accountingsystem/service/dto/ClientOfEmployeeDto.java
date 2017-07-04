@@ -2,7 +2,7 @@ package ua.com.foxminded.accountingsystem.service.dto;
 
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 
-public class ClientViewDTO {
+public class ClientOfEmployeeDto {
 
     private Long clientId;
     private String firstName;
@@ -10,7 +10,7 @@ public class ClientViewDTO {
     private Long orderId;
     private PaymentType contractPaymentType;
 
-    public ClientViewDTO(Long clientId, String firstName, String lastName, Long orderId, PaymentType contractPaymentType) {
+    public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long orderId, PaymentType contractPaymentType) {
         this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;

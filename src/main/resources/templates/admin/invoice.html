@@ -7,7 +7,7 @@
         <!--<label>Contract: </label>-->
         <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
         <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
-        <!--<a th:href="@{/admin/contracts/{id}(id=${invoice.contract.id})}"-->
+        <!--<a th:href="@{/adcontractacts/{id}(id=${invoice.contract.id})}"-->
         <!--th:text="${invoice.contract.id}"></a>-->
         <form th:action="@{/admin/invoices}" th:object="${invoice}" method="post">
           <input type="hidden" th:field="${invoice.id}"/>

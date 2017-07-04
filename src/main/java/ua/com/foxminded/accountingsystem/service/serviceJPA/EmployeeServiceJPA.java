@@ -6,7 +6,7 @@ import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.repository.EmployeeRepository;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
-import ua.com.foxminded.accountingsystem.service.dto.ClientViewDTO;
+import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class EmployeeServiceJPA implements EmployeeService {
     }
 
     @Override
-    public List<ClientViewDTO> findRelatedActiveClients(Long id) {
+    public List<ClientOfEmployeeDto> findRelatedActiveClients(Long id) {
         return employeeRepository.findRelatedActiveClients(id);
     }
 }
