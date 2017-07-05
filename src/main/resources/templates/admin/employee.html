@@ -81,7 +81,6 @@
             <table data-toggle="table">
               <thead>
               <tr>
-                <th>id</th>
                 <th>Name</th>
                 <th>Order</th>
                 <th>Type of payment</th>
@@ -89,7 +88,6 @@
               </thead>
               <tbody>
                 <tr th:each="client : ${relatedActiveClients}">
-                  <td th:text="${client.clientId}"></td>
                   <td>
                     <a th:href="@{'/admin/clients/'+${client.clientId}}">
                       <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>

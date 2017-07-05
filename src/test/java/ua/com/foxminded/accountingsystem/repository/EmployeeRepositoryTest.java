@@ -6,11 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.Employee;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
+import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
-
-import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.assertEquals;
+
 
 public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepository> {
 
@@ -36,8 +38,23 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
 
     @Test
     @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
-    public void findRelatedActiveClientsTest() {
+    public void countRelatedActiveClientsTest() {
         assertEquals(2, repository.findRelatedActiveClients(2L).size());
+    }
+
+    @Test
+    @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
+    public void checkRelatedActiveClientsTest() {
+
+        List<ClientOfEmployeeDto> expectedClients = new ArrayList<>();
+
+        expectedClients.add(new ClientOfEmployeeDto(6L,"Andrey", "Vasilenko", 7L, PaymentType.TRIAL));
+        expectedClients.add(new ClientOfEmployeeDto(3L,"Andrey", "Grigorenko", 3L, PaymentType.PREPAY));
+
+        List<ClientOfEmployeeDto> activeClients = repository.findRelatedActiveClients(2L);
+
+        assertEquals(expectedClients.get(0).getClientId(), activeClients.get(0).getClientId());
+        assertEquals(expectedClients.get(1).getClientId(), activeClients.get(1).getClientId());
     }
 
     @Test
