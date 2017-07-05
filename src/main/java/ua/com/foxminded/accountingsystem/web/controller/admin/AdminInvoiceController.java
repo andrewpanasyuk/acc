@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 
@@ -53,8 +54,8 @@ public class AdminInvoiceController {
     }
 
     @GetMapping("/new")
-    public String addInvoice(Model model) {
-        Invoice invoice = new Invoice();
+    public String addInvoice(@RequestParam long contractID, Model model) {
+        Invoice invoice = invoiceService.createInvoiceByContractId(contractID);
         model.addAttribute("invoice", invoice);
         return "admin/invoice";
     }

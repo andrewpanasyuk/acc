@@ -3,7 +3,6 @@ package ua.com.foxminded.accountingsystem.service;
 
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Employee;
-import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
 import java.util.List;
 
@@ -20,8 +19,8 @@ public interface EmployeeService {
 
     void delete(long id);
 
-    List<Client> findAllRelatedClients(Long id);
-
-    List<ClientOfEmployeeDto> findRelatedActiveClients(Long id);
+    List<Client> findRelatedClients(Long id);
+    
+    Employee findByUsername(String username);
 
 }

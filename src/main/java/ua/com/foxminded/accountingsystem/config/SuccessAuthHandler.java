@@ -1,6 +1,5 @@
 package ua.com.foxminded.accountingsystem.config;
 
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -16,15 +15,16 @@ import java.util.Set;
 public class SuccessAuthHandler implements AuthenticationSuccessHandler {
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request,
-                                        HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+            Authentication authentication) throws IOException, ServletException {
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
         if (roles.contains("ADMIN")) {
             response.sendRedirect("/admin");
-        } else if (roles.contains("USER")){
+        } else if (roles.contains("MENTOR")) {
+            response.sendRedirect("/mentor");
+        } else if (roles.contains("USER")) {
             response.sendRedirect("/");
         }
 

@@ -13,11 +13,13 @@ INSERT INTO fm_users (username, password, enabled, email) VALUES
     ('greg', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'greg@mail.com' ),
     ('igor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'igor@mail.com' ),
     ('lebovskiy', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'lebovskiy@mail.com' ),
-    ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com' );
+    ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com' ),
+    ('mentor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'mentor@mail.com' );
 
 INSERT INTO user_role (id, role) VALUES
     (1, 'ADMIN'),
-    (2, 'USER');
+    (2, 'USER'),
+    (3, 'MENTOR');
 
 INSERT INTO fm_users_user_role (username, role_id) VALUES
     ('admin', 1),
@@ -36,12 +38,15 @@ INSERT INTO fm_users_user_role (username, role_id) VALUES
     ('greg', 2),
     ('ivan', 2),
     ('josef', 2),
-    ('liza', 2);
+    ('liza', 2),
+    ('mentor', 2),
+    ('mentor', 3);
 
-INSERT INTO employee (id, first_name, last_name, max_clients) VALUES
-    (1, 'jack', 'jackson', 10),
-    (2, 'rob', 'robinson', 10),
-    (3, 'peter', 'peterson', 10);
+INSERT INTO employee (id, first_name, last_name, max_clients, username) VALUES
+    (1, 'jack', 'jackson', 10, NULL),
+    (2, 'rob', 'robinson', 10, NULL),
+    (3, 'peter', 'peterson', 10, NULL),
+    (4, 'Evgeniy', 'Smorodskiy', 10, 'mentor');
 
 INSERT INTO employee_field (id, name) VALUES
     (1, 'skype'),
@@ -149,22 +154,22 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, close_date) VA
     (8, 1, 'WAITING', 1, '2017-02-24', NULL),
     (9, 2, 'FROZEN', 1, '2016-10-01', NULL);
 
-INSERT INTO invoice (id, creation_date, employee_payment, period_from, period_to) VALUES
-    (1, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (2, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (3, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (4, '2000-01-01', FALSE, '2000-01-01', '2000-01-01'),
-    (5, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (6, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01'),
-    (8, '2000-01-01', TRUE, '2000-01-01', '2000-01-01');
+INSERT INTO contract (id, contract_date, order_id, employee_id, payment_type, price_id, employee_rate_id, payment_date)
+VALUES
+    (1, '2017-06-01', 1, 1, 'PREPAY', 5, 2, '2017-02-01'),
+    (2, '2017-06-01', 1, 2, 'PREPAY', 5, 2, '2017-03-01'),
+    (3, '2017-06-10', 2, 2, 'PREPAY', 5, 2, '2017-01-01'),
+    (4, '2017-06-15', 5, 3, 'PREPAY', 5, 2, '2015-12-01'),
+    (5, '2017-06-20', 6, 2, 'POSTPAY', 5, 2, '2014-11-21');
 
-INSERT INTO contract(id, contract_date,  order_id, employee_id, payment_type, price_id, employee_rate_id) VALUES
-    (1, '2017-06-01', 1, 1, 'PREPAY', 5, 2),
-    (2, '2017-06-01', 1, 2, 'PREPAY', 5, 2),
-    (3, '2017-06-10', 2, 2, 'PREPAY', 5, 2),
-    (4, '2017-06-15', 5, 3, 'PREPAY', 5, 2),
-    (5, '2017-06-20',  6, 2, 'POSTPAY', 5, 2);
+INSERT INTO invoice (id, creation_date, employee_paid, period_from, period_to, contract_id, money_id) VALUES
+    (1, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 1),
+    (2, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 2),
+    (3, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 3),
+    (4, '2000-01-01', FALSE, '2000-01-01', '2000-01-01', 2, 4),
+    (5, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 5),
+    (6, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 6),
+    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 7);
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id) VALUES
     (1, '2017-01-01', 'NORMAL', 1);
