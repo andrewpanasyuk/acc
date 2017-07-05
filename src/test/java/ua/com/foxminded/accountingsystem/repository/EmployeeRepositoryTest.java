@@ -38,13 +38,7 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
 
     @Test
     @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
-    public void countRelatedActiveClientsTest() {
-        assertEquals(2, repository.findRelatedActiveClients(2L).size());
-    }
-
-    @Test
-    @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
-    public void checkRelatedActiveClientsTest() {
+    public void findRelatedActiveClientsTest() {
 
         List<ClientOfEmployeeDto> expectedClients = new ArrayList<>();
         expectedClients.add(new ClientOfEmployeeDto(6L,"Andrey", "Vasilenko", 7L, PaymentType.TRIAL));
@@ -52,8 +46,8 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
 
         List<ClientOfEmployeeDto> activeClients = repository.findRelatedActiveClients(2L);
 
-        assertEquals(expectedClients.get(0), activeClients.get(0));
-        assertEquals(expectedClients.get(1), activeClients.get(1));
+        assertEquals(2, repository.findRelatedActiveClients(2L).size());
+        assertEquals(expectedClients, activeClients);
     }
 
     @Test
