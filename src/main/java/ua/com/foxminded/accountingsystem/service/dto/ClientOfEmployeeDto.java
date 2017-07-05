@@ -43,8 +43,14 @@ public class ClientOfEmployeeDto {
         if (this == o) return true;
         if (o == null) return false;
         if (getClass() != o.getClass()) return false;
+
         ClientOfEmployeeDto that = (ClientOfEmployeeDto) o;
-        return clientId.equals(that.clientId);
+
+        if (!clientId.equals(that.clientId)) return false;
+        if (!firstName.equals(that.firstName)) return false;
+        if (!lastName.equals(that.lastName)) return false;
+        if (!orderId.equals(that.orderId)) return false;
+        return contractPaymentType == that.contractPaymentType;
     }
 
     @Override
