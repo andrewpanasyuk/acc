@@ -36,6 +36,16 @@ public class Employee implements Serializable {
     @JoinColumn(name="username", unique=true)
     private User user;
 
+    public Employee() {
+    }
+
+    public Employee(String firstName, String lastName, int maxClients, List<EmployeeFieldValue> extraFields) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.maxClients = maxClients;
+        this.extraFields = extraFields;
+    }
+
     public Long getId() {
         return id;
     }
