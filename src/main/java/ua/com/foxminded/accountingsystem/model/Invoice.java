@@ -2,11 +2,16 @@ package ua.com.foxminded.accountingsystem.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -15,6 +20,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "invoice")
 public class Invoice implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_sequence")
@@ -25,6 +32,10 @@ public class Invoice implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate creationDate;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "contract_id")
+    private Contract contract;
+
     @Column(name = "period_from")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentPeriodFrom;
@@ -33,8 +44,12 @@ public class Invoice implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentPeriodTo;
 
-    @Column(name = "employee_payment")
-    private Boolean isEmployeePayment;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "money_id")
+    private Money price;
+
+    @Column(name = "employee_paid")
+    private Boolean employeePaid;
 
 
     public Long getId() {
@@ -53,6 +68,14 @@ public class Invoice implements Serializable {
         this.creationDate = creationDate;
     }
 
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+
     public LocalDate getPaymentPeriodFrom() {
         return paymentPeriodFrom;
     }
@@ -69,23 +92,34 @@ public class Invoice implements Serializable {
         this.paymentPeriodTo = paymentPeriodTo;
     }
 
-    public Boolean getIsEmployeePayment() {
-        return isEmployeePayment;
+    public Money getPrice() {
+        return price;
     }
 
-    public void setIsEmployeePayment(Boolean isEmployeePayment) {
-        this.isEmployeePayment = isEmployeePayment;
+    public void setPrice(Money price) {
+        this.price = price;
     }
+
+    public Boolean getEmployeePaid() {
+        return employeePaid;
+    }
+
+    public void setEmployeePaid(Boolean employeePaid) {
+        this.employeePaid = employeePaid;
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Invoice)) return false;
         Invoice invoice = (Invoice) o;
-        return (this.creationDate.equals(((Invoice) o).creationDate)) &&
-            (this.paymentPeriodFrom.equals(((Invoice) o).paymentPeriodFrom)) &&
-            (this.paymentPeriodTo.equals(((Invoice) o).paymentPeriodTo)) &&
-            (this.isEmployeePayment.equals(((Invoice) o).isEmployeePayment));
+        return (this.creationDate.equals(invoice.creationDate)) &&
+            (this.contract.equals(invoice.contract)) &&
+            (this.paymentPeriodFrom.equals(invoice.paymentPeriodFrom)) &&
+            (this.paymentPeriodTo.equals(invoice.paymentPeriodTo)) &&
+            (this.price.equals(invoice.price)) &&
+            (this.employeePaid.equals(invoice.employeePaid));
     }
 
     @Override
@@ -102,9 +136,11 @@ public class Invoice implements Serializable {
         return "Invoice{" +
             "id=" + id +
             ", creationDate=" + creationDate +
+            ", contract=" + contract +
             ", paymentPeriodFrom=" + paymentPeriodFrom +
             ", paymentPeriodTo=" + paymentPeriodTo +
-            ", isEmployeePayment=" + isEmployeePayment +
+            ", price=" + price +
+            ", employeePaid=" + employeePaid +
             '}';
     }
 }
