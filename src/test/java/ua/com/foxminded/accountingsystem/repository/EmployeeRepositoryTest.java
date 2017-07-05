@@ -11,7 +11,10 @@ import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 
 public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepository> {
@@ -40,14 +43,11 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
     @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
     public void findRelatedActiveClientsTest() {
 
-        List<ClientOfEmployeeDto> expectedClients = new ArrayList<>();
-        expectedClients.add(new ClientOfEmployeeDto(6L,"Andrey", "Vasilenko", 7L, PaymentType.TRIAL));
-        expectedClients.add(new ClientOfEmployeeDto(3L,"Andrey", "Grigorenko", 3L, PaymentType.PREPAY));
-
-        List<ClientOfEmployeeDto> activeClients = repository.findRelatedActiveClients(2L);
+        ClientOfEmployeeDto expectedClient1 = new ClientOfEmployeeDto(6L,"Andrey", "Vasilenko", 7L, PaymentType.TRIAL);
+        ClientOfEmployeeDto expectedClient2 = new ClientOfEmployeeDto(3L,"Andrey", "Grigorenko", 3L, PaymentType.PREPAY);
 
         assertEquals(2, repository.findRelatedActiveClients(2L).size());
-        assertEquals(expectedClients, activeClients);
+        assertThat(repository.findRelatedActiveClients(2L), hasItems(expectedClient1, expectedClient2));
     }
 
     @Test
