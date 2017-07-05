@@ -9,7 +9,7 @@ import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 
 @Controller
-@RequestMapping("/admin/client")
+@RequestMapping("/admin/clients")
 public class AdminClientController {
     private final ClientService clientService;
     private final ClientFieldService clientFieldService;
@@ -22,21 +22,21 @@ public class AdminClientController {
 
     @GetMapping
     public String getAllClients(Model model) {
-        model.addAttribute("client", clientService.findAll());
+        model.addAttribute("clients", clientService.findAll());
         model.addAttribute("client", new Client());
-        return "admin/client";
+        return "admin/clients";
     }
 
     @PostMapping
     public String create(@ModelAttribute Client client) {
         Client savedClient = clientService.create(client);
-        return "redirect:/admin/client/" + savedClient.getId();
+        return "redirect:/admin/clients/" + savedClient.getId();
     }
 
     @PutMapping(value = "{id}")
     public String update(@PathVariable long id, @ModelAttribute("client") Client client) {
         clientService.create(client);
-        return "redirect:/admin/client";
+        return "redirect:/admin/clients";
     }
 
     @GetMapping("/{id}")
@@ -48,7 +48,7 @@ public class AdminClientController {
     @DeleteMapping("/{id}")
     public String removeClient(@PathVariable long id) {
         clientService.delete(id);
-        return "redirect:/admin/client";
+        return "redirect:/admin/clients";
     }
 
     @GetMapping(value = "/create")

@@ -19,7 +19,7 @@ import ua.com.foxminded.accountingsystem.service.OrderService;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/admin/contract")
+@RequestMapping("/admin/contracts")
 public class AdminContractController {
 
     private final ContractService contractService;
@@ -41,14 +41,14 @@ public class AdminContractController {
     public String getAllContracts(Model model) {
         model
             .addAttribute("title", "Contract management")
-            .addAttribute("contract", contractService.findAll());
-        return "admin/contract";
+            .addAttribute("contracts", contractService.findAll());
+        return "admin/contracts";
     }
 
     @DeleteMapping("/{id}")
     public String remove(@PathVariable Long id) {
         contractService.delete(id);
-        return "redirect:/admin/contract";
+        return "redirect:/admin/contracts";
     }
 
     @GetMapping("/{id}")
@@ -69,7 +69,7 @@ public class AdminContractController {
         if (orderQueueService.findQueueByOrder(contract.getOrder()) != null) {
             orderQueueService.delete(orderQueueService.findQueueByOrder(contract.getOrder()));
         }
-        return "redirect:/admin/contract";
+        return "redirect:/admin/contracts";
     }
 
     @GetMapping("/new")

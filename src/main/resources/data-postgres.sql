@@ -152,7 +152,10 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, close_date) VA
     (6, 2, 'ACTIVE', 5, '2016-11-24', NULL),
     (7, 1, 'ACTIVE', 5, '2017-01-01', NULL),
     (8, 1, 'WAITING', 1, '2017-02-24', NULL),
-    (9, 2, 'FROZEN', 1, '2016-10-01', NULL);
+    (9, 2, 'FROZEN', 1, '2016-10-01', NULL),
+    (10, 2, 'ACTIVE', 6, '2017-04-01', NULL),
+    (11, 2, 'ACTIVE', 7, '2017-06-24', NULL),
+    (12, 2, 'ACTIVE', 9, '2017-06-28', NULL);
 
 INSERT INTO contract (id, contract_date, order_id, employee_id, payment_type, price_id, employee_rate_id, payment_date)
 VALUES
