@@ -47,7 +47,7 @@ INSERT INTO employee (id, first_name, last_name, max_clients, username) VALUES
     (2, 'rob', 'robinson', 10, NULL),
     (3, 'peter', 'peterson', 10, NULL),
     (4, 'Evgeniy', 'Smorodskiy', 10, 'mentor');
-    
+
 INSERT INTO employee_field (id, name) VALUES
     (1, 'skype'),
     (2, 'email');
@@ -156,11 +156,11 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, close_date) VA
 
 INSERT INTO contract (id, contract_date, order_id, employee_id, payment_type, price_id, employee_rate_id, payment_date)
 VALUES
-    (1, '2017-06-01', 1, 1, 'PREPAYMENT', 5, 2, '2017-02-01'),
-    (2, '2017-06-01', 1, 2, 'PREPAYMENT', 5, 2, '2017-03-01'),
-    (3, '2017-06-10', 2, 2, 'PREPAYMENT', 5, 2, '2017-01-01'),
-    (4, '2017-06-15', 5, 3, 'PREPAYMENT', 5, 2, '2015-12-01'),
-    (5, '2017-06-20', 6, 2, 'DELAY', 5, 2, '2014-11-21');
+    (1, '2017-06-01', 1, 1, 'PREPAY', 5, 2, '2017-02-01'),
+    (2, '2017-06-01', 1, 2, 'PREPAY', 5, 2, '2017-03-01'),
+    (3, '2017-06-10', 2, 2, 'PREPAY', 5, 2, '2017-01-01'),
+    (4, '2017-06-15', 5, 3, 'PREPAY', 5, 2, '2015-12-01'),
+    (5, '2017-06-20', 6, 2, 'POSTPAY', 5, 2, '2014-11-21');
 
 INSERT INTO invoice (id, creation_date, employee_paid, period_from, period_to, contract_id, money_id) VALUES
     (1, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 1),
