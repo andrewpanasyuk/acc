@@ -37,4 +37,21 @@ public class ClientOfEmployeeDto {
     public PaymentType getContractPaymentType() {
         return contractPaymentType;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+        ClientOfEmployeeDto that = (ClientOfEmployeeDto) o;
+        return clientId.equals(that.clientId);
+    }
+
+    @Override
+    public int hashCode() {
+        if (clientId == null) {
+            return 31;
+        }
+        return clientId.hashCode();
+    }
 }

@@ -47,14 +47,13 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
     public void checkRelatedActiveClientsTest() {
 
         List<ClientOfEmployeeDto> expectedClients = new ArrayList<>();
-
         expectedClients.add(new ClientOfEmployeeDto(6L,"Andrey", "Vasilenko", 7L, PaymentType.TRIAL));
         expectedClients.add(new ClientOfEmployeeDto(3L,"Andrey", "Grigorenko", 3L, PaymentType.PREPAY));
 
         List<ClientOfEmployeeDto> activeClients = repository.findRelatedActiveClients(2L);
 
-        assertEquals(expectedClients.get(0).getClientId(), activeClients.get(0).getClientId());
-        assertEquals(expectedClients.get(1).getClientId(), activeClients.get(1).getClientId());
+        assertEquals(expectedClients.get(0), activeClients.get(0));
+        assertEquals(expectedClients.get(1), activeClients.get(1));
     }
 
     @Test
