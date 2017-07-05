@@ -13,11 +13,13 @@ INSERT INTO fm_users (username, password, enabled, email) VALUES
     ('greg', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'greg@mail.com' ),
     ('igor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'igor@mail.com' ),
     ('lebovskiy', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'lebovskiy@mail.com' ),
-    ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com' );
+    ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com' ),
+    ('mentor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'mentor@mail.com' );
 
 INSERT INTO user_role (id, role) VALUES
     (1, 'ADMIN'),
-    (2, 'USER');
+    (2, 'USER'),
+    (3, 'MENTOR');
 
 INSERT INTO fm_users_user_role (username, role_id) VALUES
     ('admin', 1),
@@ -36,13 +38,16 @@ INSERT INTO fm_users_user_role (username, role_id) VALUES
     ('greg', 2),
     ('ivan', 2),
     ('josef', 2),
-    ('liza', 2);
+    ('liza', 2),
+    ('mentor', 2),
+    ('mentor', 3);
 
-INSERT INTO employee (id, first_name, last_name, max_clients) VALUES
-    (1, 'jack', 'jackson', 10),
-    (2, 'rob', 'robinson', 10),
-    (3, 'peter', 'peterson', 10);
-
+INSERT INTO employee (id, first_name, last_name, max_clients, username) VALUES
+    (1, 'jack', 'jackson', 10, NULL),
+    (2, 'rob', 'robinson', 10, NULL),
+    (3, 'peter', 'peterson', 10, NULL),
+    (4, 'Evgeniy', 'Smorodskiy', 10, 'mentor');
+    
 INSERT INTO employee_field (id, name) VALUES
     (1, 'skype'),
     (2, 'email');

@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: index_demo" th:remove="tag" />
+</head>
+<body>
+<section layout:fragment="content">
+  <h1>
+    Dashboard
+    <small>Version 2.0</small>
+    <div>
+      <span th:text="${mentor != null} ? ${mentor.firstName} + ' ' + ${mentor.lastName} : 'Ivan Ivanov'">Ivan Ivanov</span>
+    </div>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Dashboard</li>
+  </ol>
+
+</section>
+
+</body>
+</html>

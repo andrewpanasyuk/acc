@@ -1,23 +1,24 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Employee;
+import ua.com.foxminded.accountingsystem.model.User;
 import ua.com.foxminded.accountingsystem.repository.EmployeeRepository;
+import ua.com.foxminded.accountingsystem.repository.UserRepository;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
-
-import java.util.List;
 
 @Service
 public class EmployeeServiceJPA implements EmployeeService {
-
     private final EmployeeRepository employeeRepository;
+    private final UserRepository userRepository;
 
 
     @Autowired
-    public EmployeeServiceJPA(EmployeeRepository employeeRepository) {
-
+    public EmployeeServiceJPA(EmployeeRepository employeeRepository, UserRepository userRepository) {
+        this.userRepository = userRepository;
         this.employeeRepository = employeeRepository;
     }
 
@@ -52,5 +53,10 @@ public class EmployeeServiceJPA implements EmployeeService {
     @Override
     public List<Client> findRelatedClients(Long id) {
        return employeeRepository.findRelatedClients(id);
+    }
+
+    @Override
+    public Employee findByUsername(String username) {
+        return employeeRepository.findByUser_username(username);
     }
 }
