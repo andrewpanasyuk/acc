@@ -9,12 +9,12 @@ import ua.com.foxminded.accountingsystem.model.User;
 import ua.com.foxminded.accountingsystem.repository.EmployeeRepository;
 import ua.com.foxminded.accountingsystem.repository.UserRepository;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
+import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
 @Service
 public class EmployeeServiceJPA implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final UserRepository userRepository;
-
 
     @Autowired
     public EmployeeServiceJPA(EmployeeRepository employeeRepository, UserRepository userRepository) {
@@ -51,8 +51,13 @@ public class EmployeeServiceJPA implements EmployeeService {
     }
 
     @Override
-    public List<Client> findRelatedClients(Long id) {
-       return employeeRepository.findRelatedClients(id);
+    public List<Client> findAllRelatedClients(Long id) {
+       return employeeRepository.findAllRelatedClients(id);
+    }
+
+    @Override
+    public List<ClientOfEmployeeDto> findRelatedActiveClients(Long id) {
+        return employeeRepository.findRelatedActiveClients(id);
     }
 
     @Override
