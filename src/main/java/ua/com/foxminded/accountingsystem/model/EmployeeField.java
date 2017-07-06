@@ -20,8 +20,6 @@ public class EmployeeField implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    public EmployeeField() {
-    }
 
     public Long getId() {
         return id;

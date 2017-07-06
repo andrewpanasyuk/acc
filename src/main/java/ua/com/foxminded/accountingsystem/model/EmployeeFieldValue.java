@@ -30,8 +30,6 @@ public class EmployeeFieldValue implements Serializable {
     @Column(name = "value")
     private String value;
 
-    public EmployeeFieldValue() {
-    }
 
     public Long getId() {
         return id;
