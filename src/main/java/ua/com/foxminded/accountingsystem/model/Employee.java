@@ -31,19 +31,12 @@ public class Employee implements Serializable {
     private int maxClients;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<EmployeeFieldValue> extraFields;
-    
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="username", unique=true)
     private User user;
 
     public Employee() {
-    }
-
-    public Employee(String firstName, String lastName, int maxClients, List<EmployeeFieldValue> extraFields) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.maxClients = maxClients;
-        this.extraFields = extraFields;
     }
 
     public Long getId() {

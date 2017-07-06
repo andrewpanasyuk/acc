@@ -23,10 +23,6 @@ public class EmployeeField implements Serializable {
     public EmployeeField() {
     }
 
-    public EmployeeField(String name) {
-        this.name = name;
-    }
-
     public Long getId() {
         return id;
     }
