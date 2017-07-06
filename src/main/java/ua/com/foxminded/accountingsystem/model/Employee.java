@@ -36,8 +36,6 @@ public class Employee implements Serializable {
     @JoinColumn(name="username", unique=true)
     private User user;
 
-    public Employee() {
-    }
 
     public Long getId() {
         return id;
