@@ -36,12 +36,25 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClientFieldValue> extraFields;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private PersonalAccount personalAccount;
+
+    public Client(){
+
+    }
+
+    public Client(String firstName, String lastName, List<Order> orders, List<ClientFieldValue> extraFields,
+                  PersonalAccount personalAccount) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.orders = orders;
+        this.extraFields = extraFields;
+        this.personalAccount = personalAccount;
+    }
+
     public List<Order> getOrders() {
         return orders;
     }
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private PersonalAccount personalAccount;
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
