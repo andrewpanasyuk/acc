@@ -178,3 +178,6 @@ INSERT INTO invoice (id, creation_date, employee_paid, period_from, period_to, c
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id) VALUES
     (1, '2017-01-01', 'NORMAL', 1);
+
+INSERT INTO salary_item (id, employee_id, invoice_id, employee_payment_id, date_from, date_to) VALUES
+    (1, 1, 1, 1, '2017-06-01', '2017-06-30');
