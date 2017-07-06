@@ -30,6 +30,14 @@ public class EmployeeFieldValue implements Serializable {
     @Column(name = "value")
     private String value;
 
+    public EmployeeFieldValue() {
+    }
+
+    public EmployeeFieldValue(Employee employee, EmployeeField employeeField, String value) {
+        this.employee = employee;
+        this.employeeField = employeeField;
+        this.value = value;
+    }
 
     public Long getId() {
         return id;
