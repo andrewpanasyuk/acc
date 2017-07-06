@@ -5,19 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Client;
-import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 
 @Controller
 @RequestMapping("/admin/clients")
 public class AdminClientController {
     private final ClientService clientService;
-    private final ClientFieldService clientFieldService;
 
     @Autowired
-    public AdminClientController(ClientService clientService, ClientFieldService clientFieldService) {
+    public AdminClientController(ClientService clientService) {
         this.clientService = clientService;
-        this.clientFieldService = clientFieldService;
     }
 
     @GetMapping

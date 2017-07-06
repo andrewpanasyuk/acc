@@ -1,82 +1,131 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="admin/mainTemplate">
 <head>
-  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
 </head>
 <body>
 <section layout:fragment="content">
-        <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
-        <form th:action="@{/admin/clients}" th:object="${client}" th:method="post">
-          <input type="hidden" th:field="${client.id}"/>
-          <input type="hidden" th:field="${client.orders}"/>
+  <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
+  <form id="saveClient" class="form-horizontal" th:object="${client}"
+        th:action="@{/admin/clients/{id}(id=${client.id})}" th:method="put">
+    <input type="hidden" th:field="${client.orders}"/>
 
-          <label>First Name</label>
-          <textarea rows="1" class="form-control" th:field="${client.firstName}" th:text="${client.firstName}"/>
+    <div class="form-group">
+      <input type="hidden" th:value="${client.id}" id="id"/>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="firstName">First name : </label>
+      </div>
+      <div class="col-sm-10">
+        <input th:field="*{firstName}" th:value="${client.firstName}" name="firstName" id="firstName"
+               type="text" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="lastName">Last name : </label>
+      </div>
+      <div class="col-sm-10">
+        <input th:field="*{lastName}" th:value="${client.lastName}" name="lastName" id="lastName" type="text"
+               class="form-control"/>
+      </div>
+    </div>
 
-          <label>Last Name</label>
-          <textarea rows="1" class="form-control" th:field="${client.lastName}" th:text="${client.lastName}"/>
+    <br/>
+    <h4>Extra fields:</h4>
+    <br/>
+    <div class="form-group" name="extraFields" th:each="extraField, iterItem : *{extraFields}">
+      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].id}"/>
+      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].client}"/>
+      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].clientField}"/>
+      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].clientField.id}"/>
+      <div class="col-sm-2">
+        <label th:text="${extraField.clientField.name}"></label>
+      </div>
+      <div class="col-sm-10">
+        <input th:field="*{extraFields[__${iterItem.index}__].value}" th:value="${extraField.value}"
+               name="value" type="text" class="form-control"/>
+      </div>
+    </div>
+  </form>
 
-          <button type="submit" id="submit" class="btn btn-primary">Save</button>
-          <a th:href="@{/admin/orders/new?clientId={id} (id=${client.id})}" type="submit" class="btn btn-primary">Add
-            new Order</a>
-        </form>
+  <form id="deleteClient" class="form-horizontal" th:action="@{/admin/clients/{id}(id=${client.id})}"
+        th:method="delete">
+  </form>
+  <div class="btn-group col-md-8 col-sm-6 col-xs-4" role="group">
+    <button type="submit" class="btn btn-danger btn" onclick="$('#deleteClient').submit()">Delete</button>
+  </div>
+  <div class="pull-right col-md-4 col-sm-6 col-xs-8">
+    <div class="btn-group btn-group-justified" role="group">
+      <div class="btn-group" role="group">
+        <a th:href="@{/admin/orders/new?clientId={id} (id=${client.id})}" class="btn btn-primary">New Order</a>
+      </div>
+      <div class="btn-group" role="group">
+        <a th:href="@{/admin/clients}" class="btn btn-default">Go back</a>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-primary" onclick="$('#saveClient').submit()">Save</button>
+      </div>
+    </div>
+  </div>
 
-        <form th:action="@{/admin/clients/{id}(id=${client.id})}" th:method="delete">
-          <button type="submit" class="btn btn-danger">delete</button>
-        </form>
+  <br/>
+  <br/>
 
-        <div class="display-grid">
-        <form th:object="${client}">
-          <label>Orders:</label>
-          <table data-toggle="table">
-            <thead>
-            <tr>
-              <th>id</th>
-              <th>Service</th>
-              <th>order Status</th>
-              <th>open Date</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="order : ${client.orders}">
-              <td>
-                <p th:text="${order.id}">id</p>
-              </td>
-              <!--/*@thymesVar ordersrder" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-              <td th:text="${order.service != null} ? ${order.service.name} : 'order'"></td>
-              <td th:text="${order.status}"></td>
-              <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
-              <td>
-                <a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </form>
-        </div>
-        <br/>
-        <div class="display-grid">
-          <label>Balance:</label>
-          <table data-toggle="table">
-            <thead>
-            <tr>
-              <th>id</th>
-              <th>Currency</th>
-              <th>Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="money : ${client.personalAccount != null} ? ${client.personalAccount.money}">
-              <td th:text="${client.personalAccount.id}"></td>
-              <td th:text="${money.currency}"></td>
-              <td th:text="${money.price}"></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <br/>
-        <br/>
+    <form th:object="${client}">
+      <div class="display-grid">
+      <label>Orders:</label>
+      <table data-toggle="table">
+        <thead>
+        <tr>
+          <th>id</th>
+          <th>Service</th>
+          <th>order Status</th>
+          <th>open Date</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${client.orders}">
+          <td>
+            <p th:text="${order.id}">id</p>
+          </td>
+          <!--/*@thymesVar ordersrder" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+          <td th:text="${order.service != null} ? ${order.service.name} : 'order'"></td>
+          <td th:text="${order.status}"></td>
+          <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
+          <td>
+            <a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </form>
+
+  <br/>
+  <div class="display-grid">
+    <label>Balance:</label>
+    <table data-toggle="table">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>Currency</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="money : ${client.personalAccount != null} ? ${client.personalAccount.money}">
+        <td th:text="${client.personalAccount.id}"></td>
+        <td th:text="${money.currency}"></td>
+        <td th:text="${money.price}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br/>
+  <br/>
 </section>
 </body>
 </html>

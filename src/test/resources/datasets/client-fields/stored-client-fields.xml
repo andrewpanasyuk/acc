@@ -1,0 +1,4 @@
+<dataset>
+    <CLIENT_FIELD id="1" name="email"/>
+    <CLIENT_FIELD id="2" name="country"/>
+</dataset>
