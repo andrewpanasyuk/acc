@@ -25,7 +25,6 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
     public void init() {
 
         employee = new Employee();
-        employee.setId(2L);
         employee.setLastName("Teplinsky");
         employee.setFirstName("Anton");
         employee.setMaxClients(10);
@@ -59,6 +58,7 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
     @Test
     @DataSet(value = "employee/stored-employee.xml" , disableConstraints = true)
     public void findEmployeeByIdTest() {
+        employee.setId(2L);
         assertEquals(employee, repository.findOne(2L));
     }
 
