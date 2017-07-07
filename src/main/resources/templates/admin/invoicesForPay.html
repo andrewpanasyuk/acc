@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
+</head>
+<body>
+<section layout:fragment="content">
+  <table data-toggle="table" data-class="table table-striped table-hover"
+         data-pagination="true" data-search="true" data-query-params="queryParams">
+    <thead>
+    <tr>
+      <th>Client</th>
+      <th>Service</th>
+      <th>Payment from</th>
+      <th>Payment to</th>
+      <th>Payment type</th>
+      <th>Sum</th>
+      <th>Create Invoice</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
+    <tr th:each="invoice : ${invoices}">
+      <td th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"></td>
+      <td th:text="${invoice.contract.order.service.name}"></td>
+      <td th:text="${invoice.paymentPeriodFrom}"></td>
+      <td th:text="${invoice.paymentPeriodTo}"></td>
+      <td th:text="${invoice.contract.paymentType}"></td>
+      <td th:text="${invoice.price.price} + ' ' + ${invoice.price.currency}"></td>
+      <td>
+        <form th:action="@{/admin/invoices/forpay}" th:object="${invoice}" method="post">
+          <input type="hidden" name="creationDate" th:value="${invoice.creationDate}"/>
+          <input type="hidden" name="paymentPeriodFrom" th:value="${invoice.paymentPeriodFrom}"/>
+          <input type="hidden" name="paymentPeriodTo" th:value="${invoice.paymentPeriodTo}"/>
+          <input type="hidden" name="employeePaid" th:value="${invoice.employeePaid}"/>
+          <input type="hidden" name="contractId" th:value="${invoice.contract.id}"/>
+          <button type="submit" id="submit" class="btn btn-primary" style="height:40px;width:80px">Create</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+</body>
+</html>

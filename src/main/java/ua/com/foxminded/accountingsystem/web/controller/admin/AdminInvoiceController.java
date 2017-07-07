@@ -45,8 +45,15 @@ public class AdminInvoiceController {
 
     @PostMapping
     public String create(@ModelAttribute Invoice invoice) {
-        invoiceService.save(invoice);
+        System.out.println(invoice);
+        invoiceService.createInvoiceForContract(invoice);
         return "redirect:/admin/invoices";
+    }
+
+    @PostMapping(value = "/forpay")
+    public String createByContractId(@ModelAttribute Invoice invoice, long contractId) {
+        invoiceService.createInvoiceForContract(invoice, contractId);
+        return "redirect:/admin/contracts/pay";
     }
 
     @DeleteMapping(value = "/{id}")
