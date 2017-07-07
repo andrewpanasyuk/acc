@@ -64,14 +64,12 @@
             <version>4.2.3.RELEASE</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.github.database-rider</groupId>
             <artifactId>rider-core</artifactId>
             <version>1.1.0</version>
             <scope>test</scope>
         </dependency>
-
         <!-- WEBJARS -->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -98,7 +96,6 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.6</version>
         </dependency>
-
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-java8time</artifactId>

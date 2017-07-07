@@ -69,16 +69,13 @@ public class EmployeeFieldValue implements Serializable {
         if (!(o instanceof EmployeeFieldValue)) return false;
 
         EmployeeFieldValue that = (EmployeeFieldValue) o;
-        if(!(that.getValue().equals(((EmployeeFieldValue) o).getValue()))){
-            return false;
-        }
+        return that.getValue().equals(((EmployeeFieldValue) o).getValue()) && id.equals(that.id);
 
-        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
