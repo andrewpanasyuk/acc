@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Invoice;
+import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 
 import java.util.List;
@@ -37,7 +38,8 @@ public class AdminInvoiceController {
     public String getInvoiceById(@PathVariable long id, Model model) {
         Invoice invoice = invoiceService.findById(id);
         model
-            .addAttribute("invoice", invoice);
+            .addAttribute("invoice", invoice)
+            .addAttribute("payment", new Payment());
         return "admin/invoice";
     }
 
@@ -58,5 +60,11 @@ public class AdminInvoiceController {
         Invoice invoice = invoiceService.createInvoiceByContractId(contractID);
         model.addAttribute("invoice", invoice);
         return "admin/invoice";
+    }
+
+    @PostMapping("/addPayment")
+    public String addPayment(@ModelAttribute Payment payment) {
+        invoiceService.addPayment(payment);
+        return "redirect:/admin/invoices/" + payment.getInvoice().getId();
     }
 }

@@ -4,63 +4,163 @@
 </head>
 <body>
 <section layout:fragment="content">
+  <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
+  <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
   <div class="col-md-6">
-    <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
-    <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
-    <form th:action="@{/admin/invoices}" th:object="${invoice}" method="post">
+    <form id="saveInvoice" th:action="@{/admin/invoices}" th:object="${invoice}" method="post" class="form-horizontal">
       <input type="hidden" th:field="*{id}"/>
       <input type="hidden" th:field="*{contract}"/>
       <a th:href="@{/admin/contracts/{id}(id=${invoice.contract.id})}"
          th:text="'Contract ID ' + ${invoice.contract.id} + ' from ' + ${invoice.contract.contractDate}"></a>
-      <br/>
-      <label>Creation date:</label><br/>
-      <input type="date" style="width:165px;height:35px"
-             th:value="${invoice.creationDate != null} ? ${#temporals.format(invoice.creationDate, 'yyyy-MM-dd')} : ''"
-             th:field="${invoice.creationDate}"/><br/>
-      <label>Employee paid:</label><br/>
-      <select id="invoiceEmployeePayment" style="width:165px;height:35px" th:field="${invoice.employeePaid}"
-              class="form-control">
-        <option value="">Select option:</option>
-        <option value="true">true</option>
-        <option value="false">false</option>
-      </select>
 
-      <label>Amount Due:</label><br/>
-      <div class="row">
-        <div class="col-xs-6 col-md-4">
-          <input th:value="*{price.price > 0} ? *{price.price}"
-                 th:id="*{'price.price'}" th:name="*{'price.price'}"
-                 type="number" class="form-control" required="required" min="0" max="2147483647"
-                 style="width:165px;height:35px"/>
-          <input type="hidden" th:field="*{price.id}"/>
-
+      <div class="form-group">
+        <div class="col-xs-5">
+          <label>Creation date:</label>
         </div>
-        <div class="col-xs-6 col-md-4">
-          <select style="width:165px;height:35px" th:field="${invoice.price.currency}" class="form-control">
-            <option th:each="currencyTypeValue : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
-                    th:value="${currencyTypeValue}"
-                    th:text="${currencyTypeValue}"/>
+        <div class="col-xs-7">
+          <input type="date"
+                 th:value="${invoice.creationDate != null} ? ${#temporals.format(invoice.creationDate, 'yyyy-MM-dd')} : ''"
+                 th:field="${invoice.creationDate}"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-xs-5">
+          <label>Employee paid:</label>
+        </div>
+        <div class="col-xs-7">
+          <select id="invoiceEmployeePayment" th:field="${invoice.employeePaid}"
+                  class="form-control">
+            <option value="">Select option:</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
           </select>
         </div>
       </div>
 
-      <label>Payment period from:</label><br/>
-      <input type="date" style="width:165px;height:35px"
-             th:value="${invoice.paymentPeriodFrom != null} ? ${#temporals.format(invoice.paymentPeriodFrom, 'yyyy-MM-dd')} : ''"
-             th:field="${invoice.paymentPeriodFrom}"/><br/>
-
-      <label>Payment period to:</label><br/>
-      <input type="date" style="width:165px;height:35px"
-             th:value="${invoice.paymentPeriodTo != null} ? ${#temporals.format(invoice.paymentPeriodTo, 'yyyy-MM-dd')} : ''"
-             th:field="${invoice.paymentPeriodTo}"/><br/>
-
-      <br/>
-      <button type="submit" id="submit" class="btn btn-primary" style="height:40px;width:80px">Save</button>
+      <div class="form-group">
+        <div class="col-xs-5">
+          <label>Amount Due:</label>
+        </div>
+        <div class="col-xs-7">
+          <div class="col-xs-8" style="padding: 0">
+            <input th:value="*{price.price > 0} ? *{price.price}"
+                   th:id="*{'price.price'}" th:name="*{'price.price'}"
+                   type="number" class="form-control" required="required" min="0" max="2147483647"/></div>
+          <div class="col-xs-4" style="padding: 0">
+            <select th:field="${invoice.price.currency}" class="form-control">
+              <option th:each="currencyTypeValue : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
+                      th:value="${currencyTypeValue}"
+                      th:text="${currencyTypeValue}"/>
+            </select></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-5">
+        </div>
+        <div class="col-sm-7">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-5">
+          <label>Payment period from:</label>
+        </div>
+        <div class="col-sm-7">
+          <input type="date"
+                 th:value="${invoice.paymentPeriodFrom != null} ? ${#temporals.format(invoice.paymentPeriodFrom, 'yyyy-MM-dd')} : ''"
+                 th:field="${invoice.paymentPeriodFrom}"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-5">
+          <label>Payment period to:</label>
+        </div>
+        <div class="col-sm-7">
+          <input type="date"
+                 th:value="${invoice.paymentPeriodTo != null} ? ${#temporals.format(invoice.paymentPeriodTo, 'yyyy-MM-dd')} : ''"
+                 th:field="${invoice.paymentPeriodTo}"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-5">
+          <label>Payment</label>
+        </div>
+        <div class="col-sm-7">
+      <span th:if="${invoice.payment != null}"
+            th:text="${invoice.payment.sum.price} + ' ' + ${invoice.payment.sum.currency}"></span>
+          <button th:if="${invoice.payment == null}" type="button" class="btn btn-primary" data-toggle="modal"
+                  data-target="#myModal">
+            Add
+          </button>
+        </div>
+      </div>
     </form>
-    <form th:action="@{/admin/invoices/{id} (id=${invoice.id})}" th:method="delete">
-      <button type="submit" class="btn btn-danger" style="height:40px;width:80px">Remove</button>
+    <form id="deleteInvoice" th:action="@{/admin/invoices/{id} (id=${invoice.id})}" th:method="delete">
     </form>
+    <br/>
+    <br/>
+
+    <div class="btn-group col-md-4 col-sm-6 col-xs-4" role="group">
+      <button type="submit" class="btn btn-danger btn" onclick="$('#deleteInvoice').submit()">Delete</button>
+    </div>
+    <div class="pull-right col-md-8 col-sm-6 col-xs-8">
+      <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+          <a th:href="@{/admin/invoices}" class="btn btn-default">Go back</a>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="submit" class="btn btn-primary" onclick="$('#saveInvoice').submit()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">New Payment</h4>
+          </div>
+          <div class="modal-body">
+            <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
+            <!--/*@thymesVar id="payment" type="ua.com.foxminded.accountingsystem.model.Payment"*/-->
+            <form th:action="@{/admin/invoices/addPayment}" th:object="${payment}" method="post" class="form-horizontal">
+              <input type="hidden" name="invoice.id" th:value="${invoice.id}"/>
+              <div class="form-group">
+                <div class="col-sm-4">
+                  <label th:for="${payment.sum.price}">Amount: </label>
+                </div>
+                <div class="col-sm-5">
+                  <input required="true" type="text" th:field="${payment.sum.price}" class="form-control"/>
+                </div>
+                <div class="col-sm-3">
+                  <select th:field="${payment.sum.currency}" class="form-control">
+                    <!--/*@thymesVar id="currencies" type="java.util.List"*/-->
+                    <!--/*@thymesVar id="currency" type="ua.com.foxminded.accountingsystem.model.Currency"*/-->
+                    <option th:each="currency : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
+                            th:value="${currency}"
+                            th:text="${currency}">currency
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-4">
+                <label for="datePaid">Payment date:</label>
+                </div>
+                <div class="col-sm-8">
+                <input type="date" id="datePaid" name="datePaid"
+                       th:value="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"/>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 </body>
 </html>

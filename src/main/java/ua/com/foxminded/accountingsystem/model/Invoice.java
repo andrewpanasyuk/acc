@@ -48,9 +48,23 @@ public class Invoice implements Serializable {
     @JoinColumn(name = "money_id")
     private Money price;
 
+    @OneToOne(mappedBy = "invoice", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Payment payment;
+
     @Column(name = "employee_paid")
     private Boolean employeePaid;
 
+    public void addPayment(Payment payment) {
+        this.payment = payment;
+        payment.setInvoice(this);
+    }
+
+    public void removePayment() {
+        if (payment != null) {
+            payment.setInvoice(null);
+        }
+        payment = null;
+    }
 
     public Long getId() {
         return id;
@@ -100,6 +114,14 @@ public class Invoice implements Serializable {
         this.price = price;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     public Boolean getEmployeePaid() {
         return employeePaid;
     }
@@ -107,7 +129,6 @@ public class Invoice implements Serializable {
     public void setEmployeePaid(Boolean employeePaid) {
         this.employeePaid = employeePaid;
     }
-
 
     @Override
     public boolean equals(Object o) {

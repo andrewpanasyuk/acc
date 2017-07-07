@@ -1,10 +1,13 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
+import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.InvoiceRepository;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
@@ -16,6 +19,8 @@ import static java.time.temporal.ChronoUnit.MONTHS;
 
 @Service
 public class InvoiceServiceJPA implements InvoiceService {
+
+    private static final Logger log = LoggerFactory.getLogger(InvoiceServiceJPA.class);
 
     private final InvoiceRepository invoiceRepository;
     private final ContractRepository contractRepository;
@@ -59,5 +64,13 @@ public class InvoiceServiceJPA implements InvoiceService {
         invoice.setContract(contract);
         invoice.setEmployeePaid(false);
         return invoice;
+    }
+
+    @Override
+    public void addPayment(Payment payment) {
+        log.warn(payment.toString());
+        Invoice invoice = invoiceRepository.findOne(payment.getInvoice().getId());
+        invoice.addPayment(payment);
+        invoiceRepository.save(invoice);
     }
 }
