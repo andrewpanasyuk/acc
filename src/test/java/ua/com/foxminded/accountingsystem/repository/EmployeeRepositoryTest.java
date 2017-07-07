@@ -9,9 +9,6 @@ import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
