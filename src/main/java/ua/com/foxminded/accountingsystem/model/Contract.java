@@ -38,12 +38,12 @@ public class Contract implements Serializable {
     private LocalDate contractDate;
 
     @NotNull(message = "It's a required field.")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 
     @NotNull(message = "It's a required field.")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "price_id")
     private Money price;
 
@@ -57,12 +57,12 @@ public class Contract implements Serializable {
     private LocalDate openDate;
 
     @NotNull(message = "It's a required field.")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @NotNull(message = "It's a required field.")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "employee_rate_id")
     private Money employeeRate;
 
@@ -70,7 +70,7 @@ public class Contract implements Serializable {
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id")
     private List<Invoice> invoices;
 
