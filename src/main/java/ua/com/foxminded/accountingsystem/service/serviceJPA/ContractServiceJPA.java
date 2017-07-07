@@ -4,14 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
+import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -74,6 +78,32 @@ public class ContractServiceJPA implements ContractService {
 
         return contract;
 
+    }
+
+    @Override
+    public List<Invoice> prepareInvoicesForPayment(LocalDate today) {
+        int signalPeriod = 3;
+        List<Invoice> invoices = new ArrayList<>();
+        LocalDate payDay = today.plusDays(signalPeriod);
+        List<Contract> contracts = contractRepository.findContractsForPayment(payDay.getDayOfMonth(),
+            today);
+        for(Contract contract: contracts){
+            Invoice invoice = new Invoice();
+            invoice.setContract(contract);
+            invoice.setCreationDate(LocalDate.now());
+            invoice.setPrice(contract.getPrice());
+            invoice.setEmployeePaid(false);
+            if(contract.getPaymentType() == PaymentType.PREPAY || contract.getPaymentType() == PaymentType.TRIAL){
+                invoice.setPaymentPeriodFrom(LocalDate.now().plusDays(signalPeriod));
+                invoice.setPaymentPeriodTo(LocalDate.now().plusDays(signalPeriod).plusMonths(1));
+            }
+            else{
+                invoice.setPaymentPeriodFrom(LocalDate.now().plusDays(signalPeriod).minusMonths(1));
+                invoice.setPaymentPeriodTo(LocalDate.now().plusDays(signalPeriod));
+            }
+            invoices.add(invoice);
+        }
+        return invoices;
     }
 }
 
