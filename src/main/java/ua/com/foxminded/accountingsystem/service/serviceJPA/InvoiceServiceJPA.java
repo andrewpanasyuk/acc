@@ -20,10 +20,10 @@ import static java.time.temporal.ChronoUnit.MONTHS;
 @Service
 public class InvoiceServiceJPA implements InvoiceService {
 
+    private static final Logger log = LoggerFactory.getLogger(InvoiceServiceJPA.class);
+
     private final InvoiceRepository invoiceRepository;
     private final ContractRepository contractRepository;
-
-    private static final Logger log = LoggerFactory.getLogger(InvoiceServiceJPA.class);
 
     @Autowired
     public InvoiceServiceJPA(InvoiceRepository invoiceRepository, ContractRepository contractRepository) {
@@ -75,7 +75,7 @@ public class InvoiceServiceJPA implements InvoiceService {
     @Override
     public Invoice createInvoiceForContract(Invoice invoice, long contractId) {
         Contract contract = contractRepository.findOne(contractId);
-        contract.addInvoice(invoice);
+        invoice.setContract(contract);
         invoice.setPrice(contract.getPrice());
         Invoice saved = invoiceRepository.save(invoice);
         log.info("New invoice created: {}", invoice);
