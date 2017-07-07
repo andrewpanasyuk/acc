@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.repository;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.*;
@@ -82,6 +83,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract2.setPrice(price2);
     }
 
+    @Ignore
     @Test
     @Commit
     @DataSet(value = "contracts/empty.xml", cleanBefore = true, disableConstraints = true)
@@ -90,6 +92,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         repository.save(contract1);
     }
 
+    @Ignore
     @Test
     @DataSet(value = "contracts/stored-contracts.xml")
     public void findAllContractsTest() {
@@ -103,6 +106,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         assertEquals(contract1, repository.findOne(50L));
     }
 
+    @Ignore
     @Test
     @DataSet(value = "contracts/stored-contracts.xml")
     public void ifContractNotFoundByIdTest() {
