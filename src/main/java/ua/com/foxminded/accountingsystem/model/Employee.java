@@ -31,7 +31,7 @@ public class Employee implements Serializable {
     private Integer maxClients;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<EmployeeFieldValue> extraFields;
-    
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="username", unique=true)
     private User user;
@@ -68,11 +68,11 @@ public class Employee implements Serializable {
         this.extraFields = extraFields;
     }
 
-    public int getMaxClients() {
+    public Integer getMaxClients() {
         return maxClients;
     }
 
-    public void setMaxClients(int maxClients) {
+    public void setMaxClients(Integer maxClients) {
         this.maxClients = maxClients;
     }
 
