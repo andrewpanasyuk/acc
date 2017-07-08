@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceRepository> {
     @Test
     @DataSet(value = "invoices/stored-invoices_pay_control.xml", disableConstraints = true)
-    public void findAllUnpaidInvoicesTest() {
-        assertEquals(2, repository.findUnpaidInvoices(LocalDate.of(2017, 05, 10)).size());
+    public void findAllDeptInvoicesTest() {
+        assertEquals(2, repository.findDeptInvoices(LocalDate.of(2017, 05, 10)).size());
     }
 }

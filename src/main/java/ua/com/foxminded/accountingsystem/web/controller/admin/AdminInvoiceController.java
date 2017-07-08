@@ -88,10 +88,11 @@ public class AdminInvoiceController {
 
 
     @GetMapping(value = "/unpaid")
+    @GetMapping(value = "/dept")
     public String getUnpaidInvoices(Model model) {
-        List<Invoice> unpaidInvoices = invoiceService.findUnpaidInvoices(LocalDate.now());
-        System.out.println(unpaidInvoices.size());
-        model.addAttribute("unpaidInvoices", unpaidInvoices);
-        return "admin/unpaid";
+        List<Invoice> deptInvoices = invoiceService.findDeptInvoices(LocalDate.now());
+        System.out.println(deptInvoices.size());
+        model.addAttribute("deptInvoices", deptInvoices);
+        return "admin/dept";
     }
 }
