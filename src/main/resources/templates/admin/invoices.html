@@ -27,18 +27,8 @@
             <td th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"/>
             <td th:text="${invoice.contract.id}"></td>
             <td th:text="${invoice.price.currency} + ' ' + ${invoice.price.price}"></td>
-
-            <td th:text="${invoice.contract.paymentType == 'POSTPAY'} ? ${invoice.paymentPeriodTo} : ${invoice.paymentPeriodFrom}"/>
-                <!--th:value="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'yyyy-MM-dd')} : ''"-->
+            <td th:text="${invoice.contract.paymentType.toString().equals('PREPAY')} ? ${invoice.paymentPeriodFrom} : ${invoice.paymentPeriodTo}"/>
             <td th:text="${invoice.payment != null} ? 'YES' : 'NO'"/>
-
-
-            <!--<td th:text="${invoice.creationDate}"></td>-->
-
-
-            <!--<td th:text="${invoice.employeePaid}"></td>-->
-            <!--<td th:text="${invoice.paymentPeriodFrom}"></td>-->
-            <!--<td th:text="${invoice.paymentPeriodTo}"></td>-->
           </tr>
           </tbody>
         </table>

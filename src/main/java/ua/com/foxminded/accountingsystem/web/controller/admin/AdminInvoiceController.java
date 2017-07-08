@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 public class AdminInvoiceController {
 
     private final InvoiceService invoiceService;
+
 
     @Autowired
     public AdminInvoiceController(InvoiceService invoiceService) {

@@ -1,20 +1,20 @@
 INSERT INTO fm_users (username, password, enabled, email) VALUES
-    ('admin', '$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq', TRUE, 'admin@mail.com' ),
-    ('user', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'user@mail.com' ),
-    ('megaadmin', '$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq', TRUE, 'megaadmin@mail.com' ),
-    ('jack', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'jack@mail.com' ),
-    ('chuck', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'chuck@mail.com' ),
-    ('martin', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'martin@mail.com' ),
-    ('liza', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'liza@mail.com' ),
-    ('bob', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'bob@mail.com' ),
-    ('ivan', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'ivan@mail.com' ),
-    ('josef', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'josef@mail.com' ),
-    ('danilo', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'danilo@mail.com' ),
-    ('greg', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'greg@mail.com' ),
-    ('igor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'igor@mail.com' ),
-    ('lebovskiy', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'lebovskiy@mail.com' ),
-    ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com' ),
-    ('mentor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'mentor@mail.com' );
+    ('admin', '$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq', TRUE, 'admin@mail.com'),
+    ('user', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'user@mail.com'),
+    ('megaadmin', '$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq', TRUE, 'megaadmin@mail.com'),
+    ('jack', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'jack@mail.com'),
+    ('chuck', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'chuck@mail.com'),
+    ('martin', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'martin@mail.com'),
+    ('liza', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'liza@mail.com'),
+    ('bob', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'bob@mail.com'),
+    ('ivan', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'ivan@mail.com'),
+    ('josef', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'josef@mail.com'),
+    ('danilo', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'danilo@mail.com'),
+    ('greg', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'greg@mail.com'),
+    ('igor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'igor@mail.com'),
+    ('lebovskiy', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'lebovskiy@mail.com'),
+    ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com'),
+    ('mentor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'mentor@mail.com');
 
 INSERT INTO user_role (id, role) VALUES
     (1, 'ADMIN'),
@@ -100,14 +100,14 @@ INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
     (5, 5);
 
 INSERT INTO client (id, last_name, first_name, personal_account_id) VALUES
-    (1, 'Ivanov', 'Ivan',1),
-    (2, 'Petrov', 'Sergey', null),
+    (1, 'Ivanov', 'Ivan', 1),
+    (2, 'Petrov', 'Sergey', NULL),
     (3, 'Pupkin', 'Adolf', 3),
     (4, 'Selezneva', 'Alisa', 4),
     (5, 'Hatabych', 'Old', 5),
     (6, 'Sidorov', 'Ivan', 5),
     (7, 'Smith', 'Sergey', 4),
-    (8, 'Pupkin', 'Adolf', null),
+    (8, 'Pupkin', 'Adolf', NULL),
     (9, 'Waylon', 'Dalton', 2),
     (10, 'Ivanov', 'Ivan', 1),
     (11, 'Cruz', 'Marcus', 1),
@@ -168,13 +168,17 @@ VALUES
     (7, '2017-06-30', 12, 3, 'TRIAL', 5, 2, '2014-07-30');
 
 INSERT INTO invoice (id, creation_date, employee_paid, period_from, period_to, contract_id, money_id) VALUES
-    (1, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 1),
-    (2, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 2),
-    (3, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 3),
-    (4, '2000-01-01', FALSE, '2000-01-01', '2000-01-01', 2, 4),
-    (5, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 2, 5),
-    (6, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 6),
-    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 1, 7);
+    (1, '2017-06-01', TRUE, '2017-06-01', '2017-06-30', 1, 1),
+    (2, '2017-05-01', TRUE, '2017-06-01', '2017-07-10', 2, 2),
+    (3, '2017-05-01', TRUE, '2017-06-01', '2017-07-01', 3, 3),
+    (4, '2000-01-01', FALSE, '2000-01-01', '2000-01-01', 4, 4),
+    (5, '2000-01-01', TRUE, '2017-07-05', '2017-08-04', 5, 5),
+    (6, '2000-01-01', TRUE, '2017-07-01', '2017-07-10', 6, 6),
+    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 7, 7);
+
+INSERT INTO payment (id, invoice_id) VALUES
+    (1, 6),
+    (2, 7);
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id) VALUES
     (1, '2017-01-01', 'NORMAL', 1);
