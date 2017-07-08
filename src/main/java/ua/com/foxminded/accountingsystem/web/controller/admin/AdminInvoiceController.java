@@ -45,8 +45,7 @@ public class AdminInvoiceController {
 
     @PostMapping
     public String create(@ModelAttribute Invoice invoice) {
-        System.out.println(invoice);
-        invoiceService.createInvoiceForContract(invoice);
+        invoiceService.save(invoice);
         return "redirect:/admin/invoices";
     }
 
