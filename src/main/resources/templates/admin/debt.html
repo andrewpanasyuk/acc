@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody th:remove="all-but-first">
-    <tr th:each="invoice : ${deptInvoices}">
+    <tr th:each="invoice : ${debtInvoices}">
       <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
       <td th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"></td>
       <td th:text="${invoice.paymentPeriodTo}"></td>

@@ -66,8 +66,8 @@ public class InvoiceServiceJPA implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> findDeptInvoices(LocalDate actualDate) {
-        return invoiceRepository.findDeptInvoices(actualDate);
+    public List<Invoice> findDebtInvoices(LocalDate actualDate) {
+        return invoiceRepository.findDebtInvoices(actualDate);
     }
 
     @Override

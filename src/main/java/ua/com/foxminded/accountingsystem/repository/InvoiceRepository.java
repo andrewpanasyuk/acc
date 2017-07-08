@@ -14,5 +14,5 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
         "AND invoice.paymentPeriodFrom < ?1)" +
         "OR(invoice.contract.paymentType = ua.com.foxminded.accountingsystem.model.PaymentType.POSTPAY " +
         "AND invoice.paymentPeriodTo < ?1))")
-    List<Invoice> findDeptInvoices(LocalDate actualDate);
+    List<Invoice> findDebtInvoices(LocalDate actualDate);
 }
