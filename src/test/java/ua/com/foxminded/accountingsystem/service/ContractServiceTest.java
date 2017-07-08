@@ -59,12 +59,15 @@ public class ContractServiceTest {
         trialContract = new Contract();
         prepayContract = new Contract();
         postpayContract = new Contract();
+
         trialContract.setId(1L);
         prepayContract.setId(2L);
         postpayContract.setId(3L);
+
         trialContract.setPrice(new Money());
         prepayContract.setPrice(new Money());
         postpayContract.setPrice(new Money());
+
         trialContract.setPaymentType(PaymentType.TRIAL);
         prepayContract.setPaymentType(PaymentType.PREPAY);
         postpayContract.setPaymentType(PaymentType.POSTPAY);
@@ -72,21 +75,26 @@ public class ContractServiceTest {
         trialInvoice.setContract(trialContract);
         prepayInvoice.setContract(prepayContract);
         postpayInvoice.setContract(postpayContract);
+
         trialInvoice.setCreationDate(testToday);
         prepayInvoice.setCreationDate(testToday);
         postpayInvoice.setCreationDate(testToday);
+
         trialInvoice.setPaymentPeriodFrom(LocalDate.of(2017, 7, 19));
         trialInvoice.setPaymentPeriodTo(LocalDate.of(2017, 8, 19));
         prepayInvoice.setPaymentPeriodFrom(LocalDate.of(2017, 7, 19));
         prepayInvoice.setPaymentPeriodTo(LocalDate.of(2017, 8, 19));
         postpayInvoice.setPaymentPeriodFrom(LocalDate.of(2017, 6, 19));
         postpayInvoice.setPaymentPeriodTo(LocalDate.of(2017, 7, 19));
+
         trialInvoice.setPrice(new Money());
         prepayInvoice.setPrice(new Money());
         postpayInvoice.setPrice(new Money());
+
         trialInvoice.setEmployeePaid(false);
         prepayInvoice.setEmployeePaid(false);
         postpayInvoice.setEmployeePaid(false);
+
         createdInvoices = Arrays.asList(trialInvoice, prepayInvoice, postpayInvoice);
         contractsForPayment = Arrays.asList(trialContract, prepayContract, postpayContract);
     }
