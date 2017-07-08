@@ -15,6 +15,7 @@ import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -85,4 +86,12 @@ public class AdminInvoiceController {
         return "redirect:/admin/invoices/issue";
     }
 
+
+    @GetMapping(value = "/unpaid")
+    public String getUnpaidInvoices(Model model) {
+        List<Invoice> unpaidInvoices = invoiceService.findUnpaidInvoices(LocalDate.now());
+        System.out.println(unpaidInvoices.size());
+        model.addAttribute("unpaidInvoices", unpaidInvoices);
+        return "admin/unpaid";
+    }
 }
