@@ -11,12 +11,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -42,18 +45,25 @@ public class AdminContractControllerTest {
 
     private static Contract contract1;
     private static Contract contract2;
+    private static Invoice invoice1;
+    private static Invoice invoice2;
 
     private static List<Contract> contracts;
+    private static List<Invoice> invoices;
 
     @BeforeClass
     public static void initClass(){
         contract1 = new Contract();
-
         contract2 = new Contract();
+
+        invoice1 = new Invoice();
+        invoice2 = new Invoice();
 
         contracts = new ArrayList<>();
         contracts.add(contract1);
         contracts.add(contract2);
+
+        invoices = Arrays.asList(invoice1, invoice2);
     }
 
     @Before
@@ -62,6 +72,8 @@ public class AdminContractControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(contractService.findAll()).thenReturn(contracts);
         when(contractService.findOne(1L)).thenReturn(contract1);
+        when(contractService.prepareInvoicesForPayment(LocalDate.now()))
+            .thenReturn(invoices);
     }
 
     @Test
@@ -78,5 +90,11 @@ public class AdminContractControllerTest {
         assertThat(model.asMap(), hasEntry("contract", contract1));
     }
 
+    @Test
+    public void invoicesForPaymentAddedToController(){
+        Model model = new ExtendedModelMap();
+        assertThat(controller.invoicesForPayment(model), equalTo("admin/invoicesForPay"));
+        assertThat(model.asMap(), hasEntry("invoices", invoices));
+    }
 
 }

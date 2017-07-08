@@ -90,16 +90,16 @@ public class ContractServiceJPA implements ContractService {
         for(Contract contract: contracts){
             Invoice invoice = new Invoice();
             invoice.setContract(contract);
-            invoice.setCreationDate(LocalDate.now());
+            invoice.setCreationDate(today);
             invoice.setPrice(contract.getPrice());
             invoice.setEmployeePaid(false);
             if(contract.getPaymentType() == PaymentType.PREPAY || contract.getPaymentType() == PaymentType.TRIAL){
-                invoice.setPaymentPeriodFrom(LocalDate.now().plusDays(signalPeriod));
-                invoice.setPaymentPeriodTo(LocalDate.now().plusDays(signalPeriod).plusMonths(1));
+                invoice.setPaymentPeriodFrom(today.plusDays(signalPeriod));
+                invoice.setPaymentPeriodTo(today.plusDays(signalPeriod).plusMonths(1));
             }
             else{
-                invoice.setPaymentPeriodFrom(LocalDate.now().plusDays(signalPeriod).minusMonths(1));
-                invoice.setPaymentPeriodTo(LocalDate.now().plusDays(signalPeriod));
+                invoice.setPaymentPeriodFrom(today.plusDays(signalPeriod).minusMonths(1));
+                invoice.setPaymentPeriodTo(today.plusDays(signalPeriod));
             }
             invoices.add(invoice);
         }
