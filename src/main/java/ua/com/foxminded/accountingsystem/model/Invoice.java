@@ -43,7 +43,7 @@ public class Invoice implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentPeriodTo;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "price_id")
     private Money price;
 
