@@ -121,7 +121,7 @@ public class Invoice implements Serializable {
         this.payment = payment;
     }
 
-    public Boolean isEmployeePaid() {
+    public Boolean getEmployeePaid() {
         return employeePaid;
     }
 
