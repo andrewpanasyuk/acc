@@ -13,17 +13,9 @@
     <ORDERS id="50" status="ACTIVE" service_id="50"/>
     <ORDERS id="51" status="WAITING" service_id="51"/>
 
-
-
     <EMPLOYEE id="50" />
     <EMPLOYEE id="51" />
 
-    <CONTRACT id="50" contract_date="2017-06-01" order_id="50" employee_id="50" payment_type="PREPAY" price_id="51" employee_rate_id="50"/>
-    <CONTRACT id="51" contract_date="2017-06-10" order_id="51" employee_id="51" payment_type="POSTPAY" price_id="53" employee_rate_id="52" />
-    <CONTRACT id="1" payment_date="2017-07-24" payment_type="PREPAY"/>
-    <CONTRACT id="2" payment_date="2017-01-24" payment_type="POSTPAY"/>
-    <CONTRACT id="3" payment_date="2017-12-24" payment_type="TRIAL"/>
-    <CONTRACT id="4" payment_date="2017-12-04" payment_type="TRIAL"/>
-    <CONTRACT id="5" payment_date="2017-12-24" payment_type="TRIAL"/>
-    <INVOICE id="1" creation_date="2017-07-21" contract_id="5"/>
+    <CONTRACT id="50" contract_date="2017-06-01" payment_date="2017-07-12" order_id="50" employee_id="50" payment_type="PREPAY" price_id="51" employee_rate_id="50"/>
+    <CONTRACT id="51" contract_date="2017-06-10" payment_date="2017-07-14" order_id="51" employee_id="51" payment_type="POSTPAY" price_id="53" employee_rate_id="52" />
 </dataset>

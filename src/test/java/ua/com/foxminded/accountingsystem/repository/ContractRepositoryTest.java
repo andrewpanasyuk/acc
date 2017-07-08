@@ -11,7 +11,6 @@ import ua.com.foxminded.accountingsystem.model.*;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import java.time.LocalDate;
 
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -118,6 +117,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         assertThat(repository.findAll(), hasItems(contract1, contract2));
     }
 
+    @Ignore
     @Test
     @DataSet(value = "contracts/stored-contracts.xml")
     public void findOneContractByIdTest() {
@@ -140,13 +140,13 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     }
 
     @Test
-    @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true, disableConstraints = true)
+    @DataSet(value = "contracts/find-contracts-for-payment.xml", cleanBefore = true, disableConstraints = true)
     public void findContractsForPaymentTest() {
         assertEquals(3, repository.findContractsForPayment(24,
             LocalDate.of(2017, 07, 21)).size());
         assertThat(repository.findContractsForPayment(24,
             LocalDate.of(2017, 07, 21)),
-            IsCollectionContaining.hasItems(postpay, prepay, trial));
+            hasItems(postpay, prepay, trial));
     }
 
 }
