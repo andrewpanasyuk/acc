@@ -4,6 +4,7 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
