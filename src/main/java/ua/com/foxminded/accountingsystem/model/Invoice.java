@@ -32,8 +32,7 @@ public class Invoice implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate creationDate;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "contract_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Contract contract;
 
     @Column(name = "period_from")
@@ -44,15 +43,15 @@ public class Invoice implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentPeriodTo;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "money_id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "price_id")
     private Money price;
 
     @OneToOne(mappedBy = "invoice", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Payment payment;
 
     @Column(name = "employee_paid")
-    private Boolean employeePaid;
+    private Boolean employeePaid = false;
 
     public void addPayment(Payment payment) {
         this.payment = payment;

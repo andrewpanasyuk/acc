@@ -62,7 +62,6 @@ public class InvoiceServiceJPA implements InvoiceService {
         invoice.setPrice(amountForInvoice);
         invoice.setCreationDate(LocalDate.now());
         invoice.setContract(contract);
-        invoice.setEmployeePaid(false);
         return invoice;
     }
 
