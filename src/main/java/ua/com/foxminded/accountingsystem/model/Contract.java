@@ -70,7 +70,7 @@ public class Contract implements Serializable {
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
-    @OneToMany(mappedBy = "contract", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contract", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<Invoice> invoices;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
