@@ -1,3 +1,4 @@
 <dataset>
-    <INVOICE id="50" creation_date="2010-01-01" contract_id="50" period_from="2010-01-01" price_id="50" period_to="2010-02-01" employee_paid="true"/>
+    <INVOICE id="50" creation_date="2010-01-01" period_from="2010-01-01" period_to="2010-02-01" employee_paid="false"/>
+    <INVOICE id="51" creation_date="2010-02-01" period_from="2010-02-01" period_to="2010-03-01" employee_paid="true"/>
 </dataset>
