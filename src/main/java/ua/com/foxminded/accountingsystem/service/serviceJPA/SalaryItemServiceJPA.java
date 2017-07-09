@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 
 
 public class SalaryItemServiceJPA implements SalaryItemService {
+
     private final SalaryItemRepository salaryItemRepository;
 
     @Autowired
