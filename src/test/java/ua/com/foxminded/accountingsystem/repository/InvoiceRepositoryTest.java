@@ -13,75 +13,63 @@ import ua.com.foxminded.accountingsystem.model.Money;
 
 import java.time.LocalDate;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-
 public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceRepository> {
 
-    private static Invoice invoice_1;
-//    private static Invoice invoice_2;
+    private static Invoice firstInvoiceOfContractOne;
+    private static Invoice secondInvoiceOfContractOne;
+    private static Invoice invoiceOfContractTwo;
 
     @BeforeClass
     public static void init() {
-        Money money_1 = new Money();
-        money_1.setId(50L);
-        money_1.setCurrency(Currency.EUR);
-        money_1.setPrice(1500);
+        Money moneyOfContractOne = new Money();
+        moneyOfContractOne.setId(1L);
+        moneyOfContractOne.setCurrency(Currency.EUR);
+        moneyOfContractOne.setPrice(1500);
         Money moneyOfContractTwo = new Money();
         moneyOfContractTwo.setId(2L);
         moneyOfContractTwo.setCurrency(Currency.EUR);
         moneyOfContractTwo.setPrice(2000);
 
-        Contract contract_1 = new Contract();
-        contract_1.setId(50L);
-        contract_1.setPaymentDate(LocalDate.of(2010, 1, 1));
+        Contract contract1 = new Contract();
+        contract1.setId(1L);
+        contract1.setPaymentDate(LocalDate.of(2010, 1, 1));
 
-        invoice_1 = new Invoice();
-        invoice_1.setId(50L);
-        invoice_1.setContract(contract_1);
-        invoice_1.setPrice(money_1);
-        invoice_1.setCreationDate(contract_1.getPaymentDate());
-        invoice_1.setPaymentPeriodFrom(contract_1.getPaymentDate());
-        invoice_1.setPaymentPeriodTo(contract_1.getPaymentDate().plusMonths(1L));
-        invoice_1.setEmployeePaid(true);
+        Contract contract2 = new Contract();
+        contract2.setId(2L);
+        contract2.setPaymentDate(LocalDate.of(2016, 1, 1));
 
+        firstInvoiceOfContractOne = new Invoice();
+        firstInvoiceOfContractOne.setId(1L);
+        firstInvoiceOfContractOne.setContract(contract1);
+        firstInvoiceOfContractOne.setCreationDate(contract1.getPaymentDate());
+        firstInvoiceOfContractOne.setPrice(moneyOfContractOne);
+        firstInvoiceOfContractOne.setPaymentPeriodFrom(contract1.getPaymentDate());
+        firstInvoiceOfContractOne.setPaymentPeriodTo(contract1.getPaymentDate().plusMonths(1L));
+
+        secondInvoiceOfContractOne = new Invoice();
+        secondInvoiceOfContractOne.setId(2L);
+        secondInvoiceOfContractOne.setContract(contract1);
+        secondInvoiceOfContractOne.setCreationDate(contract1.getPaymentDate().plusMonths(1L));
+        secondInvoiceOfContractOne.setPrice(moneyOfContractOne);
+        secondInvoiceOfContractOne.setPaymentPeriodFrom(contract1.getPaymentDate().plusMonths(1L));
+        secondInvoiceOfContractOne.setPaymentPeriodTo(contract1.getPaymentDate().plusMonths(2L));
+
+        invoiceOfContractTwo = new Invoice();
+        invoiceOfContractTwo.setContract(contract2);
+        invoiceOfContractTwo.setCreationDate(contract2.getPaymentDate());
+        invoiceOfContractTwo.setPrice(moneyOfContractTwo);
+        invoiceOfContractTwo.setPaymentPeriodFrom(contract2.getPaymentDate());
+        invoiceOfContractTwo.setPaymentPeriodTo(contract2.getPaymentDate().plusMonths(1L));
+        invoiceOfContractTwo.setEmployeePaid(true);
     }
 
 
     @Test
     @Commit
-    @DataSet(value = "invoices/empty.xml", disableConstraints = true, cleanBefore = true)
+    @DataSet(value = "invoices/empty.xml", disableConstraints = true)
     @ExpectedDataSet(value = "invoices/expected-invoices.xml")
-    public void invoiceIsAdded() {
-        repository.save(invoice_1);
+    public void OneInvoiceIsAdded() {
+        repository.save(invoiceOfContractTwo);
     }
 
-    @Test
-    @DataSet("invoices/stored-invoices.xml")
-    public void invoiceExistsInRepo() {
-        assertThat(repository.findAll(), hasItems(invoice_1));
-    }
-
-    @Test
-    @DataSet("invoices/stored-invoices.xml")
-    public void ifNoInvoiceFoundReturnNull() {
-        assertThat(repository.findOne(150L), nullValue());
-    }
-
-    @Test
-    @DataSet(value = "invoices/empty.xml", disableConstraints = true, cleanBefore = true)
-    public void ifNoInvoicesFoundReturnEmptyList() {
-        assertThat(repository.findAll(), is(empty()));
-    }
-
-    @Test
-    @Commit
-    @DataSet("invoices/expected-invoices.xml")
-    @ExpectedDataSet("invoices/empty.xml")
-    public void invoiceIsDeleted() {
-        repository.delete(invoice_1);
-    }
 }
