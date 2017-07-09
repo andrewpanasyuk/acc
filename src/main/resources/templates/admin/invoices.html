@@ -11,28 +11,24 @@
           <thead>
           <tr>
             <th>ID</th>
-            <th>Invoice</th>
-            <th>Creation date</th>
+            <th>Client</th>
             <th>Contact ID</th>
-            <th>Amount due</th>
-            <th>Employee paid</th>
-            <th>Date from</th>
-            <th>Date to</th>
+            <th>Payment amount</th>
+            <th>Payment date</th>
+            <th>Payment status</th>
           </tr>
           </thead>
           <tbody th:remove="all-but-first">
           <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
           <tr th:each="invoice : ${invoices}">
-            <td th:text="${invoice.id}"></td>
             <td>
-              <a th:href="@{/admin/invoices/{id} (id = ${invoice.id})}">Invoice</a>
+              <a th:href="@{/admin/invoices/{id} (id = ${invoice.id})}" th:text="${invoice.id}">ID</a>
             </td>
-            <td th:text="${invoice.creationDate}"></td>
+            <td th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"/>
             <td th:text="${invoice.contract.id}"></td>
-            <td th:text="${invoice.price.getCurrency()} + ' ' + ${invoice.price.price}"></td>
-            <td th:text="${invoice.employeePaid}"></td>
-            <td th:text="${invoice.paymentPeriodFrom}"></td>
-            <td th:text="${invoice.paymentPeriodTo}"></td>
+            <td th:text="${invoice.price.currency} + ' ' + ${invoice.price.price}"></td>
+            <td th:text="${invoice.contract.paymentType.toString().equals('PREPAY')} ? ${invoice.paymentPeriodFrom} : ${invoice.paymentPeriodTo}"/>
+            <td th:text="${invoice.payment != null} ? 'YES' : 'NO'"/>
           </tr>
           </tbody>
         </table>
