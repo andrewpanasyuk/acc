@@ -36,7 +36,7 @@ public class SalaryItem implements Serializable {
     private Invoice invoice;
 
     @JoinColumn(name = "employee_payment_id")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money employeePayment;
 
     @Column(name = "date_from", nullable = false)
@@ -48,11 +48,7 @@ public class SalaryItem implements Serializable {
     private LocalDate dateTo;
 
     @Column(name = "paid")
-    private Boolean paid;
-
-    public SalaryItem() {
-        this.paid = false;
-    }
+    private Boolean paid = false;
 
     public Long getId() {
         return id;

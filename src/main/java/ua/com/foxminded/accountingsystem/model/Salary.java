@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,7 +34,7 @@ public class Salary implements Serializable {
 
     @Column(name = "date_salary", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateSalary;
+    private LocalDate salaryDate;
 
     @Column(name = "date_from", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -51,14 +52,33 @@ public class Salary implements Serializable {
     private List<SalaryItem> salaryItems;
 
     @Column(name = "paid")
-    private Boolean paid;
+    private Boolean paid = false;
 
     @JoinColumn(name = "total_amount_id")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money totalAmount;
 
-    public Salary() {
-        this.paid = new Boolean(false);
+    public boolean addSalaryItem(SalaryItem salaryItem){
+        if (salaryItems == null){
+            salaryItems = new ArrayList<>();
+        }
+        return salaryItems.add(salaryItem);
+    }
+
+    public boolean removeSalaryItem(SalaryItem salaryItem){
+        if (salaryItems == null){
+            return false;
+        }
+        return salaryItems.remove(salaryItem);
+    }
+
+    private void calculateTotalAmount(){
+        if (totalAmount == null) {
+            totalAmount = new Money();
+            totalAmount.setCurrency(Currency.UAH);
+        }
+        totalAmount.setPrice(salaryItems.stream()
+            .mapToInt(salaryItem -> salaryItem.getEmployeePayment().getPrice()).sum());
     }
 
     public Long getId() {
@@ -69,12 +89,12 @@ public class Salary implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDateSalary() {
-        return dateSalary;
+    public LocalDate getSalaryDate() {
+        return salaryDate;
     }
 
-    public void setDateSalary(LocalDate dateSalary) {
-        this.dateSalary = dateSalary;
+    public void setSalaryDate(LocalDate salaryDate) {
+        this.salaryDate = salaryDate;
     }
 
     public LocalDate getDateFrom() {
@@ -110,7 +130,7 @@ public class Salary implements Serializable {
         calculateTotalAmount();
     }
 
-    public Boolean getPaid() {
+    public Boolean isPaid() {
         return paid;
     }
 
@@ -120,14 +140,5 @@ public class Salary implements Serializable {
 
     public Money getTotalAmount() {
         return totalAmount;
-    }
-
-    private void calculateTotalAmount(){
-        if (totalAmount == null) {
-            totalAmount = new Money();
-            totalAmount.setCurrency(Currency.UAH);
-        }
-        totalAmount.setPrice(salaryItems.stream()
-            .mapToInt(salaryItem -> salaryItem.getEmployeePayment().getPrice()).sum());
     }
 }
