@@ -4,7 +4,6 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
@@ -15,9 +14,8 @@ import java.time.LocalDate;
 
 public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceRepository> {
 
-    private static Invoice firstInvoiceOfContractOne;
-    private static Invoice secondInvoiceOfContractOne;
-    private static Invoice invoiceOfContractTwo;
+    private static Invoice invoice_1;
+    private static Invoice invoice_2;
 
     @BeforeClass
     public static void init() {
@@ -38,38 +36,30 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
         contract2.setId(2L);
         contract2.setPaymentDate(LocalDate.of(2016, 1, 1));
 
-        firstInvoiceOfContractOne = new Invoice();
-        firstInvoiceOfContractOne.setId(1L);
-        firstInvoiceOfContractOne.setContract(contract1);
-        firstInvoiceOfContractOne.setCreationDate(contract1.getPaymentDate());
-        firstInvoiceOfContractOne.setPrice(moneyOfContractOne);
-        firstInvoiceOfContractOne.setPaymentPeriodFrom(contract1.getPaymentDate());
-        firstInvoiceOfContractOne.setPaymentPeriodTo(contract1.getPaymentDate().plusMonths(1L));
+        invoice_1 = new Invoice();
+        invoice_1.setContract(contract1);
+        invoice_1.setCreationDate(contract1.getPaymentDate());
+        invoice_1.setPrice(moneyOfContractOne);
+        invoice_1.setPaymentPeriodFrom(contract1.getPaymentDate());
+        invoice_1.setPaymentPeriodTo(contract1.getPaymentDate().plusMonths(1L));
 
-        secondInvoiceOfContractOne = new Invoice();
-        secondInvoiceOfContractOne.setId(2L);
-        secondInvoiceOfContractOne.setContract(contract1);
-        secondInvoiceOfContractOne.setCreationDate(contract1.getPaymentDate().plusMonths(1L));
-        secondInvoiceOfContractOne.setPrice(moneyOfContractOne);
-        secondInvoiceOfContractOne.setPaymentPeriodFrom(contract1.getPaymentDate().plusMonths(1L));
-        secondInvoiceOfContractOne.setPaymentPeriodTo(contract1.getPaymentDate().plusMonths(2L));
-
-        invoiceOfContractTwo = new Invoice();
-        invoiceOfContractTwo.setContract(contract2);
-        invoiceOfContractTwo.setCreationDate(contract2.getPaymentDate());
-        invoiceOfContractTwo.setPrice(moneyOfContractTwo);
-        invoiceOfContractTwo.setPaymentPeriodFrom(contract2.getPaymentDate());
-        invoiceOfContractTwo.setPaymentPeriodTo(contract2.getPaymentDate().plusMonths(1L));
-        invoiceOfContractTwo.setEmployeePaid(true);
+        invoice_2 = new Invoice();
+        invoice_2.setContract(contract1);
+        invoice_2.setCreationDate(contract1.getPaymentDate().plusMonths(1L));
+        invoice_2.setPrice(moneyOfContractOne);
+        invoice_2.setPaymentPeriodFrom(contract1.getPaymentDate().plusMonths(1L));
+        invoice_2.setPaymentPeriodTo(contract1.getPaymentDate().plusMonths(2L));
+        invoice_2.setEmployeePaid(true);
     }
 
 
     @Test
     @Commit
-    @DataSet(value = "invoices/empty.xml", disableConstraints = true)
+    @DataSet(value = "invoices/empty.xml", disableConstraints = true, cleanBefore = true)
     @ExpectedDataSet(value = "invoices/expected-invoices.xml")
-    public void OneInvoiceIsAdded() {
-        repository.save(invoiceOfContractTwo);
+    public void twoInvoicesAreAdded() {
+        repository.save(invoice_1);
+        repository.save(invoice_2);
     }
 
 }
