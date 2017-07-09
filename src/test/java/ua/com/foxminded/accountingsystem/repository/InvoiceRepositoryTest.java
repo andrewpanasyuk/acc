@@ -14,6 +14,7 @@ import java.time.LocalDate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.nullValue;
 
 public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceRepository> {
 
@@ -59,5 +60,11 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
     @DataSet("invoices/stored-invoices.xml")
     public void invoiceExistsInRepo() {
         assertThat(repository.findAll(), hasItems(invoice_1));
+    }
+
+    @Test
+    @DataSet("invoices/stored-invoices.xml")
+    public void returnNullIfNoInvoiceFound() {
+        assertThat(repository.findOne(150L), nullValue());
     }
 }
