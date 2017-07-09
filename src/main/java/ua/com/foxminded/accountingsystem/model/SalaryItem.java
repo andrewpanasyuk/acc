@@ -20,6 +20,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "salary_item")
 public class SalaryItem implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -27,23 +28,20 @@ public class SalaryItem implements Serializable {
     @SequenceGenerator(name = "salary_item_sequence", sequenceName = "salary_item_sequence", initialValue = 50)
     private Long id;
 
-    @JoinColumn(name = "employee_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
-    @JoinColumn(name = "invoice_id", nullable = false)
     @OneToOne(fetch = FetchType.LAZY)
     private Invoice invoice;
 
-    @JoinColumn(name = "employee_payment_id")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money employeePayment;
 
-    @Column(name = "date_from", nullable = false)
+    @Column(name = "date_from")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFrom;
 
-    @Column(name = "date_to", nullable = false)
+    @Column(name = "date_to")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
 
