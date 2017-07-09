@@ -48,6 +48,13 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
         invoice_1.setPaymentPeriodTo(contract_1.getPaymentDate().plusMonths(1L));
         invoice_1.setEmployeePaid(true);
 
+        invoice_2 = new Invoice();
+        invoice_2.setContract(contract1);
+        invoice_2.setCreationDate(contract1.getPaymentDate().plusMonths(1L));
+        invoice_2.setPrice(moneyOfContractOne);
+        invoice_2.setPaymentPeriodFrom(contract1.getPaymentDate().plusMonths(1L));
+        invoice_2.setPaymentPeriodTo(contract1.getPaymentDate().plusMonths(2L));
+        invoice_2.setEmployeePaid(true);
     }
 
 
