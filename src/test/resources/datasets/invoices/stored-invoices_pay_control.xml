@@ -6,11 +6,11 @@
     <CONTRACT id="55" order_id="1" employee_id="1" payment_type="POSTPAY" price_id="5" employee_rate_id="2"/>
     <CONTRACT id="56" order_id="1" employee_id="1" payment_type="POSTPAY" price_id="5" employee_rate_id="2"/>
 
-    <INVOICE id="52" period_from="2017-05-01" period_to="2010-06-01" contract_id="52" money_id="5"/>
-    <INVOICE id="51" period_from="2017-05-01" period_to="2017-06-01" contract_id="51" money_id="5"/>
-    <INVOICE id="54" period_from="2017-04-09" period_to="2017-05-09" contract_id="54" money_id="5"/>
-    <INVOICE id="55" period_from="2017-04-09" period_to="2017-05-09" contract_id="55" money_id="5"/>
-    <INVOICE id="56" period_from="2017-04-25" period_to="2017-05-25" contract_id="56" money_id="5"/>
+    <INVOICE id="52" period_from="2017-05-01" period_to="2010-06-01" contract_id="52"/>
+    <INVOICE id="51" period_from="2017-05-01" period_to="2017-06-01" contract_id="51"/>
+    <INVOICE id="54" period_from="2017-04-09" period_to="2017-05-09" contract_id="54"/>
+    <INVOICE id="55" period_from="2017-04-09" period_to="2017-05-09" contract_id="55"/>
+    <INVOICE id="56" period_from="2017-04-25" period_to="2017-05-25" contract_id="56"/>
 
     <PAYMENT id="51" invoice_id="52"/>
     <PAYMENT id="52" invoice_id="55"/>
