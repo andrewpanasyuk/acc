@@ -13,7 +13,9 @@ import ua.com.foxminded.accountingsystem.model.Money;
 import java.time.LocalDate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
 public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceRepository> {
@@ -52,7 +54,7 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
     @Commit
     @DataSet(value = "invoices/empty.xml", disableConstraints = true, cleanBefore = true)
     @ExpectedDataSet(value = "invoices/expected-invoices.xml")
-    public void OneInvoiceIsAdded() {
+    public void invoiceIsAdded() {
         repository.save(invoice_1);
     }
 
@@ -64,7 +66,21 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
 
     @Test
     @DataSet("invoices/stored-invoices.xml")
-    public void returnNullIfNoInvoiceFound() {
+    public void ifNoInvoiceFoundReturnNull() {
         assertThat(repository.findOne(150L), nullValue());
+    }
+
+    @Test
+    @DataSet(value = "invoices/empty.xml", disableConstraints = true, cleanBefore = true)
+    public void ifNoInvoicesFoundReturnEmptyList() {
+        assertThat(repository.findAll(), is(empty()));
+    }
+
+    @Test
+    @Commit
+    @DataSet("invoices/expected-invoices.xml")
+    @ExpectedDataSet("invoices/empty.xml")
+    public void invoiceIsDeleted() {
+        repository.delete(invoice_1);
     }
 }
