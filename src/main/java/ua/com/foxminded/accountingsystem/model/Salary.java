@@ -66,10 +66,9 @@ public class Salary implements Serializable {
     }
 
     public void removeSalaryItem(SalaryItem salaryItem){
-        if (salaryItems == null){
-            return;
+        if (salaryItems != null){
+            salaryItems.remove(salaryItem);
         }
-        salaryItems.remove(salaryItem);
     }
 
     private void calculateTotalAmount(){
