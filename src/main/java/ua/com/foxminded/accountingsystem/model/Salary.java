@@ -48,7 +48,8 @@ public class Salary implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
-    @OneToMany(mappedBy = "salary", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "salary_id")
     private List<SalaryItem> salaryItems;
 
     @Column(name = "paid")
@@ -57,19 +58,6 @@ public class Salary implements Serializable {
     @JoinColumn(name = "total_amount_id")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money totalAmount;
-
-    public void addSalaryItem(SalaryItem salaryItem){
-        if (salaryItems == null){
-            salaryItems = new ArrayList<>();
-        }
-        salaryItems.add(salaryItem);
-    }
-
-    public void removeSalaryItem(SalaryItem salaryItem){
-        if (salaryItems != null){
-            salaryItems.remove(salaryItem);
-        }
-    }
 
     private void calculateTotalAmount(){
         if (totalAmount == null) {
