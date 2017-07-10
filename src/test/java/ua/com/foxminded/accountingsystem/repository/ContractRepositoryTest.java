@@ -2,7 +2,6 @@ package ua.com.foxminded.accountingsystem.repository;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.hamcrest.core.IsCollectionContaining;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -142,9 +141,9 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @Test
     @DataSet(value = "contracts/find-contracts-for-payment.xml", cleanBefore = true, disableConstraints = true)
     public void findContractsForPaymentTest() {
-        assertEquals(3, repository.findContractsForPayment(24,
+        assertEquals(3, repository.findContractsForInvoicesCreation(24,
             LocalDate.of(2017, 07, 21)).size());
-        assertThat(repository.findContractsForPayment(24,
+        assertThat(repository.findContractsForInvoicesCreation(24,
             LocalDate.of(2017, 07, 21)),
             hasItems(postpay, prepay, trial));
     }

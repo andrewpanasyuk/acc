@@ -15,5 +15,5 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
         "AND c.id NOT IN(" +
         "SELECT processed FROM Contract as processed join processed.invoices as i " +
         "WHERE i.creationDate = ?2 )")
-    List<Contract> findContractsForPayment(int payDay, LocalDate today);
+    List<Contract> findContractsForInvoicesCreation(int payDay, LocalDate today);
 }
