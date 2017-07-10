@@ -17,7 +17,6 @@ import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,7 +71,7 @@ public class AdminContractControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(contractService.findAll()).thenReturn(contracts);
         when(contractService.findOne(1L)).thenReturn(contract1);
-        when(contractService.prepareInvoicesForPayment(LocalDate.now()))
+        when(contractService.prepareInvoicesForPayment())
             .thenReturn(invoices);
     }
 

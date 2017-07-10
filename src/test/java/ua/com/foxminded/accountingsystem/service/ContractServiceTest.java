@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
@@ -26,6 +27,8 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ContractServiceTest {
 
+    private static final int signalPeriod = 3;
+
     @Mock
     private static ContractRepository contractRepository;
 
@@ -33,7 +36,7 @@ public class ContractServiceTest {
     private static OrderServiceJPA orderService;
 
     @InjectMocks
-    ContractServiceJPA contractService;
+    private static ContractServiceJPA contractService;
 
     private static Invoice trialInvoice;
     private static Invoice prepayInvoice;
@@ -43,11 +46,14 @@ public class ContractServiceTest {
     private static Contract postpayContract;
     private static List<Invoice> createdInvoices;
     private static List<Contract> contractsForPayment;
-    private static LocalDate testToday;
+    private static LocalDate billDate;
+    private static LocalDate payDate;
 
     @BeforeClass
     public static void init(){
-        testToday = LocalDate.of(2017, 07, 16);
+
+        billDate = LocalDate.now();
+        payDate = billDate.plusDays(signalPeriod);
 
         contractRepository = mock(ContractRepository.class);
         orderService = mock(OrderServiceJPA.class);
@@ -76,16 +82,16 @@ public class ContractServiceTest {
         prepayInvoice.setContract(prepayContract);
         postpayInvoice.setContract(postpayContract);
 
-        trialInvoice.setCreationDate(testToday);
-        prepayInvoice.setCreationDate(testToday);
-        postpayInvoice.setCreationDate(testToday);
+        trialInvoice.setCreationDate(billDate);
+        prepayInvoice.setCreationDate(billDate);
+        postpayInvoice.setCreationDate(billDate);
 
-        trialInvoice.setPaymentPeriodFrom(LocalDate.of(2017, 7, 19));
-        trialInvoice.setPaymentPeriodTo(LocalDate.of(2017, 8, 19));
-        prepayInvoice.setPaymentPeriodFrom(LocalDate.of(2017, 7, 19));
-        prepayInvoice.setPaymentPeriodTo(LocalDate.of(2017, 8, 19));
-        postpayInvoice.setPaymentPeriodFrom(LocalDate.of(2017, 6, 19));
-        postpayInvoice.setPaymentPeriodTo(LocalDate.of(2017, 7, 19));
+        trialInvoice.setPaymentPeriodFrom(payDate);
+        trialInvoice.setPaymentPeriodTo(payDate.plusMonths(1));
+        prepayInvoice.setPaymentPeriodFrom(payDate);
+        prepayInvoice.setPaymentPeriodTo(payDate.plusMonths(1));
+        postpayInvoice.setPaymentPeriodFrom(payDate.minusMonths(1));
+        postpayInvoice.setPaymentPeriodTo(payDate);
 
         trialInvoice.setPrice(new Money());
         prepayInvoice.setPrice(new Money());
@@ -101,8 +107,9 @@ public class ContractServiceTest {
 
     @Test
     public void invoicesHaveCorrectPaymentPeriod(){
-        when(contractRepository.findContractsForPayment(19, testToday)).thenReturn(contractsForPayment);
+        ReflectionTestUtils.setField(contractService, "signalPeriod", signalPeriod);
+        when(contractRepository.findContractsForInvoicesCreation(payDate.getDayOfMonth(), billDate)).thenReturn(contractsForPayment);
 
-        assertThat(contractService.prepareInvoicesForPayment(testToday), is(createdInvoices));
+        assertThat(contractService.prepareInvoicesForPayment(), is(createdInvoices));
     }
 }

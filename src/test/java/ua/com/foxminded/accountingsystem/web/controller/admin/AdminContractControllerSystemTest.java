@@ -12,8 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -38,7 +36,7 @@ public class AdminContractControllerSystemTest {
     @Test
     @WithMockUser(authorities = {"ADMIN"})
     public void invoicesForPayPageIsAvailable() throws Exception {
-        this.mockMvc.perform(get("/admin/contracts/payment").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
+        this.mockMvc.perform(get("/admin/contracts/pay").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
             .andExpect(status().isOk())
             .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
