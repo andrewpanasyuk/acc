@@ -1,55 +1,17 @@
 package ua.com.foxminded.accountingsystem.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.User;
-import ua.com.foxminded.accountingsystem.model.UserRole;
-import ua.com.foxminded.accountingsystem.repository.UserRepository;
-import ua.com.foxminded.accountingsystem.repository.UserRoleRepository;
 import ua.com.foxminded.accountingsystem.service.dto.UserDto;
-
 import java.util.List;
 
-import static ua.com.foxminded.accountingsystem.service.dto.converter.UserConverter.convertToDtoList;
+public interface UserService {
 
-@Service
-public class UserService {
+    List<UserDto> findAll();
 
-    private final UserRepository userRepository;
-    private final UserRoleRepository userRoleRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    User findByUsername(String username);
 
-    @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                       UserRoleRepository userRoleRepository) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.userRoleRepository = userRoleRepository;
-    }
+    User create(User user);
 
-    public List<UserDto> findAll() {
-        List<UserDto> userDtoList = convertToDtoList(userRepository.findAll());
-        return userDtoList;
-    }
+    User save(User user);
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public User create(User user) {
-        user.setEnabled(true);
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        UserRole userRole = userRoleRepository.findByRole("USER");
-        if (userRole == null) {
-            userRole = new UserRole();
-            userRole.setRole("USER");
-        }
-        user.addRole(userRole);
-        return userRepository.save(user);
-    }
-
-    public User save(User user) {
-        return userRepository.save(user);
-    }
 }
