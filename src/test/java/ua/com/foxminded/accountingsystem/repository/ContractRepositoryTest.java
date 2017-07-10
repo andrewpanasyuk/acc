@@ -7,18 +7,21 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.*;
-
+import ua.com.foxminded.accountingsystem.model.Contract;
 import java.time.LocalDate;
 
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 
 public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepository> {
 
     private static Contract contract1;
     private static Contract contract2;
+    private static Contract postpay;
+    private static Contract prepay;
+    private static Contract trial;
 
     @BeforeClass
     public static void init() {
@@ -81,6 +84,19 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract2.setEmployee(employee2);
         contract2.setEmployeeRate(contractEmployeeRate2);
         contract2.setPrice(price2);
+
+        postpay = new Contract();
+        prepay = new Contract();
+        trial = new Contract();
+        postpay.setPaymentDate(LocalDate.of(2017, 01, 24));
+        postpay.setPaymentType(PaymentType.POSTPAY);
+        postpay.setId(2L);
+        prepay.setPaymentDate(LocalDate.of(2017, 07, 24));
+        prepay.setPaymentType(PaymentType.PREPAY);
+        prepay.setId(1L);
+        trial.setPaymentDate(LocalDate.of(2017, 12, 24));
+        trial.setPaymentType(PaymentType.TRIAL);
+        trial.setId(3L);
     }
 
     @Ignore
@@ -119,6 +135,16 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @ExpectedDataSet("contracts/expected-contracts.xml")
     public void deleteContractByIdTest() {
         repository.delete(51L);
+    }
+
+    @Test
+    @DataSet(value = "contracts/find-contracts-for-payment.xml", cleanBefore = true, disableConstraints = true)
+    public void findContractsForPaymentTest() {
+        assertEquals(3, repository.findContractsForInvoicesCreation(24,
+            LocalDate.of(2017, 07, 21)).size());
+        assertThat(repository.findContractsForInvoicesCreation(24,
+            LocalDate.of(2017, 07, 21)),
+            hasItems(postpay, prepay, trial));
     }
 
 }

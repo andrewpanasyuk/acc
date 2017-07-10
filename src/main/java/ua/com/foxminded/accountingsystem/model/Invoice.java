@@ -53,6 +53,18 @@ public class Invoice implements Serializable {
     @Column(name = "employee_paid")
     private Boolean employeePaid = false;
 
+    public Invoice(){
+
+    }
+
+    public Invoice(LocalDate creationDate, Contract contract, LocalDate paymentPeriodFrom, LocalDate paymentPeriodTo, Money price) {
+        this.creationDate = creationDate;
+        this.contract = contract;
+        this.paymentPeriodFrom = paymentPeriodFrom;
+        this.paymentPeriodTo = paymentPeriodTo;
+        this.price = price;
+    }
+
     public void addPayment(Payment payment) {
         this.payment = payment;
         payment.setInvoice(this);

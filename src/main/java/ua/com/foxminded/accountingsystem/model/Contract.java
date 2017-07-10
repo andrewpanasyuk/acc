@@ -165,6 +165,16 @@ public class Contract implements Serializable {
         this.invoices = invoices;
     }
 
+    public void addInvoice(Invoice invoice){
+        invoices.add(invoice);
+        invoice.setContract(this);
+    }
+
+    public void removeInvoice(Invoice invoice){
+        invoices.remove(invoice);
+        invoice.setContract(null);
+    }
+
     public LocalDate getCloseDate() {
         return closeDate;
     }

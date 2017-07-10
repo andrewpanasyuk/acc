@@ -48,7 +48,6 @@ public class AdminContractControllerTest {
     @BeforeClass
     public static void initClass(){
         contract1 = new Contract();
-
         contract2 = new Contract();
 
         contracts = new ArrayList<>();
@@ -77,6 +76,5 @@ public class AdminContractControllerTest {
         assertThat(controller.getContract(1L, model), equalTo("admin/contract"));
         assertThat(model.asMap(), hasEntry("contract", contract1));
     }
-
 
 }

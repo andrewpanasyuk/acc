@@ -18,4 +18,6 @@ public interface InvoiceService {
     Invoice createInvoiceByContractId(Long contractId);
 
     void addPayment(Payment payment);
+
+    Invoice issueInvoice(Invoice invoice);
 }
