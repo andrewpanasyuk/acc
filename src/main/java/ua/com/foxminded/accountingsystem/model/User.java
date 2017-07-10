@@ -25,7 +25,7 @@ public class User {
     private String username;
 
     @Column(name = "password", nullable = false, length = 60)
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA_Z])[^\\s]{8,}$", message = "Password must contain at least 8 symbols and digit")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA_Z])[^\\s]{8,}$", message = "Password must have minimum size 8 symbols? and contain at least 1 digit")
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "boolean default false")
