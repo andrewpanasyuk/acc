@@ -58,18 +58,18 @@ public class Salary implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money totalAmount;
 
-    public boolean addSalaryItem(SalaryItem salaryItem){
+    public void addSalaryItem(SalaryItem salaryItem){
         if (salaryItems == null){
             salaryItems = new ArrayList<>();
         }
-        return salaryItems.add(salaryItem);
+        salaryItems.add(salaryItem);
     }
 
-    public boolean removeSalaryItem(SalaryItem salaryItem){
+    public void removeSalaryItem(SalaryItem salaryItem){
         if (salaryItems == null){
-            return false;
+            return;
         }
-        return salaryItems.remove(salaryItem);
+        salaryItems.remove(salaryItem);
     }
 
     private void calculateTotalAmount(){
