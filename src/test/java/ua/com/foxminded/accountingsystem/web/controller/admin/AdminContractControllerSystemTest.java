@@ -37,12 +37,9 @@ public class AdminContractControllerSystemTest {
 
     @Test
     @WithMockUser(authorities = {"ADMIN"})
-    public void tableAvailableOnInvoicesForPayPage() throws Exception {
-        this.mockMvc.perform(get("/admin/clients").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
+    public void invoicesForPayPageIsAvailable() throws Exception {
+        this.mockMvc.perform(get("/admin/contracts/payment").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
             .andExpect(status().isOk())
-            .andExpect(content().contentType("text/html;charset=UTF-8"))
-            .andExpect(content().string(allOf(
-                containsString("<tbody>")))
-            );
+            .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 }
