@@ -11,6 +11,7 @@ import ua.com.foxminded.accountingsystem.model.User;
 import ua.com.foxminded.accountingsystem.model.UserRole;
 import ua.com.foxminded.accountingsystem.repository.UserRepository;
 import ua.com.foxminded.accountingsystem.repository.UserRoleRepository;
+import ua.com.foxminded.accountingsystem.service.UserService;
 import ua.com.foxminded.accountingsystem.service.dto.UserDto;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 import static ua.com.foxminded.accountingsystem.service.dto.converter.UserConverter.convertToDtoList;
 
 @Service
-public class UserServiceJPA {
+public class UserServiceJPA implements UserService{
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
