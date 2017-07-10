@@ -67,7 +67,6 @@ public class InvoiceServiceJPA implements InvoiceService {
 
     @Override
     public void addPayment(Payment payment) {
-        log.warn(payment.toString());
         Invoice invoice = invoiceRepository.findOne(payment.getInvoice().getId());
         invoice.addPayment(payment);
         invoiceRepository.save(invoice);
