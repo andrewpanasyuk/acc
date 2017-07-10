@@ -28,11 +28,10 @@
       <td th:text="${invoice.contract.paymentType}"></td>
       <td th:text="${invoice.price.price} + ' ' + ${invoice.price.currency}"></td>
       <td>
-        <form th:action="@{/admin/invoices/forpay}" th:object="${invoice}" method="post">
+        <form th:action="@{/admin/invoices}" th:object="${invoice}" method="post">
           <input type="hidden" name="creationDate" th:value="${invoice.creationDate}"/>
           <input type="hidden" name="paymentPeriodFrom" th:value="${invoice.paymentPeriodFrom}"/>
           <input type="hidden" name="paymentPeriodTo" th:value="${invoice.paymentPeriodTo}"/>
-          <input type="hidden" name="employeePaid" th:value="${invoice.employeePaid}"/>
           <input type="hidden" name="contractId" th:value="${invoice.contract.id}"/>
           <button type="submit" id="submit" class="btn btn-primary" style="height:40px;width:80px">Create</button>
         </form>

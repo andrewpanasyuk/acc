@@ -43,13 +43,13 @@ public class AdminInvoiceController {
         return "admin/invoice";
     }
 
-    @PostMapping
+    @PostMapping(params = "invoice")
     public String create(@ModelAttribute Invoice invoice) {
         invoiceService.save(invoice);
         return "redirect:/admin/invoices";
     }
 
-    @PostMapping(value = "/forpay")
+    @PostMapping(params = {"creationDate", "paymentPeriodFrom", "paymentPeriodTo", "contractId"})
     public String createByContractId(@ModelAttribute Invoice invoice, long contractId) {
         invoiceService.createInvoiceForContract(invoice, contractId);
         return "redirect:/admin/contracts/pay";
