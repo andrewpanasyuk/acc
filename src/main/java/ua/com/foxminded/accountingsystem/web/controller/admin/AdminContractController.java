@@ -80,6 +80,7 @@ public class AdminContractController {
             .addAttribute("employees", employeeService.findAll());
         return "admin/contract";
     }
+
 }
 
 
