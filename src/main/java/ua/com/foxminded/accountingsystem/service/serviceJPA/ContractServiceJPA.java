@@ -81,8 +81,9 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public List<Invoice> prepareInvoicesForPayment(LocalDate today) {
+    public List<Invoice> prepareInvoicesForPayment() {
         int signalPeriod = 3;
+        LocalDate today = LocalDate.now();
         List<Invoice> invoices = new ArrayList<>();
         LocalDate payDay = today.plusDays(signalPeriod);
         List<Contract> contracts = contractRepository.findContractsForPayment(payDay.getDayOfMonth(),
@@ -92,7 +93,6 @@ public class ContractServiceJPA implements ContractService {
             invoice.setContract(contract);
             invoice.setCreationDate(today);
             invoice.setPrice(contract.getPrice());
-            invoice.setEmployeePaid(false);
             if(contract.getPaymentType() == PaymentType.PREPAY || contract.getPaymentType() == PaymentType.TRIAL){
                 invoice.setPaymentPeriodFrom(today.plusDays(signalPeriod));
                 invoice.setPaymentPeriodTo(today.plusDays(signalPeriod).plusMonths(1));
