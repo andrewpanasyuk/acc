@@ -52,7 +52,7 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public Contract prepareNewByOrderId(Long orderId){
+    public Contract prepareNewByOrderId(Long orderId) {
 
         Order order = orderService.findOne(orderId);
         order.setStatus(OrderStatus.ACTIVE);
@@ -64,8 +64,8 @@ public class ContractServiceJPA implements ContractService {
         employeeRate.setCurrency(Currency.UAH);
 
         Money price = new Money();
-        for (Money curPrice: order.getService().getPrices()) {
-            if (curPrice.getCurrency() == Currency.UAH){
+        for (Money curPrice : order.getService().getPrices()) {
+            if (curPrice.getCurrency() == Currency.UAH) {
                 price.setPrice(curPrice.getPrice());
             }
         }
@@ -86,22 +86,20 @@ public class ContractServiceJPA implements ContractService {
         LocalDate today = LocalDate.now();
         List<Invoice> invoices = new ArrayList<>();
         LocalDate payDay = today.plusDays(signalPeriod);
+        LocalDate paymentPeriodFrom;
+        LocalDate paymentPeriodTo;
         List<Contract> contracts = contractRepository.findContractsForPayment(payDay.getDayOfMonth(),
             today);
-        for(Contract contract: contracts){
-            Invoice invoice = new Invoice();
-            invoice.setContract(contract);
-            invoice.setCreationDate(today);
-            invoice.setPrice(contract.getPrice());
-            if(contract.getPaymentType() == PaymentType.PREPAY || contract.getPaymentType() == PaymentType.TRIAL){
-                invoice.setPaymentPeriodFrom(today.plusDays(signalPeriod));
-                invoice.setPaymentPeriodTo(today.plusDays(signalPeriod).plusMonths(1));
+        for (Contract contract : contracts) {
+            if (contract.getPaymentType() == PaymentType.PREPAY || contract.getPaymentType() == PaymentType.TRIAL) {
+                paymentPeriodFrom = today.plusDays(signalPeriod);
+                paymentPeriodTo = today.plusDays(signalPeriod).plusMonths(1);
+            } else {
+                paymentPeriodFrom = today.plusDays(signalPeriod).minusMonths(1);
+                paymentPeriodTo = today.plusDays(signalPeriod);
             }
-            else{
-                invoice.setPaymentPeriodFrom(today.plusDays(signalPeriod).minusMonths(1));
-                invoice.setPaymentPeriodTo(today.plusDays(signalPeriod));
-            }
-            invoices.add(invoice);
+
+            invoices.add(new Invoice(today, contract, paymentPeriodFrom, paymentPeriodTo, contract.getPrice()));
         }
         return invoices;
     }
