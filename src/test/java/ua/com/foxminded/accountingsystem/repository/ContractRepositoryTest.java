@@ -116,7 +116,6 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         assertThat(repository.findAll(), hasItems(contract1, contract2));
     }
 
-    @Ignore
     @Test
     @DataSet(value = "contracts/stored-contracts.xml")
     public void findOneContractByIdTest() {
