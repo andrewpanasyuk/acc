@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
@@ -13,13 +14,15 @@ import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ContractServiceJPA implements ContractService {
+
+    @Value("${signalPeriod}")
+    private int signalPeriod;
 
     private final ContractRepository contractRepository;
     private final OrderService orderService;
@@ -82,13 +85,12 @@ public class ContractServiceJPA implements ContractService {
 
     @Override
     public List<Invoice> prepareInvoicesForPayment() {
-        int signalPeriod = 3;
         LocalDate today = LocalDate.now();
         List<Invoice> invoices = new ArrayList<>();
         LocalDate payDay = today.plusDays(signalPeriod);
         LocalDate paymentPeriodFrom;
         LocalDate paymentPeriodTo;
-        List<Contract> contracts = contractRepository.findContractsForPayment(payDay.getDayOfMonth(),
+        List<Contract> contracts = contractRepository.findContractsForInvoicesCreation(payDay.getDayOfMonth(),
             today);
         for (Contract contract : contracts) {
             if (contract.getPaymentType() == PaymentType.PREPAY || contract.getPaymentType() == PaymentType.TRIAL) {
