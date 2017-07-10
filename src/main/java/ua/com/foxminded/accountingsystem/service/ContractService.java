@@ -18,6 +18,6 @@ public interface ContractService {
 
     Contract prepareNewByOrderId(Long orderId);
 
-    List<Invoice> prepareInvoicesForPayment();
+    List<Invoice> prepareIssueInvoices();
 
 }

@@ -73,8 +73,8 @@ public class InvoiceServiceJPA implements InvoiceService {
     }
 
     @Override
-    public Invoice createInvoiceForContract(Invoice invoice, long contractId) {
-        Contract contract = contractRepository.findOne(contractId);
+    public Invoice issueInvoice(Invoice invoice) {
+        Contract contract = contractRepository.findOne(invoice.getContract().getId());
         contract.addInvoice(invoice);
         invoice.setPrice(contract.getPrice());
         Invoice saved = invoiceRepository.save(invoice);

@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Contract;
-import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin/contracts")
@@ -81,14 +79,6 @@ public class AdminContractController {
             .addAttribute("contract", contract)
             .addAttribute("employees", employeeService.findAll());
         return "admin/contract";
-    }
-
-    @GetMapping("/pay")
-    public String invoicesForPayment(Model model) {
-        List<Invoice> invoices = contractService.prepareInvoicesForPayment();
-        model
-            .addAttribute("invoices", invoices);
-        return "admin/invoicesForPay";
     }
 }
 

@@ -110,6 +110,6 @@ public class ContractServiceTest {
         ReflectionTestUtils.setField(contractService, "signalPeriod", signalPeriod);
         when(contractRepository.findContractsForInvoicesCreation(payDate.getDayOfMonth(), billDate)).thenReturn(contractsForPayment);
 
-        assertThat(contractService.prepareInvoicesForPayment(), is(createdInvoices));
+        assertThat(contractService.prepareIssueInvoices(), is(createdInvoices));
     }
 }

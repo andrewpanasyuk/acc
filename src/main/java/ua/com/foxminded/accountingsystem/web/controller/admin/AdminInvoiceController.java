@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
+import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 
 import java.util.List;
@@ -21,10 +22,12 @@ import java.util.List;
 public class AdminInvoiceController {
 
     private final InvoiceService invoiceService;
+    private final ContractService contractService;
 
     @Autowired
-    public AdminInvoiceController(InvoiceService invoiceService) {
+    public AdminInvoiceController(InvoiceService invoiceService, ContractService contractService) {
         this.invoiceService = invoiceService;
+        this.contractService = contractService;
     }
 
     @GetMapping
@@ -43,16 +46,10 @@ public class AdminInvoiceController {
         return "admin/invoice";
     }
 
-    @PostMapping(params = "invoice")
+    @PostMapping
     public String create(@ModelAttribute Invoice invoice) {
         invoiceService.save(invoice);
         return "redirect:/admin/invoices";
-    }
-
-    @PostMapping(params = {"creationDate", "paymentPeriodFrom", "paymentPeriodTo", "contractId"})
-    public String createByContractId(@ModelAttribute Invoice invoice, long contractId) {
-        invoiceService.createInvoiceForContract(invoice, contractId);
-        return "redirect:/admin/contracts/pay";
     }
 
     @DeleteMapping(value = "/{id}")
@@ -73,4 +70,19 @@ public class AdminInvoiceController {
         invoiceService.addPayment(payment);
         return "redirect:/admin/invoices/" + payment.getInvoice().getId();
     }
+
+    @GetMapping("/issue")
+    public String prepareIssueInvoices(Model model) {
+        List<Invoice> invoices = contractService.prepareIssueInvoices();
+        model
+            .addAttribute("invoices", invoices);
+        return "admin/issueInvoices";
+    }
+
+    @PostMapping("/issue")
+    public String issueInvoice(@ModelAttribute Invoice invoice) {
+        invoiceService.issueInvoice(invoice);
+        return "redirect:/admin/invoices/issue";
+    }
+
 }

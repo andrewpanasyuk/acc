@@ -84,7 +84,7 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public List<Invoice> prepareInvoicesForPayment() {
+    public List<Invoice> prepareIssueInvoices() {
         LocalDate today = LocalDate.now();
         List<Invoice> invoices = new ArrayList<>();
         LocalDate payDay = today.plusDays(signalPeriod);

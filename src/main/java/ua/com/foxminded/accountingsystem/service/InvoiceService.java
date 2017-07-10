@@ -19,5 +19,5 @@ public interface InvoiceService {
 
     void addPayment(Payment payment);
 
-    Invoice createInvoiceForContract(Invoice invoice, long contractId);
+    Invoice issueInvoice(Invoice invoice);
 }

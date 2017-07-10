@@ -19,9 +19,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AdminContractControllerSystemTest {
+public class AdminInvoiceControllerSystemTest {
     @Autowired
-    private AdminContractController controller;
+    private AdminInvoiceController controller;
 
     @Autowired
     private WebApplicationContext context;
@@ -36,7 +36,7 @@ public class AdminContractControllerSystemTest {
     @Test
     @WithMockUser(authorities = {"ADMIN"})
     public void invoicesForPayPageIsAvailable() throws Exception {
-        this.mockMvc.perform(get("/admin/contracts/pay").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
+        this.mockMvc.perform(get("/admin/invoices/issue").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
             .andExpect(status().isOk())
             .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
