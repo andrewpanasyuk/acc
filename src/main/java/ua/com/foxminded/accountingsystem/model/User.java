@@ -20,12 +20,15 @@ import javax.validation.constraints.Size;
 @Table(name = "fm_users")
 public class User {
     @Id
+    @NotEmpty
     @Size(min = 3, max = 30)
     @Column(name = "username", unique = true, nullable = false, length = 30)
     private String username;
 
+    @NotEmpty
+    @Size(min = 8)
     @Column(name = "password", nullable = false, length = 60)
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA_Z])[^\\s]{8,}$", message = "Password must have minimum size 8 symbols? and contain at least 1 digit")
+//    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA_Z])[^\\s]{8,}$", message = "Password must have minimum size 8 symbols? and contain at least 1 digit")
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "boolean default false")
