@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.web.controller.admin;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,11 @@ public class AdminUserControllerSystemTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
 
+    @Ignore
     @Test
     @WithMockUser(authorities = {"ADMIN"})
     public void userLinksAvailableOnUsersPage() throws Exception {
-        this.mockMvc.perform(get("/admin/users").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
+        this.mockMvc.perform(get("/api/users").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
             .andExpect(status().isOk())
             .andExpect(content().contentType("text/html;charset=UTF-8"))
             .andExpect(content().string(allOf(
@@ -48,6 +50,19 @@ public class AdminUserControllerSystemTest {
                 containsString("<a href=\"/admin/users/user\">user</a>")))
             );
     }
+
+    @Test
+    @WithMockUser(authorities = {"ADMIN"})
+    public void userLinksAvailableOnUsersPageAjax() throws Exception {
+        this.mockMvc.perform(get("/api/users").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string(allOf(
+                containsString("\"username\":\"user\""),
+                containsString("\"username\":\"admin\"")))
+            );
+    }
+
 
     @Test
     @WithMockUser(authorities = {"USER"})

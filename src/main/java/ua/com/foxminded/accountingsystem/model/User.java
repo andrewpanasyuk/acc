@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -28,13 +27,13 @@ public class User {
     @NotEmpty
     @Size(min = 8)
     @Column(name = "password", nullable = false, length = 60)
-//    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA_Z])[^\\s]{8,}$", message = "Password must have minimum size 8 symbols? and contain at least 1 digit")
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "boolean default false")
     private Boolean enabled;
 
     @Email
+    @NotEmpty
     @Column(name = "email", nullable = false)
     private String email;
 
