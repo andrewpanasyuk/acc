@@ -9,6 +9,7 @@ import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 
 public class SalaryItemServiceJPA implements SalaryItemService {
@@ -26,7 +27,27 @@ public class SalaryItemServiceJPA implements SalaryItemService {
     }
 
     @Override
-    public SalaryItem createPostpaySalaryItem(Invoice invoice) {
+    public void delete(SalaryItem salaryItem) {
+        salaryItemRepository.delete(salaryItem);
+    }
+
+    @Override
+    public SalaryItem save(SalaryItem salaryItem) {
+        return salaryItemRepository.save(salaryItem);
+    }
+
+    @Override
+    public SalaryItem findOne(Long id) {
+        return salaryItemRepository.findOne(id);
+    }
+
+    @Override
+    public List<SalaryItem> findAll() {
+        return salaryItemRepository.findAll();
+    }
+
+    @Override
+    public SalaryItem createSalaryItem(Invoice invoice) {
         SalaryItem salaryItem = new SalaryItem();
         salaryItem.setInvoice(invoice);
         salaryItem.setEmployee(invoice.getContract().getEmployee());
@@ -41,7 +62,7 @@ public class SalaryItemServiceJPA implements SalaryItemService {
     }
 
     @Override
-    public SalaryItem createPostpayPretermSalaryItem(Invoice invoice, LocalDate closureDate) {
+    public SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate) {
         SalaryItem salaryItem = new SalaryItem();
         long daysInPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
         long salaryItemPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), closureDate);
