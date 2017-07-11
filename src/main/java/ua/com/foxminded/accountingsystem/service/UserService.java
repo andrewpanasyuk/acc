@@ -1,47 +1,17 @@
 package ua.com.foxminded.accountingsystem.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.User;
-import ua.com.foxminded.accountingsystem.model.UserRole;
-import ua.com.foxminded.accountingsystem.repository.UserRepository;
-import ua.com.foxminded.accountingsystem.repository.UserRoleRepository;
-
+import ua.com.foxminded.accountingsystem.service.dto.UserDto;
 import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
-    private final UserRoleRepository userRoleRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    List<UserDto> findAll();
 
-    @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                       UserRoleRepository userRoleRepository) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.userRoleRepository = userRoleRepository;
-    }
+    User findByUsername(String username);
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
+    User create(User user);
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+    User save(User user);
 
-    public User create(User user) {
-        user.setEnabled(true);
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        UserRole userRole = userRoleRepository.findByRole("USER");
-        if (userRole == null) {
-            userRole = new UserRole();
-            userRole.setRole("USER");
-        }
-        user.addRole(userRole);
-        return userRepository.save(user);
-    }
 }

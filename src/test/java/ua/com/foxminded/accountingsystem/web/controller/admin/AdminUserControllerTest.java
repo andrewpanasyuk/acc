@@ -21,6 +21,9 @@ import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
+import static ua.com.foxminded.accountingsystem.service.dto.converter.UserConverter.convertToDtoList;
+
+
 @RunWith(SpringRunner.class)
 public class AdminUserControllerTest {
 
@@ -58,7 +61,7 @@ public class AdminUserControllerTest {
     public void init() {
         controller = new AdminUserController(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        when(userService.findAll()).thenReturn(users);
+        when(userService.findAll()).thenReturn(convertToDtoList(users));
         when(userService.findByUsername(admin.getUsername())).thenReturn(admin);
     }
 
@@ -66,7 +69,7 @@ public class AdminUserControllerTest {
     public void usersAddedToModel() {
         Model model = new ExtendedModelMap();
         assertThat(controller.getAllUsers(model), equalTo("admin/users"));
-        assertThat(model.asMap(), hasEntry("users", users));
+        assertThat(model.asMap(), hasEntry("users", convertToDtoList(users)));
     }
 
     @Test

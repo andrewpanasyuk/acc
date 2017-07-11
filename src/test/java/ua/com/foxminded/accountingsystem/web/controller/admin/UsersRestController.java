@@ -1,7 +1,6 @@
 package ua.com.foxminded.accountingsystem.web.controller.admin;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +17,14 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Created by andreb on 11.07.17.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AdminUserControllerSystemTest {
-
-    @Autowired
-    private AdminUserController adminUserController;
+public class UsersRestController {
 
     @Autowired
     private WebApplicationContext context;
@@ -40,28 +38,13 @@ public class AdminUserControllerSystemTest {
 
     @Test
     @WithMockUser(authorities = {"ADMIN"})
-    public void userTableFillByApiUsersUrl() throws Exception {
-        this.mockMvc.perform(get("/admin/users").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
+    public void usersAvailableOnUsersPageAjax() throws Exception {
+        this.mockMvc.perform(get("/api/users").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
             .andExpect(status().isOk())
-            .andExpect(content().contentType("text/html;charset=UTF-8"))
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
             .andExpect(content().string(allOf(
-                containsString("table id=\"users_table\""),
-                containsString("$('#users_table').bootstrapTable({\n" +
-                    "        url: '/api/users'\n" +
-                    "      });")))
+                containsString("\"username\":\"user\""),
+                containsString("\"username\":\"admin\"")))
             );
-    }
-
-    @Test
-    @WithMockUser(authorities = {"USER"})
-    public void accessDeniedForUserAuthority() throws Exception {
-        this.mockMvc.perform(get("/admin/users").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
-            .andExpect(status().isForbidden());
-    }
-
-    @Test
-    public void accessDeniedForAnonymousUser() throws Exception {
-        this.mockMvc.perform(get("/admin/users").accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
-            .andExpect(redirectedUrl("http://localhost/"));
     }
 }
