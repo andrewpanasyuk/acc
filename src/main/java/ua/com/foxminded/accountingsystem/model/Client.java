@@ -14,11 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "client")
+@Audited
 public class Client extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
 

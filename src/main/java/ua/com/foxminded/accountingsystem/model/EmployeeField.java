@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,16 +9,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.io.Serializable;
-
 
 @Entity
 @Table(name = "employee_field")
-public class EmployeeField implements Serializable {
+@Audited
+public class EmployeeField extends AbstractAuditEntity {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_field_sequence")
     @SequenceGenerator(name = "employee_field_sequence", sequenceName = "employee_field_sequence", initialValue = 50, allocationSize = 10)
     private Long id;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -43,8 +47,8 @@ public class EmployeeField implements Serializable {
         if (!(o instanceof EmployeeField)) return false;
 
         EmployeeField that = (EmployeeField) o;
-        if(!(that.getName().equals(((EmployeeField) o).getName()))){
-         return false;
+        if (!(that.getName().equals(((EmployeeField) o).getName()))) {
+            return false;
         }
 
         return id.equals(that.id);

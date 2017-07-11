@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,11 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "client_field")
-public class ClientField implements Serializable{
+@Audited
+public class ClientField extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
 
     @Id

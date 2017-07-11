@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,10 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user_role")
-public class UserRole {
+@Audited
+public class UserRole extends AbstractAuditEntity {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_role_sequence")
     @SequenceGenerator(name = "user_role_sequence", sequenceName = "user_role_sequence", initialValue = 50)

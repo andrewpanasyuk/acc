@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -18,7 +19,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "order_queue")
-public class OrderQueue implements Comparable{
+@Audited
+public class OrderQueue extends AbstractAuditEntity implements Comparable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_queue_sequence")
@@ -79,7 +82,7 @@ public class OrderQueue implements Comparable{
 
     @Override
     public int hashCode() {
-        if(id==null){
+        if (id == null) {
             return 31;
         }
         return id.hashCode();

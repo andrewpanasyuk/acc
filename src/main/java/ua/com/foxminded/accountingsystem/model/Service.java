@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,7 +23,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "service")
-public class Service {
+@Audited
+public class Service extends AbstractAuditEntity {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")

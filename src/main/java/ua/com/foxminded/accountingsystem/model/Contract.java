@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -18,14 +19,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "contract")
-public class Contract implements Serializable {
-
+@Audited
+public class Contract extends AbstractAuditEntity {
     private static final long serialVersionUID = 2L;
 
     @Id
@@ -83,7 +83,6 @@ public class Contract implements Serializable {
 
     @Column(name = "closing_description")
     private String closingDescription;
-
 
     public Long getId() {
         return id;
