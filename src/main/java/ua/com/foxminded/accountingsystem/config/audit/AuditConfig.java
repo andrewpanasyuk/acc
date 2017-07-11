@@ -1,4 +1,4 @@
-package ua.com.foxminded.accountingsystem.config;
+package ua.com.foxminded.accountingsystem.config.audit;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
