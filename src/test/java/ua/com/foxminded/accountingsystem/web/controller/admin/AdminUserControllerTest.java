@@ -69,7 +69,7 @@ public class AdminUserControllerTest {
     public void usersAddedToModel() {
         Model model = new ExtendedModelMap();
         assertThat(controller.getAllUsers(model), equalTo("admin/users"));
-        assertThat(model.asMap(), hasEntry("users", users));
+        assertThat(model.asMap(), hasEntry("users", convertToDtoList(users)));
     }
 
     @Test
