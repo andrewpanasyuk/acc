@@ -42,7 +42,9 @@ public class UsersRestController {
     public ResponseEntity<?> register(@Valid @RequestBody User user, Errors errors) throws URISyntaxException {
 
         if (errors.hasErrors()) {
-            String errMessage = errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(";"));
+            String errMessage = errors.getAllErrors().stream()
+                .map(x -> x.getDefaultMessage())
+                .collect(Collectors.joining(";"));
             log.debug("Register errors: " + errMessage);
             return ResponseEntity.badRequest().body(errMessage);
 
