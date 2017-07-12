@@ -79,10 +79,17 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Закрытые</a></li>
           </ul>
         </li>
-        <li>
+        <li class="treeview">
           <a href="#">
-            <i class="fa fa-usd"></i> <span>Зарплаты</span>
+            <i class="fa fa-edit"></i>
+            <span>Зарплаты</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a th:href="@{/admin/salary/payroll}"><i class="fa fa-circle-o"></i>Формирование зарплаты</a></li>
+          </ul>
         </li>
         <li>
           <a th:href="@{/admin/users}">
