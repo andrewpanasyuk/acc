@@ -19,6 +19,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "payment")
 public class Payment extends AbstractAuditEntity {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_sequence")
