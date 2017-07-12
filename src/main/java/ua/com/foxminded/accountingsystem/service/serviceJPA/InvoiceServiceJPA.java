@@ -66,6 +66,11 @@ public class InvoiceServiceJPA implements InvoiceService {
     }
 
     @Override
+    public List<Invoice> findDebtInvoices() {
+        return invoiceRepository.findDebtInvoices();
+    }
+
+    @Override
     public void addPayment(Payment payment) {
         Invoice invoice = invoiceRepository.findOne(payment.getInvoice().getId());
         invoice.addPayment(payment);

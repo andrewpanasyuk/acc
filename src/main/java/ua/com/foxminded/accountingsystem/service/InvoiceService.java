@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.service;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface InvoiceService {
@@ -14,6 +15,8 @@ public interface InvoiceService {
     Invoice save(Invoice invoice);
 
     void delete(Invoice invoice);
+
+    List<Invoice> findDebtInvoices();
 
     Invoice createInvoiceByContractId(Long contractId);
 

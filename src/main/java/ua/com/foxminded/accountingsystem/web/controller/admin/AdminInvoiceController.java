@@ -85,4 +85,11 @@ public class AdminInvoiceController {
         return "redirect:/admin/invoices/issue";
     }
 
+
+    @GetMapping(value = "/debt")
+    public String getDebtInvoices(Model model) {
+        List<Invoice> debtInvoices = invoiceService.findDebtInvoices();
+        model.addAttribute("debtInvoices", debtInvoices);
+        return "admin/debt";
+    }
 }

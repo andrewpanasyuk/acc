@@ -178,9 +178,9 @@ INSERT INTO invoice (id, creation_date, employee_paid, period_from, period_to, c
     (6, '2000-01-01', TRUE, '2017-07-01', '2017-07-10', 6, 6),
     (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 7, 7);
 
-INSERT INTO payment (id, invoice_id) VALUES
-    (1, 6),
-    (2, 7);
+INSERT INTO payment (id, invoice_id, date_paid) VALUES
+    (1, 7, '2000-01-01'),
+    (2, 6, '2000-01-01');
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id) VALUES
     (1, '2017-01-01', 'NORMAL', 1);
