@@ -22,7 +22,6 @@ import static org.hamcrest.Matchers.nullValue;
 public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceRepository> {
 
     private static Invoice invoice_1;
-    private static Contract contract_1;
 
     @BeforeClass
     public static void init() {
@@ -30,14 +29,9 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
         money_1.setId(50L);
         money_1.setCurrency(Currency.EUR);
         money_1.setPrice(1500);
-        Money moneyOfContractTwo = new Money();
-        moneyOfContractTwo.setId(50L);
-        moneyOfContractTwo.setCurrency(Currency.EUR);
-        moneyOfContractTwo.setPrice(2000);
 
-        contract_1 = new Contract();
+        Contract contract_1 = new Contract();
         contract_1.setId(50L);
-        contract_1.setPaymentDate(LocalDate.of(2010, 1, 1));
         contract_1.setCreatedBy("system");
         contract_1.setCreatedDate(LocalDateTime.now());
 
@@ -45,9 +39,9 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
         invoice_1.setId(50L);
         invoice_1.setContract(contract_1);
         invoice_1.setPrice(money_1);
-        invoice_1.setCreationDate(contract_1.getPaymentDate());
-        invoice_1.setPaymentPeriodFrom(contract_1.getPaymentDate());
-        invoice_1.setPaymentPeriodTo(contract_1.getPaymentDate().plusMonths(1L));
+        invoice_1.setCreationDate(LocalDate.of(2010, 1, 1));
+        invoice_1.setPaymentPeriodFrom(LocalDate.of(2010, 1, 1));
+        invoice_1.setPaymentPeriodTo(LocalDate.of(2010, 1, 1).plusMonths(1L));
         invoice_1.setEmployeePaid(true);
         invoice_1.setCreatedBy("system");
         invoice_1.setCreatedDate(LocalDateTime.now());
@@ -57,11 +51,9 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
 
     @Test
     @Commit
-    @DataSet(value = "invoices/empty.xml", disableConstraints = true)
+    @DataSet(value = "invoices/empty.xml", disableConstraints = true, cleanBefore = true)
     @ExpectedDataSet(value = "invoices/expected-invoices.xml", ignoreCols = {"created_by", "created_date"})
     public void invoiceIsAdded() {
-        System.out.println(invoice_1);
-        System.out.println(contract_1);
         repository.save(invoice_1);
     }
 
