@@ -24,7 +24,10 @@
             <td>
               <a th:href="@{/admin/invoices/{id} (id = ${invoice.id})}" th:text="${invoice.id}">ID</a>
             </td>
-            <td th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"/>
+            <td>
+            <a th:href="@{/admin/clients/{id}(id=${invoice.contract.order.client.id})}"
+               th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"></a>
+            </td>
             <td th:text="${invoice.contract.id}"></td>
             <td th:text="${invoice.price.currency} + ' ' + ${invoice.price.price}"></td>
             <td th:text="${invoice.contract.paymentType.toString().equals('PREPAY')} ? ${invoice.paymentPeriodFrom} : ${invoice.paymentPeriodTo}"/>
