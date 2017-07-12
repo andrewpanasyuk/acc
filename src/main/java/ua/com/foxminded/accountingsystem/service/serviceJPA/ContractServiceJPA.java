@@ -51,9 +51,6 @@ public class ContractServiceJPA implements ContractService {
 
     @Override
     public Contract save(Contract contract) {
-        if(contract.getCloseType() != null){
-            contract.setCloseDate(LocalDate.now());
-        }
         return contractRepository.save(contract);
     }
 
@@ -109,6 +106,10 @@ public class ContractServiceJPA implements ContractService {
         return invoices;
     }
 
+    @Override
+    public List<Contract> findAllByOrder(Order order) {
+        return contractRepository.findAllByOrder(order);
+    }
 }
 
 

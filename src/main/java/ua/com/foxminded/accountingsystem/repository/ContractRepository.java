@@ -1,6 +1,5 @@
 package ua.com.foxminded.accountingsystem.repository;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
@@ -19,6 +18,5 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
         "WHERE i.creationDate = ?2 )")
     List<Contract> findContractsForInvoicesCreation(int payDay, LocalDate today);
 
-    @Query("SELECT c FROM Contract as c WHERE c.order = ?1 ORDER BY c.contractDate ASC")
-    List<Contract> findAllByOrderSortedByContractDate(Order order);
+    List<Contract> findAllByOrder(Order order);
 }
