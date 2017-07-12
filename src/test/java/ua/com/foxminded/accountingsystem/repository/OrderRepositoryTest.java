@@ -12,7 +12,9 @@ import ua.com.foxminded.accountingsystem.model.Service;
 
 import java.time.LocalDate;
 
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository> {
 
@@ -76,5 +78,14 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     @ExpectedDataSet(value = "orders/expected-orders.xml")
     public void deleteOrderByIdTest() {
         repository.delete(2L);
+    }
+
+    @Test
+    @DataSet(value = "orders/stored-orders.xml", disableConstraints = true, cleanBefore = true)
+    public void getOrdersByStatus() {
+        assertEquals(1, repository.getOrdersByStatus(OrderStatus.ACTIVE).size());
+        assertThat(repository.getOrdersByStatus(OrderStatus.ACTIVE), hasItems(order));
+        assertEquals(1, repository.getOrdersByStatus(OrderStatus.WAITING).size());
+        assertThat(repository.getOrdersByStatus(OrderStatus.WAITING), hasItems(order_1));
     }
 }

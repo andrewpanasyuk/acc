@@ -57,7 +57,6 @@ public class OrderServiceJPA implements OrderService {
 
     @Override
     public List<Order> getOrdersByStatus(OrderStatus orderStatus) {
-        System.out.println(orderStatus);
         return orderRepository.getOrdersByStatus(orderStatus);
     }
 }
