@@ -14,7 +14,6 @@ import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -76,21 +75,20 @@ public class OrderServiceJPA implements OrderService {
         for (Contract contract: contracts){
             String record = contract.getContractDate() + " - Старт услуги";
             notes.add(record);
-            if (contract.getCloseType() == CloseType.FROZEN){
+            if (contract.getCloseDate() != null && contract.getCloseType() == CloseType.FROZEN){
                 record = contract.getCloseDate() + " - Заморозка услуги";
                 notes.add(record);
-            }
-            else if (contract.getCloseType() == CloseType.CHANGE){
+            }else if (contract.getCloseDate() != null && contract.getCloseType() == CloseType.CHANGE){
                 record = contract.getCloseDate() + " - Смена ментора";
                 notes.add(record);
             }
-            else if (contract.getCloseType() == CloseType.COMPLETED){
+            else if (contract.getCloseDate() != null && contract.getCloseType() == CloseType.COMPLETED){
                 record = contract.getCloseDate() + " - Закрыт договор";
                 notes.add(record);
             }
 
         }
-        Collections.reverse(notes);
+
         return notes;
     }
 }

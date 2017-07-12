@@ -63,7 +63,7 @@ public class AdminOrderController {
         model.addAttribute("order", order)
             .addAttribute("title", "Order: " + order.getId())
             .addAttribute("services", service.findAll())
-            .addAttribute("contracts", contractService.findAllByOrder(order));
+            .addAttribute("history", orderService.findHistoryByOrder(order));
         return "admin/order";
     }
 
