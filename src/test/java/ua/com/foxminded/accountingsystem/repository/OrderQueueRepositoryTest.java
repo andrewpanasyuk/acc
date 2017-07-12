@@ -10,6 +10,7 @@ import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.model.Priority;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,6 +32,8 @@ public class OrderQueueRepositoryTest extends AbstractRepositoryTest<OrderQueueR
         orderQueue.setOrder(order);
         orderQueue.setPriority(Priority.NORMAL);
         orderQueue.setQueuingDate(LocalDate.of(2010, 01, 24));
+        orderQueue.setCreatedBy("system");
+        orderQueue.setCreatedDate(LocalDateTime.now());
 
         orderQueue_1 = new OrderQueue();
         orderQueue_1.setId(2L);
@@ -42,7 +45,7 @@ public class OrderQueueRepositoryTest extends AbstractRepositoryTest<OrderQueueR
     @Test
     @Commit
     @DataSet(value = "queues/empty.xml", disableConstraints = true, cleanBefore = true)
-    @ExpectedDataSet("queues/expected-queues.xml")
+    @ExpectedDataSet(value = "queues/expected-queues.xml", ignoreCols = {"created_by", "created_date"})
     public void addOrder() {
         repository.save(orderQueue);
     }

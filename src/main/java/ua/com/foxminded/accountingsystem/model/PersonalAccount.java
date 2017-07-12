@@ -9,11 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "personal_account")
-public class PersonalAccount {
+public class PersonalAccount implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personal_account_sequence")
@@ -52,7 +54,7 @@ public class PersonalAccount {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonalAccount personalAccount = (PersonalAccount) o;
-        if (id != null && !id.equals(personalAccount.id))  return false;
+        if (id != null && !id.equals(personalAccount.id)) return false;
         return true;
     }
 }

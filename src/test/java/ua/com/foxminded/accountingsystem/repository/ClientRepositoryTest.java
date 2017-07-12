@@ -14,6 +14,7 @@ import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.PersonalAccount;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.contains;
@@ -52,22 +53,32 @@ public class ClientRepositoryTest extends AbstractRepositoryTest<ClientRepositor
 
         extraField = new ClientField();
         extraField.setName("email");
+        extraField.setCreatedBy("system");
+        extraField.setCreatedDate(LocalDateTime.now());
 
         johnEmail = new ClientFieldValue();
         johnEmail.setId(1L);
         johnEmail.setClientField(extraField);
         johnEmail.setValue("test@mail.com");
+        johnEmail.setCreatedBy("system");
+        johnEmail.setCreatedDate(LocalDateTime.now());
         janeEmail = new ClientFieldValue();
         janeEmail.setId(2L);
         janeEmail.setClientField(extraField);
         janeEmail.setValue("jane@mail.com");
+        janeEmail.setCreatedBy("system");
+        janeEmail.setCreatedDate(LocalDateTime.now());
 
         johnOrder = new Order();
         johnOrder.setId(1L);
         johnOrder.setStatus(OrderStatus.ACTIVE);
+        johnOrder.setCreatedBy("system");
+        johnOrder.setCreatedDate(LocalDateTime.now());
         janeOrder = new Order();
         janeOrder.setId(2L);
         janeOrder.setStatus(OrderStatus.ACTIVE);
+        johnOrder.setCreatedBy("system");
+        johnOrder.setCreatedDate(LocalDateTime.now());
 
         john.addOrder(johnOrder);
         jane.addOrder(janeOrder);
@@ -76,13 +87,18 @@ public class ClientRepositoryTest extends AbstractRepositoryTest<ClientRepositor
 
         john.setId(1L);
         jane.setId(2L);
+
+        john.setCreatedBy("system");
+        jane.setCreatedBy("system");
+        john.setCreatedDate(LocalDateTime.now());
+        jane.setCreatedDate(LocalDateTime.now());
     }
 
     @Test
     @Commit
     @DataSet(value = "clients/empty.xml", cleanBefore = true, disableConstraints = true)
     @ExpectedDataSet(value = "clients/expected-clients.xml",
-        ignoreCols = {"id", "client_id", "client_field_id", "personal_account_id"})
+        ignoreCols = {"id", "client_id", "client_field_id", "personal_account_id", "created_by", "created_date"})
     public void addClient(){
         clientFieldRepository.save(extraField);
         repository.save(john);

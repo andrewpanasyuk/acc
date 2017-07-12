@@ -1,6 +1,8 @@
 package ua.com.foxminded.accountingsystem.model;
 
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -55,6 +57,7 @@ public class Salary implements Serializable {
     @Column(name = "paid")
     private Boolean paid = false;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @JoinColumn(name = "total_amount_id")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money totalAmount;

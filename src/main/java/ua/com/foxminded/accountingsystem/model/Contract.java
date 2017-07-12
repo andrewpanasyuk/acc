@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -18,14 +20,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "contract")
-public class Contract implements Serializable {
-
+@Audited
+public class Contract extends AbstractAuditEntity {
     private static final long serialVersionUID = 2L;
 
     @Id
@@ -42,6 +43,7 @@ public class Contract implements Serializable {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull(message = "It's a required field.")
     @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "price_id")
@@ -61,6 +63,7 @@ public class Contract implements Serializable {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull(message = "It's a required field.")
     @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "employee_rate_id")
@@ -83,7 +86,6 @@ public class Contract implements Serializable {
 
     @Column(name = "closing_description")
     private String closingDescription;
-
 
     public Long getId() {
         return id;

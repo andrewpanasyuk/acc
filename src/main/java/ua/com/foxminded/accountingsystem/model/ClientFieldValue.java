@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,11 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
-@Table(name="client_field_value")
-public class ClientFieldValue implements Serializable{
+@Table(name = "client_field_value")
+@Audited
+public class ClientFieldValue extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -24,10 +26,10 @@ public class ClientFieldValue implements Serializable{
     private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name="client_field_id")
+    @JoinColumn(name = "client_field_id")
     private ClientField clientField;
 
-    @Column(name="value")
+    @Column(name = "value")
     private String value;
 
     @ManyToOne(fetch = FetchType.LAZY)

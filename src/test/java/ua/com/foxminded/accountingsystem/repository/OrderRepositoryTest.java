@@ -11,6 +11,7 @@ import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertEquals;
@@ -42,6 +43,8 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
         order.setClient(client);
         order.setOpenDate(LocalDate.of(2017, 01, 24));
         order.setCloseDate(LocalDate.of(2017, 01, 25));
+        order.setCreatedBy("system");
+        order.setCreatedDate(LocalDateTime.now());
 
         order_1 = new Order();
         order_1.setId(2L);
@@ -55,7 +58,7 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     @Test
     @Commit
     @DataSet(value = "orders/empty.xml", disableConstraints = true, cleanBefore = true)
-    @ExpectedDataSet("orders/expected-orders.xml")
+    @ExpectedDataSet(value = "orders/expected-orders.xml", ignoreCols = {"created_by", "created_date"})
     public void addOrder() {
         repository.save(order);
     }

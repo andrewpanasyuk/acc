@@ -1,4 +1,4 @@
 <dataset>
-    <CLIENT_FIELD id="1" name="email"/>
-    <CLIENT_FIELD id="2" name="country"/>
+    <CLIENT_FIELD id="1" name="email"  created_by="system" created_date="2017-07-11" />
+    <CLIENT_FIELD id="2" name="country"  created_by="system" created_date="2017-07-11" />
 </dataset>

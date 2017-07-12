@@ -1,10 +1,9 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +13,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "fm_users")
-public class User {
+@Audited
+public class User extends AbstractAuditEntity {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @NotEmpty
     @Size(min = 3, max = 30)

@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -14,13 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "invoice")
-public class Invoice implements Serializable {
-
+@Audited
+public class Invoice extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -43,6 +44,7 @@ public class Invoice implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentPeriodTo;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "price_id")
     private Money price;

@@ -1,6 +1,5 @@
 package ua.com.foxminded.accountingsystem.model;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,14 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "money")
-public class Money {
+public class Money implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "money_sequence")
-    @SequenceGenerator(name = "money_sequence", initialValue = 50)
+    @SequenceGenerator(name = "money_sequence", sequenceName = "money_sequence", initialValue = 50)
     private long id;
 
     @Column(name = "price")

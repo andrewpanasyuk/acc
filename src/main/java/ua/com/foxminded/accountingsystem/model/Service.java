@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,11 +24,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "service")
-public class Service {
+@Audited
+public class Service extends AbstractAuditEntity {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")
-    @SequenceGenerator(name = "service_sequence", initialValue = 50)
+    @SequenceGenerator(name = "service_sequence", sequenceName = "service_sequence", initialValue = 50)
     private long id;
 
     @NotNull(message = "It is required field")
@@ -38,11 +42,13 @@ public class Service {
     @Column(name = "description")
     private String description;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotEmpty(message = "At least one price is required")
     @Valid
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Money> prices;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull(message = "It is required field")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Money employeeRate;

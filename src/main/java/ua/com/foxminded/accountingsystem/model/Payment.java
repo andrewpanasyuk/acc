@@ -1,6 +1,8 @@
 package ua.com.foxminded.accountingsystem.model;
 
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -11,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,7 +20,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "payment")
-public class Payment {
+public class Payment extends AbstractAuditEntity {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_sequence")
@@ -34,6 +36,7 @@ public class Payment {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate datePaid;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money sum = new Money();
 

@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,6 +37,7 @@ public class SalaryItem implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     private Invoice invoice;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @JoinColumn(name = "employee_payment_id")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Money employeePayment;

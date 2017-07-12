@@ -9,6 +9,8 @@ import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
+import java.time.LocalDateTime;
+
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -25,12 +27,14 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
         employee.setLastName("Teplinsky");
         employee.setFirstName("Anton");
         employee.setMaxClients(10);
+        employee.setCreatedBy("system");
+        employee.setCreatedDate(LocalDateTime.now());
     }
 
     @Test
     @Commit
     @DataSet(value = "employee/empty.xml", disableConstraints = true, cleanBefore = true)
-    @ExpectedDataSet("employee/expected-employee.xml")
+    @ExpectedDataSet(value = "employee/expected-employee.xml", ignoreCols = {"created_by", "created_date"})
     public void addEmployeeTest() {
         repository.save(employee);
     }
