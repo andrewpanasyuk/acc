@@ -83,9 +83,9 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     @Test
     @DataSet(value = "orders/stored-orders.xml", disableConstraints = true, cleanBefore = true)
     public void getOrdersByStatus() {
-        assertEquals(1, repository.getOrdersByStatus(OrderStatus.ACTIVE).size());
-        assertThat(repository.getOrdersByStatus(OrderStatus.ACTIVE), hasItems(order));
-        assertEquals(1, repository.getOrdersByStatus(OrderStatus.WAITING).size());
-        assertThat(repository.getOrdersByStatus(OrderStatus.WAITING), hasItems(order_1));
+        assertEquals(1, repository.findOrdersByStatus(OrderStatus.ACTIVE).size());
+        assertThat(repository.findOrdersByStatus(OrderStatus.ACTIVE), hasItems(order));
+        assertEquals(1, repository.findOrdersByStatus(OrderStatus.WAITING).size());
+        assertThat(repository.findOrdersByStatus(OrderStatus.WAITING), hasItems(order_1));
     }
 }

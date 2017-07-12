@@ -9,6 +9,5 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long>{
 
-    @Query("SELECT orders FROM Order orders WHERE orders.status = ?1")
-    List<Order> getOrdersByStatus(OrderStatus orderStatus);
+    List<Order> findOrdersByStatus(OrderStatus orderStatus);
 }

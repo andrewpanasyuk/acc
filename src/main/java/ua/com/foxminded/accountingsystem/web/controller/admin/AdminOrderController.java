@@ -68,7 +68,7 @@ public class AdminOrderController {
         return "redirect:/admin/orders";
     }
 
-    @GetMapping(value = "/new")
+    @GetMapping(value = "/create")
     public String addOrder(@RequestParam long clientId, Model model) {
         Order order = orderService.createOrderByClientId(clientId);
         model.addAttribute("order", order)
@@ -76,9 +76,9 @@ public class AdminOrderController {
         return "admin/order";
     }
 
-    @GetMapping(value = "/placed")
+    @GetMapping(value = "/new")
     public String placedOrders(Model model) {
-        List<Order> orders = orderService.getOrdersByStatus(OrderStatus.NEW);
+        List<Order> orders = orderService.findOrdersByStatus(OrderStatus.NEW);
         model.addAttribute("orders", orders);
         return "admin/orders";
     }
