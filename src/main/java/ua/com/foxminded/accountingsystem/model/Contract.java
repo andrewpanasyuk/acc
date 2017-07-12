@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -42,6 +43,7 @@ public class Contract extends AbstractAuditEntity {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull(message = "It's a required field.")
     @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "price_id")
@@ -61,6 +63,7 @@ public class Contract extends AbstractAuditEntity {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull(message = "It's a required field.")
     @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "employee_rate_id")

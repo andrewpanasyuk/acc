@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -41,11 +42,13 @@ public class Service extends AbstractAuditEntity {
     @Column(name = "description")
     private String description;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotEmpty(message = "At least one price is required")
     @Valid
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Money> prices;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull(message = "It is required field")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Money employeeRate;

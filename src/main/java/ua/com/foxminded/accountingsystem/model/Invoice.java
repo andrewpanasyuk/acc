@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -43,6 +44,7 @@ public class Invoice extends AbstractAuditEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentPeriodTo;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "price_id")
     private Money price;

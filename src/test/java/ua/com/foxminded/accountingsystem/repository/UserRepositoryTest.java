@@ -8,6 +8,7 @@ import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.User;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasItems;
@@ -28,6 +29,8 @@ public class UserRepositoryTest extends AbstractRepositoryTest<UserRepository> {
         admin.setPassword("$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq");
         admin.setEnabled(true);
         admin.setEmail("admin@foxminded.com.ua");
+        admin.setCreatedBy("system");
+        admin.setCreatedDate(LocalDateTime.now());
 
         user = new User();
         user.setUsername("user");

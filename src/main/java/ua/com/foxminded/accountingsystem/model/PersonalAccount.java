@@ -1,7 +1,5 @@
 package ua.com.foxminded.accountingsystem.model;
 
-import org.hibernate.envers.Audited;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "personal_account")
-@Audited
-public class PersonalAccount extends AbstractAuditEntity {
+public class PersonalAccount implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

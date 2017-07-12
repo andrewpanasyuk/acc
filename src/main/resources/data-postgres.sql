@@ -39,13 +39,12 @@ INSERT INTO fm_users_user_role (username, role_id) VALUES
     ('ivan', 2),
     ('josef', 2),
     ('liza', 2),
-    ('mentor', 2),
-    ('mentor', 3);
+    ('mentor', 2);
 
 INSERT INTO employee (id, first_name, last_name, max_clients, username, created_by, created_date) VALUES
-    (1, 'jack', 'jackson', 10, 'mentor', 'system', '2017-07-11'),
-    (2, 'rob', 'robinson', 10, 'mentor', 'system', '2017-07-11'),
-    (3, 'peter', 'peterson', 10, 'mentor', 'system', '2017-07-11'),
+    (1, 'jack', 'jackson', 10, NULL, 'system', '2017-07-11'),
+    (2, 'rob', 'robinson', 10, NULL, 'system', '2017-07-11'),
+    (3, 'peter', 'peterson', 10, NULL, 'system', '2017-07-11'),
     (4, 'Evgeniy', 'Smorodskiy', 10, 'mentor', 'system', '2017-07-11');
 
 INSERT INTO employee_field (id, name, created_by, created_date) VALUES
@@ -60,15 +59,15 @@ INSERT INTO employee_field_value (id, employee_id, employee_field_id, value, cre
     (5, 3, 1, 'peterSkype', 'system', '2017-07-11'),
     (6, 3, 2, 'peter@mail.com', 'system', '2017-07-11');
 
-INSERT INTO money (id, currency, price, created_by, created_date) VALUES
-    (1, 'USD', 1000, 'system', '2017-07-11'),
-    (2, 'UAH', 2000, 'system', '2017-07-11'),
-    (3, 'EUR', 3000, 'system', '2017-07-11'),
-    (4, 'USD', 4000, 'system', '2017-07-11'),
-    (5, 'UAH', 5000, 'system', '2017-07-11'),
-    (6, 'EUR', 6000, 'system', '2017-07-11'),
-    (7, 'UAH', 3500, 'system', '2017-07-11'),
-    (8, 'UAH', 3500, 'system', '2017-07-11');
+INSERT INTO money (id, currency, price) VALUES
+    (1, 'USD', 1000),
+    (2, 'UAH', 2000),
+    (3, 'EUR', 3000),
+    (4, 'USD', 4000),
+    (5, 'UAH', 5000),
+    (6, 'EUR', 6000),
+    (7, 'UAH', 3500),
+    (8, 'UAH', 3500);
 
 INSERT INTO service (id, service_name, description, employee_rate_id, created_by, created_date) VALUES
     (1, 'java', 'java description', 7, 'system', '2017-07-11'),
@@ -82,12 +81,12 @@ INSERT INTO service_prices (service_id, prices_id) VALUES
     (2, 5),
     (2, 6);
 
-INSERT INTO personal_account (id, created_by, created_date) VALUES
-    (1, 'system', '2017-07-11'),
-    (2, 'system', '2017-07-11'),
-    (3, 'system', '2017-07-11'),
-    (4, 'system', '2017-07-11'),
-    (5, 'system', '2017-07-11');
+INSERT INTO personal_account (id) VALUES
+    (1),
+    (2),
+    (3),
+    (4),
+    (5);
 
 INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
     (1, 1),

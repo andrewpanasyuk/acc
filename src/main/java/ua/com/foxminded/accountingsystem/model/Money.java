@@ -1,7 +1,5 @@
 package ua.com.foxminded.accountingsystem.model;
 
-import org.hibernate.envers.Audited;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,11 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "money")
-@Audited
-public class Money extends AbstractAuditEntity {
+public class Money implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

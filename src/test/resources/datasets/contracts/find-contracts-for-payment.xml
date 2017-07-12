@@ -1,8 +1,8 @@
 <dataset>
-    <CONTRACT id="1" payment_date="2017-07-24" payment_type="PREPAY"/>
-    <CONTRACT id="2" payment_date="2017-01-24" payment_type="POSTPAY"/>
-    <CONTRACT id="3" payment_date="2017-12-24" payment_type="TRIAL"/>
-    <CONTRACT id="4" payment_date="2017-12-04" payment_type="TRIAL"/>
-    <CONTRACT id="5" payment_date="2017-12-24" payment_type="TRIAL"/>
-    <INVOICE id="1" creation_date="2017-07-21" contract_id="5"/>
+    <CONTRACT id="1" payment_date="2017-07-24" payment_type="PREPAY" created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="2" payment_date="2017-01-24" payment_type="POSTPAY" created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="3" payment_date="2017-12-24" payment_type="TRIAL" created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="4" payment_date="2017-12-04" payment_type="TRIAL" created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="5" payment_date="2017-12-24" payment_type="TRIAL" created_by="system" created_date="2017-07-11" />
+    <INVOICE id="1" creation_date="2017-07-21" contract_id="5" created_by="system" created_date="2017-07-11" />
 </dataset>

@@ -2,6 +2,7 @@ package ua.com.foxminded.accountingsystem.model;
 
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,8 +42,7 @@ public class Client extends AbstractAuditEntity {
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClientFieldValue> extraFields;
 
-
-    @NotAudited
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PersonalAccount personalAccount;
 

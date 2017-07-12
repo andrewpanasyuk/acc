@@ -9,6 +9,8 @@ import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
 
+import java.time.LocalDateTime;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
@@ -22,6 +24,8 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
         service = new Service();
         service.setName("java test");
         service.getEmployeeRate().setCurrency(Currency.UAH);
+        service.setCreatedBy("system");
+        service.setCreatedDate(LocalDateTime.now());
 
         Money money = new Money();
         money.setCurrency(Currency.UAH);

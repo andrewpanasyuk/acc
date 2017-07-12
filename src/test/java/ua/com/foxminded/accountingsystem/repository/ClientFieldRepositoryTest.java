@@ -7,7 +7,10 @@ import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.ClientField;
 
+import java.time.LocalDateTime;
+
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -23,16 +26,25 @@ public class ClientFieldRepositoryTest extends AbstractRepositoryTest<ClientFiel
 
     @BeforeClass
     public static void init(){
+        LocalDateTime dateTime = LocalDateTime.now();
         email = new ClientField();
         email.setName("email");
+        email.setCreatedBy("system");
+        email.setCreatedDate(dateTime);
         country = new ClientField();
         country.setName("country");
+        country.setCreatedBy("system");
+        country.setCreatedDate(dateTime);
         persistedEmail = new ClientField();
         persistedEmail.setName("email");
         persistedEmail.setId(1L);
+        persistedEmail.setCreatedBy("system");
+        persistedEmail.setCreatedDate(dateTime);
         persistedCountry = new ClientField();
         persistedCountry.setName("country");
         persistedCountry.setId(2L);
+        persistedCountry.setCreatedBy("system");
+        persistedCountry.setCreatedDate(dateTime);
     }
 
     @Test
@@ -47,8 +59,8 @@ public class ClientFieldRepositoryTest extends AbstractRepositoryTest<ClientFiel
     @DataSet(value = "client-fields/stored-client-fields.xml")
     public void userCanBeFoundByDifferentMethods() {
         assertThat(repository.findAll(), hasItems(persistedEmail, persistedCountry));
-        assertThat(repository.findOne(persistedEmail.getId()), samePropertyValuesAs(persistedEmail));
-        assertThat(repository.getOne(persistedEmail.getId()), samePropertyValuesAs(persistedEmail));
+        assertThat(repository.findOne(persistedEmail.getId()), equalTo(persistedEmail));
+        assertThat(repository.getOne(persistedEmail.getId()), equalTo(persistedEmail));
         assertThat(repository.exists(persistedEmail.getId()), is(true));
     }
 
