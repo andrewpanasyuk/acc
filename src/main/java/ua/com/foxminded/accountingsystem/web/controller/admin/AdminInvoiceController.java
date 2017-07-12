@@ -15,7 +15,6 @@ import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -89,7 +88,7 @@ public class AdminInvoiceController {
 
     @GetMapping(value = "/debt")
     public String getDebtInvoices(Model model) {
-        List<Invoice> debtInvoices = invoiceService.findDebtInvoices(LocalDate.now());
+        List<Invoice> debtInvoices = invoiceService.findDebtInvoices();
         model.addAttribute("debtInvoices", debtInvoices);
         return "admin/debt";
     }

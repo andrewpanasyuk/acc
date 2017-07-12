@@ -16,7 +16,7 @@ public interface InvoiceService {
 
     void delete(Invoice invoice);
 
-    List<Invoice> findDebtInvoices(LocalDate actualDate);
+    List<Invoice> findDebtInvoices();
 
     Invoice createInvoiceByContractId(Long contractId);
 
