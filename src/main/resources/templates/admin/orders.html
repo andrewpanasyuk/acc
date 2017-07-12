@@ -9,25 +9,30 @@
                data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
           <thead>
           <tr>
-            <th>id</th>
-            <th>View Order</th>
-            <th>order Status</th>
-            <th>open Date</th>
-            <th>close Date</th>
+            <th>Order</th>
+            <th>Client</th>
+            <th>Service</th>
+            <th>Order status</th>
+            <th>Start date - Close date</th>
           </tr>
           </thead>
           <tbody>
           <tr th:each="order : ${orders}">
             <td>
-              <p th:text="${order.id}">id</p>
+              <a th:href="@{/admin/orders/{id}(id=${order.id})}" th:text="${order.id}"></a>
+            </td>
+            <td>
+              <p th:text="${order.client.lastName} + ' ' + ${order.client.firstName}"></p>
             </td>
             <!--/*@thymesVar order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
             <td>
-              <a th:href="@{/admin/orders/{id}(id=${order.id})}" th:text="${order.service != null} ? ${order.service.name} : 'Order'"></a>
+              <p th:text="${order.service != null} ? ${order.service.name} : ''"></p>
             </td>
             <td th:text="${order.status}"></td>
-            <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
-            <td th:text="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd-MMM-yyyy')} : ''"></td>
+            <td th:text="(${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd MMM yyyy')} : '')
+            + ' - '
+            + (${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd MMM yyyy')} : '')">
+            </td>
           </tr>
           </tbody>
         </table>
