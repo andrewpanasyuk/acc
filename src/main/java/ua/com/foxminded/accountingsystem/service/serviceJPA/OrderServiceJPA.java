@@ -54,4 +54,9 @@ public class OrderServiceJPA implements OrderService {
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
+
+    @Override
+    public List<Order> findOrdersByStatus(OrderStatus orderStatus) {
+        return orderRepository.findOrdersByStatus(orderStatus);
+    }
 }

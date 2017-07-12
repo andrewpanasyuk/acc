@@ -13,12 +13,17 @@
           </a>
         </li>
         <li>
-          <a th:href="@{/admin/orders}">
+          <a href="#">
             <i class="fa fa-edit"></i> <span>Заявки</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-blue">2</small>
+               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a th:href="@{/admin/orders/new}"><i class="fa fa-circle-o"></i> Новые</a></li>
+            <li><a th:href="@{/admin/orders}"><i class="fa fa-circle-o"></i> Все</a></li>
+          </ul>
         </li>
         <li>
           <a th:href="@{/admin/queues}">
