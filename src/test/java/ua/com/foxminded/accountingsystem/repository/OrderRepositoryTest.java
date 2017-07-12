@@ -55,7 +55,7 @@ public class OrderRepositoryTest extends AbstractRepositoryTest<OrderRepository>
     @Test
     @Commit
     @DataSet(value = "orders/empty.xml", disableConstraints = true, cleanBefore = true)
-    @ExpectedDataSet("orders/expected-orders.xml")
+    @ExpectedDataSet(value = "orders/expected-orders.xml", ignoreCols = {"created_by", "created_date"})
     public void addOrder() {
         repository.save(order);
     }

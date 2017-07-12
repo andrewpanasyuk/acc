@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.User;
 
+import java.time.LocalDate;
+
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
@@ -38,7 +40,7 @@ public class UserRepositoryTest extends AbstractRepositoryTest<UserRepository> {
     @Test
     @Commit
     @DataSet(value = "users/empty.xml")
-    @ExpectedDataSet("users/expected-users.xml")
+    @ExpectedDataSet(value = "users/expected-users.xml", ignoreCols = {"created_by", "created_date"})
     public void addUser() {
         repository.save(admin);
     }
@@ -47,9 +49,6 @@ public class UserRepositoryTest extends AbstractRepositoryTest<UserRepository> {
     @DataSet(value = "users/stored-users.xml")
     public void userCanBeFoundByDifferentMethods() {
         assertThat(repository.findAll(), hasItems(admin, user));
-        assertThat(repository.findOne(admin.getUsername()), samePropertyValuesAs(admin));
-        assertThat(repository.findByUsername(admin.getUsername()), samePropertyValuesAs(admin));
-        assertThat(repository.getOne(admin.getUsername()), samePropertyValuesAs(admin));
         assertThat(repository.exists(admin.getUsername()), is(true));
     }
 

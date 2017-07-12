@@ -42,7 +42,7 @@ public class OrderQueueRepositoryTest extends AbstractRepositoryTest<OrderQueueR
     @Test
     @Commit
     @DataSet(value = "queues/empty.xml", disableConstraints = true, cleanBefore = true)
-    @ExpectedDataSet("queues/expected-queues.xml")
+    @ExpectedDataSet(value = "queues/expected-queues.xml", ignoreCols = {"created_by", "created_date"})
     public void addOrder() {
         repository.save(orderQueue);
     }

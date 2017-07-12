@@ -1,4 +1,4 @@
 <dataset>
-    <FM_USERS username="admin" password="$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq" enabled="true" email="admin@foxminded.com.ua"/>
-    <FM_USERS username="user" password="$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq" enabled="true" email="user@foxminded.com.ua"/>
+    <FM_USERS username="admin" password="$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq" enabled="true" email="admin@foxminded.com.ua" created_by="system" created_date="2017-07-11"/>
+    <FM_USERS username="user" password="$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq" enabled="true" email="user@foxminded.com.ua" created_by="system" created_date="2017-07-11"/>
 </dataset>

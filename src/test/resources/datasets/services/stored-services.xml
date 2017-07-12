@@ -1,12 +1,12 @@
 <dataset>
-    <MONEY id="1" currency="UAH" price="1000" />
-    <MONEY id="2" currency="UAH" price="2000" />
-    <MONEY id="3" currency="UAH" price="3000" />
-    <MONEY id="4" currency="UAH" price="4000" />
+    <MONEY id="1" currency="UAH" price="1000" created_by="system" created_date="2017-07-11"/>
+    <MONEY id="2" currency="UAH" price="2000" created_by="system" created_date="2017-07-11"/>
+    <MONEY id="3" currency="UAH" price="3000" created_by="system" created_date="2017-07-11"/>
+    <MONEY id="4" currency="UAH" price="4000" created_by="system" created_date="2017-07-11"/>
 
     <SERVICE_PRICES service_id="1" prices_id="3" />
     <SERVICE_PRICES service_id="2" prices_id="4" />
 
-    <SERVICE id="1" service_name="java test" description="java description" employee_rate_id="1" />
-    <SERVICE id="2" service_name="javascript test" description="javascript description" employee_rate_id="2" />
+    <SERVICE id="1" service_name="java test" description="java description" employee_rate_id="1" created_by="system" created_date="2017-07-11"/>
+    <SERVICE id="2" service_name="javascript test" description="javascript description" employee_rate_id="2" created_by="system" created_date="2017-07-11"/>
 </dataset>

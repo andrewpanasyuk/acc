@@ -33,7 +33,7 @@ public class ServiceRepositoryTest extends AbstractRepositoryTest<ServiceReposit
     @Test
     @Commit
     @DataSet(value = "services/empty.xml", cleanBefore = true)
-    @ExpectedDataSet("services/expected-services.xml")
+    @ExpectedDataSet(value = "services/expected-services.xml", ignoreCols = {"created_by", "created_date"})
     public void addService() {
         repository.save(service);
     }
