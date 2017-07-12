@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Order;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
@@ -73,5 +74,12 @@ public class AdminOrderController {
         model.addAttribute("order", order)
             .addAttribute("services", service.findAll());
         return "admin/order";
+    }
+
+    @GetMapping(value = "/placed")
+    public String placedOrders(Model model) {
+        List<Order> orders = orderService.getOrdersByStatus(OrderStatus.NEW);
+        model.addAttribute("orders", orders);
+        return "admin/orders";
     }
 }
