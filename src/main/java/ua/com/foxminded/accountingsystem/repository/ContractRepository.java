@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Order;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -16,4 +17,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
         "SELECT processed FROM Contract as processed join processed.invoices as i " +
         "WHERE i.creationDate = ?2 )")
     List<Contract> findContractsForInvoicesCreation(int payDay, LocalDate today);
+
+    List<Contract> findAllByOrder(Order order);
 }

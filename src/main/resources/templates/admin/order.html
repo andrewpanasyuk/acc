@@ -95,6 +95,14 @@
       </div>
     </div>
   </div>
+  <div class="col-md-6 col-sm-3 col-xs-12">
+    <div th:if="${contracts != null}">
+      <h3>Order history</h3>
+      <ul class="list-group">
+        <li th:each="contract : ${contracts}" th:text="${contract}" class="list-group-item">Order history...</li>
+      </ul>
+    </div>
+  </div>
 </section>
 </body>
 </html>

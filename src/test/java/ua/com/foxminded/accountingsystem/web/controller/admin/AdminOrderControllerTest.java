@@ -56,7 +56,7 @@ public class AdminOrderControllerTest {
     @Before
     public void init() {
         model = new ExtendedModelMap();
-        controller = new AdminOrderController(orderService, clientService, serviceService);
+        controller = new AdminOrderController(orderService, clientService, serviceService, null);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(orderService.findAll()).thenReturn(Arrays.asList(order_1, order_2));
         when(orderService.findOne(1L)).thenReturn(order_1);
