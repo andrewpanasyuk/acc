@@ -3,19 +3,13 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Client;
-import ua.com.foxminded.accountingsystem.model.CloseType;
-import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
-import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
-import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.OrderRepository;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,14 +17,11 @@ public class OrderServiceJPA implements OrderService {
 
     private final OrderRepository orderRepository;
     private final ClientRepository clientRepository;
-    private final ContractRepository contractRepository;
 
     @Autowired
-    public OrderServiceJPA(OrderRepository orderRepository, ClientRepository clientRepository,
-                           ContractRepository contractRepository) {
+    public OrderServiceJPA(OrderRepository orderRepository, ClientRepository clientRepository) {
         this.orderRepository = orderRepository;
         this.clientRepository = clientRepository;
-        this.contractRepository = contractRepository;
     }
 
     @Override
@@ -67,40 +58,5 @@ public class OrderServiceJPA implements OrderService {
     @Override
     public List<Order> findOrdersByStatus(OrderStatus orderStatus) {
         return orderRepository.findOrdersByStatus(orderStatus);
-    }
-
-    public List<String> findHistoryByOrder(Order order){
-
-        List<String> notes = new ArrayList<>();
-        List<Contract> contracts = contractRepository.findAllByOrderOrderByContractDateAsc(order);
-
-        for (Contract contract: contracts){
-
-            String record;
-
-            if (contract.getPaymentType() == PaymentType.TRIAL){
-                record = contract.getContractDate() + " - Начало тестового периода.";
-            }else{
-                record = contract.getContractDate() + " - Старт услуги.";
-            }
-            record+= " Договор #" + contract.getId();
-            notes.add(record);
-
-            if (contract.getCloseType() == CloseType.FROZEN){
-                record = contract.getCloseDate() + " - Заморозка услуги по договору #" + contract.getId();
-                notes.add(record);
-            }
-            else if (contract.getCloseType() == CloseType.CHANGE){
-                record = contract.getCloseDate() + " - Смена ментора по договору #" + contract.getId();
-                notes.add(record);
-            }
-            else if (contract.getCloseType() == CloseType.COMPLETED){
-                record = contract.getCloseDate() + " - Закрыт договор #" + contract.getId();
-                notes.add(record);
-            }
-
-        }
-        Collections.reverse(notes);
-        return notes;
     }
 }
