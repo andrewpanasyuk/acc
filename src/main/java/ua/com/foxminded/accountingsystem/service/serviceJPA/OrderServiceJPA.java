@@ -7,6 +7,7 @@ import ua.com.foxminded.accountingsystem.model.CloseType;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.OrderRepository;
@@ -14,6 +15,7 @@ import ua.com.foxminded.accountingsystem.service.OrderService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -70,25 +72,35 @@ public class OrderServiceJPA implements OrderService {
     public List<String> findHistoryByOrder(Order order){
 
         List<String> notes = new ArrayList<>();
-        List<Contract> contracts = contractRepository.findAllByOrderSortedByContractDate(order);
+        List<Contract> contracts = contractRepository.findAllByOrderOrderByContractDateAsc(order);
 
         for (Contract contract: contracts){
-            String record = contract.getContractDate() + " - Старт услуги";
+
+            String record;
+
+            if (contract.getPaymentType() == PaymentType.TRIAL){
+                record = contract.getContractDate() + " - Начало тестового периода.";
+            }else{
+                record = contract.getContractDate() + " - Старт услуги.";
+            }
+            record+= " Договор #" + contract.getId();
             notes.add(record);
+
             if (contract.getCloseType() == CloseType.FROZEN){
-                record = contract.getCloseDate() + " - Заморозка услуги";
+                record = contract.getCloseDate() + " - Заморозка услуги по договору #" + contract.getId();
                 notes.add(record);
-            }else if (contract.getCloseType() == CloseType.CHANGE){
-                record = contract.getCloseDate() + " - Смена ментора";
+            }
+            else if (contract.getCloseType() == CloseType.CHANGE){
+                record = contract.getCloseDate() + " - Смена ментора по договору #" + contract.getId();
                 notes.add(record);
             }
             else if (contract.getCloseType() == CloseType.COMPLETED){
-                record = contract.getCloseDate() + " - Закрыт договор";
+                record = contract.getCloseDate() + " - Закрыт договор #" + contract.getId();
                 notes.add(record);
             }
 
         }
-
+        Collections.reverse(notes);
         return notes;
     }
 }
