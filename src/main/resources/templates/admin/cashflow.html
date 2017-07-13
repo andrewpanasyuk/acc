@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
+</head>
+<body>
+<section layout:fragment="content">
+        <h3>Cash Flow Statement</h3>
+        <table data-toggle="table" data-class="table table-striped table-hover"
+               data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
+          <thead>
+          <tr>
+            <th>Document</th>
+            <th>Document type</th>
+            <th>Document date</th>
+            <th>Inflow</th>
+            <th>Inflow currency</th>
+            <th>Outflow</th>
+            <th>Outflow currency</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="cashFlowStatement : ${cashFlowStatements}">
+            <td>
+              <p th:text="${cashFlowStatement.documentId}"> </p>
+            </td>
+            <td>
+              <p th:text="${cashFlowStatement.documentType}"></p>
+            </td>
+            <td>
+              <p th:text="${cashFlowStatement.documentDate}"></p>
+            </td>
+            <td>
+              <p th:text="${cashFlowStatement.inflow.price}"></p>
+            </td>
+            <td>
+              <p th:text="${cashFlowStatement.inflow.currency}"></p>
+            </td>
+            <td>
+              <p th:text="${cashFlowStatement.outflow.price}"></p>
+            </td>
+            <td>
+              <p th:text="${cashFlowStatement.outflow.currency}"></p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+</section>
+</body>
+</html>
