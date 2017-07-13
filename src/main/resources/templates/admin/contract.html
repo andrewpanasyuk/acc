@@ -4,6 +4,7 @@
 </head>
 <body>
 <section layout:fragment="content">
+        <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
         <form th:action="@{/admin/contracts}" th:object="${contract}" method="post">
           <input type="hidden" th:field="*{id}" />
           <input type="hidden" th:field="*{order}"/>
@@ -29,8 +30,6 @@
             </output>
           </div>
           <div class="form-group">
-            <label th:for="${#ids.next('openDate')}">Date of opening contract</label>
-            <input type="date" th:field="*{openDate}" class="form-control"/><br/>
             <label th:for="${#ids.next('paymentDate')}">Payment date</label>
             <input type="date" th:field="*{paymentDate}" class="form-control"/><br/>
             <label th:for="${#ids.next('price')}">Price</label>
