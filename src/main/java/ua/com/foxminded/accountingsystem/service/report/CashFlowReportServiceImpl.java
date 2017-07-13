@@ -6,6 +6,7 @@ import ua.com.foxminded.accountingsystem.repository.SalaryRepository;
 import ua.com.foxminded.accountingsystem.service.CashFlowReportService;
 import ua.com.foxminded.accountingsystem.service.dto.CashFlowDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CashFlowReportServiceImpl implements CashFlowReportService {
@@ -22,5 +23,6 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     @Override
     public List<CashFlowDto> makeCashFlowReport() {
 
+        return new ArrayList<>();
     }
 }
