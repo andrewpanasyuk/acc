@@ -34,6 +34,7 @@ public class AdminInvoiceControllerTest {
     private AdminInvoiceController controller;
 
     private MockMvc mockMvc;
+    private Model model;
 
     private static Invoice invoice1;
     private static Invoice invoice2;
@@ -42,15 +43,32 @@ public class AdminInvoiceControllerTest {
     @BeforeClass
     public static void initClass(){
         invoice1 = new Invoice();
+        invoice1.setId(1L);
         invoice2 = new Invoice();
+        invoice2.setId(2L);
         invoices = Arrays.asList(invoice1, invoice2);
     }
 
     @Before
     public void init(){
+        model = new ExtendedModelMap();
         controller = new AdminInvoiceController(invoiceService, contractService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(contractService.prepareIssueInvoices()).thenReturn(invoices);
+        when(invoiceService.findAll()).thenReturn(invoices);
+        when(invoiceService.findById(1L)).thenReturn(invoice1);
+    }
+
+    @Test
+    public void oneInvoiceAddedToModel() {
+        assertThat(controller.getAllInvoices(model), equalTo("admin/invoices"));
+        assertThat(model.asMap(), hasEntry("invoices", invoices));
+    }
+
+    @Test
+    public void invoicesAddedToModel() {
+        assertThat(controller.getInvoiceById(1L, model), equalTo("admin/invoice"));
+        assertThat(model.asMap(), hasEntry("invoice", invoice1));
     }
 
     @Test
