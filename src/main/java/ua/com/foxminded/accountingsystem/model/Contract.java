@@ -54,10 +54,6 @@ public class Contract extends AbstractAuditEntity {
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "open_date")
-    private LocalDate openDate;
-
     @NotNull(message = "It's a required field.")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
@@ -125,14 +121,6 @@ public class Contract extends AbstractAuditEntity {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
-    }
-
-    public LocalDate getOpenDate() {
-        return openDate;
-    }
-
-    public void setOpenDate(LocalDate openDate) {
-        this.openDate = openDate;
     }
 
     public Employee getEmployee() {
