@@ -55,7 +55,7 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
     @Test
     @Commit
     @DataSet(value = "invoices/empty.xml", disableConstraints = true, cleanBefore = true)
-    @ExpectedDataSet(value = "invoices/expected-invoices.xml", ignoreCols = {"id", "contract_id", "closing_description", "close_date", "close_type", "contract_date", "order_id", "price_id", "payment_date", "payment_type", "open_date", "employee_id", "employee_rate_id", "close_date", "created_by", "created_date"})
+    @ExpectedDataSet(value = "invoices/expected-invoices.xml", ignoreCols = {"id", "contract_id", "price_id", "created_by", "created_date"})
     public void invoiceIsAdded() {
         contractRepository.save(contract_1);
         repository.save(invoice_1);
