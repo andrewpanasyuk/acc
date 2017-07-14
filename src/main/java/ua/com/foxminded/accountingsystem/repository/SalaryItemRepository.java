@@ -8,5 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface SalaryItemRepository extends JpaRepository<SalaryItem, Long> {
-    List<SalaryItem> findByAccountedFalseAndDateFromGreaterThanEqualAndDateToLessThanEqual(LocalDate dateFrom, LocalDate dateTo);
+    @Query("select distinct s from SalaryItem s inner join s.invoice i inner join i.payment " +
+        "where s.accounted = false")
+    List<SalaryItem> findNotAccountedWithNotPaidInvoices();
 }

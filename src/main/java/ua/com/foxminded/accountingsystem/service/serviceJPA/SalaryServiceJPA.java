@@ -36,8 +36,7 @@ public class SalaryServiceJPA implements SalaryService {
 
     @Override
     public List<Salary> prepareSalaries(LocalDate dateFrom, LocalDate dateTo) {
-        List<SalaryItem> salaryItems = salaryItemRepository
-            .findByAccountedFalseAndDateFromGreaterThanEqualAndDateToLessThanEqual(dateFrom, dateTo);
+        List<SalaryItem> salaryItems = salaryItemRepository.findNotAccountedWithNotPaidInvoices();
         List<Salary> preparedSalaries = new ArrayList<>();
         HashMap<Employee, Salary> salariesForEmployee = new HashMap<>();
         for(SalaryItem salaryItem: salaryItems){
