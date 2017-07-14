@@ -1,20 +1,9 @@
 INSERT INTO fm_users (username, password, enabled, email, created_by, created_date) VALUES
     ('admin', '$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq', TRUE, 'admin@mail.com', 'system', '2017-07-11'),
     ('user', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'user@mail.com', 'system', '2017-07-11' ),
-    ('megaadmin', '$2a$10$E62tjpReNRsZxmyVs1iwZe8UdQeoM91HkIt6YIIBKHniG3Avg6Kyq', TRUE, 'megaadmin@mail.com', 'system', '2017-07-11' ),
-    ('jack', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'jack@mail.com', 'system', '2017-07-11' ),
-    ('chuck', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'chuck@mail.com', 'system', '2017-07-11' ),
-    ('martin', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'martin@mail.com', 'system', '2017-07-11' ),
-    ('liza', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'liza@mail.com', 'system', '2017-07-11' ),
-    ('bob', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'bob@mail.com', 'system', '2017-07-11' ),
-    ('ivan', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'ivan@mail.com', 'system', '2017-07-11' ),
-    ('josef', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'josef@mail.com', 'system', '2017-07-11' ),
-    ('danilo', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'danilo@mail.com', 'system', '2017-07-11' ),
-    ('greg', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'greg@mail.com', 'system', '2017-07-11' ),
-    ('igor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'igor@mail.com', 'system', '2017-07-11' ),
-    ('lebovskiy', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'lebovskiy@mail.com', 'system', '2017-07-11' ),
-    ('artem', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'artem@mail.com', 'system', '2017-07-11' ),
-    ('mentor', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', TRUE, 'mentor@mail.com', 'system', '2017-07-11' );
+    ('inactiveUser', '$2a$10$DLUI1caX.tFT6u/xCiQzluxo7UvHxYhTivcdU6SyV67Q90qZaJ9Qq', FALSE, 'inactiveuser@mail.com', 'system', '2017-07-11' ),
+    ('superMentor', '2a$10$BvU/7BcF0DBrnpxlN9r4cuyABANhhzbPhCXeWLTOPwcAYXA6jbcYK', TRUE, 'superMentor@mail.com', 'system', '2017-07-11' ),
+    ('mentor', '2a$10$BvU/7BcF0DBrnpxlN9r4cuyABANhhzbPhCXeWLTOPwcAYXA6jbcYK', TRUE, 'mentor@mail.com', 'system', '2017-07-11' );
 
 INSERT INTO user_role (id, role, created_by, created_date) VALUES
     (1, 'ADMIN', 'system', '2017-07-11'),
@@ -24,162 +13,179 @@ INSERT INTO user_role (id, role, created_by, created_date) VALUES
 INSERT INTO fm_users_user_role (username, role_id) VALUES
     ('admin', 1),
     ('admin', 2),
+    ('admin', 3),
     ('user', 2),
-    ('megaadmin', 1),
-    ('megaadmin', 2),
-    ('jack', 2),
-    ('martin', 2),
-    ('chuck', 2),
-    ('bob', 2),
-    ('igor', 2),
-    ('lebovskiy', 2),
-    ('artem', 2),
-    ('danilo', 2),
-    ('greg', 2),
-    ('ivan', 2),
-    ('josef', 2),
-    ('liza', 2),
-    ('mentor', 2);
+    ('inactiveUser', 2),
+    ('superMentor', 3),
+    ('mentor', 3);
 
 INSERT INTO employee (id, first_name, last_name, max_clients, username, created_by, created_date) VALUES
-    (1, 'jack', 'jackson', 10, NULL, 'system', '2017-07-11'),
-    (2, 'rob', 'robinson', 10, NULL, 'system', '2017-07-11'),
-    (3, 'peter', 'peterson', 10, NULL, 'system', '2017-07-11'),
-    (4, 'Evgeniy', 'Smorodskiy', 10, 'mentor', 'system', '2017-07-11');
+    (1, 'Charles', 'Xavier', 20, 'superMentor', 'system', '2017-07-11'),
+    (2, 'James', 'Howlett', 1, NULL, 'system', '2017-07-11'),
+    (3, 'Scott', 'Summers', 3, NULL, 'system', '2017-07-11'),
+    (4, 'Ororo', 'Munroe', 10, 'mentor', 'system', '2017-07-11');
 
 INSERT INTO employee_field (id, name, created_by, created_date) VALUES
     (1, 'skype', 'system', '2017-07-11'),
     (2, 'email', 'system', '2017-07-11');
 
 INSERT INTO employee_field_value (id, employee_id, employee_field_id, value, created_by, created_date) VALUES
-    (1, 1, 1, 'jackSkype', 'system', '2017-07-11'),
+    (1, 1, 1, 'ProfessorX', 'system', '2017-07-11'),
     (2, 1, 2, NULL, 'system', '2017-07-11'),
-    (3, 2, 1, 'robSkype', 'system', '2017-07-11'),
-    (4, 2, 2, 'rob@mail.com', 'system', '2017-07-11'),
-    (5, 3, 1, 'peterSkype', 'system', '2017-07-11'),
-    (6, 3, 2, 'peter@mail.com', 'system', '2017-07-11');
+    (3, 2, 1, 'Wolverine', 'system', '2017-07-11'),
+    (4, 2, 2, 'woolvy@mail.com', 'system', '2017-07-11'),
+    (5, 3, 1, 'Cyclops', 'system', '2017-07-11'),
+    (6, 3, 2, 'cyclops@mail.com', 'system', '2017-07-11'),
+    (7, 4, 1, 'Storm', 'system', '2017-07-11'),
+    (8, 4, 2, 'lightning@mail.com', 'system', '2017-07-11');
 
 INSERT INTO money (id, currency, price) VALUES
-    (1, 'USD', 1000),
-    (2, 'UAH', 2000),
-    (3, 'EUR', 3000),
-    (4, 'USD', 4000),
-    (5, 'UAH', 5000),
-    (6, 'EUR', 6000),
-    (7, 'UAH', 3500),
-    (8, 'UAH', 3500);
+    (1, 'USD', 20),
+    (2, 'EUR', 9999),
+    (3, 'USD', 1500),
+    (4, 'EUR', 3000),
+    (5, 'UAH', 10000),
+    (6, 'USD', 100),
+    (7, 'UAH', 5000),
+    (8, 'EUR', 6000),
+    (9, 'UAH', 1500),
+    (10, 'UAH', 3000),
+    (11, 'UAH', 1500),
+    (12, 'UAH', 3000),
+    (13, 'USD', 120),
+    (14, 'EUR', 105),
+    (15, 'UAH', 6000),
+    (16, 'USD', 240),
+    (17, 'EUR', 210),
+    (18, 'UAH', 3000),
+    (19, 'USD', 120),
+    (20, 'EUR', 105),
+    (21, 'UAH', 6000),
+    (22, 'UAH', 3000),
+    (23, 'USD', 120),
+    (24, 'UAH', 1500),
+    (25, 'EUR', 105),
+    (26, 'UAH', 1500),
+    (27, 'UAH', 1000),
+    (28, 'UAH', 500),
+    (29, 'UAH', 3000),
+    (30, 'UAH', 1500),
+    (31, 'UAH', 333);
 
 INSERT INTO service (id, service_name, description, employee_rate_id, created_by, created_date) VALUES
-    (1, 'java', 'java description', 7, 'system', '2017-07-11'),
-    (2, 'javascript', 'javascript description', 8, 'system', '2017-07-11');
+    (1, 'Mentoring', 'Focuses on the knowledge and needs of clients. Training during free time. No lectures.', 9, 'system', '2017-07-11'),
+    (2, 'Personal Mentor', 'Personal couching with Sergey Nemchinskiy', 10, 'system', '2017-07-11'),
+    (3, 'Group Development', 'Interact with the team;
+Solve conflicts that inevitably arise during teamwork;
+Create a project from scratch.', 11, 'system', '2017-07-11');
 
 INSERT INTO service_prices (service_id, prices_id) VALUES
-    (1, 1),
-    (1, 2),
-    (1, 3),
-    (2, 4),
-    (2, 5),
-    (2, 6);
+    (1, 12),
+    (1, 13),
+    (1, 14),
+    (2, 15),
+    (2, 16),
+    (2, 17),
+    (3, 18),
+    (3, 19),
+    (3, 20);
 
 INSERT INTO personal_account (id) VALUES
     (1),
     (2),
     (3),
     (4),
-    (5);
+    (5),
+    (6);
 
 INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
     (1, 1),
-    (1, 6),
     (2, 2),
-    (3, 3),
-    (3, 7),
-    (3, 8),
-    (4, 4),
-    (5, 5);
+    (2, 3),
+    (2, 5),
+    (3, 4),
+    (4, 6),
+    (4, 7),
+    (5, 8),
+    (6, 31);
 
-INSERT INTO client (id, last_name, first_name, personal_account_id, created_by, created_date) VALUES
-    (1, 'Ivanov', 'Ivan', 1, 'admin', now()),
-    (2, 'Petrov', 'Sergey', null, 'admin', now()),
-    (3, 'Pupkin', 'Adolf', 3, 'admin', now()),
-    (4, 'Selezneva', 'Alisa', 4, 'admin', now()),
-    (5, 'Hatabych', 'Old', 5, 'admin', now()),
-    (6, 'Sidorov', 'Ivan', 5, 'admin', now()),
-    (7, 'Smith', 'Sergey', 4, 'admin', now()),
-    (8, 'Pupkin', 'Adolf', null, 'admin', now()),
-    (9, 'Waylon', 'Dalton', 2, 'admin', now()),
-    (10, 'Ivanov', 'Ivan', 1, 'admin', now()),
-    (11, 'Cruz', 'Marcus', 1, 'admin', now()),
-    (12, 'Shaffer', 'Joanna', 2, 'admin', now());
+INSERT INTO client (id, first_name, last_name, personal_account_id, created_by, created_date) VALUES
+    (1, 'John', 'Allerdyce', 1, 'admin', '2017-07-11'),
+    (2, 'Raven', 'Darkhölme', 2, 'admin', '2017-07-11'),
+    (3, 'Bobby', 'Drake', 3, 'admin', '2017-07-11'),
+    (4, 'Piotr', 'Rasputin', 4, 'admin', '2017-07-11'),
+    (5, 'Kurt', 'Wagner', 5, 'admin', '2017-07-11'),
+    (6, 'Marie', 'Rogue', 6, 'admin', '2017-07-11');
 
 INSERT INTO client_field (id, name, created_by, created_date) VALUES
     (1, 'skype', 'system', '2017-07-11'),
     (2, 'email', 'system', '2017-07-11');
 
 INSERT INTO client_field_value (id, client_id, client_field_id, value, created_by, created_date) VALUES
-    (1, 1, 1, 'ivanSkype', 'system', '2017-07-11'),
-    (2, 1, 2, 'ivan@mail.com', 'system', '2017-07-11'),
-    (3, 2, 1, 'petrovSkype', 'system', '2017-07-11'),
-    (4, 2, 2, 'petrob@mail.com', 'system', '2017-07-11'),
-    (5, 3, 1, 'adolfSkype', 'system', '2017-07-11'),
-    (6, 3, 2, 'adolf@mail.com', 'system', '2017-07-11'),
-    (7, 4, 1, 'alisaSkype', 'system', '2017-07-11'),
-    (8, 4, 2, 'alisa@mail.com', 'system', '2017-07-11'),
-    (9, 5, 1, 'oldSkype', 'system', '2017-07-11'),
+    (1, 1, 1, 'Pyro', 'system', '2017-07-11'),
+    (2, 1, 2, 'fire@mail.com', 'system', '2017-07-11'),
+    (3, 2, 1, 'Mystique', 'system', '2017-07-11'),
+    (4, 2, 2, 'blue@mail.com', 'system', '2017-07-11'),
+    (5, 3, 1, 'Iceman', 'system', '2017-07-11'),
+    (6, 3, 2, 'ice@mail.com', 'system', '2017-07-11'),
+    (7, 4, 1, 'Colossus', 'system', '2017-07-11'),
+    (8, 4, 2, 'iron@mail.com', 'system', '2017-07-11'),
+    (9, 5, 1, 'Nightcrawler', 'system', '2017-07-11'),
     (10, 5, 2, NULL, 'system', '2017-07-11'),
     (11, 6, 1, NULL, 'system', '2017-07-11'),
-    (12, 6, 2, 'sidorov@mail.com', 'system', '2017-07-11'),
-    (13, 7, 1, NULL, 'system', '2017-07-11'),
-    (14, 7, 2, NULL, 'system', '2017-07-11'),
-    (15, 8, 1, NULL, 'system', '2017-07-11'),
-    (16, 8, 2, NULL, 'system', '2017-07-11'),
-    (17, 9, 1, NULL, 'system', '2017-07-11'),
-    (18, 9, 2, NULL, 'system', '2017-07-11'),
-    (19, 10, 1, NULL, 'system', '2017-07-11'),
-    (20, 10, 2, NULL, 'system', '2017-07-11'),
-    (21, 11, 1, NULL, 'system', '2017-07-11'),
-    (22, 11, 2, NULL, 'system', '2017-07-11'),
-    (23, 12, 1, NULL, 'system', '2017-07-11'),
-    (24, 12, 2, NULL, 'system', '2017-07-11');
+    (12, 6, 2, NULL, 'system', '2017-07-11');
+
 
 INSERT INTO orders (id, service_id, status, client_id, open_date, close_date, created_by, created_date) VALUES
-    (1, 1, 'ACTIVE', 1, '2017-01-24', NULL, 'system', '2017-07-11'),
-    (2, 1, 'WAITING', 2, '2017-04-04', NULL, 'system', '2017-07-11'),
-    (3, 2, 'FROZEN', 3, '2016-12-20', NULL, 'system', '2017-07-11'),
-    (4, 1, 'COMPLETED', 4, '2015-11-14', '2016-05-22', 'system', '2017-07-11'),
-    (5, 2, 'ACTIVE', 4, '2016-11-15', NULL, 'system', '2017-07-11'),
-    (6, 2, 'ACTIVE', 5, '2016-11-24', NULL, 'system', '2017-07-11'),
-    (7, 1, 'ACTIVE', 5, '2017-01-01', NULL, 'system', '2017-07-11'),
-    (8, 1, 'WAITING', 1, '2017-02-24', NULL, 'system', '2017-07-11'),
-    (9, 2, 'FROZEN', 1, '2016-10-01', NULL, 'system', '2017-07-11'),
-    (10, 2, 'ACTIVE', 6, '2017-04-01', NULL, 'system', '2017-07-11'),
-    (11, 2, 'ACTIVE', 7, '2017-06-24', NULL, 'system', '2017-07-11'),
-    (12, 2, 'ACTIVE', 9, '2017-06-28', NULL, 'system', '2017-07-11');
+    (1, 3, 'NEW', 4, now() - interval '1 day', NULL, 'system', '2017-07-11'),
+    (2, 1, 'WAITING', 1, now() - interval '3 day', NULL, 'system', '2017-07-11'),
+    (3, 3, 'WAITING', 1, now() - interval '3 day', NULL, 'system', '2017-07-11'),
+    (4, 3, 'WAITING', 3, now() - interval '4 day', NULL, 'system', '2017-07-11'),
+    (5, 2, 'ACTIVE', 2, now() - interval '4 mon', NULL, 'system', '2017-07-11'),
+    (6, 3, 'ACTIVE', 4, now() - interval '3 mon + 10 day', NULL, 'system', '2017-07-11'),
+    (7, 1, 'ACTIVE', 5, now() - interval '35 day', NULL, 'system', '2017-07-11'),
+    (8, 1, 'COMPLETED', 5, now() - interval '7 mon', now() - interval '45 day', 'system', '2017-07-11'),
+    (9, 2, 'FROZEN', 1, now() - interval '20 day', now() - interval '2 day', 'system', '2017-07-11'),
+    (10, 1, 'FROZEN', 6, now() - interval '2 mon + 20 day', now() - interval '1 mon + 2 day', 'system', '2017-07-11'),
+    (11, 3, 'ACTIVE', 6, now() - interval '8 day', NULL, 'system', '2017-07-11');
 
-INSERT INTO contract (id, contract_date, order_id, employee_id, payment_type, price_id, employee_rate_id, payment_date, created_by, created_date)
+
+INSERT INTO contract (id, order_id, contract_date, employee_id, payment_type, price_id, employee_rate_id, payment_date, close_date, close_type, created_by, created_date)
 VALUES
-    (1, '2017-06-01', 1, 1, 'PREPAY', 5, 2, '2017-02-01', 'system', '2017-07-11'),
-    (2, '2017-06-01', 1, 2, 'PREPAY', 5, 2, '2017-03-01', 'system', '2017-07-11'),
-    (3, '2017-06-10', 2, 2, 'PREPAY', 5, 2, '2017-01-01', 'system', '2017-07-11'),
-    (4, '2017-06-15', 5, 3, 'PREPAY', 5, 2, '2015-12-01', 'system', '2017-07-11'),
-    (5, '2017-06-20', 6, 2, 'POSTPAY', 5, 2, '2014-11-21', 'system', '2017-07-11'),
-    (6, '2017-06-25', 11, 1, 'TRIAL', 5, 2, '2017-07-25', 'system', '2017-07-11'),
-    (7, '2017-06-20', 6, 2, 'POSTPAY', 5, 2, '2014-11-13', 'system', '2017-07-11'),
-    (8, '2017-06-25', 11, 1, 'TRIAL', 5, 2, '2017-07-13', 'system', '2017-07-11'),
-    (9, '2017-06-30', 12, 3, 'TRIAL', 5, 2, '2014-07-30', 'system', '2017-07-11');
+    (1, 5, now() - interval '4 mon + 10 day', 1, 'TRIAL', 21, 22, NULL, now() - interval '4 mon + 1 day', 'COMPLETED', 'system', '2017-07-11'),
+    (2, 5, now() - interval '4 mon', 1, 'POSTPAY', 21, 22, now() - interval '3 mon + 1 day', NULL, NULL, 'system', '2017-07-11'),
+    (3, 6, now() - interval '3 mon + 10 day', 4, 'POSTPAY', 23, 24, now() - interval '2 mon + 11 day', NULL, NULL, 'system', '2017-07-11'),
+    (4, 7, now() - interval '1 mon + 4', 3, 'PREPAY', 25, 26, now() - interval '4 day', NULL, NULL, 'system', '2017-07-11'),
+    (5, 10, now() - interval '2 mon + 20 day', 2, 'TRIAL', 27, 28, NULL, now() - interval '2 mon + 11 day', 'COMPLETED', 'system', '2017-07-11'),
+    (6, 10, now() - interval '2 mon + 13 day', 2, 'PREPAY', 27, 28, now() - interval '2 mon + 10 day', now() - interval '1 mon', 'FROZEN', 'system', '2017-07-11'),
+    (7, 11, now() - interval '8 day', 1, 'TRIAL', 29, 30, NULL, NULL, NULL, 'system', '2017-07-11'),
+    (8, 11, now() - interval '1 day', 1, 'PREPAY', 29, 30, now() + interval '2 day', NULL, NULL, 'system', '2017-07-11');
 
-INSERT INTO invoice (id, creation_date, employee_paid, period_from, period_to, contract_id, price_id, created_by, created_date) VALUES
-    (1, '2017-06-01', FALSE, '2017-06-01', '2017-06-30', 1, 1, 'system', '2017-07-11'),
-    (2, '2017-05-01', FALSE, '2017-06-01', '2017-07-10', 2, 2, 'system', '2017-07-11'),
-    (3, '2017-05-01', FALSE, '2017-06-01', '2017-07-01', 3, 3, 'system', '2017-07-11'),
-    (4, '2000-01-01', FALSE, '2000-01-01', '2000-01-01', 4, 4, 'system', '2017-07-11'),
-    (5, '2000-01-01', TRUE, '2017-07-05', '2017-08-04', 5, 5, 'system', '2017-07-11'),
-    (6, '2000-01-01', TRUE, '2017-07-01', '2017-07-10', 6, 6, 'system', '2017-07-11'),
-    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 7, 7, 'system', '2017-07-11');
+INSERT INTO invoice (id, contract_id, price_id, creation_date, employee_paid, period_from, period_to, created_by, created_date) VALUES
+    (1, 2, 21, now() - interval '3 mon + 3 day', FALSE, now() - interval '4 mon', now() - interval '3 mon', 'system', '2017-07-11'),
+    (2, 2, 21, now() - interval '2 mon + 3 day', FALSE, now() - interval '3 mon', now() - interval '2 mon', 'system', '2017-07-11'),
+    (3, 2, 21, now() - interval '1 mon + 3 day', FALSE, now() - interval '2 mon', now() - interval '1 mon', 'system', '2017-07-11'),
+    (4, 2, 21, now() - interval '3 day', FALSE, now() - interval '1 mon', now(), 'system', '2017-07-11'),
+    (5, 3, 23, now() - interval '2 mon + 14 day', FALSE, now() - interval '3 mon + 10 day', now() - interval '2 mon + 11 day', 'system', '2017-07-11'),
+    (6, 3, 23, now() - interval '1 mon + 14 day', FALSE, now() - interval '2 mon + 10 day', now() - interval '1 mon + 11 day', 'system', '2017-07-11'),
+    (7, 3, 23, now() - interval '14 day', FALSE, now() - interval '1 mon + 10 day', now() - interval '11 day', 'system', '2017-07-11'),
+    (8, 4, 25, now() - interval '1 mon + 7 day', FALSE, now() - interval '1 mon + 4 day', now() - interval '5 day', 'system', '2017-07-11'),
+    (9, 6, 27, now() - interval '2 mon + 13 day', FALSE, now() - interval '2 mon + 10 day', now() - interval '1 mon + 10 day', 'system', '2017-07-11'),
+    (10, 6, 27, now() - interval '1 mon + 13 day', FALSE, now() - interval '1 mon + 10 day', now() - interval '10 day', 'system', '2017-07-11'),
+    (11, 8, 29, now() - interval '1 day', FALSE, now() + interval '2 day', now() + interval ' 1 mon 1 day', 'system', '2017-07-11');
 
 INSERT INTO payment (id, invoice_id, date_paid, created_by, created_date) VALUES
-    (1, 7, '2000-01-01', 'system', '2017-07-11'),
-    (2, 6, '2000-01-01', 'system', '2017-07-11');
+    (1, 1, now() - interval '3 mon', 'system', '2017-07-11'),
+    (2, 2, now() - interval '2 mon', 'system', '2017-07-11'),
+    (3, 3, now() - interval '1 mon', 'system', '2017-07-11'),
+    (4, 5, now() - interval '2 mon + 13 day', 'system', '2017-07-11'),
+    (5, 6, now() - interval '1 mon + 12 day', 'system', '2017-07-11'),
+    (6, 7, now() - interval '11 day', 'system', '2017-07-11'),
+    (7, 8, now() - interval '1 mon + 4 day', 'system', '2017-07-11'),
+    (8, 9, now() - interval '2 mon + 11 day', 'system', '2017-07-11'),
+    (9, 10, now() - interval '1 mon + 10 day', 'system', '2017-07-11');
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id, created_by, created_date) VALUES
-    (1, '2017-01-01', 'NORMAL', 1, 'system', '2017-07-11');
+    (1, now() - interval '3 day', 'NORMAL', 2, 'system', '2017-07-11'),
+    (2, now() - interval '3 day', 'NORMAL', 3, 'system', '2017-07-11'),
+    (3, now() - interval '4 day', 'NORMAL', 4, 'system', '2017-07-11');
