@@ -67,7 +67,9 @@ INSERT INTO money (id, currency, price) VALUES
     (25, 'EUR', 105),
     (26, 'UAH', 1500),
     (27, 'UAH', 1000),
-    (28, 'UAH', 500);
+    (28, 'UAH', 500),
+    (29, 'UAH', 3000),
+    (30, 'UAH', 1500);
 
 INSERT INTO service (id, service_name, description, employee_rate_id, created_by, created_date) VALUES
     (1, 'Mentoring', 'Focuses on the knowledge and needs of clients. Training during free time. No lectures.', 9, 'system', '2017-07-11'),
@@ -141,7 +143,8 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, close_date, cr
     (7, 1, 'ACTIVE', 5, now() - interval '35 day', NULL, 'system', '2017-07-11'),
     (8, 1, 'COMPLETED', 5, now() - interval '7 mon', now() - interval '45 day', 'system', '2017-07-11'),
     (9, 2, 'FROZEN', 1, now() - interval '20 day', now() - interval '2 day', 'system', '2017-07-11'),
-    (10, 1, 'FROZEN', 6, now() - interval '2 mon + 20 day', now() - interval '1 mon + 2 day', 'system', '2017-07-11');
+    (10, 1, 'FROZEN', 6, now() - interval '2 mon + 20 day', now() - interval '1 mon + 2 day', 'system', '2017-07-11'),
+    (11, 3, 'ACTIVE', 6, now() - interval '8 day', NULL, 'system', '2017-07-11');
 
 
 INSERT INTO contract (id, order_id, contract_date, employee_id, payment_type, price_id, employee_rate_id, payment_date, close_date, close_type, created_by, created_date)
@@ -151,7 +154,9 @@ VALUES
     (3, 6, now() - interval '3 mon + 10 day', 4, 'POSTPAY', 23, 24, now() - interval '2 mon + 11 day', NULL, NULL, 'system', '2017-07-11'),
     (4, 7, now() - interval '1 mon + 4', 3, 'PREPAY', 25, 26, now() - interval '4 day', NULL, NULL, 'system', '2017-07-11'),
     (5, 10, now() - interval '2 mon + 20 day', 2, 'TRIAL', 27, 28, NULL, now() - interval '2 mon + 11 day', 'COMPLETED', 'system', '2017-07-11'),
-    (6, 10, now() - interval '2 mon + 13 day', 2, 'PREPAY', 27, 28, now() - interval '2 mon + 10 day', now() - interval '1 mon', 'FROZEN', 'system', '2017-07-11');
+    (6, 10, now() - interval '2 mon + 13 day', 2, 'PREPAY', 27, 28, now() - interval '2 mon + 10 day', now() - interval '1 mon', 'FROZEN', 'system', '2017-07-11'),
+    (7, 11, now() - interval '8 day', 1, 'TRIAL', 29, 30, NULL, NULL, NULL, 'system', '2017-07-11'),
+    (8, 11, now() - interval '1 day', 1, 'PREPAY', 29, 30, now() + interval '2 day', NULL, NULL, 'system', '2017-07-11');
 
 INSERT INTO invoice (id, contract_id, price_id, creation_date, employee_paid, period_from, period_to, created_by, created_date) VALUES
     (1, 2, 21, now() - interval '3 mon + 3 day', FALSE, now() - interval '4 mon', now() - interval '3 mon', 'system', '2017-07-11'),
@@ -163,7 +168,8 @@ INSERT INTO invoice (id, contract_id, price_id, creation_date, employee_paid, pe
     (7, 3, 23, now() - interval '14 day', FALSE, now() - interval '1 mon + 10 day', now() - interval '11 day', 'system', '2017-07-11'),
     (8, 4, 25, now() - interval '1 mon + 7 day', FALSE, now() - interval '1 mon + 4 day', now() - interval '5 day', 'system', '2017-07-11'),
     (9, 6, 27, now() - interval '2 mon + 13 day', FALSE, now() - interval '2 mon + 10 day', now() - interval '1 mon + 10 day', 'system', '2017-07-11'),
-    (10, 6, 27, now() - interval '1 mon + 13 day', FALSE, now() - interval '1 mon + 10 day', now() - interval '10 day', 'system', '2017-07-11');
+    (10, 6, 27, now() - interval '1 mon + 13 day', FALSE, now() - interval '1 mon + 10 day', now() - interval '10 day', 'system', '2017-07-11'),
+    (11, 8, 29, now() - interval '1 day', FALSE, now() + interval '2 day', now() + interval ' 1 mon 1 day', 'system', '2017-07-11');
 
 INSERT INTO payment (id, invoice_id, date_paid, created_by, created_date) VALUES
     (1, 1, now() - interval '3 mon', 'system', '2017-07-11'),
