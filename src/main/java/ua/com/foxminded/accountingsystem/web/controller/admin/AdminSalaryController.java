@@ -36,7 +36,7 @@ public class AdminSalaryController {
     public String payrollForDateRange(@RequestParam String dateFrom, @RequestParam String dateTo, Model model) {
         List<Salary> salaries = salaryService.prepareSalaries(
             LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
-        model.addAttribute("salaries", salaries).addAttribute("salary", new Salary());
+        model.addAttribute("salaries", salaries);
         return "admin/payroll";
     }
 
