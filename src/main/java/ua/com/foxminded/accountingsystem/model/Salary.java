@@ -52,7 +52,7 @@ public class Salary implements Serializable {
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "salary_id")
-    private List<SalaryItem> salaryItems;
+    private List<SalaryItem> salaryItems = new ArrayList<>();
 
     @Column(name = "paid")
     private Boolean paid = false;
@@ -120,6 +120,11 @@ public class Salary implements Serializable {
         calculateTotalAmount();
     }
 
+    public void addSalaryItem(SalaryItem salaryItem){
+        salaryItems.add(salaryItem);
+        calculateTotalAmount();
+    }
+
     public Boolean isPaid() {
         return paid;
     }
@@ -130,5 +135,20 @@ public class Salary implements Serializable {
 
     public Money getTotalAmount() {
         return totalAmount;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Salary{" +
+            "id=" + id +
+            ", salaryDate=" + salaryDate +
+            ", dateFrom=" + dateFrom +
+            ", dateTo=" + dateTo +
+            ", employee=" + employee +
+            ", paid=" + paid +
+            ", totalAmount=" + totalAmount +
+            '}';
     }
 }
