@@ -99,7 +99,7 @@
     <div th:if="${!history.empty}">
       <h3>Order history</h3>
       <ul class="list-group">
-        <li class="list-group-item" th:each="record : ${history}" th:text="${record}" >Order history...</li>
+        <li class="list-group-item" th:each="record : ${history}" th:utext="${record}" >Order history...</li>
       </ul>
     </div>
   </div>

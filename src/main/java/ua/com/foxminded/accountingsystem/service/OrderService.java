@@ -20,5 +20,5 @@ public interface OrderService {
 
     List<Order> findOrdersByStatus(OrderStatus orderStatus);
 
-    List<String> findHistoryByOrder(Order order);
+    List<String> getOrderHistory(Order order);
 }
