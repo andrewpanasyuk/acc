@@ -50,8 +50,8 @@ public class SalaryItem implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
 
-    @Column(name = "paid")
-    private Boolean paid = false;
+    @Column(name = "accounted")
+    private Boolean accounted = false;
 
     public Long getId() {
         return id;
@@ -101,12 +101,12 @@ public class SalaryItem implements Serializable {
         this.dateTo = dateTo;
     }
 
-    public Boolean isPaid() {
-        return paid;
+    public Boolean isAccounted() {
+        return accounted;
     }
 
-    public void setPaid(Boolean paid) {
-        this.paid = paid;
+    public void setAccounted(Boolean accounted) {
+        this.accounted = accounted;
     }
 
 }
