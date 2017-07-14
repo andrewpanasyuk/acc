@@ -9,6 +9,7 @@ import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.*;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
@@ -46,26 +47,38 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         service1.setId(50L);
         service1.setName("java test");
         service1.setDescription("bla-bla-bla");
+        service1.setCreatedBy("system");
+        service1.setCreatedDate(LocalDateTime.now());
 
 
         Service service2 = new Service();
         service2.setId(51L);
         service2.setName("javascript test");
         service2.setDescription("something written here");
+        service2.setCreatedBy("system");
+        service2.setCreatedDate(LocalDateTime.now());
 
         Order order1 = new Order();
         order1.setId(50L);
         order1.setService(service1);
+        order1.setCreatedBy("system");
+        order1.setCreatedDate(LocalDateTime.now());
 
         Order order2 = new Order();
         order2.setId(51L);
         order2.setService(service2);
+        order2.setCreatedBy("system");
+        order2.setCreatedDate(LocalDateTime.now());
 
         Employee employee1 = new Employee();
         employee1.setId(50L);
+        employee1.setCreatedBy("system");
+        employee1.setCreatedDate(LocalDateTime.now());
 
         Employee employee2 = new Employee();
         employee2.setId(51L);
+        employee2.setCreatedBy("system");
+        employee2.setCreatedDate(LocalDateTime.now());
 
         contract1 = new Contract();
         contract1.setId(50L);
@@ -75,6 +88,8 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract1.setEmployee(employee1);
         contract1.setEmployeeRate(contractEmployeeRate1);
         contract1.setPrice(price1);
+        contract1.setCreatedBy("system");
+        contract1.setCreatedDate(LocalDateTime.now());
 
         contract2 = new Contract();
         contract2.setId(51L);
@@ -84,6 +99,8 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract2.setEmployee(employee2);
         contract2.setEmployeeRate(contractEmployeeRate2);
         contract2.setPrice(price2);
+        contract2.setCreatedBy("system");
+        contract2.setCreatedDate(LocalDateTime.now());
 
         postpay = new Contract();
         prepay = new Contract();
@@ -91,50 +108,53 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         postpay.setPaymentDate(LocalDate.of(2017, 01, 24));
         postpay.setPaymentType(PaymentType.POSTPAY);
         postpay.setId(2L);
+        postpay.setCreatedBy("system");
+        postpay.setCreatedDate(LocalDateTime.now());
         prepay.setPaymentDate(LocalDate.of(2017, 07, 24));
         prepay.setPaymentType(PaymentType.PREPAY);
         prepay.setId(1L);
+        prepay.setCreatedBy("system");
+        prepay.setCreatedDate(LocalDateTime.now());
         trial.setPaymentDate(LocalDate.of(2017, 12, 24));
         trial.setPaymentType(PaymentType.TRIAL);
         trial.setId(3L);
+        trial.setCreatedBy("system");
+        trial.setCreatedDate(LocalDateTime.now());
     }
 
-    @Ignore
     @Test
     @Commit
     @DataSet(value = "contracts/empty.xml", cleanBefore = true, disableConstraints = true)
-    @ExpectedDataSet("contracts/expected-contracts.xml")
+    @ExpectedDataSet(value = "contracts/created-contract.xml", ignoreCols = {"id", "order_id", "employee_id", "service_id", "employee_rate_id", "price_id", "created_by", "created_date"})
     public void addContractTest() {
         repository.save(contract1);
     }
 
-    @Ignore
     @Test
-    @DataSet(value = "contracts/stored-contracts.xml")
+    @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true)
     public void findAllContractsTest() {
         assertEquals(2, repository.findAll().size());
         assertThat(repository.findAll(), hasItems(contract1, contract2));
     }
 
     @Test
-    @DataSet(value = "contracts/stored-contracts.xml")
+    @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true)
     public void findOneContractByIdTest() {
-        assertEquals(contract1, repository.findOne(50L));
+        assertEquals(contract1, repository.findOne(contract1.getId()));
     }
 
-    @Ignore
     @Test
-    @DataSet(value = "contracts/stored-contracts.xml")
+    @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true)
     public void ifContractNotFoundByIdTest() {
-        assertThat(repository.findOne(10L), nullValue());
+        assertThat(repository.findOne(10500L), nullValue());
     }
 
     @Test
     @Commit
     @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true,  disableConstraints = true)
-    @ExpectedDataSet("contracts/expected-contracts.xml")
+    @ExpectedDataSet(value = "contracts/expected-contracts.xml", ignoreCols = {"id", "order_id", "employee_id", "service_id", "employee_rate_id", "price_id", "created_by", "created_date"})
     public void deleteContractByIdTest() {
-        repository.delete(51L);
+        repository.delete(contract2.getId());
     }
 
     @Test

@@ -4,6 +4,7 @@
 </head>
 <body>
 <section layout:fragment="content">
+        <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
         <form th:action="@{/admin/contracts}" th:object="${contract}" method="post">
           <input type="hidden" th:field="*{id}" />
           <input type="hidden" th:field="*{order}"/>
