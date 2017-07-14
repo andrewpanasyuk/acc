@@ -21,4 +21,6 @@ public interface ContractService {
 
     List<Invoice> prepareIssueInvoices();
 
+    List<Contract> findAllByOrder(Order order);
+
 }

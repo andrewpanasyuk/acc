@@ -96,10 +96,15 @@
     </div>
   </div>
   <div class="col-md-6 col-sm-3 col-xs-12">
-    <div th:if="${!history.empty}">
+    <div th:if="${!contracts.empty}">
       <h3>Order history</h3>
-      <ul class="list-group">
-        <li class="list-group-item" th:each="record : ${history}" th:utext="${record}" >Order history...</li>
+      <ul class="list-group" >
+        <div th:each="contract : ${contracts}" th:remove="tag">
+         <li class="list-group-item" th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).FROZEN}" th:utext="${contract.closeDate} +' - Заморозка услуги'" >Order history...</li>
+         <li class="list-group-item" th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).CHANGE}" th:utext="${contract.closeDate} +' - Смена ментора'" >Order history...</li>
+         <li class="list-group-item" th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}" th:utext="${contract.closeDate} +' - Закрытие договора'" >Order history...</li>
+         <li class="list-group-item" th:utext="${contract.contractDate} +' - Старт договора'" >Order history...</li>
+        </div>
       </ul>
     </div>
   </div>
