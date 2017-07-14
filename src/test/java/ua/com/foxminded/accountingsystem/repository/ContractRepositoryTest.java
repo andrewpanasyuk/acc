@@ -131,20 +131,20 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     }
 
     @Test
-    @DataSet(value = "contracts/stored-contracts.xml")
+    @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true)
     public void findAllContractsTest() {
         assertEquals(2, repository.findAll().size());
         assertThat(repository.findAll(), hasItems(contract1, contract2));
     }
 
     @Test
-    @DataSet(value = "contracts/stored-contracts.xml")
+    @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true)
     public void findOneContractByIdTest() {
         assertEquals(contract1, repository.findOne(contract1.getId()));
     }
 
     @Test
-    @DataSet(value = "contracts/stored-contracts.xml")
+    @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true)
     public void ifContractNotFoundByIdTest() {
         assertThat(repository.findOne(10500L), nullValue());
     }
