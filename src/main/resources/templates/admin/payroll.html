@@ -6,8 +6,8 @@
 <body>
 <section layout:fragment="content">
 
-  <div class="row" id="payroll-form" th:if="${salaries} == null">
-    <div class="col-md-12 col-sm-6 col-xs-12">
+  <div class="row" id="payroll-form">
+    <div class="col-md-10 col-sm-6 col-xs-12">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <i class="icon-calendar"></i>
@@ -19,13 +19,13 @@
               <label class="col-md-2 control-label">Date from</label>
               <div class="col-md-10">
                 <input class="form-control" type="date" name="dateFrom"
-                       th:value="${#temporals.createToday().minusMonths(1).plusDays(1)}"/>
+                       th:value="${dateFrom}"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-md-2 control-label">Date to</label>
               <div class="col-md-10">
-                <input class="form-control" type="date" name="dateTo" th:value="${#temporals.createToday()}"/>
+                <input class="form-control" type="date" name="dateTo" th:value="${dateTo}"/>
               </div>
             </div>
             <button type="submit" class="btn btn-primary pull-right">Calculate salaries</button>
