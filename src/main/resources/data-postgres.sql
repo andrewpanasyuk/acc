@@ -191,8 +191,8 @@ INSERT INTO order_queue (id, queuing_date, priority, order_id, created_by, creat
     (1, '2017-01-01', 'NORMAL', 1, 'system', '2017-07-11');
 
 INSERT INTO salary_item(id, employee_id, invoice_id, employee_payment_id, date_from, date_to, accounted) VALUES
-     (1, 1, 8, 9, '2017-07-01', '2017-07-31', FALSE),
-     (2, 2, 8, 10, '2017-07-11', '2017-07-31', FALSE),
-     (3, 2, 8, 11, '2017-07-01', '2017-07-31', FALSE),
-     (4, 2, 8, 12, '2017-07-11', '2017-07-31', FALSE),
-     (5, 3, 8, 13, '2017-07-01', '2017-07-25', FALSE);
+     (1, 1, 8, 9, current_date-29, current_date, FALSE),
+     (2, 2, 8, 10, current_date-28, current_date-1, FALSE),
+     (3, 2, 8, 11, current_date-20, current_date-2, FALSE),
+     (4, 2, 8, 12, current_date-29, current_date, FALSE),
+     (5, 3, 8, 13, current_date-15, current_date-5, FALSE);
