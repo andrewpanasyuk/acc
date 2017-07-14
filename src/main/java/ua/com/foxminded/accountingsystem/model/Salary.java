@@ -71,6 +71,16 @@ public class Salary implements Serializable {
             .mapToInt(salaryItem -> salaryItem.getEmployeePayment().getPrice()).sum());
     }
 
+    public void addSalaryItem(SalaryItem salaryItem){
+        salaryItems.add(salaryItem);
+        calculateTotalAmount();
+    }
+
+    public void removeSalaryItem(SalaryItem salaryItem){
+        salaryItems.remove(salaryItem);
+        calculateTotalAmount();
+    }
+
     public Long getId() {
         return id;
     }
@@ -117,11 +127,6 @@ public class Salary implements Serializable {
 
     public void setSalaryItems(List<SalaryItem> salaryItems) {
         this.salaryItems = salaryItems;
-        calculateTotalAmount();
-    }
-
-    public void addSalaryItem(SalaryItem salaryItem){
-        salaryItems.add(salaryItem);
         calculateTotalAmount();
     }
 
