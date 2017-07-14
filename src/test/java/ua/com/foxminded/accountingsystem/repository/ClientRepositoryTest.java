@@ -105,13 +105,13 @@ public class ClientRepositoryTest extends AbstractRepositoryTest<ClientRepositor
     }
 
     @Test
-    @DataSet(value = "clients/stored-client.xml")
+    @DataSet(value = "clients/stored-client.xml", cleanBefore = true)
     public void allClientsAreFound(){
         assertThat(repository.findAll(), hasItems(john, jane));
     }
 
     @Test
-    @DataSet(value = "clients/stored-client.xml")
+    @DataSet(value = "clients/stored-client.xml", cleanBefore = true)
     public void clientsCanBeFoundById() {
         assertEquals(repository.findOne(1L), john);
         assertThat(repository.findOne(1L).getExtraFields(), contains(johnEmail));
@@ -122,20 +122,20 @@ public class ClientRepositoryTest extends AbstractRepositoryTest<ClientRepositor
     }
 
     @Test
-    @DataSet(value = "clients/stored-client.xml")
+    @DataSet(value = "clients/stored-client.xml", cleanBefore = true)
     public void ifNoClientFoundReturnNull() {
         assertThat(repository.findOne(236L), nullValue());
     }
 
     @Test
-    @DataSet("clients/empty.xml")
+    @DataSet(value = "clients/empty.xml", cleanBefore = true)
     public void ifNoUsersFoundReturnEmptyList() {
         assertThat(repository.findAll(), Matchers.is(empty()));
     }
 
     @Test
     @Commit
-    @DataSet(value = "clients/stored-client.xml")
+    @DataSet(value = "clients/stored-client.xml", cleanBefore = true)
     @ExpectedDataSet("clients/expected-clients.xml")
     public void shouldDeleteByEntity() {
         repository.delete(jane);
@@ -143,7 +143,7 @@ public class ClientRepositoryTest extends AbstractRepositoryTest<ClientRepositor
 
     @Test
     @Commit
-    @DataSet(value = "clients/stored-client.xml")
+    @DataSet(value = "clients/stored-client.xml", cleanBefore = true)
     @ExpectedDataSet("clients/expected-clients.xml")
     public void shouldDeleteById() {
         repository.delete(jane.getId());
