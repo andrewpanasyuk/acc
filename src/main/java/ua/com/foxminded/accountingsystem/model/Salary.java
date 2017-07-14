@@ -137,8 +137,6 @@ public class Salary implements Serializable {
         return totalAmount;
     }
 
-
-
     @Override
     public String toString() {
         return "Salary{" +
