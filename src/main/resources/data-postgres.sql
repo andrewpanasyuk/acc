@@ -189,3 +189,15 @@ INSERT INTO order_queue (id, queuing_date, priority, order_id, created_by, creat
     (1, now() - interval '3 day', 'NORMAL', 2, 'system', '2017-07-11'),
     (2, now() - interval '3 day', 'NORMAL', 3, 'system', '2017-07-11'),
     (3, now() - interval '4 day', 'NORMAL', 4, 'system', '2017-07-11');
+
+INSERT INTO salary_item(id, employee_id, invoice_id, employee_payment_id, date_from, date_to, accounted) VALUES
+    (1, 1, 1, 22, now() - interval '4 mon', now() - interval '3 mon', FALSE),
+    (2, 1, 2, 22, now() - interval '3 mon', now() - interval '2 mon', FALSE),
+    (3, 1, 3, 22, now() - interval '2 mon', now() - interval '1 mon', FALSE),
+    (4, 1, 4, 22, now() - interval '1 mon', now(), FALSE),
+    (5, 4, 5, 24, now() - interval '3 mon + 10 day', now() - interval '2 mon + 11 day', FALSE),
+    (6, 4, 6, 24, now() - interval '2 mon + 10 day', now() - interval '1 mon + 11 day', FALSE),
+    (7, 4, 7, 24, now() - interval '1 mon + 10 day', now() - interval '11 day', FALSE),
+    (8, 3, 8, 26, now() - interval '1 mon + 4 day', now() - interval '5 day', FALSE),
+    (9, 2, 9, 28, now() - interval '2 mon + 10 day', now() - interval '1 mon + 10 day', FALSE),
+    (10, 2, 10, 28, now() - interval '1 mon + 10 day', now() - interval '10 day', FALSE);
