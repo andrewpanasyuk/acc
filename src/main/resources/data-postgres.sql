@@ -69,12 +69,13 @@ INSERT INTO money (id, currency, price) VALUES
     (27, 'UAH', 1000),
     (28, 'UAH', 500),
     (29, 'UAH', 3000),
-    (30, 'UAH', 1500);
+    (30, 'UAH', 1500),
+    (31, 'UAH', 333);
 
 INSERT INTO service (id, service_name, description, employee_rate_id, created_by, created_date) VALUES
     (1, 'Mentoring', 'Focuses on the knowledge and needs of clients. Training during free time. No lectures.', 9, 'system', '2017-07-11'),
     (2, 'Personal Mentor', 'Personal couching with Sergey Nemchinskiy', 10, 'system', '2017-07-11'),
-    (3, 'Group ', 'Interact with the team;
+    (3, 'Group Development', 'Interact with the team;
 Solve conflicts that inevitably arise during teamwork;
 Create a project from scratch.', 11, 'system', '2017-07-11');
 
@@ -94,7 +95,8 @@ INSERT INTO personal_account (id) VALUES
     (2),
     (3),
     (4),
-    (5);
+    (5),
+    (6);
 
 INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
     (1, 1),
@@ -104,7 +106,8 @@ INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
     (3, 4),
     (4, 6),
     (4, 7),
-    (5, 8);
+    (5, 8),
+    (6, 31);
 
 INSERT INTO client (id, first_name, last_name, personal_account_id, created_by, created_date) VALUES
     (1, 'John', 'Allerdyce', 1, 'admin', '2017-07-11'),
@@ -180,7 +183,7 @@ INSERT INTO payment (id, invoice_id, date_paid, created_by, created_date) VALUES
     (6, 7, now() - interval '11 day', 'system', '2017-07-11'),
     (7, 8, now() - interval '1 mon + 4 day', 'system', '2017-07-11'),
     (8, 9, now() - interval '2 mon + 11 day', 'system', '2017-07-11'),
-    (9, 8, now() - interval '1 mon + 10 day', 'system', '2017-07-11');
+    (9, 10, now() - interval '1 mon + 10 day', 'system', '2017-07-11');
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id, created_by, created_date) VALUES
     (1, now() - interval '3 day', 'NORMAL', 2, 'system', '2017-07-11'),
