@@ -67,7 +67,12 @@ INSERT INTO money (id, currency, price) VALUES
     (5, 'UAH', 5000),
     (6, 'EUR', 6000),
     (7, 'UAH', 3500),
-    (8, 'UAH', 3500);
+    (8, 'UAH', 3500),
+    (9, 'UAH', 1000),
+    (10, 'UAH', 1000),
+    (11, 'UAH', 1500),
+    (12, 'UAH', 1500),
+    (13, 'UAH', 1500);
 
 INSERT INTO service (id, service_name, description, employee_rate_id, created_by, created_date) VALUES
     (1, 'java', 'java description', 7, 'system', '2017-07-11'),
@@ -175,7 +180,8 @@ INSERT INTO invoice (id, creation_date, employee_paid, period_from, period_to, c
     (4, '2000-01-01', FALSE, '2000-01-01', '2000-01-01', 4, 4, 'system', '2017-07-11'),
     (5, '2000-01-01', TRUE, '2017-07-05', '2017-08-04', 5, 5, 'system', '2017-07-11'),
     (6, '2000-01-01', TRUE, '2017-07-01', '2017-07-10', 6, 6, 'system', '2017-07-11'),
-    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 7, 7, 'system', '2017-07-11');
+    (7, '2000-01-01', TRUE, '2000-01-01', '2000-01-01', 7, 7, 'system', '2017-07-11'),
+    (8, '2017-07-01', TRUE, '2017-07-01', '2017-07-31', 1, 6, 'system', '2017-07-11');
 
 INSERT INTO payment (id, invoice_id, date_paid, created_by, created_date) VALUES
     (1, 7, '2000-01-01', 'system', '2017-07-11'),
@@ -183,3 +189,10 @@ INSERT INTO payment (id, invoice_id, date_paid, created_by, created_date) VALUES
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id, created_by, created_date) VALUES
     (1, '2017-01-01', 'NORMAL', 1, 'system', '2017-07-11');
+
+INSERT INTO salary_item(id, employee_id, invoice_id, employee_payment_id, date_from, date_to, accounted) VALUES
+     (1, 1, 8, 9, '2017-07-01', '2017-07-31', FALSE),
+     (2, 2, 8, 10, '2017-07-11', '2017-07-31', FALSE),
+     (3, 2, 8, 11, '2017-07-01', '2017-07-31', FALSE),
+     (4, 2, 8, 12, '2017-07-11', '2017-07-31', FALSE),
+     (5, 3, 8, 13, '2017-07-01', '2017-07-25', FALSE);
