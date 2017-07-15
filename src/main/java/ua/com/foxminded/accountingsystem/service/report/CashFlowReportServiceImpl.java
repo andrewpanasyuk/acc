@@ -27,10 +27,26 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     }
 
     @Override
-    public List<CashFlowDto> makeCashFlowReport() {
+    public List<CashFlowDto> makeCashInflowReport() {
 
         List<Payment> payments =
-            paymentRepository.findPaymentByDatePaidBetween(LocalDate.of(2016,7,30),
+            paymentRepository.findPaymentByDatePaidBetweenOrderByDatePaid(LocalDate.of(2016,7,30),
+                LocalDate.of(2017,7,30));
+
+        List<CashFlowDto> cashFlowReport = new ArrayList<>();
+
+        for(Payment payment : payments) {
+            cashFlowReport.add(new CashFlowDto(payment.getId(), DocumentType.PAYMENT, payment.getDatePaid(), payment.getSum(), null));
+        }
+
+        return cashFlowReport;
+    }
+
+    @Override
+    public List<CashFlowDto> makeCashOutflowReport() {
+
+        List<Payment> payments =
+            paymentRepository.findPaymentByDatePaidBetweenOrderByDatePaid(LocalDate.of(2016,7,30),
                 LocalDate.of(2017,7,30));
 
         List<Salary> salaries =
@@ -57,4 +73,5 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
 
         return cashFlowReport;
     }
+
 }

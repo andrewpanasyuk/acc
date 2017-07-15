@@ -7,44 +7,31 @@ import java.time.LocalDate;
 
 public class CashFlowDto {
 
-    private Long documentId;
-    private DocumentType documentType;
     private LocalDate documentDate;
-    private Money inflow;
-    private Money outflow;
+    private DocumentType documentType;
+    private Long documentId;
+    private Money amount;
 
-    public CashFlowDto(Long documentId, LocalDate documentDate, Money inflow) {
-        this.documentId = documentId;
+    public CashFlowDto(LocalDate documentDate, Long documentId, Money amount) {
         this.documentDate = documentDate;
-        this.inflow = inflow;
-    }
-
-    public CashFlowDto(Long documentId, DocumentType documentType, LocalDate documentDate, Money inflow, Money outflow) {
         this.documentId = documentId;
-        this.documentType = documentType;
-        this.documentDate = documentDate;
-        this.inflow = inflow;
-        this.outflow = outflow;
-    }
-
-    public Long getDocumentId() {
-        return documentId;
-    }
-
-    public DocumentType getDocumentType() {
-        return documentType;
+        this.amount = amount;
     }
 
     public LocalDate getDocumentDate() {
         return documentDate;
     }
 
-    public Money getInflow() {
-        return inflow;
+    public DocumentType getDocumentType() {
+        return documentType;
     }
 
-    public Money getOutflow() {
-        return outflow;
+    public Long getDocumentId() {
+        return documentId;
+    }
+
+    public Money getAmount() {
+        return amount;
     }
 
     @Override
@@ -55,11 +42,10 @@ public class CashFlowDto {
 
         CashFlowDto that = (CashFlowDto) o;
 
-        if (!documentId.equals(that.documentId)) return false;
-        if (documentType != that.documentType) return false;
         if (!documentDate.equals(that.documentDate)) return false;
-        if (inflow != null ? !inflow.equals(that.inflow) : that.inflow != null) return false;
-        return outflow != null ? outflow.equals(that.outflow) : that.outflow == null;
+        if (documentType != that.documentType) return false;
+        if (!documentId.equals(that.documentId)) return false;
+        return amount != null ? amount.equals(that.amount) : that.amount == null;
     }
 
     @Override

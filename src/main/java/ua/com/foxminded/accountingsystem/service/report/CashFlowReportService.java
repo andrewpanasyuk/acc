@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CashFlowReportService {
 
-    List<CashFlowDto> makeCashFlowReport();
+    List<CashFlowDto> makeCashInflowReport();
+    List<CashFlowDto> makeCashOutflowReport();
 }

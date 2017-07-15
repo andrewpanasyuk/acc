@@ -18,7 +18,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 //
 //    List<CashFlowDto> findPaymentByDatePaidBetween(LocalDate beginDate, LocalDate endDate);
 
-    List<Payment> findPaymentByDatePaidBetween(LocalDate beginDate, LocalDate endDate);
+    List<Payment> findPaymentByDatePaidBetweenOrderByDatePaid(LocalDate beginDate, LocalDate endDate);
 
 //    @Query("select new ua.com.foxminded.accountingsystem.service.dto.CashFlowDto"
 //        + "(p.id, p.datePaid, p.sum) "
