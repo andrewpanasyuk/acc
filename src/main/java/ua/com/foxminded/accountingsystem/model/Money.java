@@ -22,8 +22,8 @@ public class Money implements Serializable {
     @SequenceGenerator(name = "money_sequence", sequenceName = "money_sequence", initialValue = 50)
     private long id;
 
-    @Column(name = "price")
-    private int price;
+    @Column(name = "amount")
+    private long amount;
 
     @NotNull
     @Column(name = "currency")
@@ -46,12 +46,12 @@ public class Money implements Serializable {
         this.id = id;
     }
 
-    public int getPrice() {
-        return price;
+    public long getAmount() {
+        return amount;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 
     public Currency getCurrency() {
@@ -70,14 +70,14 @@ public class Money implements Serializable {
         Money money = (Money) o;
 
         if (id != money.id) return false;
-        if (price != money.price) return false;
+        if (amount != money.amount) return false;
         return currency == money.currency;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + price;
+        result = 31 * result + (int) amount;
         result = 31 * result + (currency != null ? currency.hashCode() : 0);
         return result;
     }
@@ -86,7 +86,7 @@ public class Money implements Serializable {
     public String toString() {
         return "Money{" +
             "id=" + id +
-            ", price=" + price +
+            ", amount=" + amount +
             ", currency=" + currency +
             '}';
     }

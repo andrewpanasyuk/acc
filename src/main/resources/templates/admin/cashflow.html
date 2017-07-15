@@ -5,42 +5,42 @@
 </head>
 <body>
 <section layout:fragment="content">
-        <h3>Cash Flow Statement</h3>
+        <h3>Cash Flow Report</h3>
         <table data-toggle="table" data-class="table table-striped table-hover"
                data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
           <thead>
           <tr>
-            <th>Document</th>
-            <th>Document type</th>
             <th>Document date</th>
+            <th>Document type</th>
+            <th>Document</th>
             <th>Inflow</th>
-            <th>Inflow currency</th>
+            <th>Currency</th>
             <th>Outflow</th>
-            <th>Outflow currency</th>
+            <th>Currency</th>
           </tr>
           </thead>
           <tbody>
-          <tr th:each="cashFlowStatement : ${cashFlowStatements}">
+          <tr th:each="cashFlow : ${cashFlowReport}">
             <td>
-              <p th:text="${cashFlowStatement.documentId}"> </p>
+              <p th:text="${cashFlow.documentDate}"></p>
             </td>
             <td>
-              <p th:text="${cashFlowStatement.documentType}"></p>
+              <p th:text="${cashFlow.documentType}"></p>
             </td>
             <td>
-              <p th:text="${cashFlowStatement.documentDate}"></p>
+              <p th:text="${cashFlow.documentId}"> </p>
             </td>
             <td>
-              <p th:text="${cashFlowStatement.inflow.price}"></p>
+              <p th:text="${cashFlow.inflow != null} ? ${cashFlow.inflow.amount} : ' ' "></p>
             </td>
             <td>
-              <p th:text="${cashFlowStatement.inflow.currency}"></p>
+              <p th:text="${cashFlow.inflow != null} ? ${cashFlow.inflow.currency} : ' ' "></p>
             </td>
             <td>
-              <p th:text="${cashFlowStatement.outflow.price}"></p>
+              <p th:text="${cashFlow.outflow != null} ? ${cashFlow.outflow.amount} : ' ' "></p>
             </td>
             <td>
-              <p th:text="${cashFlowStatement.outflow.currency}"></p>
+              <p th:text="${cashFlow.outflow != null} ? ${cashFlow.outflow.currency} : ' ' "></p>
             </td>
           </tr>
           </tbody>

@@ -1,4 +1,4 @@
-package ua.com.foxminded.accountingsystem.service;
+package ua.com.foxminded.accountingsystem.service.report;
 
 import ua.com.foxminded.accountingsystem.service.dto.CashFlowDto;
 

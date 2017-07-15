@@ -13,6 +13,12 @@ public class CashFlowDto {
     private Money inflow;
     private Money outflow;
 
+    public CashFlowDto(Long documentId, LocalDate documentDate, Money inflow) {
+        this.documentId = documentId;
+        this.documentDate = documentDate;
+        this.inflow = inflow;
+    }
+
     public CashFlowDto(Long documentId, DocumentType documentType, LocalDate documentDate, Money inflow, Money outflow) {
         this.documentId = documentId;
         this.documentType = documentType;

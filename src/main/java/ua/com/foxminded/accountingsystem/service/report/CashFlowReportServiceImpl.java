@@ -1,14 +1,20 @@
 package ua.com.foxminded.accountingsystem.service.report;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ua.com.foxminded.accountingsystem.model.DocumentType;
+import ua.com.foxminded.accountingsystem.model.Payment;
+import ua.com.foxminded.accountingsystem.model.Salary;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.repository.SalaryRepository;
-import ua.com.foxminded.accountingsystem.service.CashFlowReportService;
 import ua.com.foxminded.accountingsystem.service.dto.CashFlowDto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+@Service
 public class CashFlowReportServiceImpl implements CashFlowReportService {
 
     private final PaymentRepository paymentRepository;
@@ -23,6 +29,32 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     @Override
     public List<CashFlowDto> makeCashFlowReport() {
 
-        return new ArrayList<>();
+        List<Payment> payments =
+            paymentRepository.findPaymentByDatePaidBetween(LocalDate.of(2016,7,30),
+                LocalDate.of(2017,7,30));
+
+        List<Salary> salaries =
+            salaryRepository.findSalaryBySalaryDateBetween(LocalDate.of(2016,7,30),
+                LocalDate.of(2017,7,30));
+
+        List<CashFlowDto> cashFlowReport = new ArrayList<>();
+
+        for(Payment payment : payments) {
+            cashFlowReport.add(new CashFlowDto(payment.getId(), DocumentType.PAYMENT, payment.getDatePaid(), payment.getSum(), null));
+        }
+
+        for(Salary salary : salaries) {
+            cashFlowReport.add(new CashFlowDto(salary.getId(), DocumentType.SALARY, salary.getSalaryDate(), null, salary.getTotalAmount()));
+        }
+
+        cashFlowReport.sort(new Comparator<CashFlowDto>() {
+            @Override
+            public int compare(CashFlowDto o1, CashFlowDto o2) {
+                return o1.getDocumentDate().compareTo(o2.getDocumentDate());
+            }
+        });
+
+
+        return cashFlowReport;
     }
 }

@@ -28,19 +28,19 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
 
         Money contractEmployeeRate1 = new Money();
         contractEmployeeRate1.setCurrency(Currency.UAH);
-        contractEmployeeRate1.setPrice(1500);
+        contractEmployeeRate1.setAmount(1500);
 
         Money contractEmployeeRate2 = new Money();
         contractEmployeeRate2.setCurrency(Currency.UAH);
-        contractEmployeeRate2.setPrice(1500);
+        contractEmployeeRate2.setAmount(1500);
 
         Money price1 = new Money();
         price1.setCurrency(Currency.UAH);
-        price1.setPrice(3000);
+        price1.setAmount(3000);
 
         Money price2 = new Money();
         price2.setCurrency(Currency.UAH);
-        price2.setPrice(3000);
+        price2.setAmount(3000);
 
         Service service1 = new Service();
         service1.setId(50L);

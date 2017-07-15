@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
+import ua.com.foxminded.accountingsystem.service.dto.CashFlowDto;
+import ua.com.foxminded.accountingsystem.service.report.CashFlowReportService;
 
 import java.util.List;
 
@@ -17,33 +19,19 @@ import java.util.List;
 @RequestMapping("/admin/cashflow")
 public class AdminCashFlowController {
 
-    private final OrderQueueService orderQueueService;
-    private final OrderService orderService;
+    private CashFlowReportService cashFlowReportService;
 
     @Autowired
-    public AdminCashFlowController(OrderQueueService orderQueueService, OrderService orderService) {
-        this.orderQueueService = orderQueueService;
-        this.orderService = orderService;
+    public AdminCashFlowController(CashFlowReportService cashFlowReportService) {
+        this.cashFlowReportService = cashFlowReportService;
     }
 
     @GetMapping
-    public String getQueues(Model model) {
-        List<OrderQueue> queues = orderQueueService.findAll();
+    public String getCashFlow(Model model) {
+        List<CashFlowDto> cashFlowReport = cashFlowReportService.makeCashFlowReport();
         model
-            .addAttribute("title", "Queue")
-            .addAttribute("queues", queues);
-        return "admin/queues";
-    }
-
-    @GetMapping(value = "/{id}")
-    public  String getQueue(@PathVariable long id){
-        orderQueueService.delete(orderQueueService.findOne(id));
-        return "redirect:/admin/queues";
-    }
-
-    @GetMapping(value = "/new")
-    public String addOrder(@RequestParam long orderId) {
-        orderQueueService.createQueueByOrderId(orderId);
-        return "redirect:/admin/queues";
+            .addAttribute("title", "Cash Flow Report")
+            .addAttribute("cashFlowReport", cashFlowReport);
+        return "admin/cashflow";
     }
 }
