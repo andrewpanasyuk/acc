@@ -98,16 +98,31 @@
   <div class="col-md-6 col-sm-3 col-xs-12">
     <div th:if="${!contracts.empty}">
       <h3>Order history</h3>
-      <ul class="list-group" >
+      <ul id="history-list" class="list-group" >
         <div th:each="contract : ${contracts}" th:remove="tag">
-         <li class="list-group-item" th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).FROZEN}" th:utext="${contract.closeDate} +' - Заморозка услуги'" >Order history...</li>
-         <li class="list-group-item" th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).CHANGE}" th:utext="${contract.closeDate} +' - Смена ментора'" >Order history...</li>
-         <li class="list-group-item" th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}" th:utext="${contract.closeDate} +' - Закрытие договора'" >Order history...</li>
-         <li class="list-group-item" th:utext="${contract.contractDate} +' - Старт договора'" >Order history...</li>
+          <li class="list-group-item"
+              th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).FROZEN}">
+            <a th:href="@{/admin/contracts/{id}(id=${contract.id})}" th:text="${contract.closeDate} +' - Заморозка услуги'"></a>
+          </li>
+          <li class="list-group-item"
+              th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).CHANGE}">
+            <a th:href="@{/admin/contracts/{id}(id=${contract.id})}" th:text="${contract.closeDate} +' - Смена ментора'"></a>
+          </li>
+          <li class="list-group-item"
+              th:if="${contract.closeType != null AND contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}">
+            <a th:href="@{/admin/contracts/{id}(id=${contract.id})}" th:text="${contract.closeDate} + ' - Договор закончен'"></a>
+          </li>
+          <li class="list-group-item">
+            <a th:href="@{/admin/contracts/{id}(id=${contract.id})}" th:text="${contract.contractDate} +' - Старт договора'"></a>
+          </li>
         </div>
+        <li class="list-group-item">
+            <a th:href="@{/admin/services/{id}(id=${order.service.id})}" th:text="${order.openDate} +' - Подана заявка на услугу (' + ${order.service.name} +')'"></a>
+        </li>
       </ul>
     </div>
   </div>
+
 </section>
 </body>
 </html>

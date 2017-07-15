@@ -18,6 +18,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
         "WHERE i.creationDate = ?2 )")
     List<Contract> findContractsForInvoicesCreation(int payDay, LocalDate today);
 
-    @Query("SELECT c FROM Contract as c WHERE c.order = ?1 ORDER BY c.contractDate ASC")
+    @Query("SELECT c FROM Contract as c WHERE c.order = ?1 ORDER BY c.contractDate DESC ")
     List<Contract> findAllByOrderOrderByContractDateAsc(Order order);
 }
