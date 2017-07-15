@@ -8,5 +8,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface SalaryItemRepository extends JpaRepository<SalaryItem, Long> {
-    List<SalaryItem> findByInvoice_PaymentIdNotNullAndAccountedIsFalseAndDateToLessThan(LocalDate dateTo);
+    List<SalaryItem> findByInvoice_PaymentNotNullAndAccountedFalseAndDateToLessThan(LocalDate dateTo);
 }
