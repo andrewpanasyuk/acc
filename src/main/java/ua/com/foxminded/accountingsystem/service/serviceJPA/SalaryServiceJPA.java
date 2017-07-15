@@ -28,7 +28,7 @@ public class SalaryServiceJPA implements SalaryService {
 
     @Autowired
     public SalaryServiceJPA(SalaryRepository salaryRepository, SalaryItemRepository salaryItemRepository,
-                            EmployeeRepository employeeRepository){
+                            EmployeeRepository employeeRepository) {
         this.salaryRepository = salaryRepository;
         this.salaryItemRepository = salaryItemRepository;
         this.employeeRepository = employeeRepository;
@@ -36,11 +36,12 @@ public class SalaryServiceJPA implements SalaryService {
 
     @Override
     public List<Salary> prepareSalaries(LocalDate dateFrom, LocalDate dateTo) {
-        List<SalaryItem> salaryItems = salaryItemRepository.findNotAccountedWithNotPaidInvoices();
+        List<SalaryItem> salaryItems = salaryItemRepository
+            .findByInvoice_PaymentIdNotNullAndAccountedIsFalseAndDateToLessThan(dateTo);
         List<Salary> preparedSalaries = new ArrayList<>();
         HashMap<Employee, Salary> salariesForEmployee = new HashMap<>();
-        for(SalaryItem salaryItem: salaryItems){
-            if(!salariesForEmployee.containsKey(salaryItem.getEmployee())){
+        for (SalaryItem salaryItem : salaryItems) {
+            if (!salariesForEmployee.containsKey(salaryItem.getEmployee())) {
                 Salary salary = new Salary();
                 salary.setSalaryDate(LocalDate.now());
                 salary.setDateFrom(dateFrom);
@@ -50,9 +51,7 @@ public class SalaryServiceJPA implements SalaryService {
 
                 salariesForEmployee.put(salaryItem.getEmployee(), salary);
                 preparedSalaries.add(salary);
-            }
-
-            else{
+            } else {
                 salariesForEmployee.get(salaryItem.getEmployee()).addSalaryItem(salaryItem);
             }
         }
@@ -62,7 +61,7 @@ public class SalaryServiceJPA implements SalaryService {
     @Override
     public Salary create(Salary salary) {
         List<SalaryItem> salaryItems = new ArrayList<>();
-        for(SalaryItem salaryItem: salary.getSalaryItems()){
+        for (SalaryItem salaryItem : salary.getSalaryItems()) {
             SalaryItem accountedSalaryItem = salaryItemRepository.getOne(salaryItem.getId());
             accountedSalaryItem.setAccounted(true);
             salaryItems.add(accountedSalaryItem);
