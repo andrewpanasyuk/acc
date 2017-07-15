@@ -29,8 +29,8 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     @Override
     public List<CashFlowDto> makeCashInflowReport() {
 
-        return paymentRepository.findAllPaymentsByDatePaidBetween(LocalDate.of(2016,7,30),
-            LocalDate.of(2017,7,30));
+        return paymentRepository.findAllPaymentsByDatePaidBetween(LocalDate.of(2017,01,30),
+            LocalDate.of(2017,07,30));
     }
 
     @Override
