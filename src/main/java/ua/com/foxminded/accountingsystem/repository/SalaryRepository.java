@@ -10,5 +10,5 @@ public interface SalaryRepository extends JpaRepository<Salary, Long> {
 
     List<Salary> findSalaryBySalaryDateBetweenOrderBySalaryDate(LocalDate beginDate, LocalDate endDate);
 
-    List<Salary> findSalaryBySalaryDateBetween
+//    List<Salary> findSalaryBySalaryDateBetween
 }
