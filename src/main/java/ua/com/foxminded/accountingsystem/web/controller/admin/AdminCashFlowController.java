@@ -28,10 +28,11 @@ public class AdminCashFlowController {
 
     @GetMapping
     public String getCashFlow(Model model) {
-        List<CashFlowDto> cashFlowReport = cashFlowReportService.makeCashFlowReport();
+        List<CashFlowDto> cashInflowReport = cashFlowReportService.makeCashInflowReport();
         model
             .addAttribute("title", "Cash Flow Report")
-            .addAttribute("cashFlowReport", cashFlowReport);
+            .addAttribute("cashInflowReport", cashInflowReport)
+            .addAttribute("cashOutflowReport", cashInflowReport);
         return "admin/cashflow";
     }
 }

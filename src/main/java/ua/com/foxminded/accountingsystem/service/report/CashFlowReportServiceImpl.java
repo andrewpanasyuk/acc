@@ -29,46 +29,14 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     @Override
     public List<CashFlowDto> makeCashInflowReport() {
 
-        List<Payment> payments =
-            paymentRepository.findPaymentByDatePaidBetweenOrderByDatePaid(LocalDate.of(2016,7,30),
-                LocalDate.of(2017,7,30));
-
-        List<CashFlowDto> cashFlowReport = new ArrayList<>();
-
-        for(Payment payment : payments) {
-            cashFlowReport.add(new CashFlowDto(payment.getId(), DocumentType.PAYMENT, payment.getDatePaid(), payment.getSum(), null));
-        }
-
-        return cashFlowReport;
+        return paymentRepository.findAllPaymentsByDatePaidBetween(LocalDate.of(2016,7,30),
+            LocalDate.of(2017,7,30));
     }
 
     @Override
     public List<CashFlowDto> makeCashOutflowReport() {
 
-        List<Payment> payments =
-            paymentRepository.findPaymentByDatePaidBetweenOrderByDatePaid(LocalDate.of(2016,7,30),
-                LocalDate.of(2017,7,30));
-
-        List<Salary> salaries =
-            salaryRepository.findSalaryBySalaryDateBetween(LocalDate.of(2016,7,30),
-                LocalDate.of(2017,7,30));
-
         List<CashFlowDto> cashFlowReport = new ArrayList<>();
-
-        for(Payment payment : payments) {
-            cashFlowReport.add(new CashFlowDto(payment.getId(), DocumentType.PAYMENT, payment.getDatePaid(), payment.getSum(), null));
-        }
-
-        for(Salary salary : salaries) {
-            cashFlowReport.add(new CashFlowDto(salary.getId(), DocumentType.SALARY, salary.getSalaryDate(), null, salary.getTotalAmount()));
-        }
-
-        cashFlowReport.sort(new Comparator<CashFlowDto>() {
-            @Override
-            public int compare(CashFlowDto o1, CashFlowDto o2) {
-                return o1.getDocumentDate().compareTo(o2.getDocumentDate());
-            }
-        });
 
 
         return cashFlowReport;
