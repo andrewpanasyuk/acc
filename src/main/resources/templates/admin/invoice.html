@@ -90,12 +90,10 @@
           <label>Payment</label>
         </div>
         <div class="col-sm-7">
-      <span th:if="${invoice.payment != null}"
+        <span th:if="${invoice.payment != null}"
             th:text="${invoice.payment.sum.price} + ' ' + ${invoice.payment.sum.currency}"></span>
-          <button th:if="${invoice.payment == null}" type="button" class="btn btn-primary" data-toggle="modal"
-                  data-target="#myModal">
-            Add
-          </button>
+        <button th:if="${invoice.payment == null}" type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#myModal">Add</button>
         </div>
       </div>
     </form>
