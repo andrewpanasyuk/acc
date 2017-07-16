@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Invoice;
@@ -13,6 +14,7 @@ import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -50,7 +52,13 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
+    @Transactional
     public Contract save(Contract contract) {
+        if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
+            Order order = contract.getOrder();
+            order.setStatus(OrderStatus.ACTIVE);
+            orderService.save(order);
+        }
         return contractRepository.save(contract);
     }
 
@@ -74,8 +82,10 @@ public class ContractServiceJPA implements ContractService {
         }
         price.setCurrency(Currency.UAH);
 
+        contract.setPaymentType(PaymentType.PREPAY);
         contract.setOrder(order);
         contract.setContractDate(LocalDate.now());
+        contract.setPaymentDate(LocalDate.now());
         contract.setEmployeeRate(employeeRate);
         contract.setPrice(price);
 

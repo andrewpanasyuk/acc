@@ -5,7 +5,7 @@
 <body>
 <section layout:fragment="content">
         <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
-        <form th:action="@{/admin/contracts}" th:object="${contract}" method="post">
+        <form id="saveContract" class="form-horizontal" th:action="@{/admin/contracts}" th:object="${contract}" method="post">
           <input type="hidden" th:field="*{id}" />
           <input type="hidden" th:field="*{order}"/>
           <div class="form-group">
@@ -75,7 +75,7 @@
             <input type="hidden" th:field="*{employeeRate.id}"/>
             <input type="hidden" th:field="*{employeeRate.currency}"/>
           </div>
-          <div class="form-group">
+          <div class="form-group" th:if="!${contract.id == null}">
             <label th:for="${#ids.next('closeDate')}">Date of closing contract</label>
             <input type="date" th:field="*{closeDate}" class="form-control"/><br/>
             <label th:for="${#ids.next('closeType')}">Close type</label>
@@ -86,12 +86,22 @@
                       th:text="${closeTypeValue}"/>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">Save</button>
         </form>
-        <form th:action="@{/admin/contracts/{id}(id=${contract.id})}" th:method="delete">
-          <button type="submit" class="btn btn-danger">Delete</button>
+        <form id="deleteContract" th:action="@{/admin/contracts/{id}(id=${contract.id})}" th:method="delete">
         </form>
-        <a th:href="@{/admin/contracts}" class="btn btn-primary" >Exit</a>
+        <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group" th:if="!${contract.id == null}">
+          <button type="submit" class="btn btn-danger btn" onclick="$('#deleteContract').submit()">Delete</button>
+        </div>
+        <div class="pull-right col-md-6 col-sm-3 col-xs-12">
+          <div class="btn-group btn-group-justified" role="group">
+            <div class="btn-group" role="group">
+              <a th:href="@{/admin/contracts}" class="btn btn-default">Cancel</a>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="submit" class="btn btn-primary" onclick="$('#saveContract').submit()">Save</button>
+            </div>
+          </div>
+        </div>
 </section>
 </body>
 </html>
