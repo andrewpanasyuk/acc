@@ -114,10 +114,12 @@
           <li class="list-group-item"
               th:if="${contract.closeType != null and contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}">
             <span th:text="${contract.closeDate} +' - Закрытие '"></span>
+            <span th:if="${contract.paymentType == T(ua.com.foxminded.accountingsystem.model.PaymentType).TRIAL}" th:text="тестового "></span>
             <a th:href="@{/admin/contracts/{id}(id=${contract.id})}">договора</a>
           </li>
           <li class="list-group-item">
             <span th:text="${contract.contractDate} +' - Старт '"></span>
+            <span th:if="${contract.paymentType == T(ua.com.foxminded.accountingsystem.model.PaymentType).TRIAL}" th:text="тестового "></span>
             <a th:href="@{/admin/contracts/{id}(id=${contract.id})}">договора</a>
           </li>
         </div>
