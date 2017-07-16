@@ -19,4 +19,5 @@ public interface OrderService {
     List<Order> findAll();
 
     List<Order> findOrdersByStatus(OrderStatus orderStatus);
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
+import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
@@ -26,12 +27,15 @@ public class AdminOrderController {
     private final OrderService orderService;
     private final ClientService clientService;
     private final ServiceService service;
+    private final ContractService contractService;
 
     @Autowired
-    public AdminOrderController(OrderService orderService, ClientService clientService, ServiceService service) {
+    public AdminOrderController(OrderService orderService, ClientService clientService,
+                                ServiceService service, ContractService contractService) {
         this.orderService = orderService;
         this.clientService = clientService;
         this.service = service;
+        this.contractService = contractService;
     }
 
     @PostMapping
@@ -58,7 +62,8 @@ public class AdminOrderController {
         Order order = orderService.findOne(id);
         model.addAttribute("order", order)
             .addAttribute("title", "Order: " + order.getId())
-            .addAttribute("services", service.findAll());
+            .addAttribute("services", service.findAll())
+            .addAttribute("contracts", contractService.findAllByOrder(order));
         return "admin/order";
     }
 

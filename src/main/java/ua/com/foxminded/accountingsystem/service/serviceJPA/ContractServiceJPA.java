@@ -115,6 +115,11 @@ public class ContractServiceJPA implements ContractService {
         }
         return invoices;
     }
+
+    @Override
+    public List<Contract> findAllByOrder(Order order) {
+        return contractRepository.findAllByOrderOrderByContractDateDesc(order);
+    }
 }
 
 
