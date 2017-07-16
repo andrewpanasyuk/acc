@@ -36,7 +36,7 @@ public class ContractServiceJPA implements ContractService {
         this.orderService = orderService;
     }
 
-    private boolean isContractNewAndPresent(Contract contract){
+    private boolean isContractNewAndNotInAdvance(Contract contract){
         return contract.getId() == null && contract.getContractDate().isEqual(LocalDate.now()) || contract.getContractDate().isBefore(LocalDate.now());
     }
 
@@ -58,7 +58,7 @@ public class ContractServiceJPA implements ContractService {
     @Override
     @Transactional
     public Contract save(Contract contract) {
-        if (isContractNewAndPresent(contract)){
+        if (isContractNewAndNotInAdvance(contract)){
             Order order = contract.getOrder();
             order.setStatus(OrderStatus.ACTIVE);
             orderService.save(order);
