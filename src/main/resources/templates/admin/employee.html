@@ -1,109 +1,111 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="admin/mainTemplate">
 <head>
-  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
 </head>
 <body>
 <section layout:fragment="content">
-        <h3>Employee info:</h3>
-        <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
-        <form id="saveEmployee" class="form-horizontal" th:object="${employee}"
-              th:action="@{/admin/employees/{id}(id=${employee.id})}" th:method="put">
-          <div class="form-group">
-            <input type="hidden" th:value="${employee.id}" id="id"/>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="firstName">First name : </label>
-            </div>
-            <div class="col-sm-10">
-              <input th:field="*{firstName}" th:value="${employee.firstName}" name="firstName" id="firstName"
-                     type="text" class="form-control"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="lastName">Last name : </label>
-            </div>
-            <div class="col-sm-10">
-              <input th:field="*{lastName}" th:value="${employee.lastName}" name="lastName" id="lastName" type="text"
-                     class="form-control"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2">
-              <label for="maxClients">Max clients : </label>
-            </div>
-            <div class="col-sm-10">
-              <input required="required" th:field="*{maxClients}" name="maxClients" th:value="${employee.maxClients}"
-                     id="maxClients" type="text" class="form-control"/>
-            </div>
-          </div>
-          <br/>
-          <h4>Extra fields:</h4>
-          <br/>
-          <div class="form-group" name="extraFields" th:each="extraField, iterItem : *{extraFields}">
-            <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].id}"/>
-            <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employee}"/>
-            <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employeeField}"/>
-            <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employeeField.id}"/>
-            <div class="col-sm-2">
-              <label th:text="${extraField.employeeField.name}"></label>
-            </div>
-            <div class="col-sm-10">
-              <input th:field="*{extraFields[__${iterItem.index}__].value}" th:value="${extraField.value}"
-                     name="value" type="text" class="form-control"/>
-            </div>
-          </div>
-        </form>
-        <form id="deleteEmployee" class="form-horizontal" th:action="@{/admin/employees/{id}(id=${employee.id})}"
-              th:method="delete">
-        </form>
-        <div class="btn-group col-md-8 col-sm-6 col-xs-4" role="group">
-          <button type="submit" class="btn btn-danger btn" onclick="$('#deleteEmployee').submit()">Delete</button>
+  <h3>Employee info:</h3>
+  <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
+  <form id="saveEmployee" class="form-horizontal" th:object="${employee}"
+        th:action="@{/admin/employees/{id}(id=${employee.id})}" th:method="put">
+    <div class="form-group">
+      <input type="hidden" th:value="${employee.id}" id="id"/>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="firstName">First name : </label>
+      </div>
+      <div class="col-sm-10">
+        <input th:field="*{firstName}" th:value="${employee.firstName}" name="firstName" id="firstName"
+               type="text" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="lastName">Last name : </label>
+      </div>
+      <div class="col-sm-10">
+        <input th:field="*{lastName}" th:value="${employee.lastName}" name="lastName" id="lastName" type="text"
+               class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="maxClients">Max clients : </label>
+      </div>
+      <div class="col-sm-10">
+        <input required="required" th:field="*{maxClients}" name="maxClients" th:value="${employee.maxClients}"
+               id="maxClients" type="text" class="form-control"/>
+      </div>
+    </div>
+    <br/>
+    <h4>Extra fields:</h4>
+    <br/>
+    <div class="form-group" name="extraFields" th:each="extraField, iterItem : *{extraFields}">
+      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].id}"/>
+      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employee}"/>
+      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employeeField}"/>
+      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].employeeField.id}"/>
+      <div class="col-sm-2">
+        <label th:text="${extraField.employeeField.name}"></label>
+      </div>
+      <div class="col-sm-10">
+        <input th:field="*{extraFields[__${iterItem.index}__].value}" th:value="${extraField.value}"
+               name="value" type="text" class="form-control"/>
+      </div>
+    </div>
+  </form>
+  <form id="deleteEmployee" class="form-horizontal" th:action="@{/admin/employees/{id}(id=${employee.id})}"
+        th:method="delete">
+  </form>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="btn-group col-md-8 col-sm-6 col-xs-4" role="group">
+      <button type="submit" class="btn btn-danger btn" onclick="$('#deleteEmployee').submit()">Delete</button>
+    </div>
+    <div class="pull-right col-md-4 col-sm-6 col-xs-8">
+      <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+          <a th:href="@{/admin/employees}" class="btn btn-default">Go back</a>
         </div>
-        <div class="pull-right col-md-4 col-sm-6 col-xs-8">
-          <div class="btn-group btn-group-justified" role="group">
-            <div class="btn-group" role="group">
-              <a th:href="@{/admin/employees}" class="btn btn-default">Go back</a>
-            </div>
-            <div class="btn-group" role="group">
-              <button type="submit" class="btn btn-primary" onclick="$('#saveEmployee').submit()">Save</button>
-            </div>
-          </div>
+        <div class="btn-group" role="group">
+          <button type="submit" class="btn btn-primary" onclick="$('#saveEmployee').submit()">Save</button>
         </div>
-        <br/>
-        <br/>
-        <h3>Active students:</h3>
-        <br/>
-        <form id="showStudents" class="form-horizontal">
-          <div class="display-grid">
-            <table data-toggle="table">
-              <thead>
-              <tr>
-                <th>Name</th>
-                <th>Order</th>
-                <th>Type of payment</th>
-              </tr>
-              </thead>
-              <tbody>
-                <tr th:each="client : ${relatedActiveClients}">
-                  <td>
-                    <a th:href="@{'/admin/clients/'+${client.clientId}}">
-                      <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
-                    </a>
-                  </td>
-                  <td>
-                    <a th:href="@{'/admin/orders/'+${client.orderId}}">
-                      <span th:text="${client.orderId}"></span>
-                    </a>
-                  </td>
-                  <td th:text="${client.contractPaymentType}"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <h3>Active students:</h3>
+  <br/>
+  <form id="showStudents" class="form-horizontal">
+    <div class="display-grid">
+      <table data-toggle="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Order</th>
+          <th>Type of payment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="client : ${relatedActiveClients}">
+          <td>
+            <a th:href="@{'/admin/clients/'+${client.clientId}}">
+              <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
+            </a>
+          </td>
+          <td>
+            <a th:href="@{'/admin/orders/'+${client.orderId}}">
+              <span th:text="${client.orderId}"></span>
+            </a>
+          </td>
+          <td th:text="${client.contractPaymentType}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
 </section>
 </body>
 </html>

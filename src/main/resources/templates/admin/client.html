@@ -53,28 +53,29 @@
   <form id="deleteClient" class="form-horizontal" th:action="@{/admin/clients/{id}(id=${client.id})}"
         th:method="delete">
   </form>
-  <div class="btn-group col-md-8 col-sm-6 col-xs-4" role="group">
-    <button type="submit" class="btn btn-danger btn" onclick="$('#deleteClient').submit()">Delete</button>
-  </div>
-  <div class="pull-right col-md-4 col-sm-6 col-xs-8">
-    <div class="btn-group btn-group-justified" role="group">
-      <div class="btn-group" role="group">
-        <a th:href="@{/admin/orders/create?clientId={id} (id=${client.id})}" class="btn btn-primary">New Order</a>
-      </div>
-      <div class="btn-group" role="group">
-        <a th:href="@{/admin/clients}" class="btn btn-default">Go back</a>
-      </div>
-      <div class="btn-group" role="group">
-        <button type="submit" class="btn btn-primary" onclick="$('#saveClient').submit()">Save</button>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="btn-group col-md-8 col-sm-6 col-xs-4" role="group">
+      <button type="submit" class="btn btn-danger btn" onclick="$('#deleteClient').submit()">Delete</button>
+    </div>
+    <div class="pull-right col-md-4 col-sm-6 col-xs-8">
+      <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+          <a th:href="@{/admin/orders/create?clientId={id} (id=${client.id})}" class="btn btn-primary">New Order</a>
+        </div>
+        <div class="btn-group" role="group">
+          <a th:href="@{/admin/clients}" class="btn btn-default">Go back</a>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="submit" class="btn btn-primary" onclick="$('#saveClient').submit()">Save</button>
+        </div>
       </div>
     </div>
   </div>
-
   <br/>
   <br/>
 
-    <form th:object="${client}">
-      <div class="display-grid">
+  <form th:object="${client}">
+    <div class="display-grid">
       <label>Orders:</label>
       <table data-toggle="table">
         <thead>
@@ -101,8 +102,8 @@
         </tr>
         </tbody>
       </table>
-      </div>
-    </form>
+    </div>
+  </form>
 
   <br/>
   <div class="display-grid">
