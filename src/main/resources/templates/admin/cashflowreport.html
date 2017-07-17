@@ -1,0 +1,177 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
+</head>
+<body>
+<section layout:fragment="content">
+
+  <h3>Cash Flow Report</h3>
+  <br/>
+
+  <form name="requestParameters" th:action="@{/admin/cashflowreport}"  method="post">
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="serviceIdField">Service: </label>
+      </div>
+      <div class="col-sm-10">
+        <select id="serviceIdField" name="serviceId" class="form-control">
+          <option selected="selected" th:value="${serviceId}" th:text="${serviceId}"></option>
+          <option value="">All services</option>
+
+          <option th:each="service : ${services}"
+                  th:value="${service.id}"
+                  th:text="${service.name}"></option>
+        </select><br/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="beginDateField">Begin date: </label>
+      </div>
+      <div class="col-sm-10">
+        <input id="beginDateField" type="date" name="beginDate" class="form-control"
+               th:value="${beginDate != null} ? ${#temporals.format(beginDate, 'yyyy-MM-dd')} : ''"/><br/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="endDateField">End date: </label>
+      </div>
+      <div class="col-sm-10">
+        <input id="endDateField" type="date" name="endDate" class="form-control"
+               th:value="${endDate != null} ? ${#temporals.format(endDate, 'yyyy-MM-dd')} : ''"/><br/>
+      </div>
+    </div>
+    <div class="btn-group col-sm-10" role="group">
+      <br/>
+      <button type="submit" class="btn btn-primary">Make report</button>
+    </div>
+  </form>
+
+  <div class="col-md-6" th:if="!${cashInflowReport == null}">
+    <br/>
+    <h3>Inflow</h3>
+        <table data-toggle="table" data-class="table table-striped table-hover"
+               data-pagination="true" data-side-pagination="client">
+          <thead>
+          <tr>
+            <th>Document date</th>
+            <th>Document type</th>
+            <th>Document</th>
+            <th>Currency</th>
+            <th>Amount</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="cashInflow : ${cashInflowReport}">
+            <td>
+              <p th:text="${cashInflow.documentDate}"></p>
+            </td>
+            <td>
+              <p th:text="PAYMENT"></p>
+            </td>
+            <td>
+              <p th:text="${cashInflow.documentId}"> </p>
+            </td>
+            <td>
+              <p th:text="${cashInflow.money.currency}"></p>
+            </td>
+            <td>
+              <p th:text="${cashInflow.money.amount}"></p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+  </div>
+
+  <div class="col-md-6" th:if="!${cashOutflowReport == null}">
+    <br/>
+    <h3>Outflow</h3>
+    <table data-toggle="table" data-class="table table-striped table-hover"
+           data-pagination="true" data-side-pagination="client">
+      <thead>
+      <tr>
+        <th>Document date</th>
+        <th>Document type</th>
+        <th>Document</th>
+        <th>Currency</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="cashOutflow : ${cashOutflowReport}">
+        <td>
+          <p th:text="${cashOutflow.documentDate}"></p>
+        </td>
+        <td>
+          <p th:text="SALARY"></p>
+        </td>
+        <td>
+          <p th:text="${cashOutflow.documentId}"> </p>
+        </td>
+        <td>
+          <p th:text="${cashOutflow.money.currency}"></p>
+        </td>
+        <td>
+          <p th:text="${cashOutflow.money.amount}"></p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6" th:if="!${totalsCashInflow == null}">
+    <br/>
+    <h3>Total inflow</h3>
+    <table data-toggle="table" data-class="table table-striped table-hover"
+           data-side-pagination="client">
+      <thead>
+      <tr>
+        <th>Currency</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="totalCashInflow : ${totalsCashInflow}">
+        <td>
+          <p th:text="${totalCashInflow.key}"></p>
+        </td>
+        <td>
+          <p th:text="${totalCashInflow.value}"></p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6" th:if="!${totalsCashOutflow == null}">
+    <br/>
+    <h3>Total outflow</h3>
+    <table data-toggle="table" data-class="table table-striped table-hover"
+           data-side-pagination="client">
+      <thead>
+      <tr>
+        <th>Currency</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="totalCashOutflow : ${totalsCashOutflow}">
+        <td>
+          <p th:text="${totalCashOutflow.key}"></p>
+        </td>
+        <td>
+          <p th:text="${totalCashOutflow.value}"></p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+</body>
+</html>

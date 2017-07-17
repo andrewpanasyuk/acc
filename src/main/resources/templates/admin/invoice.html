@@ -73,7 +73,7 @@
           <label>Payment amount:</label>
         </div>
         <div class="col-xs-7">
-          <output th:text="${invoice.contract.price.price} + ' ' + ${invoice.contract.price.currency}"></output>
+          <output th:text="${invoice.contract.price.amount} + ' ' + ${invoice.contract.price.currency}"></output>
         </div>
       </div>
 
@@ -91,7 +91,7 @@
         </div>
         <div class="col-sm-7">
         <span th:if="${invoice.payment != null}"
-            th:text="${invoice.payment.sum.price} + ' ' + ${invoice.payment.sum.currency}"></span>
+            th:text="${invoice.payment.sum.amount} + ' ' + ${invoice.payment.sum.currency}"></span>
         <button th:if="${invoice.payment == null}" type="button" class="btn btn-primary" data-toggle="modal"
                 data-target="#myModal">Add</button>
         </div>

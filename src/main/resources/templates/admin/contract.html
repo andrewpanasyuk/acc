@@ -112,7 +112,7 @@
                         th:text="*{employeeRate.currency}"/>
               </select>
             </div>
-            <output th:if="${#fields.hasErrors('employeeRate.price')}" th:errors="*{employeeRate.price}"
+            <output th:if="${#fields.hasErrors('employeeRate.amount')}" th:errors="*{employeeRate.amount}"
                     class="text-danger">Employee rate error
             </output>
           </div>

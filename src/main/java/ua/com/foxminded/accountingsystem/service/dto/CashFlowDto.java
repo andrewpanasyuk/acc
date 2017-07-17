@@ -10,13 +10,13 @@ public class CashFlowDto {
     private LocalDate documentDate;
 //    private DocumentType documentType;
     private Long documentId;
-    private Money amount;
+    private Money money;
 
-    public CashFlowDto(LocalDate documentDate, Long documentId, Money amount) {
+    public CashFlowDto(LocalDate documentDate, Long documentId, Money money) {
         this.documentDate = documentDate;
 //        this.documentType = documentType;
         this.documentId = documentId;
-        this.amount = amount;
+        this.money = money;
     }
 
     public LocalDate getDocumentDate() {
@@ -31,8 +31,8 @@ public class CashFlowDto {
         return documentId;
     }
 
-    public Money getAmount() {
-        return amount;
+    public Money getMoney() {
+        return money;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CashFlowDto {
         if (!documentDate.equals(that.documentDate)) return false;
 //        if (documentType != that.documentType) return false;
         if (!documentId.equals(that.documentId)) return false;
-        return amount != null ? amount.equals(that.amount) : that.amount == null;
+        return money != null ? money.equals(that.money) : that.money == null;
     }
 
     @Override

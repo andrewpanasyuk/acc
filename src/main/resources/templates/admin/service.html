@@ -36,7 +36,7 @@
         <hr style="width: 100%; color: grey; height: 1px; background-color:grey;" />
         <div class="form-group" th:each="money, iterItem : *{prices}">
           <div class="col-md-3 col-sm-3">
-            <label th:for="*{'prices[__${iterItem.index}__].price'}"
+            <label th:for="*{'prices[__${iterItem.index}__].amount'}"
                    th:text="'Price ' + *{prices[__${iterItem.index}__].currency} + ':'">Price:</label>
           </div>
           <div class="col-md-9 col-sm-9">
@@ -45,9 +45,9 @@
 
             <div class="col-xs-8" style="padding-left: 0">
               <input type="number" class="form-control"
-                     th:value="*{prices[__${iterItem.index}__].price}"
-                     th:id="*{'prices[__${iterItem.index}__].price'}"
-                     th:name="*{'prices[__${iterItem.index}__].price'}"
+                     th:value="*{prices[__${iterItem.index}__].amount}"
+                     th:id="*{'prices[__${iterItem.index}__].amount'}"
+                     th:name="*{'prices[__${iterItem.index}__].amount'}"
                      required="required" min="0" max="2147483647"/>
             </div>
             <div class="col-xs-4" style="padding: 0">
@@ -65,8 +65,8 @@
           </div>
           <div class="col-md-9 col-sm-9">
             <div class="col-xs-8" style="padding-left: 0">
-              <input th:value="*{employeeRate.price > 0} ? *{employeeRate.price}"
-                     th:id="*{'employeeRate.price'}" th:name="*{'employeeRate.price'}"
+              <input th:value="*{employeeRate.amount > 0} ? *{employeeRate.amount}"
+                     th:id="*{'employeeRate.amount'}" th:name="*{'employeeRate.amount'}"
                      type="number" class="form-control" required="required" min="0" max="2147483647"/>
             </div>
             <div class="col-xs-4" style="padding: 0">
@@ -75,7 +75,7 @@
                         th:text="*{employeeRate.currency}"/>
               </select>
             </div>
-            <output th:if="${#fields.hasErrors('employeeRate.price')}" th:errors="*{employeeRate.price}"
+            <output th:if="${#fields.hasErrors('employeeRate.amount')}" th:errors="*{employeeRate.amount}"
                     class="text-danger">Employee rate error
             </output>
           </div>

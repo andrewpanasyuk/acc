@@ -22,9 +22,9 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
         + "(p.datePaid, p.id, p.sum) "
         + "from Payment p "
         + "where p.datePaid >= ?1 and p.datePaid <= ?2 "
-        + "and p.invoice.contract.order.service = ?3 "
+        + "and p.invoice.contract.order.service.id = ?3 "
         + "order by p.datePaid")
-    List<CashFlowDto> findServicePaymentsByDatePaidBetween(LocalDate beginDate, LocalDate endDate, Service service);
+    List<CashFlowDto> findServicePaymentsByDatePaidBetween(LocalDate beginDate, LocalDate endDate, Long serviceId);
 
 //    List<Payment> findPaymentByDatePaidBetweenOrderByDatePaid(LocalDate beginDate, LocalDate endDate);
 
