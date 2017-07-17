@@ -84,19 +84,19 @@
       <div class="btn-group" role="group">
         <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
       </div>
-      <div class="btn-group" role="group">
-        <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
-      </div>
       <div class="btn-group" role="group" th:if="!${order.id == null}">
         <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary">New contract</a>
       </div>
       <div class="btn-group" role="group" th:if="!${order.id == null}">
         <a th:href="@{/admin/queues/new?orderId={id}(id=${order.id})}" class="btn btn-primary">Queue</a>
       </div>
+      <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
+      </div>
     </div>
   </div>
   <div class="col-md-6 col-sm-3 col-xs-12">
-    <div th:if="${!contracts.empty}">
+    <div th:if="${contract!= null and !contracts.empty}">
       <h3>Order history</h3>
       <ul id="history-list" class="list-group" >
         <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
