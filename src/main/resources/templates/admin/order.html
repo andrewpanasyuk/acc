@@ -77,10 +77,10 @@
   <form id="deleteOrder" th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">
   </form>
   <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="btn-group col-md-6 col-sm-3 col-xs-3" role="group" th:if="!${order.id == null}">
+    <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group" th:if="!${order.id == null}">
       <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
     </div>
-    <div class="pull-right col-md-6 col-sm-9 col-xs-9">
+    <div class="pull-right col-md-6 col-sm-3 col-xs-12">
       <div class="btn-group btn-group-justified" role="group">
         <div class="btn-group" role="group">
           <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
@@ -98,7 +98,7 @@
     </div>
   </div>
   <div class="col-md-6 col-sm-3 col-xs-12">
-    <div th:if="${!contracts.empty}">
+    <div th:if="${contract!= null and !contracts.empty}">
       <h3>Order history</h3>
       <ul id="history-list" class="list-group">
         <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
