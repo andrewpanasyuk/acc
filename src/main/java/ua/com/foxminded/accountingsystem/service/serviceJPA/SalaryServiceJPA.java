@@ -62,7 +62,7 @@ public class SalaryServiceJPA implements SalaryService {
     public Salary create(Salary salary) {
         List<SalaryItem> salaryItems = new ArrayList<>();
         for (SalaryItem salaryItem : salary.getSalaryItems()) {
-            SalaryItem accountedSalaryItem = salaryItemRepository.getOne(salaryItem.getId());
+            SalaryItem accountedSalaryItem = salaryItemRepository.findOne(salaryItem.getId());
             accountedSalaryItem.setAccounted(true);
             salaryItems.add(accountedSalaryItem);
         }
