@@ -27,10 +27,10 @@
     <div class="collapse navbar-collapse" id="navbar-ex-collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a>Hello, <span th:text="${#authentication.name}"></span></a>
+          <a><span th:text="#{index.greeting} + ', ' + ${#authentication.name}"></span></a>
         </li>
         <li th:if="${#authentication.name} != 'anonymousUser'">
-          <a th:href="@{/logout}">Logout</a>
+          <a th:href="@{/logout}"><span th:text="#{index.logout}"></span></a>
         </li>
       </ul>
     </div>
@@ -55,10 +55,14 @@
           <div class="panel-heading">
             <div class="row">
               <div class="col-xs-6">
-                <a href="#" class="active" id="login-form-link">Login</a>
+                <a href="#" class="active" id="login-form-link">
+                  <span th:text="#{index.form.title.login}"></span>
+                </a>
               </div>
               <div class="col-xs-6">
-                <a href="#" id="register-form-link">Register</a>
+                <a href="#" id="register-form-link">
+                  <span th:text="#{index.form.title.register}"></span>
+                </a>
               </div>
             </div>
             <hr/>
@@ -69,17 +73,17 @@
                 <form id="login-form" role="form" th:action="@{/login}" th:method="post">
                   <div class="form-group">
                     <input type="text" name="username" id="username" tabindex="1" class="form-control"
-                           placeholder="Username" value=""/>
+                           th:placeholder="#{index.form.placeholder.username}" value=""/>
                   </div>
                   <div class="form-group">
                     <input type="password" name="password" id="password" tabindex="2" class="form-control"
-                           placeholder="Password"/>
+                           th:placeholder="#{index.form.placeholder.password}"/>
                   </div>
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
                         <input type="submit" name="login-submit" id="login-submit" tabindex="4"
-                               class="form-control btn btn-login" value="Log In"/>
+                               class="form-control btn btn-login" th:value="#{index.form.action.login}"/>
                       </div>
                     </div>
                   </div>
@@ -88,21 +92,21 @@
                       th:method="post" style="display: none;">
                   <div class="form-group">
                     <input type="text" name="username" id="register-username" tabindex="1" class="form-control"
-                           placeholder="Username" value=""/>
+                           th:placeholder="#{index.form.placeholder.username}" value=""/>
                   </div>
                   <div class="form-group">
                     <input type="email" name="email" id="email" tabindex="1" class="form-control"
-                           placeholder="Email Address" value=""/>
+                           th:placeholder="#{index.form.placeholder.email}" value=""/>
                   </div>
                   <div class="form-group">
                     <input type="password" name="password" id="register-password" tabindex="2" class="form-control"
-                           placeholder="Password"/>
+                           th:placeholder="#{index.form.placeholder.password}"/>
                   </div>
                   <div class="form-group">
                     <div class="row">
-                      <div class="col-sm-6 col-sm-offset-3">
+                      <div class="col-sm-8 col-sm-offset-2">
                         <input type="submit" name="register-submit" id="register-submit" tabindex="4"
-                               class="form-control btn btn-register" value="Register Now"/>
+                               class="form-control btn btn-register" th:value="#{index.form.action.register}"/>
                       </div>
                     </div>
                   </div>
