@@ -45,7 +45,7 @@ public class SalaryServiceJPA implements SalaryService {
                 Salary salary = new Salary();
                 salary.setSalaryDate(LocalDate.now());
                 salary.setDateFrom(dateFrom);
-                salary.setDateTo(dateTo);
+                salary.setDateTo(dateTo.minusDays(1));
                 salary.setEmployee(salaryItem.getEmployee());
                 salary.addSalaryItem(salaryItem);
 

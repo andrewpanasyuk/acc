@@ -49,7 +49,7 @@ public class AdminSalaryController {
         salaryService.create(salary);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         redirectAttributes.addAttribute("dateFrom", salary.getDateFrom().format(formatter));
-        redirectAttributes.addAttribute("dateTo", salary.getDateTo().format(formatter));
+        redirectAttributes.addAttribute("dateTo", salary.getDateTo().plusDays(1).format(formatter));
         return "redirect:/admin/salary/payroll";
     }
 
