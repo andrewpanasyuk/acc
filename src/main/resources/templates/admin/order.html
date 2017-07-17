@@ -76,31 +76,29 @@
   </form>
   <form id="deleteOrder" th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">
   </form>
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="btn-group col-md-6 col-sm-3 col-xs-3" role="group" th:if="!${order.id == null}">
-      <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
-    </div>
-    <div class="pull-right col-md-6 col-sm-9 col-xs-9">
-      <div class="btn-group btn-group-justified" role="group">
-        <div class="btn-group" role="group">
-          <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
-        </div>
-        <div class="btn-group" role="group" th:if="!${order.id == null}">
-          <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary">New contract</a>
-        </div>
-        <div class="btn-group" role="group" th:if="!${order.id == null}">
-          <a th:href="@{/admin/queues/new?orderId={id}(id=${order.id})}" class="btn btn-primary">Queue</a>
-        </div>
-        <div class="btn-group" role="group">
-          <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
-        </div>
+  <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group" th:if="!${order.id == null}">
+    <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
+  </div>
+  <div class="pull-right col-md-6 col-sm-3 col-xs-12">
+    <div class="btn-group btn-group-justified" role="group">
+      <div class="btn-group" role="group">
+        <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
+      </div>
+      <div class="btn-group" role="group" th:if="!${order.id == null}">
+        <a th:href="@{/admin/contracts/new?orderId={id}(id=${order.id})}" class="btn btn-primary">New contract</a>
+      </div>
+      <div class="btn-group" role="group" th:if="!${order.id == null}">
+        <a th:href="@{/admin/queues/new?orderId={id}(id=${order.id})}" class="btn btn-primary">Queue</a>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
       </div>
     </div>
   </div>
   <div class="col-md-6 col-sm-3 col-xs-12">
-    <div th:if="${!contracts.empty}">
+    <div th:if="${contract!= null and !contracts.empty}">
       <h3>Order history</h3>
-      <ul id="history-list" class="list-group">
+      <ul id="history-list" class="list-group" >
         <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
         <div th:each="contract : ${contracts}" th:remove="tag">
           <li class="list-group-item"
@@ -116,20 +114,18 @@
           <li class="list-group-item"
               th:if="${contract.closeType != null and contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}">
             <span th:text="${contract.closeDate} +' - Закрытие '"></span>
-            <span th:if="${contract.paymentType == T(ua.com.foxminded.accountingsystem.model.PaymentType).TRIAL}"
-                  th:text="тестового "></span>
+            <span th:if="${contract.paymentType == T(ua.com.foxminded.accountingsystem.model.PaymentType).TRIAL}" th:text="тестового "></span>
             <a th:href="@{/admin/contracts/{id}(id=${contract.id})}">договора</a>
           </li>
           <li class="list-group-item">
             <span th:text="${contract.contractDate} +' - Старт '"></span>
-            <span th:if="${contract.paymentType == T(ua.com.foxminded.accountingsystem.model.PaymentType).TRIAL}"
-                  th:text="тестового "></span>
+            <span th:if="${contract.paymentType == T(ua.com.foxminded.accountingsystem.model.PaymentType).TRIAL}" th:text="тестового "></span>
             <a th:href="@{/admin/contracts/{id}(id=${contract.id})}">договора</a>
           </li>
         </div>
         <li class="list-group-item">
           <span th:text="${order.openDate} +' - Подана заявка на услугу ('"></span>
-          <a th:href="@{/admin/services/{id}(id=${order.service.id})}" th:text="${order.service.name}"></a>
+            <a th:href="@{/admin/services/{id}(id=${order.service.id})}" th:text="${order.service.name}"></a>
           <span>)</span>
         </li>
       </ul>
