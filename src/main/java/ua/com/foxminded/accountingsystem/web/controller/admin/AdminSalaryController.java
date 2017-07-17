@@ -28,14 +28,14 @@ public class AdminSalaryController {
     }
 
     @GetMapping("/payroll")
-    public String dateRangeForm(Model model) {
+    public String getPayrollPeriodSelection(Model model) {
         model.addAttribute("dateFrom", LocalDate.now().minusMonths(1).plusDays(1));
         model.addAttribute("dateTo", LocalDate.now());
         return "admin/payroll";
     }
 
     @GetMapping(value = "/payroll", params = {"dateFrom", "dateTo"})
-    public String payrollForDateRange(@RequestParam String dateFrom, @RequestParam String dateTo, Model model) {
+    public String getPayrollForPeriod(@RequestParam String dateFrom, @RequestParam String dateTo, Model model) {
         List<Salary> salaries = salaryService.prepareSalaries(
             LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
         model.addAttribute("salaries", salaries);
