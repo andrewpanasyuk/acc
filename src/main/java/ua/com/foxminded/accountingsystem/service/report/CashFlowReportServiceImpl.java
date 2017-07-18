@@ -40,20 +40,21 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     }
 
     @Override
-    public List<CashFlowDto> makeCashOutflowReport() {
+    public List<CashFlowDto> makeCashOutflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
 
-        List<CashFlowDto> cashFlowReport = new ArrayList<>();
-
-
-        return cashFlowReport;
+        if (serviceId != null) {
+            return salaryRepository.findServiceSalariesByDatePaidBetween(beginDate, endDate, serviceId);
+        } else {
+            return salaryRepository.findAllSalariesByDatePaidBetween(beginDate, endDate);
+        }
     }
 
     @Override
-    public Map<Currency, Long> getTotalsCashFlowReport(List<CashFlowDto> listCashFlowDto) {
+    public Map<Currency, Long> getTotalsCashFlowReport(List<CashFlowDto> cashFlowReport) {
 
-        return (listCashFlowDto != null)
+        return (cashFlowReport != null)
             ?
-            (listCashFlowDto
+            (cashFlowReport
                 .stream()
                 .map(cashFlowDto -> cashFlowDto.getMoney())
                 .collect(Collectors.groupingBy(money -> money.getCurrency(), Collectors.summingLong(money -> money.getAmount()))))

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,22 +44,24 @@ public class AdminCashFlowReportController {
 
     @PostMapping
     public String makeCashFlowReport(@RequestParam Long serviceId,
-                                     @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate beginDate,
-                                     @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate endDate,
+                                     @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate beginDate,
+                                     @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
                                      Model model) {
 
         List<CashFlowDto> cashInflowReport = cashFlowReportService.makeCashInflowReport(beginDate, endDate, serviceId);
+        List<CashFlowDto> cashOutflowReport = cashFlowReportService.makeCashOutflowReport(beginDate, endDate, serviceId);
 
         model
             .addAttribute("title", "Cash Flow Report")
             .addAttribute("services", service.findAll())
             .addAttribute("serviceId", serviceId)
+            .addAttribute("serviceName", (serviceId != null) ? service.findOne(serviceId).getName() : "All services")
             .addAttribute("beginDate", beginDate)
             .addAttribute("endDate", endDate)
             .addAttribute("cashInflowReport", cashInflowReport)
-            .addAttribute("cashOutflowReport", cashInflowReport)
+            .addAttribute("cashOutflowReport", cashOutflowReport)
             .addAttribute("totalsCashInflow", cashFlowReportService.getTotalsCashFlowReport(cashInflowReport))
-            .addAttribute("totalsCashOutflow", cashFlowReportService.getTotalsCashFlowReport(cashInflowReport));
+            .addAttribute("totalsCashOutflow", cashFlowReportService.getTotalsCashFlowReport(cashOutflowReport));
 
         return "admin/cashflowreport";
     }
@@ -68,11 +71,10 @@ public class AdminCashFlowReportController {
         model
             .addAttribute("title", "Cash Flow Report")
             .addAttribute("services", service.findAll())
-//            .addAttribute("serviceId", 1)
+            .addAttribute("serviceId", null)
+            .addAttribute("serviceName", "All services")
             .addAttribute("cashInflowReport", null)
             .addAttribute("cashOutflowReport", null);
-//            .addAttribute("beginDate", LocalDate.now())
-//            .addAttribute("endDate", LocalDate.now());
         return "admin/cashflowreport";
     }
 }

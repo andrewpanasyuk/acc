@@ -8,13 +8,13 @@ import java.time.LocalDate;
 public class CashFlowDto {
 
     private LocalDate documentDate;
-//    private DocumentType documentType;
+    private String documentType;
     private Long documentId;
     private Money money;
 
-    public CashFlowDto(LocalDate documentDate, Long documentId, Money money) {
+    public CashFlowDto(LocalDate documentDate, String documentType, Long documentId, Money money) {
         this.documentDate = documentDate;
-//        this.documentType = documentType;
+        this.documentType = documentType;
         this.documentId = documentId;
         this.money = money;
     }
@@ -23,9 +23,9 @@ public class CashFlowDto {
         return documentDate;
     }
 
-//    public DocumentType getDocumentType() {
-//        return documentType;
-//    }
+    public String getDocumentType() {
+        return documentType;
+    }
 
     public Long getDocumentId() {
         return documentId;
@@ -44,7 +44,7 @@ public class CashFlowDto {
         CashFlowDto that = (CashFlowDto) o;
 
         if (!documentDate.equals(that.documentDate)) return false;
-//        if (documentType != that.documentType) return false;
+        if (documentType != that.documentType) return false;
         if (!documentId.equals(that.documentId)) return false;
         return money != null ? money.equals(that.money) : that.money == null;
     }
@@ -52,7 +52,7 @@ public class CashFlowDto {
     @Override
     public int hashCode() {
         int result = documentId.hashCode();
-//        result = 31 * result + documentType.hashCode();
+        result = 31 * result + documentType.hashCode();
         return result;
     }
 }

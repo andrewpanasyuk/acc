@@ -11,6 +11,6 @@ import java.util.Map;
 public interface CashFlowReportService {
 
     List<CashFlowDto> makeCashInflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId);
-    List<CashFlowDto> makeCashOutflowReport();
+    List<CashFlowDto> makeCashOutflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId);
     Map<Currency, Long> getTotalsCashFlowReport(List<CashFlowDto> listCashFlowDto);
 }
