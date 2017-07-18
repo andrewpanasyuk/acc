@@ -120,6 +120,11 @@ public class ContractServiceJPA implements ContractService {
     public List<Contract> findAllByOrder(Order order) {
         return contractRepository.findAllByOrderOrderByContractDateDesc(order);
     }
+
+    @Override
+    public Contract findContractByOrderIdAndCloseTypeIsNull(Long orderId) {
+        return contractRepository.findContractByOrderIdAndCloseTypeIsNull(orderId);
+    }
 }
 
 

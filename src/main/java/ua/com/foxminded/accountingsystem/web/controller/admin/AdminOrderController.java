@@ -87,4 +87,10 @@ public class AdminOrderController {
         model.addAttribute("orders", orders);
         return "admin/orders";
     }
+
+    @GetMapping(value = "/{id}/freeze")
+    public String frozenOrder(@PathVariable long id) {
+        orderService.freeze(id);
+        return "redirect:/admin/orders";
+    }
 }

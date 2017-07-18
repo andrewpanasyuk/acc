@@ -23,4 +23,6 @@ public interface ContractService {
 
     List<Contract> findAllByOrder(Order order);
 
+    Contract findContractByOrderIdAndCloseTypeIsNull(Long orderId);
+
 }
