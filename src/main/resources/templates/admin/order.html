@@ -105,12 +105,6 @@
 
   </form>
 
-  <form id="deleteOrder" th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">
-    <div class="btn-group col-md-6 col-sm-3 col-xs-12" role="group" th:if="!${order.id == null}">
-      <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
-    </div>
-  </form>
-
   <div class="pull-right col-md-6 col-sm-3 col-xs-12">
     <div class="btn-group btn-group-justified" role="group">
       <div class="btn-group" role="group">

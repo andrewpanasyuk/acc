@@ -154,8 +154,8 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, close_date, cr
     (6, 3, 'ACTIVE', 4, now() - interval '3 mon + 10 day', NULL, 'system', '2017-07-11'),
     (7, 1, 'ACTIVE', 5, now() - interval '35 day', NULL, 'system', '2017-07-11'),
     (8, 1, 'COMPLETED', 5, now() - interval '7 mon', now() - interval '45 day', 'system', '2017-07-11'),
-    (9, 2, 'FROZEN', 1, now() - interval '20 day', now() - interval '2 day', 'system', '2017-07-11'),
-    (10, 1, 'FROZEN', 6, now() - interval '2 mon + 20 day', now() - interval '1 mon + 2 day', 'system', '2017-07-11'),
+    (9, 2, 'FROZEN', 1, now() - interval '20 day', NULL, 'system', '2017-07-11'),
+    (10, 1, 'FROZEN', 6, now() - interval '2 mon + 20 day', NULL, 'system', '2017-07-11'),
     (11, 3, 'ACTIVE', 6, now() - interval '8 day', NULL, 'system', '2017-07-11');
 
 
