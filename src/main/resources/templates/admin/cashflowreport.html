@@ -52,8 +52,8 @@
     </div>
   </form>
 
+  <div class="col-md-12">
   <div class="col-md-6" th:if="${cashInflowReport != null}">
-    <br/>
     <h3>Inflow</h3>
     <table data-toggle="table" data-class="table table-striped table-hover"
            data-side-pagination="client">
@@ -98,10 +98,10 @@
         </tr>
       </tbody>
     </table>
+    <br/>
   </div>
 
   <div class="col-md-6" th:if="${cashOutflowReport != null}">
-    <br/>
     <h3>Outflow</h3>
     <table data-toggle="table" data-class="table table-striped table-hover"
            data-side-pagination="client">
@@ -146,6 +146,8 @@
       </tr>
       </tbody>
     </table>
+    <br/>
+  </div>
   </div>
 </section>
 </body>
