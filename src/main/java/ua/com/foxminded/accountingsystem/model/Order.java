@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.model;
 import org.hibernate.envers.Audited;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,10 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -49,6 +52,19 @@ public class Order extends AbstractAuditEntity {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<Contract> contracts;
+
+    public void addContract(Contract contract){
+        contracts.add(contract);
+        contract.setOrder(this);
+    }
+
+    public void removeContracte(Contract contract){
+        contracts.remove(contract);
+        contract.setOrder(null);
+    }
 
     public Service getService() {
         return service;

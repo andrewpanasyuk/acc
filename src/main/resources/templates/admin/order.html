@@ -97,21 +97,27 @@
              th:if="${order.closeDate == null} and ${order.status.toString().equals('ACTIVE')}">
           <a th:href="@{/admin/orders/complete/orderId={id}(id=${order.id})}" class="btn btn-primary">Complete</a>
         </div>
-        <div class="btn-group" role="group">
-          <button type="submit" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
-        </div>
       </div>
     </div>
-
   </form>
 
-  <div class="pull-right col-md-6 col-sm-3 col-xs-12">
-    <div class="btn-group btn-group-justified" role="group">
-      <div class="btn-group" role="group">
-        <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
-      </div>
-      <div class="btn-group" role="group">
-        <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
+  <form id="deleteOrder" th:action="@{/admin/orders/{id}(id=${order.id})}" th:method="delete">
+  </form>
+
+  <div class="btn-group" role="group">
+    <div class="pull-left col-md-6 col-sm-3 col-xs-12">
+        <button type="delete" class="btn btn-danger btn" onclick="$('#deleteOrder').submit()">Delete</button>
+    </div>
+
+    <div class="pull-right col-md-3 col-sm-3 col-xs-12">
+      <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+          <a th:href="@{/admin/orders}" class="btn btn-default">Go back</a>
+        </div>
+
+        <div class="btn-group" role="group">
+          <button type="submit" class="btn btn-primary" onclick="$('#saveOrder').submit()">Save</button>
+        </div>
       </div>
     </div>
   </div>
