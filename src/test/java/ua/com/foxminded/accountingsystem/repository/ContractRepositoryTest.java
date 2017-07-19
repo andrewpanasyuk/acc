@@ -3,7 +3,6 @@ package ua.com.foxminded.accountingsystem.repository;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.*;
@@ -50,7 +49,6 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         service1.setCreatedBy("system");
         service1.setCreatedDate(LocalDateTime.now());
 
-
         Service service2 = new Service();
         service2.setId(51L);
         service2.setName("javascript test");
@@ -90,7 +88,6 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract1.setPrice(price1);
         contract1.setCreatedBy("system");
         contract1.setCreatedDate(LocalDateTime.now());
-
 
         contract2 = new Contract();
         contract2.setId(51L);
