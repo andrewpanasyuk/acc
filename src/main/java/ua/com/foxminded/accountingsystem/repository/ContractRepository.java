@@ -19,4 +19,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findContractsForInvoicesCreation(int payDay, LocalDate today);
 
     List<Contract> findAllByOrderOrderByContractDateDesc(Order order);
+
+    Contract findContractByOrderIdAndCloseTypeIsNull(Long orderId);
 }

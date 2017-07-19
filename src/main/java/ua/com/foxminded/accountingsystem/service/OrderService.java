@@ -18,6 +18,8 @@ public interface OrderService {
 
     List<Order> findAll();
 
+    void freeze(Long id);
+
     List<Order> findOrdersByStatus(OrderStatus orderStatus);
 
 }
