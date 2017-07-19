@@ -52,15 +52,14 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     @Override
     public Map<Currency, Long> getTotalsCashFlowReport(List<CashFlowDto> cashFlowReport) {
 
-        return (cashFlowReport != null)
-            ?
-            (cashFlowReport
+        if (cashFlowReport == null) {
+            return null;
+        } else {
+            return (cashFlowReport
                 .stream()
                 .map(cashFlowDto -> cashFlowDto.getMoney())
-                .collect(Collectors.groupingBy(money -> money.getCurrency(), Collectors.summingLong(money -> money.getAmount()))))
-            :
-            (null);
+                .collect(Collectors.groupingBy(money -> money.getCurrency(), Collectors.summingLong(money -> money.getAmount()))));
+        }
     }
-
 
 }

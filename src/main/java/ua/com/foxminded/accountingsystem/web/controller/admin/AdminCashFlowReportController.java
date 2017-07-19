@@ -75,10 +75,8 @@ public class AdminCashFlowReportController {
             .addAttribute("services", service.findAll())
             .addAttribute("serviceId", null)
             .addAttribute("serviceName", "All services")
-            .addAttribute("beginDate", LocalDate.now().minusMonths(1).plusDays(1))
-            .addAttribute("endDate", LocalDate.now())
-            .addAttribute("cashInflowReport", null)
-            .addAttribute("cashOutflowReport", null);
+            .addAttribute("beginDate", LocalDate.now().minusMonths(3))
+            .addAttribute("endDate", LocalDate.now());
         return "admin/cashflowreport";
     }
 }
