@@ -88,7 +88,6 @@ public class ContractServiceJPA implements ContractService {
         contract.setPaymentDate(LocalDate.now());
         contract.setEmployeeRate(employeeRate);
         contract.setPrice(price);
-        order.addContract(contract);
 
         return contract;
 

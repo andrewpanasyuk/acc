@@ -91,6 +91,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract1.setCreatedBy("system");
         contract1.setCreatedDate(LocalDateTime.now());
 
+
         contract2 = new Contract();
         contract2.setId(51L);
         contract2.setContractDate(LocalDate.of(2017, 06, 10));

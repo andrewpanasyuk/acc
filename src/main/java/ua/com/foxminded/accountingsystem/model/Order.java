@@ -53,19 +53,6 @@ public class Order extends AbstractAuditEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @OneToMany(mappedBy = "order", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Contract> contracts;
-
-    public void addContract(Contract contract){
-        contracts.add(contract);
-        contract.setOrder(this);
-    }
-
-    public void removeContracte(Contract contract){
-        contracts.remove(contract);
-        contract.setOrder(null);
-    }
-
     public Service getService() {
         return service;
     }
