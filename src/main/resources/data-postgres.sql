@@ -187,16 +187,16 @@ INSERT INTO invoice (id, contract_id, price_id, creation_date, employee_paid, pe
     (10, 6, 27, now() - interval '1 mon + 13 day', FALSE, now() - interval '1 mon + 10 day', now() - interval '10 day', 'system', '2017-07-11'),
     (11, 8, 29, now() - interval '1 day', FALSE, now() + interval '2 day', now() + interval ' 1 mon 1 day', 'system', '2017-07-11');
 
-INSERT INTO payment (id, invoice_id, date_paid, created_by, created_date, sum_id) VALUES
-    (1, 1, now() - interval '3 mon', 'system', '2017-07-11', 20),
-    (2, 2, now() - interval '2 mon', 'system', '2017-07-11', 21),
-    (3, 3, now() - interval '1 mon', 'system', '2017-07-11', 22),
-    (4, 5, now() - interval '2 mon + 13 day', 'system', '2017-07-11', 23),
-    (5, 6, now() - interval '1 mon + 12 day', 'system', '2017-07-11', 24),
-    (6, 7, now() - interval '11 day', 'system', '2017-07-11', 25),
-    (7, 8, now() - interval '1 mon + 4 day', 'system', '2017-07-11', 26),
-    (8, 9, now() - interval '2 mon + 11 day', 'system', '2017-07-11', 27),
-    (9, 10, now() - interval '1 mon + 10 day', 'system', '2017-07-11', 28);
+INSERT INTO payment (id, invoice_id, date_paid, sum_id, created_by, created_date) VALUES
+    (1, 1, now() - interval '3 mon', 32, 'system', '2017-07-11'),
+    (2, 2, now() - interval '2 mon', 33, 'system', '2017-07-11'),
+    (3, 3, now() - interval '1 mon', 34, 'system', '2017-07-11'),
+    (4, 5, now() - interval '2 mon + 13 day', 35, 'system', '2017-07-11'),
+    (5, 6, now() - interval '1 mon + 12 day', 36, 'system', '2017-07-11'),
+    (6, 7, now() - interval '11 day', 37, 'system', '2017-07-11'),
+    (7, 8, now() - interval '1 mon + 4 day', 38, 'system', '2017-07-11'),
+    (8, 9, now() - interval '2 mon + 11 day', 39, 'system', '2017-07-11'),
+    (9, 10, now() - interval '1 mon + 10 day', 40, 'system', '2017-07-11');
 
 INSERT INTO order_queue (id, queuing_date, priority, order_id, created_by, created_date) VALUES
     (1, now() - interval '3 day', 'NORMAL', 2, 'system', '2017-07-11'),

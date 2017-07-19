@@ -16,7 +16,7 @@ public interface SalaryRepository extends JpaRepository<Salary, Long> {
         + "where s.paid = true "
         + "and s.salaryDate >= ?1 and s.salaryDate <= ?2 "
         + "order by s.salaryDate")
-    List<CashFlowDto> findAllSalariesByDatePaidBetween(LocalDate beginDate, LocalDate endDate);
+    List<CashFlowDto> findAllSalariesBySalaryDateBetween(LocalDate beginDate, LocalDate endDate);
 
     @Query("select new ua.com.foxminded.accountingsystem.service.dto.CashFlowDto"
         + "(s.salaryDate, 'SALARY', s.id , si.employeePayment) "
@@ -25,6 +25,6 @@ public interface SalaryRepository extends JpaRepository<Salary, Long> {
         + "and s.salaryDate >= ?1 and s.salaryDate <= ?2 "
         + "and si.invoice.contract.order.service.id = ?3  "
         + "order by s.salaryDate")
-    List<CashFlowDto> findServiceSalariesByDatePaidBetween(LocalDate beginDate, LocalDate endDate, Long serviceId);
+    List<CashFlowDto> findServiceSalariesBySalaryDateBetween(LocalDate beginDate, LocalDate endDate, Long serviceId);
 
 }

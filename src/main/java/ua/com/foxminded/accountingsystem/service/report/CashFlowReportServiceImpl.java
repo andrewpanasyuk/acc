@@ -43,9 +43,9 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     public List<CashFlowDto> makeCashOutflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
 
         if (serviceId != null) {
-            return salaryRepository.findServiceSalariesByDatePaidBetween(beginDate, endDate, serviceId);
+            return salaryRepository.findServiceSalariesBySalaryDateBetween(beginDate, endDate, serviceId);
         } else {
-            return salaryRepository.findAllSalariesByDatePaidBetween(beginDate, endDate);
+            return salaryRepository.findAllSalariesBySalaryDateBetween(beginDate, endDate);
         }
     }
 
