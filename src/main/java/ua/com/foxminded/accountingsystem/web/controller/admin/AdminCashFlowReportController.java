@@ -42,14 +42,16 @@ public class AdminCashFlowReportController {
         this.service = service;
     }
 
-    @PostMapping
+    @GetMapping(params = {"serviceId","beginDate", "endDate"})
     public String makeCashFlowReport(@RequestParam Long serviceId,
-                                     @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate beginDate,
-                                     @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
+                                     @RequestParam String beginDate,
+                                     @RequestParam String endDate,
                                      Model model) {
 
-        List<CashFlowDto> cashInflowReport = cashFlowReportService.makeCashInflowReport(beginDate, endDate, serviceId);
-        List<CashFlowDto> cashOutflowReport = cashFlowReportService.makeCashOutflowReport(beginDate, endDate, serviceId);
+        List<CashFlowDto> cashInflowReport =
+            cashFlowReportService.makeCashInflowReport(LocalDate.parse(beginDate), LocalDate.parse(endDate), serviceId);
+        List<CashFlowDto> cashOutflowReport =
+            cashFlowReportService.makeCashOutflowReport(LocalDate.parse(beginDate), LocalDate.parse(endDate), serviceId);
 
         model
             .addAttribute("title", "Cash Flow Report")
@@ -73,6 +75,8 @@ public class AdminCashFlowReportController {
             .addAttribute("services", service.findAll())
             .addAttribute("serviceId", null)
             .addAttribute("serviceName", "All services")
+            .addAttribute("beginDate", LocalDate.now().minusMonths(1).plusDays(1))
+            .addAttribute("endDate", LocalDate.now())
             .addAttribute("cashInflowReport", null)
             .addAttribute("cashOutflowReport", null);
         return "admin/cashflowreport";

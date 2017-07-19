@@ -131,10 +131,10 @@
               <input type="hidden" name="invoice.id" th:value="${invoice.id}"/>
               <div class="form-group">
                 <div class="col-sm-4">
-                  <label th:for="${payment.sum.price}">Amount: </label>
+                  <label th:for="${payment.sum.amount}">Amount: </label>
                 </div>
                 <div class="col-sm-5">
-                  <input required="true" type="text" th:field="${payment.sum.price}" class="form-control"/>
+                  <input required="true" type="text" th:field="${payment.sum.amount}" class="form-control"/>
                 </div>
                 <div class="col-sm-3">
                   <select th:field="${payment.sum.currency}" class="form-control">
