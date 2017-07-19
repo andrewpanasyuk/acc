@@ -122,7 +122,7 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public Contract findContractByOrderIdAndCloseTypeIsNull(Long orderId) {
+    public Contract findOpenedContractByOrderId(Long orderId) {
         return contractRepository.findContractByOrderIdAndCloseTypeIsNull(orderId);
     }
 }
