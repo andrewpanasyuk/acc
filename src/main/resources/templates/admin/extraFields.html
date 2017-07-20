@@ -34,8 +34,8 @@
                       th:action="@{/admin/extra-fields/employee/{id}(id=${employeeField.id})}"
                       th:method="delete">
                 </form>
-                <button type="submit" class="btn btn-danger btn" onclick="$('#deleteEmployeeField')
-                .submit()">Delete
+                <button type="submit" class="btn btn-danger btn"
+                        onclick="if (confirm('Are you sure you want to delete client field?')) $('#deleteEmployeeField').submit()">Delete
                 </button>
               </td>
             </tr>
@@ -96,8 +96,9 @@
                       th:action="@{/admin/extra-fields/client/{id}(id=${clientField.id})}"
                       th:method="delete">
                 </form>
-                <button type="submit" class="btn btn-danger btn" onclick="$('#deleteClientField')
-                .submit()">Delete
+                <button type="submit" class="btn btn-danger btn"
+                        onclick="if (confirm('Are you sure you want to delete client field?')) $('#deleteClientField').submit()">
+                  Delete
                 </button>
               </td>
             </tr>
