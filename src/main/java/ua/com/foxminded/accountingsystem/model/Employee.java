@@ -36,13 +36,22 @@ public class Employee extends AbstractAuditEntity {
     @Column(name = "max_clients")
     private Integer maxClients;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<EmployeeFieldValue> extraFields;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="username", unique=true)
     private User user;
 
+    public void addEmployeeFieldValue(EmployeeFieldValue employeeFieldValue){
+        extraFields.add(employeeFieldValue);
+        employeeFieldValue.setEmployee(this);
+    }
+
+    public void removeEmployeeFieldValue(EmployeeFieldValue employeeFieldValue){
+        extraFields.remove(employeeFieldValue);
+        employeeFieldValue.setEmployee(null);
+    }
 
     public Long getId() {
         return id;
