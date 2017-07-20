@@ -6,4 +6,9 @@ import java.util.List;
 
 public interface EmployeeFieldService {
    List<EmployeeField> findAll();
+
+    void delete(Long id);
+
+    EmployeeField create(EmployeeField employeeField);
+
 }
