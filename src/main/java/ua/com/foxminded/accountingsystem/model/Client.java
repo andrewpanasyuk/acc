@@ -39,7 +39,7 @@ public class Client extends AbstractAuditEntity {
     private List<Order> orders;
 
     @NotAudited
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClientFieldValue> extraFields;
 
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
@@ -59,12 +59,14 @@ public class Client extends AbstractAuditEntity {
         this.personalAccount = personalAccount;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public void addClientFieldValue(ClientFieldValue clientFieldValue) {
+        extraFields.add(clientFieldValue);
+        clientFieldValue.setClient(this);
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void removeClientFieldValue(ClientFieldValue clientFieldValue) {
+        extraFields.remove(clientFieldValue);
+        clientFieldValue.setClient(null);
     }
 
     public void addOrder(Order order) {
@@ -75,6 +77,14 @@ public class Client extends AbstractAuditEntity {
     public void removeOrder(Order order) {
         orders.remove(order);
         order.setClient(null);
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public Long getId() {
@@ -107,16 +117,6 @@ public class Client extends AbstractAuditEntity {
 
     public void setExtraFields(List<ClientFieldValue> extraFields) {
         this.extraFields = extraFields;
-    }
-
-    public void addClientFieldValue(ClientFieldValue clientFieldValue) {
-        extraFields.add(clientFieldValue);
-        clientFieldValue.setClient(this);
-    }
-
-    public void removeClientFieldValue(ClientFieldValue clientFieldValue) {
-        extraFields.remove(clientFieldValue);
-        clientFieldValue.setClient(null);
     }
 
     public PersonalAccount getPersonalAccount() {
