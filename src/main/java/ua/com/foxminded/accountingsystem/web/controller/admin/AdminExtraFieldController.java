@@ -16,14 +16,14 @@ import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.EmployeeFieldService;
 
 @Controller
-@RequestMapping("/admin/fields")
-public class AdminAdditionalFieldController {
+@RequestMapping("/admin/extra-fields")
+public class AdminExtraFieldController {
 
     private final ClientFieldService clientFieldService;
     private final EmployeeFieldService employeeFieldService;
 
     @Autowired
-    public AdminAdditionalFieldController(ClientFieldService clientFieldService, EmployeeFieldService employeeFieldService){
+    public AdminExtraFieldController(ClientFieldService clientFieldService, EmployeeFieldService employeeFieldService){
         this.clientFieldService = clientFieldService;
         this.employeeFieldService = employeeFieldService;
     }
@@ -32,30 +32,30 @@ public class AdminAdditionalFieldController {
     public String getAllFields(Model model) {
         model.addAttribute("clientFields", clientFieldService.findAll())
             .addAttribute("employeeFields", employeeFieldService.findAll());
-        return "admin/additionalFields";
+        return "admin/extraFields";
     }
 
     @PostMapping("/client")
     public String createClientField(@ModelAttribute ClientField clientField) {
         clientFieldService.create(clientField);
-        return "redirect:/admin/fields/";
+        return "redirect:/admin/extra-fields/";
     }
 
     @PostMapping("/employee")
     public String createEmployeeField(@ModelAttribute EmployeeField employeeField) {
         employeeFieldService.create(employeeField);
-        return "redirect:/admin/fields/";
+        return "redirect:/admin/extra-fields/";
     }
 
     @DeleteMapping("/client/{id}")
     public String removeClientField(@PathVariable long id) {
         clientFieldService.delete(id);
-        return "redirect:/admin/fields";
+        return "redirect:/admin/extra-fields";
     }
 
     @DeleteMapping("/employee/{id}")
     public String removeEmployeeField(@PathVariable long id) {
         employeeFieldService.delete(id);
-        return "redirect:/admin/fields";
+        return "redirect:/admin/extra-fields";
     }
 }

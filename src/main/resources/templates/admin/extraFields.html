@@ -31,7 +31,7 @@
               </td>
               <td>
                 <form id="deleteEmployeeField" class="form-horizontal"
-                      th:action="@{/admin/fields/employee/{id}(id=${employeeField.id})}"
+                      th:action="@{/admin/extra-fields/employee/{id}(id=${employeeField.id})}"
                       th:method="delete">
                 </form>
                 <button type="submit" class="btn btn-danger btn" onclick="$('#deleteEmployeeField')
@@ -51,7 +51,7 @@
                     <h4 class="modal-title">Create Employee Field</h4>
                   </div>
                   <div class="modal-body">
-                    <form th:action="@{/admin/fields/employee}" method="post">
+                    <form th:action="@{/admin/extra-fields/employee}" method="post">
                       <div class="form-group">
                         <input type="text" name="name" id="employeeFieldName" tabindex="1" class="form-control"
                                placeholder="employee field name" value=""/>
@@ -93,7 +93,7 @@
               </td>
               <td>
                 <form id="deleteClientField" class="form-horizontal"
-                      th:action="@{/admin/fields/client/{id}(id=${clientField.id})}"
+                      th:action="@{/admin/extra-fields/client/{id}(id=${clientField.id})}"
                       th:method="delete">
                 </form>
                 <button type="submit" class="btn btn-danger btn" onclick="$('#deleteClientField')
@@ -113,7 +113,7 @@
                     <h4 class="modal-title">Create Client Field</h4>
                   </div>
                   <div class="modal-body">
-                    <form th:action="@{/admin/fields/client}" method="post">
+                    <form th:action="@{/admin/extra-fields/client}" method="post">
                       <div class="form-group">
                         <input type="text" name="name" id="clientFieldName" tabindex="1" class="form-control"
                                placeholder="client field name" value=""/>
