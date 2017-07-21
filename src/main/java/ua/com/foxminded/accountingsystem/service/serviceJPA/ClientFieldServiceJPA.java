@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.accountingsystem.model.ClientField;
 import ua.com.foxminded.accountingsystem.repository.ClientFieldRepository;
 import ua.com.foxminded.accountingsystem.repository.ClientFieldValueRepository;
-import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 
 import java.util.List;
@@ -15,14 +14,11 @@ import java.util.List;
 public class ClientFieldServiceJPA implements ClientFieldService {
 
     private final ClientFieldRepository clientFieldRepository;
-    private final ClientRepository clientRepository;
     private final ClientFieldValueRepository clientFieldValueRepository;
 
     @Autowired
-    public ClientFieldServiceJPA(ClientFieldRepository clientFieldRepository, ClientRepository clientRepository,
-                                 ClientFieldValueRepository clientFieldValueRepository) {
+    public ClientFieldServiceJPA(ClientFieldRepository clientFieldRepository, ClientFieldValueRepository clientFieldValueRepository) {
         this.clientFieldRepository = clientFieldRepository;
-        this.clientRepository = clientRepository;
         this.clientFieldValueRepository = clientFieldValueRepository;
     }
 
@@ -42,7 +38,7 @@ public class ClientFieldServiceJPA implements ClientFieldService {
     @Transactional
     public ClientField create(ClientField clientField) {
         ClientField savedField = clientFieldRepository.saveAndFlush(clientField);
-        clientRepository.insertEmptyClientFieldValueByClientFieldId(savedField.getId());
+        clientFieldValueRepository.insertForAllClientsByClientFieldId(savedField.getId());
         return savedField;
     }
 
