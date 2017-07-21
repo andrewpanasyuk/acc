@@ -11,6 +11,7 @@ import ua.com.foxminded.accountingsystem.model.Client;
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Modifying
-    @Query(value = "update client_field_value set client_id=c.id, client_field_id=?1 from client c", nativeQuery = true)
-    void setEmptyClientFieldValueByClientFieldId(Long id);
+    @Query(value = "insert into client_field_value (id, client_id, client_field_id, created_by, created_date)\n" +
+        "select nextval('client_field_value_sequence'), c.id, ?1, 'system', now() from client c", nativeQuery = true)
+    void insertEmptyClientFieldValueByClientFieldId(Long id);
 }

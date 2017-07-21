@@ -29,6 +29,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findByUser_username(String username);
 
     @Modifying
-    @Query(value = "update employee_field_value set employee_id=e.id, employee_field_id=?1 from employee e", nativeQuery = true)
-    void setEmptyEmployeeFieldValueByEmployeeFieldId(Long id);
+    @Query(value = "insert into employee_field_value (id, employee_id, employee_field_id, created_by, created_date)\n" +
+        "select nextval('employee_field_value_sequence'), e.id, ?1, 'system', now() from employee e", nativeQuery = true)
+    void insertEmptyEmployeeFieldValueByEmployeeFieldId(Long id);
 }

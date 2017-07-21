@@ -42,7 +42,7 @@ public class EmployeeFieldServiceJPA implements EmployeeFieldService {
     @Transactional
     public EmployeeField create(EmployeeField employeeField) {
         EmployeeField savedField = employeeFieldRepository.saveAndFlush(employeeField);
-        employeeRepository.setEmptyEmployeeFieldValueByEmployeeFieldId(savedField.getId());
+        employeeRepository.insertEmptyEmployeeFieldValueByEmployeeFieldId(savedField.getId());
         return savedField;
     }
 }

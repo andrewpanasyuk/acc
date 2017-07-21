@@ -42,7 +42,7 @@ public class ClientFieldServiceJPA implements ClientFieldService {
     @Transactional
     public ClientField create(ClientField clientField) {
         ClientField savedField = clientFieldRepository.saveAndFlush(clientField);
-        clientRepository.setEmptyClientFieldValueByClientFieldId(savedField.getId());
+        clientRepository.insertEmptyClientFieldValueByClientFieldId(savedField.getId());
         return savedField;
     }
 
