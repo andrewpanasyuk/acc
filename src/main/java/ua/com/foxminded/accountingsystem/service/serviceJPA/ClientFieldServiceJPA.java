@@ -2,9 +2,8 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.com.foxminded.accountingsystem.model.Client;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.accountingsystem.model.ClientField;
-import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
 import ua.com.foxminded.accountingsystem.repository.ClientFieldRepository;
 import ua.com.foxminded.accountingsystem.repository.ClientFieldValueRepository;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
@@ -33,26 +32,17 @@ public class ClientFieldServiceJPA implements ClientFieldService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        List<ClientFieldValue> clientFieldValues = clientFieldValueRepository.findByClientField_Id(id);
-        clientFieldValues.forEach(clientFieldValue -> {
-            Client client = clientFieldValue.getClient();
-            client.removeClientFieldValue(clientFieldValue);
-            clientRepository.save(client);
-        });
+        clientFieldValueRepository.deleteByClientField_Id(id);
         clientFieldRepository.delete(id);
     }
 
     @Override
+    @Transactional
     public ClientField create(ClientField clientField) {
-        ClientField savedField = clientFieldRepository.save(clientField);
-        List<Client> clients = clientRepository.findAll();
-        clients.forEach(client -> {
-            ClientFieldValue clientFieldValue = new ClientFieldValue();
-            clientFieldValue.setClientField(savedField);
-            client.addClientFieldValue(clientFieldValue);
-            clientRepository.save(client);
-        });
+        ClientField savedField = clientFieldRepository.saveAndFlush(clientField);
+        clientRepository.setEmptyClientFieldValueByClientFieldId(savedField.getId());
         return savedField;
     }
 

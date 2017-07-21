@@ -1,11 +1,9 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.com.foxminded.accountingsystem.model.Employee;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.accountingsystem.model.EmployeeField;
-import ua.com.foxminded.accountingsystem.model.EmployeeFieldValue;
 import ua.com.foxminded.accountingsystem.repository.EmployeeFieldRepository;
 import ua.com.foxminded.accountingsystem.repository.EmployeeFieldValueRepository;
 import ua.com.foxminded.accountingsystem.repository.EmployeeRepository;
@@ -34,26 +32,17 @@ public class EmployeeFieldServiceJPA implements EmployeeFieldService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        List<EmployeeFieldValue> employeeFieldValues = employeeFieldValueRepository.findByEmployeeField_Id(id);
-        employeeFieldValues.forEach(employeeFieldValue -> {
-            Employee employee = employeeFieldValue.getEmployee();
-            employee.removeEmployeeFieldValue(employeeFieldValue);
-            employeeRepository.save(employee);
-        });
+        employeeFieldValueRepository.deleteByEmployeeField_Id(id);
         employeeFieldRepository.delete(id);
     }
 
     @Override
+    @Transactional
     public EmployeeField create(EmployeeField employeeField) {
-        EmployeeField savedField = employeeFieldRepository.save(employeeField);
-        List<Employee> employees = employeeRepository.findAll();
-        employees.forEach(employee -> {
-            EmployeeFieldValue employeeFieldValue = new EmployeeFieldValue();
-            employeeFieldValue.setEmployeeField(savedField);
-            employee.addEmployeeFieldValue(employeeFieldValue);
-            employeeRepository.save(employee);
-        });
+        EmployeeField savedField = employeeFieldRepository.saveAndFlush(employeeField);
+        employeeRepository.setEmptyEmployeeFieldValueByEmployeeFieldId(savedField.getId());
         return savedField;
     }
 }
