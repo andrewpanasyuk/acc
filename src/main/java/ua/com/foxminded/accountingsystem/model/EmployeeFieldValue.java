@@ -21,7 +21,8 @@ public class EmployeeFieldValue extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_field_value_sequence")
-    @SequenceGenerator(name = "employee_field_value_sequence", sequenceName = "employee_field_value_sequence", initialValue = 50)
+    @SequenceGenerator(name = "employee_field_value_sequence", sequenceName = "employee_field_value_sequence",
+        initialValue = 50, allocationSize=1)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
