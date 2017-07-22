@@ -10,7 +10,8 @@ public interface ClientFieldValueRepository extends JpaRepository<ClientFieldVal
     void deleteByClientField_Id(Long id);
 
     @Modifying
-    @Query(value = "insert into client_field_value (id, client_id, client_field_id, created_by, created_date) " +
-        "select nextval('client_field_value_sequence'), c.id, ?1, 'system', now() from client c", nativeQuery = true)
+    @Query(value = "insert into client_field_value (id, client_id, client_field_id, created_by, created_date, " +
+        "last_modified_by, last_modified_date) select nextval('client_field_value_sequence'), c.id, ?1, 'system', now(), " +
+        "'system', now() from client c", nativeQuery = true)
     void insertForAllClientsByClientFieldId(Long id);
 }
