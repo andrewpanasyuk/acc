@@ -3,16 +3,12 @@ package ua.com.foxminded.accountingsystem.service.report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Currency;
-import ua.com.foxminded.accountingsystem.model.DocumentType;
-import ua.com.foxminded.accountingsystem.model.Payment;
-import ua.com.foxminded.accountingsystem.model.Salary;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.repository.SalaryRepository;
-import ua.com.foxminded.accountingsystem.service.dto.CashFlowDto;
+import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
+import ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,35 +26,48 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     }
 
     @Override
-    public List<CashFlowDto> makeCashInflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
+    public List<CashInflowDto> makeCashInflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
 
         if (serviceId != null) {
-            return paymentRepository.findServicePaymentsByDatePaidBetween(beginDate, endDate, serviceId);
+            return paymentRepository.findCashInflowByServiceAndDatePaidBetween(beginDate, endDate, serviceId);
         } else {
-            return paymentRepository.findAllPaymentsByDatePaidBetween(beginDate, endDate);
+            return paymentRepository.findCashInflowByDatePaidBetween(beginDate, endDate);
         }
     }
 
     @Override
-    public List<CashFlowDto> makeCashOutflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
+    public List<CashOutflowDto> makeCashOutflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
 
         if (serviceId != null) {
-            return salaryRepository.findServiceSalariesBySalaryDateBetween(beginDate, endDate, serviceId);
+            return salaryRepository.findCashOutflowByServiceAndSalaryDateBetweenAndPaidTrue(beginDate, endDate, serviceId);
         } else {
-            return salaryRepository.findAllSalariesBySalaryDateBetween(beginDate, endDate);
+            return salaryRepository.findCashOutflowBySalaryDateBetweenAndPaidTrue(beginDate, endDate);
         }
     }
 
     @Override
-    public Map<Currency, Long> getTotalsCashFlowReport(List<CashFlowDto> cashFlowReport) {
+    public Map<Currency, Long> getTotalsCashInflowReport(List<CashInflowDto> cashInflowReport) {
 
-        if (cashFlowReport == null) {
+        if (cashInflowReport == null) {
             return null;
         } else {
-            return (cashFlowReport
+            return (cashInflowReport
                 .stream()
-                .map(cashFlowDto -> cashFlowDto.getMoney())
-                .collect(Collectors.groupingBy(money -> money.getCurrency(), Collectors.summingLong(money -> money.getAmount()))));
+                .map(cashInflowDto -> cashInflowDto.getFlowSum())
+                .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount()))));
+        }
+    }
+
+    @Override
+    public Map<Currency, Long> getTotalsCashOutflowReport(List<CashOutflowDto> cashOutflowReport) {
+
+        if (cashOutflowReport == null) {
+            return null;
+        } else {
+            return (cashOutflowReport
+                .stream()
+                .map(cashOutflowDto -> cashOutflowDto.getFlowSum())
+                .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount()))));
         }
     }
 

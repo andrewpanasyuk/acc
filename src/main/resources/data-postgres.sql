@@ -204,10 +204,10 @@ INSERT INTO order_queue (id, queuing_date, priority, order_id, created_by, creat
     (3, now() - interval '4 day', 'NORMAL', 4, 'system', '2017-07-11');
 
 INSERT INTO salary(id, date_salary, date_from, date_to, employee_id, paid, total_amount_id) VALUES
-    (1, '2017-07-19',  '2017-06-01', '2017-07-19', 1, TRUE, 41),
-    (2, '2017-07-19',  '2017-06-01', '2017-07-19', 4, TRUE, 42),
-    (3, '2017-07-19',  '2017-06-01', '2017-07-19', 2, TRUE, 43),
-    (4, '2017-07-19',  '2017-06-01', '2017-07-19', 3, TRUE, 44);
+    (1, now() - interval '1 day',  now() - interval '4 mon', now() - interval '1 mon', 1, TRUE, 41),
+    (2, now() - interval '1 day',  now() - interval '3 mon + 10 day', now() - interval '11 day', 4, TRUE, 42),
+    (3, now() - interval '1 day',  now() - interval '1 mon + 4 day', now() - interval '5 day', 2, TRUE, 43),
+    (4, now() - interval '1 day',  now() - interval '2 mon + 10 day', now() - interval '10 day', 3, TRUE, 44);
 
 INSERT INTO salary_item(id, salary_id, employee_id, invoice_id, employee_payment_id, date_from, date_to, accounted) VALUES
     (1, null, 1, 1, 22, now() - interval '4 mon', now() - interval '3 mon', FALSE),

@@ -59,9 +59,9 @@
            data-side-pagination="client">
       <thead>
       <tr>
-        <th>Document date</th>
-        <th>Document type</th>
-        <th>Document</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Payment</th>
         <th>Currency</th>
         <th>Amount</th>
       </tr>
@@ -69,19 +69,19 @@
       <tbody>
       <tr th:each="cashInflow : ${cashInflowReport}">
         <td>
-          <p th:text="${cashInflow.documentDate}"></p>
+          <p th:text="${cashInflow.flowDate}"></p>
         </td>
         <td>
-          <p th:text="${cashInflow.documentType}"></p>
+          <p th:text="${cashInflow.flowType}"></p>
         </td>
         <td>
-          <p th:text="${cashInflow.documentId}"></p>
+          <p th:text="${cashInflow.flowId}"></p>
         </td>
         <td>
-          <p th:text="${cashInflow.money.currency}"></p>
+          <p th:text="${cashInflow.flowSum.currency}"></p>
         </td>
         <td>
-          <p th:text="${cashInflow.money.amount}"></p>
+          <p th:text="${cashInflow.flowSum.amount}"></p>
         </td>
       </tr>
       <tr>
@@ -107,9 +107,9 @@
            data-side-pagination="client">
       <thead>
       <tr>
-        <th>Document date</th>
-        <th>Document type</th>
-        <th>Document</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Salary</th>
         <th>Currency</th>
         <th>Amount</th>
       </tr>
@@ -117,19 +117,19 @@
       <tbody>
       <tr th:each="cashOutflow : ${cashOutflowReport}">
         <td>
-          <p th:text="${cashOutflow.documentDate}"></p>
+          <p th:text="${cashOutflow.flowDate}"></p>
         </td>
         <td>
-          <p th:text="${cashOutflow.documentType}"></p>
+          <p th:text="${cashOutflow.flowType}"></p>
         </td>
         <td>
-          <p th:text="${cashOutflow.documentId}"> </p>
+          <p th:text="${cashOutflow.flowId}"> </p>
         </td>
         <td>
-          <p th:text="${cashOutflow.money.currency}"></p>
+          <p th:text="${cashOutflow.flowSum.currency}"></p>
         </td>
         <td>
-          <p th:text="${cashOutflow.money.amount}"></p>
+          <p th:text="${cashOutflow.flowSum.amount}"></p>
         </td>
       </tr>
       <tr>
