@@ -22,7 +22,7 @@ public class ClientFieldValue extends AbstractAuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_field_value_sequence")
     @SequenceGenerator(name = "client_field_value_sequence", sequenceName = "client_field_value_sequence",
-        initialValue = 50, allocationSize=1)
+        initialValue = 50, allocationSize = 1)
     private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
