@@ -7,32 +7,32 @@ import java.time.LocalDate;
 
 public class CashInflowDto {
 
-    private LocalDate flowDate;
-    private String flowType;
-    private Long flowId;
-    private Money flowSum;
+    private LocalDate date;
+    private String type;
+    private Long id;
+    private Money sum;
 
-    public CashInflowDto(LocalDate flowDate, String flowType, Long flowId, Money flowSum) {
-        this.flowDate = flowDate;
-        this.flowType = flowType;
-        this.flowId = flowId;
-        this.flowSum = flowSum;
+    public CashInflowDto(LocalDate date, String type, Long id, Money sum) {
+        this.date = date;
+        this.type = type;
+        this.id = id;
+        this.sum = sum;
     }
 
-    public LocalDate getFlowDate() {
-        return flowDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public String getFlowType() {
-        return flowType;
+    public String getType() {
+        return type;
     }
 
-    public Long getFlowId() {
-        return flowId;
+    public Long getId() {
+        return id;
     }
 
-    public Money getFlowSum() {
-        return flowSum;
+    public Money getSum() {
+        return sum;
     }
 
     @Override
@@ -43,15 +43,15 @@ public class CashInflowDto {
 
         CashInflowDto that = (CashInflowDto) o;
 
-        if (!flowDate.equals(that.flowDate)) return false;
-        if (flowType != that.flowType) return false;
-        if (!flowId.equals(that.flowId)) return false;
-        return flowSum != null ? flowSum.equals(that.flowSum) : that.flowSum == null;
+        if (!date.equals(that.date)) return false;
+        if (type != that.type) return false;
+        if (!id.equals(that.id)) return false;
+        return sum != null ? sum.equals(that.sum) : that.sum == null;
     }
 
     @Override
     public int hashCode() {
-        int result = flowId.hashCode();
+        int result = id.hashCode();
         return result;
     }
 }

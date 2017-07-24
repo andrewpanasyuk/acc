@@ -16,7 +16,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
         + "from Payment p inner join p.invoice.contract.order.service s "
         + "where p.datePaid >= ?1 and p.datePaid <= ?2 "
         + "order by p.datePaid")
-    List<CashInflowDto> findCashInflowByDatePaidBetween(LocalDate beginDate, LocalDate endDate);
+    List<CashInflowDto> findAllCashInflowByDatePaidBetween(LocalDate beginDate, LocalDate endDate);
 
     @Query("select new ua.com.foxminded.accountingsystem.service.dto.CashInflowDto"
         + "(p.datePaid, s.name, p.id, p.sum) "

@@ -9,20 +9,21 @@
   <h3>Cash Flow Report</h3>
   <br/>
 
-  <form name="requestParameters" th:action="@{/admin/cashflowreport}" method="get">
+  <form name="requestParameters" th:action="@{/admin/reports/cashflow}" th:object="${selectedService}" method="post">
 
     <div class="form-group">
       <div class="col-sm-2">
-        <label for="serviceIdField">Service: </label>
+        <label for="selectedServiceField">Service: </label>
       </div>
       <div class="col-sm-10">
-        <select id="serviceIdField" name="serviceId" class="form-control">
-          <option selected="selected" th:value="${serviceId}" th:text="${serviceName}"></option>
-          <option value="" th:if="${serviceId != null}">All services</option>
+        <select id="selectedServiceField" th:field="${selectedService.id}" class="form-control">
+          <option selected="selected" th:value="${selectedService.id}" th:text="${selectedService.name}"></option>
+          <option value="0" th:if="${selectedService.id != 0}">All services</option>
           <option th:each="service : ${services}"
                   th:value="${service.id}"
-                  th:if="${serviceId != service.id}"
-                  th:text="${service.name}"></option>
+                  th:if="${selectedService.id != service.id}"
+                  th:text="${service.name}">
+          </option>
         </select><br/>
       </div>
     </div>
@@ -69,19 +70,19 @@
       <tbody>
       <tr th:each="cashInflow : ${cashInflowReport}">
         <td>
-          <p th:text="${cashInflow.flowDate}"></p>
+          <p th:text="${cashInflow.date}"></p>
         </td>
         <td>
-          <p th:text="${cashInflow.flowType}"></p>
+          <p th:text="${cashInflow.type}"></p>
         </td>
         <td>
-          <p th:text="${cashInflow.flowId}"></p>
+          <p th:text="${cashInflow.id}"></p>
         </td>
         <td>
-          <p th:text="${cashInflow.flowSum.currency}"></p>
+          <p th:text="${cashInflow.sum.currency}"></p>
         </td>
         <td>
-          <p th:text="${cashInflow.flowSum.amount}"></p>
+          <p th:text="${cashInflow.sum.amount}"></p>
         </td>
       </tr>
       <tr>
@@ -117,19 +118,19 @@
       <tbody>
       <tr th:each="cashOutflow : ${cashOutflowReport}">
         <td>
-          <p th:text="${cashOutflow.flowDate}"></p>
+          <p th:text="${cashOutflow.date}"></p>
         </td>
         <td>
-          <p th:text="${cashOutflow.flowType}"></p>
+          <p th:text="${cashOutflow.type}"></p>
         </td>
         <td>
-          <p th:text="${cashOutflow.flowId}"> </p>
+          <p th:text="${cashOutflow.id}"> </p>
         </td>
         <td>
-          <p th:text="${cashOutflow.flowSum.currency}"></p>
+          <p th:text="${cashOutflow.sum.currency}"></p>
         </td>
         <td>
-          <p th:text="${cashOutflow.flowSum.amount}"></p>
+          <p th:text="${cashOutflow.sum.amount}"></p>
         </td>
       </tr>
       <tr>

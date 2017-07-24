@@ -28,20 +28,20 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     @Override
     public List<CashInflowDto> makeCashInflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
 
-        if (serviceId != null) {
+        if (serviceId != 0) {
             return paymentRepository.findCashInflowByServiceAndDatePaidBetween(beginDate, endDate, serviceId);
         } else {
-            return paymentRepository.findCashInflowByDatePaidBetween(beginDate, endDate);
+            return paymentRepository.findAllCashInflowByDatePaidBetween(beginDate, endDate);
         }
     }
 
     @Override
     public List<CashOutflowDto> makeCashOutflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
 
-        if (serviceId != null) {
-            return salaryRepository.findCashOutflowByServiceAndSalaryDateBetweenAndPaidTrue(beginDate, endDate, serviceId);
+        if (serviceId != 0) {
+            return salaryRepository.findCashOutflowByServiceAndSalaryDateBetween(beginDate, endDate, serviceId);
         } else {
-            return salaryRepository.findCashOutflowBySalaryDateBetweenAndPaidTrue(beginDate, endDate);
+            return salaryRepository.findAllCashOutflowBySalaryDateBetween(beginDate, endDate);
         }
     }
 
@@ -53,7 +53,7 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
         } else {
             return (cashInflowReport
                 .stream()
-                .map(cashInflowDto -> cashInflowDto.getFlowSum())
+                .map(cashInflowDto -> cashInflowDto.getSum())
                 .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount()))));
         }
     }
@@ -66,7 +66,7 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
         } else {
             return (cashOutflowReport
                 .stream()
-                .map(cashOutflowDto -> cashOutflowDto.getFlowSum())
+                .map(cashOutflowDto -> cashOutflowDto.getSum())
                 .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount()))));
         }
     }
