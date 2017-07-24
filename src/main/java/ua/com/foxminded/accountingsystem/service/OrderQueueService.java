@@ -11,6 +11,8 @@ public interface OrderQueueService {
 
     void delete(OrderQueue orderQueue);
 
+    void delete(Long id);
+
     OrderQueue save(OrderQueue orderQueue);
 
     OrderQueue findOne(Long id);

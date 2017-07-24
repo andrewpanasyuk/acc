@@ -32,6 +32,11 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     }
 
     @Override
+    public void delete(Long id) {
+        orderQueueRepository.delete(id);
+    }
+
+    @Override
     public OrderQueue save(OrderQueue orderQueue) {
         return orderQueueRepository.save(orderQueue);
     }
