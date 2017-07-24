@@ -22,8 +22,8 @@
           <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">CPU Traffic</span>
-            <span class="info-box-number">90<small>%</small></span>
+            <span class="info-box-text">Active students</span>
+            <span id="activeStudentCount" class="info-box-number">Loading...</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -35,8 +35,8 @@
           <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Likes</span>
-            <span class="info-box-number">41,410</span>
+            <span class="info-box-text">New Clients</span>
+            <span id="newStudentsCount" class="info-box-number">Loading...</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -52,8 +52,8 @@
           <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Sales</span>
-            <span class="info-box-number">760</span>
+            <span class="info-box-text">Frozen Students</span>
+            <span id="frozenStudentsCount" class="info-box-number">Loading...</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -65,8 +65,8 @@
           <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">New Members</span>
-            <span class="info-box-number">2,000</span>
+            <span class="info-box-text">Graduated Students</span>
+            <span id="graduatedSudentsCount" class="info-box-number">Loading...</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -939,8 +939,32 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-  </section>
 
+
+  </section>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+
+      alert("WTF?");
+      $.ajax({
+        type: "GET",
+        url: "/api/statistics",
+        dataType: "json",
+        cache: false,
+        timeout: 600000,
+        success: function(data) {
+          $("#activeStudentCount").html(data[0]);
+          $("#newStudentsCount").html(data[1]);
+          $("#frozenStudentCount").html(data[2]);
+        },
+        error: function(e) {
+          console.log(e.responseText);
+        }
+      });
+    });
+    /*]]>*/
+  </script>
 </section>
 
 </body>
