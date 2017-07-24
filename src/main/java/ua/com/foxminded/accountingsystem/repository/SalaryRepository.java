@@ -3,7 +3,6 @@ package ua.com.foxminded.accountingsystem.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Salary;
-import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
 import ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto;
 
 import java.time.LocalDate;
