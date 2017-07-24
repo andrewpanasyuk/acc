@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface ClientFieldService {
     List<ClientField> findAll();
+
+    void delete(Long id);
+
+    ClientField create(ClientField clientField);
 }

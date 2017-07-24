@@ -1,0 +1,141 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Employee fields</div>
+        <div class="panel-body">
+
+          <table data-toggle="table" data-class="table table-striped table-hover"
+                 data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
+            <thead>
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="employeeField" type="ua.com.foxminded.accountingsystem.model.EmployeeField"*/-->
+            <tr th:each="employeeField : ${employeeFields}">
+              <td>
+                <p th:text="${employeeField.id}">id</p>
+              </td>
+              <td>
+                <p th:text="${employeeField.name}">name</p>
+              </td>
+              <td>
+                <form id="deleteEmployeeField" class="form-horizontal"
+                      th:action="@{/admin/extra-fields/employee/{id}(id=${employeeField.id})}"
+                      th:method="delete">
+                  <button type="submit" class="btn btn-danger btn"
+                          onclick=" return confirm('Are you sure you want to delete client field?')">Delete
+                  </button>
+                </form>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <br/>
+          <div id="fixed-table-toolbar--buttons-employee" class="pull-right search">
+            <div id="createEmployeeFieldModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create Employee Field</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form th:action="@{/admin/extra-fields/employee}" method="post">
+                      <div class="form-group">
+                        <input type="text" name="name" id="employeeFieldName" tabindex="1" class="form-control"
+                               placeholder="employee field name" value=""/>
+                      </div>
+                      <button type="submit" class="btn btn-primary">save</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createEmployeeFieldModal">
+              Create New Employee Field
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Client fields</div>
+        <div class="panel-body">
+          <table data-toggle="table" data-class="table table-striped table-hover"
+                 data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
+            <thead>
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="clientField" type="ua.com.foxminded.accountingsystem.model.ClientField"*/-->
+            <tr th:each="clientField : ${clientFields}">
+              <td>
+                <p th:text="${clientField.id}">id</p>
+              </td>
+              <td>
+                <p th:text="${clientField.name}">name</p>
+              </td>
+              <td>
+                <form id="deleteClientField" class="form-horizontal"
+                      th:action="@{/admin/extra-fields/client/{id}(id=${clientField.id})}"
+                      th:method="delete">
+                  <button type="submit" class="btn btn-danger btn"
+                          onclick="return confirm('Are you sure you want to delete client field?')">
+                    Delete
+                  </button>
+                </form>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <br/>
+          <div id="fixed-table-toolbar--buttons-client" class="pull-right search">
+            <div id="createClientFieldModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create Client Field</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form th:action="@{/admin/extra-fields/client}" method="post">
+                      <div class="form-group">
+                        <input type="text" name="name" id="clientFieldName" tabindex="1" class="form-control"
+                               placeholder="client field name" value=""/>
+                      </div>
+                      <button type="submit" class="btn btn-primary">save</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createClientFieldModal">
+              Create New Client Field
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
+
+
+
