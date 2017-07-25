@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "order_queue")
 @Audited
-public class OrderQueue extends AbstractAuditEntity implements Comparable {
+public class OrderQueue extends AbstractAuditEntity implements Comparable<OrderQueue> {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -89,8 +89,7 @@ public class OrderQueue extends AbstractAuditEntity implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        OrderQueue orderQueue = (OrderQueue) o;
+    public int compareTo(OrderQueue orderQueue) {
         int value = getPriority().name().compareTo(orderQueue.getPriority().name());
         if (value != 0) {
             return value;
