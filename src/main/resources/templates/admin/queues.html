@@ -5,7 +5,6 @@
 </head>
 <body>
 <section layout:fragment="content">
-
   <div>
     <ul class="nav nav-tabs" role="tablist">
       <li th:each="queueByService,iterStat : ${queuesByService}" role="presentation" th:class="${iterStat.index == 0}? 'active' : ''">
@@ -50,9 +49,7 @@
         </table>
       </div>
     </div>
-
   </div>
-
 </section>
 </body>
 </html>
