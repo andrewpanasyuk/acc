@@ -11,34 +11,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
-import ua.com.foxminded.accountingsystem.service.OrderService;
-import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/queues")
 public class AdminOrderQueueController {
 
     private final OrderQueueService orderQueueService;
-    private final OrderService orderService;
-    private final ServiceService serviceService;
 
     @Autowired
-    public AdminOrderQueueController(OrderQueueService orderQueueService, OrderService orderService, ServiceService serviceService) {
+    public AdminOrderQueueController(OrderQueueService orderQueueService) {
         this.orderQueueService = orderQueueService;
-        this.orderService = orderService;
-        this.serviceService = serviceService;
     }
 
     @GetMapping
     public String getQueues(Model model) {
-        List<OrderQueue> queues = orderQueueService.findAll();
-        List<Service> services = serviceService.findAll();
+        Map<Service, List<OrderQueue>> queuesByService = orderQueueService.findAllGroupByService();
         model
             .addAttribute("title", "Queue")
-            .addAttribute("services", services)
-            .addAttribute("queues", queues);
+            .addAttribute("queuesByService", queuesByService);
         return "admin/queues";
     }
 
