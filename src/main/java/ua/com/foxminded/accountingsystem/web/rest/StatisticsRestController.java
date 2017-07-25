@@ -21,6 +21,6 @@ public class StatisticsRestController {
     @GetMapping("/statistics")
     public List<Integer> getStatictics() {
         log.debug("Get statistics");
-        return Arrays.asList(20, 5, 3);
+        return Arrays.asList(20, 5, 3, 8);
     }
 }

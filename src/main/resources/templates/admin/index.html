@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+          <span class="info-box-icon bg-aqua"></span>
 
           <div class="info-box-content">
             <span class="info-box-text">Active students</span>
@@ -946,7 +946,6 @@
     /*<![CDATA[*/
     $(document).ready(function () {
 
-      alert("WTF?");
       $.ajax({
         type: "GET",
         url: "/api/statistics",
@@ -956,10 +955,14 @@
         success: function(data) {
           $("#activeStudentCount").html(data[0]);
           $("#newStudentsCount").html(data[1]);
-          $("#frozenStudentCount").html(data[2]);
+          $("#frozenStudentsCount").html(data[2]);
+          $("#graduatedSudentsCount").html(data[3]);
         },
         error: function(e) {
-          console.log(e.responseText);
+          $("#activeStudentCount").html("error");
+          $("#newStudentsCount").html("error");
+          $("#frozenStudentsCount").html("error");
+          $("#graduatedSudentsCount").html("error");
         }
       });
     });
