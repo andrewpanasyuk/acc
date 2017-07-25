@@ -63,10 +63,12 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     public Map<ua.com.foxminded.accountingsystem.model.Service, List<OrderQueue>> findAllGroupByService() {
         Map<ua.com.foxminded.accountingsystem.model.Service, List<OrderQueue>> queuesByService = new HashMap<>();
         List<OrderQueue> orderQueues = orderQueueRepository.findAll();
+        Collections.sort(orderQueues);
         List<ua.com.foxminded.accountingsystem.model.Service> services = serviceRepository.findAll();
         services.forEach(service -> queuesByService.put(service, new ArrayList<>()));
         orderQueues.forEach(orderQueue -> queuesByService.get(orderQueue.getOrder().getService()).add(orderQueue));
         return queuesByService;
+
     }
 
     @Override
