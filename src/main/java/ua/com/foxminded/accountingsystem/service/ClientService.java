@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.service;
 
 import ua.com.foxminded.accountingsystem.model.Client;
+import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface ClientService {
     Client findOne(Long id);
 
     List<Client> findAll();
+
+    ClientStatisticsDto getClientStatistics();
+
 }

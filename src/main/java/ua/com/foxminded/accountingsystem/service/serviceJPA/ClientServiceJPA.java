@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.ClientField;
 import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
+import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,4 +73,24 @@ public class ClientServiceJPA implements ClientService {
     public List<Client> findAll() {
         return clientRepository.findAll();
     }
+
+    @Override
+    public ClientStatisticsDto getClientStatistics() {
+
+        ClientStatisticsDto statistics = new ClientStatisticsDto();
+
+        statistics.setActiveClients(clientRepository
+            .countClientByOrders_Status(OrderStatus.ACTIVE));
+
+        statistics.setAllClients(clientRepository.count());
+
+        statistics.setNewClientsForLastMonth(0L);
+        statistics.setFrozenClients(0L);
+        statistics.setFrozenClientsForLastMonth(0L);
+        statistics.setGraduatedClients(0L);
+        statistics.setFrozenClientsForLastMonth(0L);
+
+        return statistics;
+    }
+
 }
