@@ -22,7 +22,7 @@
           <span class="info-box-icon bg-aqua"></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Active students</span>
+            <span>Active students</span>
             <span id="activeStudentCount" class="info-box-number">Loading...</span>
           </div>
           <!-- /.info-box-content -->
@@ -32,11 +32,13 @@
       <!-- /.col -->
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+          <span class="info-box-icon bg-red"></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">New Clients</span>
-            <span id="newStudentsCount" class="info-box-number">Loading...</span>
+            <span>New students</span>
+            <span id="newStudentsCountMonth" class="info-box-number">Loading...</span>
+            /
+            <span id="newStudentsCountAll" class="info-box-number">Loading...</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -49,11 +51,12 @@
 
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+          <span class="info-box-icon bg-green"></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Frozen Students</span>
-            <span id="frozenStudentsCount" class="info-box-number">Loading...</span>
+            <span>Frozen Students</span>
+            <span id="frozenStudentsCountMonth" class="info-box-number">Loading...</span>/
+            <span id="frozenStudentsCountAll" class="info-box-number">Loading...</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -62,11 +65,12 @@
       <!-- /.col -->
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+          <span class="info-box-icon bg-yellow"></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Graduated Students</span>
-            <span id="graduatedSudentsCount" class="info-box-number">Loading...</span>
+            <span>Graduated Students</span>
+            <span id="graduatedStudentsCountMonth" class="info-box-number">Loading...</span>
+            <span id="graduatedStudentsCountAll" class="info-box-number">Loading...</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -948,21 +952,27 @@
 
       $.ajax({
         type: "GET",
-        url: "/api/statistics",
+        url: "/api/statistics/clients",
         dataType: "json",
         cache: false,
         timeout: 600000,
         success: function(data) {
-          $("#activeStudentCount").html(data[0]);
-          $("#newStudentsCount").html(data[1]);
-          $("#frozenStudentsCount").html(data[2]);
-          $("#graduatedSudentsCount").html(data[3]);
+          $("#activeStudentCount").html(data.activeClients);
+          $("#newStudentsCountMonth").html(data.newClientsForLastMonth);
+          $("#newStudentsCountAll").html(data.allClients);
+          $("#frozenStudentsCountMonth").html(data.frozenClientsForLastMonth);
+          $("#frozenStudentsCountAll").html(data.frozenClients);
+          $("#graduatedStudentsCountMonth").html(data.graduatedClientsForLastMonth);
+          $("#graduatedStudentsCountAll").html(data.graduatedClients);
         },
         error: function(e) {
-          $("#activeStudentCount").html("error");
-          $("#newStudentsCount").html("error");
-          $("#frozenStudentsCount").html("error");
-          $("#graduatedSudentsCount").html("error");
+          $("#activeStudentCount").html("Error");
+          $("#newStudentsCountMonth").html("Error");
+          $("#newStudentsCountAll").html("Error");
+          $("#frozenStudentsCountMonth").html("Error");
+          $("#frozenStudentsCountAll").html("Error");
+          $("#graduatedStudentsCountMonth").html("Error");
+          $("#graduatedStudentsCountAll").html("Error");
         }
       });
     });
