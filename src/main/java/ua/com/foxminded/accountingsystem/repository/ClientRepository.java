@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 
@@ -15,5 +16,11 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     long countClientByOrders_Status(OrderStatus status);
 
-    long countClientByCreatedByAfter(LocalDateTime date);
+    long countClientByCreatedDateAfter(LocalDateTime date);
+
+    @Query("SELECT count(client) FROM Client client " +
+        "JOIN client.orders orders " +
+        "JOIN Contract contract")
+    long countClientByOrdersFrozenForLastMonth();
+
 }
