@@ -11,6 +11,7 @@ import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -84,10 +85,17 @@ public class ClientServiceJPA implements ClientService {
 
         statistics.setAllClients(clientRepository.count());
 
-        statistics.setNewClientsForLastMonth(0L);
-        statistics.setFrozenClients(0L);
+        statistics.setNewClientsForLastMonth(clientRepository
+            .countClientByCreatedDateAfter(LocalDateTime.now().minusMonths(1)));
+
+        statistics.setFrozenClients(clientRepository
+            .countClientByOrders_Status(OrderStatus.FROZEN));
+
         statistics.setFrozenClientsForLastMonth(0L);
-        statistics.setGraduatedClients(0L);
+
+        statistics.setGraduatedClients(clientRepository
+            .countClientByOrders_Status(OrderStatus.COMPLETED));
+
         statistics.setFrozenClientsForLastMonth(0L);
 
         return statistics;
