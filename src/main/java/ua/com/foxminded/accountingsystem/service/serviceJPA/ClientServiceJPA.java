@@ -11,6 +11,7 @@ import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,7 @@ public class ClientServiceJPA implements ClientService {
         ClientStatisticsDto statistics = new ClientStatisticsDto();
 
         statistics.setActiveClients(clientRepository
-            .countClientByOrders_Status(OrderStatus.ACTIVE));
+            .countClientByOrdersStatus(OrderStatus.ACTIVE));
 
         statistics.setAllClients(clientRepository.count());
 
@@ -89,14 +90,15 @@ public class ClientServiceJPA implements ClientService {
             .countClientByCreatedDateAfter(LocalDateTime.now().minusMonths(1)));
 
         statistics.setFrozenClients(clientRepository
-            .countClientByOrders_Status(OrderStatus.FROZEN));
+            .countClientByOrdersStatus(OrderStatus.FROZEN));
 
-        statistics.setFrozenClientsForLastMonth(0L);
+        statistics.setFrozenClientsForLastMonth(0L); //TODO Define value
 
         statistics.setGraduatedClients(clientRepository
-            .countClientByOrders_Status(OrderStatus.COMPLETED));
+            .countClientByOrdersStatus(OrderStatus.COMPLETED));
 
-        statistics.setFrozenClientsForLastMonth(0L);
+        statistics.setGraduatedClientsForLastMonth(clientRepository
+            .countClientByOrdersStatusAndOrdersCloseDateAfter(OrderStatus.COMPLETED, LocalDate.now().minusMonths(1)));
 
         return statistics;
     }
