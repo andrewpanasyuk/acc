@@ -6,74 +6,97 @@
 <body>
 <section layout:fragment="content">
   <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
-  <form id="saveClient" class="form-horizontal" th:object="${client}"
-        th:action="@{/admin/clients/{id}(id=${client.id})}" th:method="put">
-    <input type="hidden" th:field="${client.orders}"/>
+  <div class="row" style="padding-bottom: 15px">
+    <div class="col-md-6" style="padding-bottom: 15px">
+      <div class="row">
+        <div class="col-md-12">
+          <form id="saveClient" class="form-horizontal" th:object="${client}"
+                th:action="@{/admin/clients/{id}(id=${client.id})}" th:method="put">
+            <input type="hidden" th:field="${client.orders}"/>
 
-    <div class="form-group">
-      <input type="hidden" th:value="${client.id}" id="id"/>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-2">
-        <label for="firstName">First name : </label>
-      </div>
-      <div class="col-sm-10">
-        <input th:field="*{firstName}" th:value="${client.firstName}" name="firstName" id="firstName"
-               type="text" class="form-control"/>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-2">
-        <label for="lastName">Last name : </label>
-      </div>
-      <div class="col-sm-10">
-        <input th:field="*{lastName}" th:value="${client.lastName}" name="lastName" id="lastName" type="text"
-               class="form-control"/>
+            <div class="form-group">
+              <input type="hidden" th:value="${client.id}" id="id"/>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3 col-sm-3">
+                <label for="firstName">First name : </label>
+              </div>
+              <div class="col-md-9 col-sm-9">
+                <input th:field="*{firstName}" th:value="${client.firstName}" name="firstName" id="firstName"
+                       type="text" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3 col-sm-3">
+                <label for="lastName">Last name : </label>
+              </div>
+              <div class="col-md-9 col-sm-9">
+                <input th:field="*{lastName}" th:value="${client.lastName}" name="lastName" id="lastName" type="text"
+                       class="form-control"/>
+              </div>
+            </div>
+            <hr style="width: 100%; color: grey; height: 1px; background-color:grey;" />
+            <div class="form-group" name="extraFields" th:each="extraField, iterItem : *{extraFields}">
+              <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].id}"/>
+              <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].client}"/>
+              <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].clientField}"/>
+              <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].clientField.id}"/>
+              <div class="col-md-3 col-sm-3">
+                <label th:text="${extraField.clientField.name}"></label>
+              </div>
+              <div class="col-md-9 col-sm-9">
+                <input th:field="*{extraFields[__${iterItem.index}__].value}" th:value="${extraField.value}"
+                       name="value" type="text" class="form-control"/>
+              </div>
+            </div>
+          </form>
+          <form id="deleteClient" class="form-horizontal" th:action="@{/admin/clients/{id}(id=${client.id})}"
+                th:method="delete">
+          </form>
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0">
+            <div class="btn-group col-md-4 col-sm-4 col-xs-3" role="group" style="padding: 0">
+              <button type="submit" class="btn btn-danger btn" onclick="$('#deleteClient').submit()">Delete</button>
+            </div>
+            <div class="pull-right col-md-8 col-sm-8 col-xs-9" style="padding: 0">
+              <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+                  <a th:href="@{/admin/clients}" class="btn btn-default">Go back</a>
+                </div>
+                <div class="btn-group" role="group">
+                  <a th:href="@{/admin/orders/create?clientId={id} (id=${client.id})}" class="btn btn-primary">New Order</a>
+                </div>
+                <div class="btn-group" role="group">
+                  <button type="submit" class="btn btn-primary" onclick="$('#saveClient').submit()">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <br/>
-    <h4>Extra fields:</h4>
-    <br/>
-    <div class="form-group" name="extraFields" th:each="extraField, iterItem : *{extraFields}">
-      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].id}"/>
-      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].client}"/>
-      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].clientField}"/>
-      <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].clientField.id}"/>
-      <div class="col-sm-2">
-        <label th:text="${extraField.clientField.name}"></label>
-      </div>
-      <div class="col-sm-10">
-        <input th:field="*{extraFields[__${iterItem.index}__].value}" th:value="${extraField.value}"
-               name="value" type="text" class="form-control"/>
-      </div>
-    </div>
-  </form>
-
-  <form id="deleteClient" class="form-horizontal" th:action="@{/admin/clients/{id}(id=${client.id})}"
-        th:method="delete">
-  </form>
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="btn-group col-md-8 col-sm-6 col-xs-4" role="group">
-      <button type="submit" class="btn btn-danger btn" onclick="$('#deleteClient').submit()">Delete</button>
-    </div>
-    <div class="pull-right col-md-4 col-sm-6 col-xs-8">
-      <div class="btn-group btn-group-justified" role="group">
-        <div class="btn-group" role="group">
-          <a th:href="@{/admin/orders/create?clientId={id} (id=${client.id})}" class="btn btn-primary">New Order</a>
-        </div>
-        <div class="btn-group" role="group">
-          <a th:href="@{/admin/clients}" class="btn btn-default">Go back</a>
-        </div>
-        <div class="btn-group" role="group">
-          <button type="submit" class="btn btn-primary" onclick="$('#saveClient').submit()">Save</button>
-        </div>
-      </div>
+    <div class="col-md-6">
+      <label>Balance:</label>
+      <table data-toggle="table">
+        <thead>
+        <tr>
+          <th>Currency</th>
+          <th>Amount</th>
+          <th>Withdraw</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="money : ${client.personalAccount != null} ? ${client.personalAccount.money}">
+          <td data-valign="middle" class="col-xs-2" th:text="${money.currency}"></td>
+          <td data-valign="middle" th:text="${money.price}"></td>
+          <td data-valign="middle">
+            <button action="#" class="btn btn-warning btn-sm">Withdraw</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <br/>
-  <br/>
-
   <form th:object="${client}">
     <div class="display-grid">
       <label>Orders:</label>
@@ -106,23 +129,6 @@
   </form>
 
   <br/>
-  <div class="display-grid">
-    <label>Balance:</label>
-    <table data-toggle="table">
-      <thead>
-      <tr>
-        <th>Currency</th>
-        <th>Amount</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="money : ${client.personalAccount != null} ? ${client.personalAccount.money}">
-        <td th:text="${money.currency}"></td>
-        <td th:text="${money.price}"></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
   <br/>
   <br/>
 </section>
