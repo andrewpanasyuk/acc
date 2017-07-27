@@ -1,41 +1,49 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="admin/mainTemplate">
 <head>
-  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
 </head>
 <body>
 <section layout:fragment="content">
-        <table data-toggle="table" data-class="table table-striped table-hover"
-               data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
-          <thead>
-          <tr>
-            <th>Order</th>
-            <th>Client</th>
-            <th>Service</th>
-            <th>Order status</th>
-            <th>Start date - Close date</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:each="order : ${orders}">
-            <td>
-              <a th:href="@{/admin/orders/{id}(id=${order.id})}" th:text="${order.id}"></a>
-            </td>
-            <td>
-              <p th:text="${order.client.lastName} + ' ' + ${order.client.firstName}"></p>
-            </td>
-            <!--/*@thymesVar order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-            <td>
-              <p th:text="${order.service != null} ? ${order.service.name} : ''"></p>
-            </td>
-            <td th:text="${order.status}"></td>
-            <td th:text="(${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd MMM yyyy')} : '')
-            + ' - '
-            + (${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd MMM yyyy')} : '')">
-            </td>
-          </tr>
-          </tbody>
-        </table>
+  <table data-toggle="table" data-class="table table-striped table-hover" data-pagination="true"
+         data-side-pagination="client" data-search="true" data-show-refresh="true" data-sort-name="id">
+    <thead>
+    <tr>
+      <th data-field="id" data-halign="center" data-align="center" data-formatter="ordersIdLinkFormatter" data-sortable="true" class="col-xs-1">Id</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Client</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Service</th>
+      <th data-halign="center" data-align="center" data-sortable="true" data-sorter="nameSorter" class="col-xs-1">Order
+        status
+      </th>
+      <th data-halign="center" data-align="left" data-sortable="true" class="col-xs-3">Start date - Close date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
+    <tr th:each="order : ${orders}">
+      <td th:text="${order.id}">
+
+      </td>
+      <td>
+        <p th:text="${order.client.lastName} + ' ' + ${order.client.firstName}"></p>
+      </td>
+      <td>
+        <p th:text="${order.service != null} ? ${order.service.name} : ''"></p>
+      </td>
+      <td th:text="${order.status}"></td>
+      <td th:text="(${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd MMM yyyy')} : '')
+            + ' - ' + (${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd MMM yyyy')} : '')">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    function ordersIdLinkFormatter(value, row, index) {
+      return "<a href='/admin/orders/" + value + "'>" + value + "</a>";
+    }
+    /*]]>*/
+  </script>
 </section>
 </body>
 </html>
