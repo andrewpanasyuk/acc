@@ -10,7 +10,7 @@
          data-query-params="queryParams" data-sort-name="id">
     <thead>
     <tr>
-      <th data-halign="center" data-align="center" data-sortable="true" class="col-xs-1">Contract</th>
+      <th data-field="id" data-halign="center" data-align="center" data-formatter="contractsIdLinkFormatter" data-sortable="true" class="col-xs-1">Contract</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Client</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Service</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Mentor</th>
@@ -20,9 +20,7 @@
     <tbody>
     <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
     <tr th:each="contract : ${contracts}">
-      <td>
-        <a th:href="@{/admin/contracts/{id} (id = ${contract.id})}" th:text="${contract.id}">ID</a>
-      </td>
+      <td th:text="${contract.id}"/>
       <td th:text="${contract.order.client.firstName} + ' ' + ${contract.order.client.lastName}"/>
       <td th:text="${contract.order.service.name}"/>
       <td th:text="${contract.employee.firstName} + ' ' + ${contract.employee.lastName}"/>
