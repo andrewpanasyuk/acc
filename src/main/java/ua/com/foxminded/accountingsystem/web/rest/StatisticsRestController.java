@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
+import ua.com.foxminded.accountingsystem.service.dto.ServiceStatisticsDto;
 
 import java.util.List;
 import java.util.Map;
@@ -35,9 +35,9 @@ public class StatisticsRestController {
         return clientService.getClientStatistics();
     }
 
-    @GetMapping("/clients")
-    public Map<Service, List<Long>> getStatisticsByService() {
+    @GetMapping("/service")
+    public List<ServiceStatisticsDto> getStatisticsByService() {
         log.debug("Get statistics");
-        return clientService.getClientStatisticsByService();
+        return clientService.getServiceStatistics();
     }
 }

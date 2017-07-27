@@ -95,29 +95,17 @@
       <div class="box-body">
         <div class="table-responsive">
           <table class="table no-margin">
-            <!--<thead>-->
-            <!--<tr>-->
-            <!--<th>Item</th>-->
-            <!--<th>Popularity</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
             <tbody>
             <tr>
               <td>Call of Duty IV</td>
               <td>
-                <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                <div class="sparkbar" data-color="#00a65a" data-height="20">9</div>
               </td>
-            </tr>
-            <tr>
-              <td>Samsung Smart TV</td>
               <td>
-                <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                <div class="sparkbar" data-color="#00a65a" data-height="20">2</div>
               </td>
-            </tr>
-            <tr>
-              <td>iPhone 6 Plus</td>
               <td>
-                <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                <div class="sparkbar" data-color="#00a65a" data-height="20">18</div>
               </td>
             </tr>
             </tbody>
@@ -975,6 +963,21 @@
           $("#graduatedStudentsCountAll").html("Error");
         }
       });
+
+      $.ajax({
+        type: "GET",
+        url: "/api/statistics/service",
+        dataType: "json",
+        cache: false,
+        timeout: 600000,
+        success: function(data) {
+          alert(JSON.stringify(data));
+        },
+        error: function(e) {
+
+        }
+      });
+
     });
     /*]]>*/
   </script>

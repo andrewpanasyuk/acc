@@ -1,8 +1,8 @@
 package ua.com.foxminded.accountingsystem.service;
 
 import ua.com.foxminded.accountingsystem.model.Client;
-import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
+import ua.com.foxminded.accountingsystem.service.dto.ServiceStatisticsDto;
 
 import java.util.List;
 import java.util.Map;
@@ -23,5 +23,5 @@ public interface ClientService {
 
     ClientStatisticsDto getClientStatistics();
 
-    Map<Service, List<Long>> getClientStatisticsByService();
+    List<ServiceStatisticsDto> getServiceStatistics();
 }
