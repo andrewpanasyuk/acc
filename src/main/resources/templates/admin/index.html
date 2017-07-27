@@ -95,26 +95,13 @@
       <div class="box-body">
         <div class="table-responsive">
           <table class="table no-margin">
-            <tbody>
-            <tr>
-              <td>Call of Duty IV</td>
-              <td>
-                <div class="sparkbar" data-color="#00a65a" data-height="20">9</div>
-              </td>
-              <td>
-                <div class="sparkbar" data-color="#00a65a" data-height="20">2</div>
-              </td>
-              <td>
-                <div class="sparkbar" data-color="#00a65a" data-height="20">18</div>
-              </td>
-            </tr>
+            <tbody id="serviceStaticticsTbody">
             </tbody>
           </table>
         </div>
         <!-- /.table-responsive -->
       </div>
       <!-- /.box-body -->
-
       <!-- /.box-footer -->
     </div>
     <!--/.box-->
@@ -971,10 +958,18 @@
         cache: false,
         timeout: 600000,
         success: function(data) {
-          alert(JSON.stringify(data));
+          $.each(data, function (i, stat) {
+            var tr = "<tr><td>" + stat.serviceName + "</td>"+
+              "<td><div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countActiveCases + "</div></td>" +
+              "<td><div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countFrozenCases + "</div></td>" +
+              "<td><div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countCompletedCases + "</div></td>" +
+              "</tr>\n";
+            $("#serviceStaticticsTbody").append(tr);
+          });
+
         },
         error: function(e) {
-
+          $("#serviceStaticticsTbody").append("Error: " + e);
         }
       });
 
@@ -982,6 +977,5 @@
     /*]]>*/
   </script>
 </section>
-
 </body>
 </html>
