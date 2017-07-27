@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -101,6 +102,11 @@ public class ClientServiceJPA implements ClientService {
             .countClientByOrdersStatusAndOrdersCloseDateAfter(OrderStatus.COMPLETED, LocalDate.now().minusMonths(1)));
 
         return statistics;
+    }
+
+    @Override
+    public Map<ua.com.foxminded.accountingsystem.model.Service, List<Long>> getClientStatisticsByService() {
+        return null;
     }
 
 }
