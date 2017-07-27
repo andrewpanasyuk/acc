@@ -21,9 +21,7 @@
     <tbody>
     <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
     <tr th:each="order : ${orders}">
-      <td th:text="${order.id}">
-
-      </td>
+      <td th:text="${order.id}"/>
       <td>
         <p th:text="${order.client.lastName} + ' ' + ${order.client.firstName}"></p>
       </td>

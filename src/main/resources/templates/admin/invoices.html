@@ -5,37 +5,40 @@
 </head>
 <body>
 <section layout:fragment="content">
-      <div class="col-md-10 display-grid">
-        <table data-toggle="table" data-class="table table-striped table-hover"
-               data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Client</th>
-            <th>Contact ID</th>
-            <th>Payment amount</th>
-            <th>Payment date</th>
-            <th>Payment status</th>
-          </tr>
-          </thead>
-          <tbody th:remove="all-but-first">
-          <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
-          <tr th:each="invoice : ${invoices}">
-            <td>
-              <a th:href="@{/admin/invoices/{id} (id = ${invoice.id})}" th:text="${invoice.id}">ID</a>
-            </td>
-            <td>
+  <div class="row">
+    <div class="col-md-12">
+      <table data-toggle="table" data-class="table table-striped table-hover"
+             data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true">
+        <thead>
+        <tr>
+          <th data-field="id" data-halign="center" data-align="center" data-formatter="invoicesIdLinkFormatter"
+              data-sortable="true" class="col-xs-1">Id
+          </th>
+          <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Client</th>
+          <th data-halign="center" data-align="left" data-sortable="true">Contact ID</th>
+          <th data-halign="center" data-align="left" data-sortable="true">Payment amount</th>
+          <th data-halign="center" data-align="left" data-sortable="true">Payment date</th>
+          <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Payment status</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
+        <tr th:each="invoice : ${invoices}">
+          <td th:text="${invoice.id}"/>
+          <td>
             <a th:href="@{/admin/clients/{id}(id=${invoice.contract.order.client.id})}"
                th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"></a>
-            </td>
-            <td th:text="${invoice.contract.id}"></td>
-            <td th:text="${invoice.price.currency} + ' ' + ${invoice.price.price}"></td>
-            <td th:text="${invoice.contract.paymentType.toString().equals('PREPAY')} ? ${invoice.paymentPeriodFrom} : ${invoice.paymentPeriodTo}"/>
-            <td th:text="${invoice.payment != null} ? 'YES' : 'NO'"/>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+          </td>
+          <td th:text="${invoice.contract.id}"></td>
+          <td th:text="${invoice.price.currency} + ' ' + ${invoice.price.price}"></td>
+          <td
+            th:text="${invoice.contract.paymentType.toString().equals('PREPAY')} ? ${invoice.paymentPeriodFrom} : ${invoice.paymentPeriodTo}"/>
+          <td th:text="${invoice.payment != null} ? 'YES' : 'NO'"/>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
 </body>
 </html>

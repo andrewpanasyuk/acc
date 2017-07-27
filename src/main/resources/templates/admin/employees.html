@@ -46,16 +46,14 @@
                data-query-params="queryParams" data-sort-name="id">
           <thead>
           <tr>
-            <th data-field="id" data-halign="center" data-align="center" data-sortable="true" class="col-xs-1">id</th>
+            <th data-field="id" data-halign="center" data-align="center" data-formatter="employeesIdLinkFormatter" data-sortable="true" class="col-xs-1">Id</th>
             <th data-field="name" data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">name</th>
           </tr>
           </thead>
           <tbody>
           <!--/*@thymesVar id="emp" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
           <tr th:each="emp : ${employees}">
-            <td>
-              <p th:text="${emp.id}">id</p>
-            </td>
+            <td th:text="${emp.id}"/>
             <td>
               <a th:href="@{'/admin/employees/'+${emp.id}}">
                 <span th:text="${emp.firstName} + ' ' +${emp.lastName}"></span>

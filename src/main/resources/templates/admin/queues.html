@@ -15,24 +15,22 @@
     <div class="tab-content">
       <div th:each="queueByService,iterStat : ${queuesByService}" role="tabpanel" class="tab-pane"
            th:classappend="${iterStat.index == 0} ? active : ''" th:id="'tab-' + ${queueByService.key.id}">
-        <table data-toggle="table" data-class="table table-striped table-hover"
-               data-pagination="true" data-side-pagination="queue" data-search="true" data-show-refresh="true">
+        <table data-toggle="table" data-class="table table-striped table-hover" data-pagination="true"
+               data-side-pagination="client" data-search="true" data-show-refresh="true">
           <thead>
           <tr>
-            <th>id</th>
-            <th>Service</th>
-            <th>Client</th>
-            <th>queuing Date</th>
-            <th>Priority</th>
-            <th>Action</th>
+            <th data-halign="center" data-align="center" class="col-xs-1">id</th>
+            <th data-halign="center" data-align="left">Service</th>
+            <th data-halign="center" data-align="left">Client</th>
+            <th data-halign="center" data-align="left">Queuing Date</th>
+            <th data-halign="center" data-align="left">Priority</th>
+            <th data-halign="center" data-align="left">Action</th>
           </tr>
           </thead>
           <tbody>
           <!--/*@thymesVar id="queue" type="ua.com.foxminded.accountingsystem.model.OrderQueue"*/-->
           <tr th:each="queue : ${queueByService.value}">
-            <td>
-              <p th:text="${queue.id}">id</p>
-            </td>
+            <td th:text="${queue.id}"/>
             <td th:text="${queue.order.service.name}"></td>
             <td th:text="${queue.order.client.firstName} + ' ' + ${queue.order.client.lastName}"></td>
             <td
