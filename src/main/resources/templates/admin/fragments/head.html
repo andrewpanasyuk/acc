@@ -27,6 +27,11 @@
   <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.js"></script>
   <script type="text/javascript" src="/webjars/bootstrap-table/1.11.1/dist/locale/bootstrap-table-ru-RU.min.js"></script>
   <script src="/js/tableFormatters.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#fixed-table-toolbar--buttons').prependTo('.fixed-table-toolbar');
+    });
+  </script>
   <link href="/webjars/bootstrap-table/1.11.1/dist/bootstrap-table.min.css" rel="stylesheet" type="text/css"/>
 </object>
 <object th:fragment="index_demo">
