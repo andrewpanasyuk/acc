@@ -68,4 +68,17 @@ public class ClientStatisticsDto {
     public void setGraduatedClientsForLastMonth(long graduatedClientsForLastMonth) {
         this.graduatedClientsForLastMonth = graduatedClientsForLastMonth;
     }
+
+    @Override
+    public String toString() {
+        return "ClientStatisticsDto{" +
+            "activeClients=" + activeClients +
+            ", allClients=" + allClients +
+            ", newClientsForLastMonth=" + newClientsForLastMonth +
+            ", frozenClients=" + frozenClients +
+            ", frozenClientsForLastMonth=" + frozenClientsForLastMonth +
+            ", graduatedClients=" + graduatedClients +
+            ", graduatedClientsForLastMonth=" + graduatedClientsForLastMonth +
+            '}';
+    }
 }
