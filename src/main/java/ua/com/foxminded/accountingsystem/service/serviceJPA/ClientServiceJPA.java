@@ -11,16 +11,13 @@ import ua.com.foxminded.accountingsystem.repository.OrderRepository;
 import ua.com.foxminded.accountingsystem.repository.ServiceRepository;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
-import ua.com.foxminded.accountingsystem.service.ServiceService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
 import ua.com.foxminded.accountingsystem.service.dto.ServiceStatisticsDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -101,7 +98,7 @@ public class ClientServiceJPA implements ClientService {
             .countClientByCreatedDateAfter(LocalDateTime.now().minusMonths(1)));
 
         statistics.setFrozenClients(clientRepository
-            .countClientByOrdersStatus(OrderStatus.FROZEN));
+            .countFrozenClients());
 
         statistics.setFrozenClientsForLastMonth(0L); //TODO Define value
 
@@ -111,6 +108,7 @@ public class ClientServiceJPA implements ClientService {
         statistics.setGraduatedClientsForLastMonth(clientRepository
             .countClientByOrdersStatusAndOrdersCloseDateAfter(OrderStatus.COMPLETED, LocalDate.now().minusMonths(1)));
 
+        System.out.println(statistics);
         return statistics;
     }
 
