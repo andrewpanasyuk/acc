@@ -75,42 +75,9 @@ public class AdminServiceController {
 
     @GetMapping("/new")
     public String newService(Model model) {
-        List<Money> prices = new ArrayList<>();
-        prices.add(new Money());
-
-        Money employeeRate = new Money();
-        employeeRate.setCurrency(Currency.UAH);
-
-        Service service = new Service();
-        service.setPrices(prices);
-        service.setEmployeeRate(employeeRate);
-
-        model.addAttribute("service", service);
+        model.addAttribute("service", serviceService.prepareNewService());
         model.addAttribute("currencies", Currency.values());
         return "admin/service";
     }
 
-    @PostMapping(params = "addMoney")
-    public String addMoney(@ModelAttribute Service service, Model model) {
-        List<Currency> currencies = new ArrayList<>(Arrays.asList(Currency.values()));
-        for (Money money : service.getPrices()) {
-            currencies.remove(money.getCurrency());
-        }
-        if (service.getPrices().size() < Currency.values().length) {
-            log.debug("Add new money field to service: " + service);
-            service.getPrices().add(new Money());
-        }
-
-        model.addAttribute("currencies", currencies);
-        return "/admin/service";
-    }
-
-    @PostMapping(params = "moneyIdToRemove")
-    public String removeMoney(@ModelAttribute Service service, @RequestParam int moneyIdToRemove) {
-        log.debug("Delete money field");
-        service.getPrices().remove(moneyIdToRemove);
-        return "/admin/service";
-    }
-
 }
-

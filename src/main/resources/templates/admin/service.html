@@ -4,76 +4,102 @@
 </head>
 <body>
 <section layout:fragment="content">
-        <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
-        <!--/*@thymesVar moneyrice" type="ua.com.foxminded.accountingsystem.model.Money"*/-->
-        <form th:action="@{/admin/services}" th:object="${service}" method="post">
-          <div class="form-group">
-            <input type="hidden" th:field="*{id}"/>
-            <label th:for="${#ids.next('name')}">Service name *</label>
+  <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
+  <!--/*@thymesVar moneyrice" type="ua.com.foxminded.accountingsystem.model.Money"*/-->
+  <div class="row">
+    <div class="col-md-6">
+      <form id="saveService" class="form-horizontal" th:action="@{/admin/services}" th:object="${service}"
+            method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{employeeRate.id}"/>
+        <input type="hidden" th:field="*{employeeRate.currency}"/>
+        <div class="form-group">
+          <div class="col-md-3 col-sm-3">
+            <label th:for="${#ids.next('name')}">Service name:</label>
+          </div>
+          <div class="col-md-9 col-sm-9">
             <input type="text" th:field="*{name}" class="form-control"/>
             <output th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name error</output>
           </div>
-          <div class="form-group">
-            <label th:for="${#ids.next('description')}">Description *</label>
-            <input th:field="*{description}" type="text" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3 col-sm-3">
+            <label th:for="${#ids.next('description')}">Description:</label>
+          </div>
+          <div class="col-md-9 col-sm-9">
+            <textarea rows="5" th:field="*{description}" type="text" class="form-control"/>
             <output th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">
               Description error
             </output>
           </div>
-          <div class="form-group">
-            <label th:for="${#ids.next('employeeRate.price')}"
-                   th:text="'Employee rate '+*{employeeRate.currency}+' *'"></label>
+        </div>
+        <hr style="width: 100%; color: grey; height: 1px; background-color:grey;" />
+        <div class="form-group" th:each="money, iterItem : *{prices}">
+          <div class="col-md-3 col-sm-3">
+            <label th:for="*{'prices[__${iterItem.index}__].price'}"
+                   th:text="'Price ' + *{prices[__${iterItem.index}__].currency} + ':'">Price:</label>
+          </div>
+          <div class="col-md-9 col-sm-9">
+            <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
+            <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
+
+            <div class="col-xs-8" style="padding-left: 0">
+              <input type="number" class="form-control"
+                     th:value="*{prices[__${iterItem.index}__].price}"
+                     th:id="*{'prices[__${iterItem.index}__].price'}"
+                     th:name="*{'prices[__${iterItem.index}__].price'}"
+                     required="required" min="0" max="2147483647"/>
+            </div>
+            <div class="col-xs-4" style="padding: 0">
+              <select class="form-control" disabled="disabled">
+                <option selected="selected" th:value="*{prices[__${iterItem.index}__].currency}"
+                        th:text="*{prices[__${iterItem.index}__].currency}"/>
+              </select>
+            </div>
+          </div>
+        </div>
+        <hr style="width: 100%; color: grey; height: 1px; background-color:grey;" />
+        <div class="form-group">
+          <div class="col-md-3 col-sm-3">
+            <label th:for="${#ids.next('employeeRate.price')}">Employee rate:</label>
+          </div>
+          <div class="col-md-9 col-sm-9">
+            <div class="col-xs-8" style="padding-left: 0">
+              <input th:value="*{employeeRate.price > 0} ? *{employeeRate.price}"
+                     th:id="*{'employeeRate.price'}" th:name="*{'employeeRate.price'}"
+                     type="number" class="form-control" required="required" min="0" max="2147483647"/>
+            </div>
+            <div class="col-xs-4" style="padding: 0">
+              <select class="form-control" disabled="disabled">
+                <option selected="selected" th:value="*{employeeRate.currency}"
+                        th:text="*{employeeRate.currency}"/>
+              </select>
+            </div>
             <output th:if="${#fields.hasErrors('employeeRate.price')}" th:errors="*{employeeRate.price}"
                     class="text-danger">Employee rate error
             </output>
-            <input th:value="*{employeeRate.price > 0} ? *{employeeRate.price}"
-                   th:id="*{'employeeRate.price'}" th:name="*{'employeeRate.price'}"
-                   type="number" class="form-control" required="required" min="1" max="2147483647"/>
-            <input type="hidden" th:field="*{employeeRate.id}"/>
-            <input type="hidden" th:field="*{employeeRate.currency}"/>
           </div>
-          <label for="prices">Prices *</label>
-
-          <div id="prices">
-            <table>
-              <tbody th:each="money, iterItem : *{prices}">
-              <input type="hidden" th:field="*{prices[__${iterItem.index}__].id}"/>
-
-              <input type="number"
-                     th:value="*{prices[__${iterItem.index}__].price > 0} ? *{prices[__${iterItem.index}__].price}"
-                     th:id="*{'prices[__${iterItem.index}__].price'}"
-                     th:name="*{'prices[__${iterItem.index}__].price'}"
-                     required="required" min="1" max="2147483647"/>
-              <input type="hidden" th:field="*{prices[__${iterItem.index}__].currency}"/>
-
-              <label th:if="*{prices[__${iterItem.index}__].currency != null}"
-                     th:for="*{'prices[__${iterItem.index}__].price'}"
-                     th:text="*{prices[__${iterItem.index}__].currency}">currency</label>
-
-              <select th:if="*{prices[__${iterItem.index}__].currency == null}"
-                      th:field="*{prices[__${iterItem.index}__].currency}">
-                <!--/*@thymesVar id="currencies" type="java.util.List"*/-->
-                <option th:each="currency : ${currencies}"
-                        th:value="${currency}"
-                        th:text="${currency}">currency
-                </option>
-              </select>
-              <button type="submit" name="moneyIdToRemove" th:value="${iterItem.index}" class="btn btn-primary">remove
-              </button>
-              <output th:if="${#fields.hasErrors('prices[__${iterItem.index}__].price')}"
-                      th:errors="*{prices[__${iterItem.index}__].price}" class="text-danger">Price error
-              </output>
-              <br/>
-              </tbody>
-            </table>
+        </div>
+      </form>
+      <form id="deleteService" th:action="@{/admin/services/{id}(id=${service.id})}" th:method="delete">
+      </form>
+      <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 15px 0 0">
+        <div class="btn-group col-md-4 col-sm-4 col-xs-3" role="group" style="padding: 0">
+          <button type="submit" class="btn btn-danger btn" onclick="$('#deleteservice').submit()">Delete</button>
+        </div>
+        <div class="pull-right col-md-8 col-sm-8 col-xs-9" style="padding: 0">
+          <div class="btn-group btn-group-justified" role="group">
+            <div class="btn-group" role="group">
+              <a th:href="@{/admin/services}" class="btn btn-default">Go back</a>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="submit" class="btn btn-primary" onclick="$('#saveService').submit()">Save</button>
+            </div>
           </div>
-          <button th:name="addMoney" type="submit" class="btn btn-primary">add price</button>
-          <button type="submit" class="btn btn-primary">save</button>
-        </form>
-        <form th:action="@{/admin/services/{id}(id=${service.id})}" th:method="delete">
-          <button type="submit" class="btn btn-danger">remove</button>
-        </form>
-        <a th:href="@{/admin/services}" class="btn btn-primary">back</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 </body>
 </html>

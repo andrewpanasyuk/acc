@@ -30,6 +30,14 @@ public class Money implements Serializable {
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
+    public Money() {
+    }
+
+    public Money(int price, Currency currency) {
+        this.price = price;
+        this.currency = currency;
+    }
+
     public long getId() {
         return id;
     }
