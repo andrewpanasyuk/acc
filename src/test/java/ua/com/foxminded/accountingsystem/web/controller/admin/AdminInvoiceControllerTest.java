@@ -60,13 +60,13 @@ public class AdminInvoiceControllerTest {
     }
 
     @Test
-    public void oneInvoiceAddedToModel() {
+    public void invoicesAddedToModel() {
         assertThat(controller.getAllInvoices(model), equalTo("admin/invoices"));
         assertThat(model.asMap(), hasEntry("invoices", invoices));
     }
 
     @Test
-    public void invoicesAddedToModel() {
+    public void oneInvoiceAddedToModel() {
         assertThat(controller.getInvoiceById(1L, model), equalTo("admin/invoice"));
         assertThat(model.asMap(), hasEntry("invoice", invoice1));
     }
