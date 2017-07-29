@@ -31,13 +31,11 @@ public class StatisticsRestController {
 
     @GetMapping("/clients")
     public ClientStatisticsDto getStudentStatistics() {
-        log.debug("Get statistics");
         return clientService.getClientStatistics();
     }
 
     @GetMapping("/service")
     public List<ServiceStatisticsDto> getStatisticsByService() {
-        log.debug("Get statistics");
         return clientService.getServiceStatistics();
     }
 }
