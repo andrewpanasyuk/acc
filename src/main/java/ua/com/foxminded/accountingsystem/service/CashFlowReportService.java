@@ -1,4 +1,4 @@
-package ua.com.foxminded.accountingsystem.service.report;
+package ua.com.foxminded.accountingsystem.service;
 
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;

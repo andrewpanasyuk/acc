@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
 import ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto;
-import ua.com.foxminded.accountingsystem.service.report.CashFlowReportService;
+import ua.com.foxminded.accountingsystem.service.CashFlowReportService;
 
 import java.time.LocalDate;
 import java.util.List;

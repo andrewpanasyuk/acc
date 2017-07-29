@@ -1,37 +1,34 @@
 package ua.com.foxminded.accountingsystem.service.dto;
 
+import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 
 import java.time.LocalDate;
 
 public class CashOutflowDto {
 
-    private LocalDate date;
-    private String type;
-    private Long id;
-    private Money sum;
+    private LocalDate salaryDate;
+    private Long salaryId;
+    private Money salarySum;
 
-    public CashOutflowDto(LocalDate date, String type, Long id, Money sum) {
-        this.date = date;
-        this.type = type;
-        this.id = id;
-        this.sum = sum;
+    public CashOutflowDto(LocalDate salaryDate, Long salaryId, Currency currencyId, Long salarySum) {
+        this.salaryDate = salaryDate;
+        this.salaryId = salaryId;
+        this.salarySum = new Money();
+        this.salarySum.setCurrency(currencyId);
+        this.salarySum.setAmount(salarySum);
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getSalaryDate() {
+        return salaryDate;
     }
 
-    public String getType() {
-        return type;
+    public Long getSalaryId() {
+        return salaryId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Money getSum() {
-        return sum;
+    public Money getSalarySum() {
+        return salarySum;
     }
 
     @Override
@@ -42,15 +39,14 @@ public class CashOutflowDto {
 
         CashOutflowDto that = (CashOutflowDto) o;
 
-        if (!date.equals(that.date)) return false;
-        if (type != that.type) return false;
-        if (!id.equals(that.id)) return false;
-        return sum != null ? sum.equals(that.sum) : that.sum == null;
+        if (!salaryDate.equals(that.salaryDate)) return false;
+        if (!salaryId.equals(that.salaryId)) return false;
+        return salarySum != null ? salarySum.equals(that.salarySum) : that.salarySum == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = salaryId.hashCode();
         return result;
     }
 }

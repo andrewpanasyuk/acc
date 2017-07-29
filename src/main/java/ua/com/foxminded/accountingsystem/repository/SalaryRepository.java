@@ -11,17 +11,18 @@ import java.util.List;
 public interface SalaryRepository extends JpaRepository<Salary, Long> {
 
     @Query("select new ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto"
-        + "(s.salaryDate, 'SALARY', s.id , si.employeePayment) "
-        + "from Salary s inner join s.salaryItems si "
+        + "(s.salaryDate, s.id, s.totalAmount.currency, s.totalAmount.amount) "
+        + "from Salary s "
         + "where s.salaryDate >= ?1 and s.salaryDate <= ?2 "
         + "order by s.salaryDate")
     List<CashOutflowDto> findAllCashOutflowBySalaryDateBetween(LocalDate beginDate, LocalDate endDate);
 
     @Query("select new ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto"
-        + "(s.salaryDate, 'SALARY', s.id , si.employeePayment) "
+        + "(s.salaryDate, s.id, si.employeePayment.currency, sum(si.employeePayment.amount)) "
         + "from Salary s inner join s.salaryItems si "
         + "where s.salaryDate >= ?1 and s.salaryDate <= ?2 "
         + "and si.invoice.contract.order.service.id = ?3  "
+        + "group by s.salaryDate, s.id, si.employeePayment.currency "
         + "order by s.salaryDate")
     List<CashOutflowDto> findCashOutflowByServiceAndSalaryDateBetween(LocalDate beginDate, LocalDate endDate, Long serviceId);
 

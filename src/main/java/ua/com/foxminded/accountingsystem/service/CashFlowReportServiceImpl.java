@@ -1,14 +1,16 @@
-package ua.com.foxminded.accountingsystem.service.report;
+package ua.com.foxminded.accountingsystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Currency;
+import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.repository.SalaryRepository;
 import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
 import ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -53,7 +55,7 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
         } else {
             return (cashInflowReport
                 .stream()
-                .map(cashInflowDto -> cashInflowDto.getSum())
+                .map(cashInflowDto -> cashInflowDto.getPaymentSum())
                 .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount()))));
         }
     }
@@ -66,7 +68,7 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
         } else {
             return (cashOutflowReport
                 .stream()
-                .map(cashOutflowDto -> cashOutflowDto.getSum())
+                .map(cashOutflowDto -> cashOutflowDto.getSalarySum())
                 .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount()))));
         }
     }

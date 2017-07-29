@@ -7,32 +7,32 @@ import java.time.LocalDate;
 
 public class CashInflowDto {
 
-    private LocalDate date;
-    private String type;
-    private Long id;
-    private Money sum;
+    private LocalDate paymentDate;
+    private String paidService;
+    private Long paymentId;
+    private Money paymentSum;
 
-    public CashInflowDto(LocalDate date, String type, Long id, Money sum) {
-        this.date = date;
-        this.type = type;
-        this.id = id;
-        this.sum = sum;
+    public CashInflowDto(LocalDate paymentDate, String paidService, Long paymentId, Money paymentSum) {
+        this.paymentDate = paymentDate;
+        this.paidService = paidService;
+        this.paymentId = paymentId;
+        this.paymentSum = paymentSum;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getPaymentDate() {
+        return paymentDate;
     }
 
-    public String getType() {
-        return type;
+    public String getPaidService() {
+        return paidService;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPaymentId() {
+        return paymentId;
     }
 
-    public Money getSum() {
-        return sum;
+    public Money getPaymentSum() {
+        return paymentSum;
     }
 
     @Override
@@ -43,15 +43,15 @@ public class CashInflowDto {
 
         CashInflowDto that = (CashInflowDto) o;
 
-        if (!date.equals(that.date)) return false;
-        if (type != that.type) return false;
-        if (!id.equals(that.id)) return false;
-        return sum != null ? sum.equals(that.sum) : that.sum == null;
+        if (!paymentDate.equals(that.paymentDate)) return false;
+        if (paidService != that.paidService) return false;
+        if (!paymentId.equals(that.paymentId)) return false;
+        return paymentSum != null ? paymentSum.equals(that.paymentSum) : that.paymentSum == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = paymentId.hashCode();
         return result;
     }
 }
