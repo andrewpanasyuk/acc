@@ -108,7 +108,6 @@ public class ClientServiceJPA implements ClientService {
         statistics.setGraduatedClientsForLastMonth(clientRepository
             .countClientByOrdersStatusAndOrdersCloseDateAfter(OrderStatus.COMPLETED, LocalDate.now().minusMonths(1)));
 
-        System.out.println(statistics);
         return statistics;
     }
 

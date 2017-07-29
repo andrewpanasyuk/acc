@@ -98,6 +98,14 @@
           <div class="box-body">
             <div class="table-responsive">
               <table class="table no-margin">
+                <thead>
+                <tr>
+                  <th>Service</th>
+                  <th style="text-align: center;">Active Cases</th>
+                  <th style="text-align: center;">Frozen Cases</th>
+                  <th style="text-align: center;">Completed Cases</th>
+                </tr>
+                </thead>
                 <tbody id="serviceStaticticsTbody">
                 </tbody>
               </table>
@@ -147,9 +155,12 @@
         success: function(data) {
           $.each(data, function (i, stat) {
             var tr = "<tr><td>" + stat.serviceName + "</td>"+
-              "<td><div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countActiveCases + "</div></td>" +
-              "<td><div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countFrozenCases + "</div></td>" +
-              "<td><div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countCompletedCases + "</div></td>" +
+              "<td style='text-align: center;'>" +
+              "<div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countActiveCases + "</div></td>" +
+              "<td style='text-align: center;'>" +
+              "<div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countFrozenCases + "</div></td>" +
+              "<td style='text-align: center;'>" +
+              "<div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countCompletedCases + "</div></td>" +
               "</tr>\n";
             $("#serviceStaticticsTbody").append(tr);
           });
