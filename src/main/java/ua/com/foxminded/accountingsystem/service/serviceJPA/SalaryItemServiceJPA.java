@@ -22,11 +22,6 @@ public class SalaryItemServiceJPA implements SalaryItemService {
         this.salaryItemRepository = salaryItemRepository;
     }
 
-    private static int doubleToInt(double doubleValue) {
-        long l = Math.round(doubleValue);
-        return Long.valueOf(l).intValue();
-    }
-
     @Override
     public void delete(SalaryItem salaryItem) {
         salaryItemRepository.delete(salaryItem);
@@ -67,7 +62,10 @@ public class SalaryItemServiceJPA implements SalaryItemService {
         SalaryItem salaryItem = new SalaryItem();
         long daysInPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
         long salaryItemPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), closureDate);
-        int employeePaymentValue = doubleToInt(invoice.getContract().getEmployeeRate().getPrice() / daysInPeriod * salaryItemPeriod);
+        long employeePaymentLongValue = invoice.getContract().getEmployeeRate().getPrice() / daysInPeriod * salaryItemPeriod;
+        int employeePaymentValue = Long
+            .valueOf(employeePaymentLongValue)
+            .intValue();
 
         Money employeePayment = new Money();
         employeePayment.setCurrency(invoice.getContract().getEmployeeRate().getCurrency());
