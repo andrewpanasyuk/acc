@@ -109,7 +109,6 @@ INSERT INTO personal_account (id) VALUES
 
 INSERT INTO personal_account_money (personal_account_id, money_id) VALUES
     (1, 1),
-    (1, 6),
     (2, 2),
     (2, 3),
     (2, 5),
