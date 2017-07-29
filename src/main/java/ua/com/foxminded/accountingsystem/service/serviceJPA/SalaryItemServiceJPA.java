@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.SalaryItem;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-
+@Service
 public class SalaryItemServiceJPA implements SalaryItemService {
 
     private final SalaryItemRepository salaryItemRepository;
