@@ -91,10 +91,10 @@
         <tr th:each="totalCashInflow : ${totalsCashInflow}">
           <td colspan="3"></td>
           <td>
-            <p th:text="${totalCashInflow.value}"></p>
+            <p th:text="${totalCashInflow.amount}"></p>
           </td>
           <td>
-            <p th:text="${totalCashInflow.key}"></p>
+            <p th:text="${totalCashInflow.currency}"></p>
           </td>
         </tr>
         </tbody>
@@ -134,10 +134,10 @@
         <tr th:each="totalCashOutflow : ${totalsCashOutflow}">
           <td colspan="2"></td>
           <td>
-            <p th:text="${totalCashOutflow.value}"></p>
+            <p th:text="${totalCashOutflow.amount}"></p>
           </td>
           <td>
-            <p th:text="${totalCashOutflow.key}"></p>
+            <p th:text="${totalCashOutflow.currency}"></p>
           </td>
         </tr>
         </tbody>
@@ -156,31 +156,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="totalCashInflow : ${totalsCashInflow}" th:if="${totalsCashInflow.size() != 0} and ${totalsCashOutflow.size() != 0}">
+        <tr th:each="balanceCashFlow : ${balanceCashFlowReport}">
           <td>
-            <p th:text="${totalCashInflow.value - totalsCashOutflow[T(ua.com.foxminded.accountingsystem.model.Currency).UAH]}"
-               th:if="${totalCashInflow.key == (T(ua.com.foxminded.accountingsystem.model.Currency).UAH)}"></p>
-            <p th:text="${totalCashInflow.value}"
-               th:if="${totalCashInflow.key != (T(ua.com.foxminded.accountingsystem.model.Currency).UAH)}"></p>
+            <p th:text="${balanceCashFlow.amount}"></p>
           </td>
           <td>
-            <p th:text="${totalCashInflow.key}"></p>
-          </td>
-        </tr>
-        <tr th:each="totalCashInflow : ${totalsCashInflow}" th:if="${totalsCashInflow.size() != 0} and ${totalsCashOutflow.size() == 0}">
-          <td>
-            <p th:text="${totalCashInflow.value}"></p>
-          </td>
-          <td>
-            <p th:text="${totalCashInflow.key}"></p>
-          </td>
-        </tr>
-        <tr th:each="totalCashOutflow : ${totalsCashOutflow}" th:if="${totalsCashInflow.size() == 0} and ${totalsCashOutflow.size() != 0}">
-          <td>
-            <p th:text="${-totalCashOutflow.value}"></p>
-          </td>
-          <td>
-            <p th:text="${totalCashOutflow.key}"></p>
+            <p th:text="${balanceCashFlow.currency}"></p>
           </td>
         </tr>
         </tbody>

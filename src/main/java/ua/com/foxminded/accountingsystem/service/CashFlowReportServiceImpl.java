@@ -10,9 +10,9 @@ import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
 import ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,7 +48,7 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
     }
 
     @Override
-    public Map<Currency, Long> getTotalsCashInflowReport(List<CashInflowDto> cashInflowReport) {
+    public Set<Money> getTotalsCashInflowReport(List<CashInflowDto> cashInflowReport) {
 
         if (cashInflowReport == null) {
             return null;
@@ -56,12 +56,20 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
             return (cashInflowReport
                 .stream()
                 .map(cashInflowDto -> cashInflowDto.getPaymentSum())
-                .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount()))));
+                .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount())))
+                .entrySet()
+                .stream()
+                .map(mapItem -> {
+                    Money money = new Money();
+                    money.setCurrency(mapItem.getKey());
+                    money.setAmount(mapItem.getValue());
+                    return money;
+                }).collect(Collectors.toSet()));
         }
     }
 
     @Override
-    public Map<Currency, Long> getTotalsCashOutflowReport(List<CashOutflowDto> cashOutflowReport) {
+    public Set<Money> getTotalsCashOutflowReport(List<CashOutflowDto> cashOutflowReport) {
 
         if (cashOutflowReport == null) {
             return null;
@@ -69,8 +77,46 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
             return (cashOutflowReport
                 .stream()
                 .map(cashOutflowDto -> cashOutflowDto.getSalarySum())
-                .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount()))));
+                .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount())))
+                .entrySet()
+                .stream()
+                .map(mapItem -> {
+                    Money money = new Money();
+                    money.setCurrency(mapItem.getKey());
+                    money.setAmount(mapItem.getValue());
+                    return money;
+                }).collect(Collectors.toSet()));
         }
     }
 
+    @Override
+    public Set<Money> getBalanceCashFlowReport(Set<Money> totalsCashInflowReport, Set<Money> totalsCashOutflowReport) {
+
+        if (totalsCashInflowReport == null || totalsCashOutflowReport == null) {
+            return null;
+        }
+
+        Set<Money> balance = new HashSet<Money>();
+
+        balance.addAll(totalsCashInflowReport);
+
+        totalsCashOutflowReport.forEach(item -> {
+            Money money = new Money();
+            money.setCurrency(item.getCurrency());
+            money.setAmount(-item.getAmount());
+            balance.add(money);
+        });
+
+        return (balance
+            .stream()
+            .collect(Collectors.groupingBy(item -> item.getCurrency(), Collectors.summingLong(item -> item.getAmount())))
+            .entrySet()
+            .stream()
+            .map(mapItem -> {
+                Money money = new Money();
+                money.setCurrency(mapItem.getKey());
+                money.setAmount(mapItem.getValue());
+                return money;
+            }).collect(Collectors.toSet()));
+    }
 }

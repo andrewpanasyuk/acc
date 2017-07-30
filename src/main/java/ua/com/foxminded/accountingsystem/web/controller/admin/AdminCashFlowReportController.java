@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
@@ -17,6 +18,7 @@ import ua.com.foxminded.accountingsystem.service.CashFlowReportService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin/reports/cashflow")
@@ -45,6 +47,10 @@ public class AdminCashFlowReportController {
 
         selectedService.setName((selectedService.getId() != 0) ? service.findOne(selectedService.getId()).getName() : "All services");
 
+        Set<Money> totalsCashInflow = cashFlowReportService.getTotalsCashInflowReport(cashInflowReport);
+        Set<Money> totalsCashOutflow = cashFlowReportService.getTotalsCashOutflowReport(cashOutflowReport);
+        Set<Money> balanceCashFlowReport = cashFlowReportService.getBalanceCashFlowReport(totalsCashInflow, totalsCashOutflow);
+
         model
             .addAttribute("title", "Cash Flow Report")
             .addAttribute("services", service.findAll())
@@ -53,8 +59,9 @@ public class AdminCashFlowReportController {
             .addAttribute("endDate", endDate)
             .addAttribute("cashInflowReport", cashInflowReport)
             .addAttribute("cashOutflowReport", cashOutflowReport)
-            .addAttribute("totalsCashInflow", cashFlowReportService.getTotalsCashInflowReport(cashInflowReport))
-            .addAttribute("totalsCashOutflow", cashFlowReportService.getTotalsCashOutflowReport(cashOutflowReport));
+            .addAttribute("totalsCashInflow", totalsCashInflow)
+            .addAttribute("totalsCashOutflow", totalsCashOutflow)
+            .addAttribute("balanceCashFlowReport", balanceCashFlowReport);
 
         return "admin/cashFlowReport";
     }
