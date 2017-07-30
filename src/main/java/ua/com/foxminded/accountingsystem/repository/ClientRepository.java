@@ -19,9 +19,11 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     long countClientByOrdersStatusAndOrdersCloseDateAfter(OrderStatus status, LocalDate closeDate);
 
-    @Query(value = "select count(*) from (select distinct o1.client_id " +
-        "from orders o1 where o1.status='FROZEN' " +
-        "except select distinct o2.client_id " +
-        "from orders o2 where o2.status='ACTIVE') as client_count ", nativeQuery = true)
+    @Query("select count(distinct o.client) from Order o " +
+        "where o.status = ua.com.foxminded.accountingsystem.model.OrderStatus.FROZEN " +
+        "and not exists " +
+        "(select o2.client from Order o2 " +
+        "where o2.client = o.client " +
+        "and o2.status = ua.com.foxminded.accountingsystem.model.OrderStatus.ACTIVE)")
     long countFrozenClients();
 }
