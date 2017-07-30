@@ -1,5 +1,5 @@
 <dataset>
     <INVOICE id="1" creation_date="2010-01-01" period_from="2010-01-01" price_id="1" period_to="2010-02-01" employee_paid="true" created_by="system" created_date="2017-07-11"/>
     <CONTRACT id="50" payment_date="2010-01-01" created_by="system" created_date="2017-07-11"/>
-    <MONEY id="1" currency="EUR" price="1500" />
+    <MONEY id="1" currency="EUR" amount="1500" />
 </dataset>
