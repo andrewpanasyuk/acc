@@ -59,12 +59,8 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
                 .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount())))
                 .entrySet()
                 .stream()
-                .map(mapItem -> {
-                    Money money = new Money();
-                    money.setCurrency(mapItem.getKey());
-                    money.setAmount(mapItem.getValue());
-                    return money;
-                }).collect(Collectors.toSet()));
+                .map(mapItem -> new Money(mapItem.getValue(), mapItem.getKey()))
+                .collect(Collectors.toSet()));
         }
     }
 
@@ -80,12 +76,8 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
                 .collect(Collectors.groupingBy(flowSum -> flowSum.getCurrency(), Collectors.summingLong(flowSum -> flowSum.getAmount())))
                 .entrySet()
                 .stream()
-                .map(mapItem -> {
-                    Money money = new Money();
-                    money.setCurrency(mapItem.getKey());
-                    money.setAmount(mapItem.getValue());
-                    return money;
-                }).collect(Collectors.toSet()));
+                .map(mapItem -> new Money(mapItem.getValue(), mapItem.getKey()))
+                .collect(Collectors.toSet()));
         }
     }
 
@@ -100,23 +92,14 @@ public class CashFlowReportServiceImpl implements CashFlowReportService {
 
         balance.addAll(totalsCashInflowReport);
 
-        totalsCashOutflowReport.forEach(item -> {
-            Money money = new Money();
-            money.setCurrency(item.getCurrency());
-            money.setAmount(-item.getAmount());
-            balance.add(money);
-        });
+        totalsCashOutflowReport.forEach(item -> balance.add(new Money(-item.getAmount(), item.getCurrency())));
 
         return (balance
             .stream()
             .collect(Collectors.groupingBy(item -> item.getCurrency(), Collectors.summingLong(item -> item.getAmount())))
             .entrySet()
             .stream()
-            .map(mapItem -> {
-                Money money = new Money();
-                money.setCurrency(mapItem.getKey());
-                money.setAmount(mapItem.getValue());
-                return money;
-            }).collect(Collectors.toSet()));
+            .map(mapItem -> new Money(mapItem.getValue(), mapItem.getKey()))
+            .collect(Collectors.toSet()));
     }
 }

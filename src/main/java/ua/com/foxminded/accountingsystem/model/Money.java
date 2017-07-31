@@ -33,8 +33,8 @@ public class Money implements Serializable {
     public Money() {
     }
 
-    public Money(int price, Currency currency) {
-        this.price = price;
+    public Money(long amount, Currency currency) {
+        this.amount = amount;
         this.currency = currency;
     }
 
