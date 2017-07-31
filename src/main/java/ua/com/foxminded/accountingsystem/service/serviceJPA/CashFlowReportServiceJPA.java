@@ -1,4 +1,4 @@
-package ua.com.foxminded.accountingsystem.service;
+package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,7 @@ import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.repository.SalaryRepository;
+import ua.com.foxminded.accountingsystem.service.CashFlowReportService;
 import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
 import ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto;
 
@@ -16,13 +17,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class CashFlowReportServiceImpl implements CashFlowReportService {
+public class CashFlowReportServiceJPA implements CashFlowReportService {
 
     private final PaymentRepository paymentRepository;
     private final SalaryRepository salaryRepository;
 
     @Autowired
-    public CashFlowReportServiceImpl(PaymentRepository paymentRepository, SalaryRepository salaryRepository) {
+    public CashFlowReportServiceJPA(PaymentRepository paymentRepository, SalaryRepository salaryRepository) {
         this.paymentRepository = paymentRepository;
         this.salaryRepository = salaryRepository;
     }
