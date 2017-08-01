@@ -22,6 +22,12 @@ public class SalaryItemServiceJPA implements SalaryItemService {
         this.salaryItemRepository = salaryItemRepository;
     }
 
+    private static long calculateEmployeePayment(Invoice invoice) {
+        long daysInPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
+        long salaryItemPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), LocalDate.now());
+        return invoice.getContract().getEmployeeRate().getPrice() / daysInPeriod * salaryItemPeriod;
+    }
+
     @Override
     public void delete(SalaryItem salaryItem) {
         salaryItemRepository.delete(salaryItem);
@@ -42,25 +48,18 @@ public class SalaryItemServiceJPA implements SalaryItemService {
         return salaryItemRepository.findAll();
     }
 
-    private static long calculateEmployeePayment(Invoice invoice, LocalDate closureDate) {
-        long daysInPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
-        long salaryItemPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), closureDate);
-        long employeePaymentValue = invoice.getContract().getEmployeeRate().getPrice() / daysInPeriod * salaryItemPeriod;
-        return employeePaymentValue;
-    }
-
     @Override
-    public SalaryItem createSalaryItem(Invoice invoice) {
+    public void createSalaryItem(Invoice invoice) {
         Money employeePayment = new Money(invoice.getContract().getEmployeeRate().getPrice(), invoice.getContract().getEmployeeRate().getCurrency());
         SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
-        return salaryItemRepository.save(salaryItem);
+        salaryItemRepository.save(salaryItem);
     }
 
     @Override
-    public SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate) {
+    public void createPretermSalaryItem(Invoice invoice) {
         //TODO: Remove int cast when Money.amount will be long
-        Money employeePayment = new Money((int)calculateEmployeePayment(invoice, closureDate), invoice.getContract().getEmployeeRate().getCurrency());
-        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), closureDate);
-        return salaryItemRepository.save(salaryItem);
+        Money employeePayment = new Money((int) calculateEmployeePayment(invoice), invoice.getContract().getEmployeeRate().getCurrency());
+        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), LocalDate.now());
+        salaryItemRepository.save(salaryItem);
     }
 }
