@@ -88,7 +88,7 @@
         <tbody>
         <tr th:each="money : ${client.personalAccount != null} ? ${client.personalAccount.money}">
           <td data-valign="middle" class="col-xs-2" th:text="${money.currency}"></td>
-          <td data-valign="middle" th:text="${money.price}"></td>
+          <td data-valign="middle" th:text="${money.amount}"></td>
           <td data-valign="middle">
             <button action="#" class="btn btn-warning btn-sm">Withdraw</button>
           </td>

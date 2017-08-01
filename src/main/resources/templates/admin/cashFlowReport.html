@@ -1,0 +1,202 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
+</head>
+<body>
+<section layout:fragment="content">
+
+  <h3>Cash Flow Report</h3>
+  <br/>
+
+  <form name="requestParameters" th:action="@{/admin/reports/cashflow}" method="post">
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="selectedServiceField">Service: </label>
+      </div>
+      <div class="col-sm-10">
+        <select id="selectedServiceField" th:field="${selectedService.id}" class="form-control">
+          <option selected="selected" th:value="${selectedService.id}" th:text="${selectedService.name}"></option>
+          <option value="0" th:if="${selectedService.id != 0}">All services</option>
+          <option th:each="service : ${services}"
+                  th:value="${service.id}"
+                  th:if="${selectedService.id != service.id}"
+                  th:text="${service.name}">
+          </option>
+        </select><br/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="beginDateField">Begin date: </label>
+      </div>
+      <div class="col-sm-10">
+        <input id="beginDateField" type="date" name="beginDate" class="form-control"
+               th:value="${beginDate}"/><br/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="endDateField">End date: </label>
+      </div>
+      <div class="col-sm-10">
+        <input id="endDateField" type="date" name="endDate" class="form-control"
+               th:value="${endDate}"/><br/>
+      </div>
+    </div>
+    <div class="btn-group col-sm-10" role="group">
+      <br/>
+      <button type="submit" class="btn btn-primary">Make report</button>
+    </div>
+  </form>
+
+  <div class="col-md-12" th:if="${cashInflowReport != null} or ${cashOutflowReport != null}">
+    <hr style="width: 100%; color: grey; height: 1px; background-color:grey;" />
+    <div class="col-md-6">
+      <h3>Inflow</h3>
+      <table data-toggle="table" data-class="table table-striped table-hover"
+             data-pagination="true" data-side-pagination="client">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Service</th>
+          <th>Payment</th>
+          <th>Amount</th>
+          <th>Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cashInflow : ${cashInflowReport}">
+          <td>
+            <p th:text="${cashInflow.paymentDate}"></p>
+          </td>
+          <td>
+            <p th:text="${cashInflow.paidService}"></p>
+          </td>
+          <td>
+            <p th:text="${cashInflow.paymentId}"></p>
+          </td>
+          <td>
+            <p th:text="${cashInflow.paymentSum.amount}"></p>
+          </td>
+          <td>
+            <p th:text="${cashInflow.paymentSum.currency}"></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Outflow</h3>
+      <table data-toggle="table" data-class="table table-striped table-hover"
+             data-pagination="true" data-side-pagination="client">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Salary</th>
+          <th>Amount</th>
+          <th>Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cashOutflow : ${cashOutflowReport}">
+          <td>
+            <p th:text="${cashOutflow.salaryDate}"></p>
+          </td>
+          <td>
+            <p th:text="${cashOutflow.salaryId}"> </p>
+          </td>
+          <td>
+            <p th:text="${cashOutflow.salarySum.amount}"></p>
+          </td>
+          <td>
+            <p th:text="${cashOutflow.salarySum.currency}"></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-12" th:if="${cashInflowReport != null} or ${cashOutflowReport != null}">
+    <hr style="width: 100%; color: grey; height: 1px; background-color:grey;" />
+    <div class="col-md-6">
+      <h3>Total inflow</h3>
+      <table data-toggle="table" data-class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="totalCashInflow : ${totalsCashInflow}">
+          <td>
+            <p th:text="${totalCashInflow.amount}"></p>
+          </td>
+          <td>
+            <p th:text="${totalCashInflow.currency}"></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h3>Total outflow</h3>
+      <table data-toggle="table" data-class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="totalCashOutflow : ${totalsCashOutflow}">
+          <td>
+            <p th:text="${totalCashOutflow.amount}"></p>
+          </td>
+          <td>
+            <p th:text="${totalCashOutflow.currency}"></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-12" th:if="${cashInflowReport != null} or ${cashOutflowReport != null}">
+    <div class="col-md-6">
+      <h3>Balance (inflow - outflow)</h3>
+      <table data-toggle="table">
+        <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="balanceCashFlow : ${balanceCashFlowReport}">
+          <td>
+            <p th:text="${balanceCashFlow.amount}"></p>
+          </td>
+          <td>
+            <p th:text="${balanceCashFlow.currency}"></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <br/>
+    </div>
+  </div>
+  <div class="col-md-12" th:if="${cashInflowReport != null} or ${cashOutflowReport != null}">
+     <hr style="width: 100%; color: grey; height: 1px; background-color:grey;" />
+  </div>
+  <div class="container">
+  </div>
+</section>
+</body>
+</html>

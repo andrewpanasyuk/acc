@@ -29,11 +29,11 @@
         <a th:text="${service.name}" th:href="@{/admin/services/{id}(id=${service.id})}"></a>
       </td>
       <td th:text="${service.description}"></td>
-      <td th:text="${service.employeeRate.price} + ' ' + ${service.employeeRate.currency}"></td>
+      <td th:text="${service.employeeRate.amount} + ' ' + ${service.employeeRate.currency}"></td>
       <td>
         <table>
           <tr th:each="money : ${service.prices}">
-            <td th:text="${money.price} + ' ' + ${money.currency}"></td>
+            <td th:text="${money.amount} + ' ' + ${money.currency}"></td>
           </tr>
         </table>
       </td>

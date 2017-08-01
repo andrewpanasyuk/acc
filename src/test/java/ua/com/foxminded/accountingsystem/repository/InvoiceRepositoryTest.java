@@ -28,7 +28,7 @@ public class InvoiceRepositoryTest extends AbstractRepositoryTest<InvoiceReposit
         Money money = new Money();
         money.setId(1L);
         money.setCurrency(Currency.EUR);
-        money.setPrice(1500);
+        money.setAmount(1500);
 
         contract = new Contract();
         contract.setCreatedBy("system");

@@ -61,8 +61,8 @@
           </div>
           <div class="col-sm-9">
             <div class="col-xs-8" style="padding-left: 0">
-              <input th:value="*{price.price > 0} ? *{price.price}"
-                     th:id="*{'price.price'}" th:name="*{'price.price'}"
+              <input th:value="*{price.amount > 0} ? *{price.amount}"
+                     th:id="*{'price.amount'}" th:name="*{'price.amount'}"
                      type="number" class="form-control" required="required" min="0" max="2147483647"/>
               <input type="hidden" th:field="*{price.id}"/>
             </div>
@@ -102,8 +102,8 @@
           </div>
           <div class="col-sm-9">
             <div class="col-xs-8" style="padding-left: 0">
-              <input th:value="*{employeeRate.price > 0} ? *{employeeRate.price}"
-                     th:id="*{'employeeRate.price'}" th:name="*{'employeeRate.price'}"
+              <input th:value="*{employeeRate.amount > 0} ? *{employeeRate.amount}"
+                     th:id="*{'employeeRate.amount'}" th:name="*{'employeeRate.amount'}"
                      type="number" class="form-control" required="required" min="0" max="2147483647"/>
             </div>
             <div class="col-xs-4" style="padding: 0">
@@ -112,7 +112,7 @@
                         th:text="*{employeeRate.currency}"/>
               </select>
             </div>
-            <output th:if="${#fields.hasErrors('employeeRate.price')}" th:errors="*{employeeRate.price}"
+            <output th:if="${#fields.hasErrors('employeeRate.amount')}" th:errors="*{employeeRate.amount}"
                     class="text-danger">Employee rate error
             </output>
           </div>

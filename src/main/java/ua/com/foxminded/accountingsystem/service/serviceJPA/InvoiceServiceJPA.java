@@ -82,7 +82,7 @@ public class InvoiceServiceJPA implements InvoiceService {
         Contract contract = contractRepository.findOne(invoice.getContract().getId());
         contract.addInvoice(invoice);
         Money price = new Money();
-        price.setPrice(contract.getPrice().getPrice());
+        price.setAmount(contract.getPrice().getAmount());
         price.setCurrency(contract.getPrice().getCurrency());
         invoice.setPrice(price);
         Invoice saved = invoiceRepository.save(invoice);

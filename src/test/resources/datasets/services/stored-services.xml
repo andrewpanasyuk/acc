@@ -1,8 +1,8 @@
 <dataset>
-    <MONEY id="1" currency="UAH" price="1000" />
-    <MONEY id="2" currency="UAH" price="2000" />
-    <MONEY id="3" currency="UAH" price="3000" />
-    <MONEY id="4" currency="UAH" price="4000" />
+    <MONEY id="1" currency="UAH" amount="1000" />
+    <MONEY id="2" currency="UAH" amount="2000" />
+    <MONEY id="3" currency="UAH" amount="3000" />
+    <MONEY id="4" currency="UAH" amount="4000" />
 
     <SERVICE_PRICES service_id="1" prices_id="3" />
     <SERVICE_PRICES service_id="2" prices_id="4" />

@@ -67,8 +67,8 @@ public class Salary implements Serializable {
             totalAmount = new Money();
             totalAmount.setCurrency(Currency.UAH);
         }
-        totalAmount.setPrice(salaryItems.stream()
-            .mapToInt(salaryItem -> salaryItem.getEmployeePayment().getPrice()).sum());
+        totalAmount.setAmount(salaryItems.stream()
+            .mapToLong(salaryItem -> salaryItem.getEmployeePayment().getAmount()).sum());
     }
 
     public void addSalaryItem(SalaryItem salaryItem){

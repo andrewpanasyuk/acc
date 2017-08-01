@@ -71,13 +71,13 @@ public class ContractServiceJPA implements ContractService {
         Contract contract = new Contract();
 
         Money employeeRate = new Money();
-        employeeRate.setPrice(order.getService().getEmployeeRate().getPrice());
+        employeeRate.setAmount(order.getService().getEmployeeRate().getAmount());
         employeeRate.setCurrency(Currency.UAH);
 
         Money price = new Money();
         for (Money curPrice : order.getService().getPrices()) {
             if (curPrice.getCurrency() == Currency.UAH) {
-                price.setPrice(curPrice.getPrice());
+                price.setAmount(curPrice.getAmount());
             }
         }
         price.setCurrency(Currency.UAH);

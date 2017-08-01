@@ -51,7 +51,7 @@
       <tr th:each="salary : ${salaries}">
         <td th:text="${salary.employee.firstName} + ' ' + ${salary.employee.lastName}"></td>
         <td th:text="${salary.salaryItems.size()}"></td>
-        <td th:text="${salary.totalAmount.price} + ', UAH'"></td>
+        <td th:text="${salary.totalAmount.amount} + ', UAH'"></td>
         <td>
           <form th:action="@{/admin/salary/payroll}" th:object="${salary}" method="post">
             <input type="hidden" name="salaryDate" th:value="${salary.salaryDate}"/>
