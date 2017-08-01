@@ -3,7 +3,6 @@ package ua.com.foxminded.accountingsystem.service;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.SalaryItem;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface SalaryItemService {
@@ -16,9 +15,9 @@ public interface SalaryItemService {
 
     List<SalaryItem> findAll();
 
-    SalaryItem createSalaryItem(Invoice invoice);
+    void createSalaryItem(Invoice invoice);
 
-    SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate);
+    void createPretermSalaryItem(Invoice invoice);
 }
 
 
