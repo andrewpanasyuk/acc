@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.model;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,6 +53,17 @@ public class SalaryItem implements Serializable {
 
     @Column(name = "accounted")
     private Boolean accounted = false;
+
+    public SalaryItem() {
+    }
+
+    public SalaryItem(Employee employee, Invoice invoice, Money employeePayment, LocalDate dateFrom, LocalDate dateTo) {
+        this.employee = employee;
+        this.invoice = invoice;
+        this.employeePayment = employeePayment;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+    }
 
     public Long getId() {
         return id;
