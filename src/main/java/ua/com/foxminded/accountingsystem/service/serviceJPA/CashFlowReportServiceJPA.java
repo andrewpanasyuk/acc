@@ -33,9 +33,9 @@ public class CashFlowReportServiceJPA implements CashFlowReportService {
 
         if (serviceId != 0) {
             return paymentRepository.findCashInflowByServiceAndDatePaidBetween(beginDate, endDate, serviceId);
-        } else {
-            return paymentRepository.findAllCashInflowByDatePaidBetween(beginDate, endDate);
         }
+
+        return paymentRepository.findAllCashInflowByDatePaidBetween(beginDate, endDate);
     }
 
     @Override
@@ -43,9 +43,9 @@ public class CashFlowReportServiceJPA implements CashFlowReportService {
 
         if (serviceId != 0) {
             return salaryRepository.findCashOutflowByServiceAndSalaryDateBetween(beginDate, endDate, serviceId);
-        } else {
-            return salaryRepository.findAllCashOutflowBySalaryDateBetween(beginDate, endDate);
         }
+
+        return salaryRepository.findAllCashOutflowBySalaryDateBetween(beginDate, endDate);
     }
 
     @Override
