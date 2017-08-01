@@ -63,9 +63,7 @@ public class SalaryItemServiceJPA implements SalaryItemService {
         long daysInPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
         long salaryItemPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), closureDate);
         long employeePaymentLongValue = invoice.getContract().getEmployeeRate().getPrice() / daysInPeriod * salaryItemPeriod;
-        int employeePaymentValue = Long
-            .valueOf(employeePaymentLongValue)
-            .intValue();
+        int employeePaymentValue = Long.valueOf(employeePaymentLongValue).intValue();
 
         Money employeePayment = new Money();
         employeePayment.setCurrency(invoice.getContract().getEmployeeRate().getCurrency());
