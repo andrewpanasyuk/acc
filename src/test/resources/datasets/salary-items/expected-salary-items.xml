@@ -1,0 +1,6 @@
+<dataset>
+    <SALARY_ITEM id="50" employee_id="50" invoice_id="50" salary_id="50" date_from="2010-01-01" date_to="2010-02-01"
+                 accounted="false"/>
+    <SALARY_ITEM id="51" employee_id="51" invoice_id="51" salary_id="51" date_from="2016-01-01" date_to="2016-02-01"
+                 accounted="false"/>
+</dataset>
