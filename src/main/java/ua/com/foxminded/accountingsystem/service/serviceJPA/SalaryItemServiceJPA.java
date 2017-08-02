@@ -25,7 +25,7 @@ public class SalaryItemServiceJPA implements SalaryItemService {
     private static long calculateEmployeePayment(Invoice invoice, LocalDate closureDate) {
         long daysInPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
         long salaryItemPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), closureDate);
-        return invoice.getContract().getEmployeeRate().getPrice() / daysInPeriod * salaryItemPeriod;
+        return invoice.getContract().getEmployeeRate().getAmount() / daysInPeriod * salaryItemPeriod;
     }
 
     @Override
@@ -50,15 +50,14 @@ public class SalaryItemServiceJPA implements SalaryItemService {
 
     @Override
     public SalaryItem createSalaryItem(Invoice invoice) {
-        Money employeePayment = new Money(invoice.getContract().getEmployeeRate().getPrice(), invoice.getContract().getEmployeeRate().getCurrency());
+        Money employeePayment = new Money(invoice.getContract().getEmployeeRate().getAmount(), invoice.getContract().getEmployeeRate().getCurrency());
         SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
         return salaryItemRepository.save(salaryItem);
     }
 
     @Override
     public SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate) {
-        //TODO: Remove int cast when Money.amount will be long
-        Money employeePayment = new Money((int) calculateEmployeePayment(invoice, closureDate), invoice.getContract().getEmployeeRate().getCurrency());
+        Money employeePayment = new Money(calculateEmployeePayment(invoice, closureDate), invoice.getContract().getEmployeeRate().getCurrency());
         SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), closureDate);
         return salaryItemRepository.save(salaryItem);
     }
