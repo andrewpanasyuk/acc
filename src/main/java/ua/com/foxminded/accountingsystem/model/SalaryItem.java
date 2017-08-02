@@ -138,4 +138,17 @@ public class SalaryItem implements Serializable {
         return id.hashCode();
 
     }
+
+    @Override
+    public String toString() {
+        return "SalaryItem{" +
+            "id=" + id +
+            ", employee=" + employee +
+            ", invoice=" + invoice +
+            ", employeePayment=" + employeePayment +
+            ", dateFrom=" + dateFrom +
+            ", dateTo=" + dateTo +
+            ", accounted=" + accounted +
+            '}';
+    }
 }
