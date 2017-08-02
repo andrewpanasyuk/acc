@@ -2,15 +2,19 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.Priority;
+import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.OrderQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.OrderRepository;
 import ua.com.foxminded.accountingsystem.repository.ServiceRepository;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
+import ua.com.foxminded.accountingsystem.service.OrderService;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,17 +27,32 @@ public class OrderQueueServiceJPA implements OrderQueueService {
 
     private final OrderQueueRepository orderQueueRepository;
     private final OrderRepository orderRepository;
+    private final OrderService orderService;
+    private final ContractRepository contractRepository;
     private final ServiceRepository serviceRepository;
 
     @Autowired
-    public OrderQueueServiceJPA(OrderQueueRepository orderQueueRepository, OrderRepository orderRepository, ServiceRepository serviceRepository) {
+    public OrderQueueServiceJPA(OrderQueueRepository orderQueueRepository, OrderRepository orderRepository,
+                                ContractRepository contractRepository, ServiceRepository serviceRepository,
+                                OrderService orderService) {
         this.orderQueueRepository = orderQueueRepository;
         this.orderRepository = orderRepository;
+        this.contractRepository = contractRepository;
         this.serviceRepository = serviceRepository;
+        this.orderService = orderService;
     }
 
     @Override
+    @Transactional
     public void delete(OrderQueue orderQueue) {
+        Order order = orderQueue.getOrder();
+        List<Contract> contracts = contractRepository.findAllByOrderOrderByContractDateDesc(order);
+        if(contracts.isEmpty()){
+            order.setStatus(OrderStatus.NEW);
+        } else {
+            order.setStatus(OrderStatus.FROZEN);
+        }
+        orderRepository.save(order);
         orderQueueRepository.delete(orderQueue);
     }
 
@@ -74,6 +93,24 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     @Override
     public OrderQueue findQueueByOrder(Order order) {
         return orderQueueRepository.findByOrder(order);
+    }
+
+    @Transactional
+    @Override
+    public void refuse(Long id) {
+        OrderQueue orderQueue = orderQueueRepository.findOne(id);
+        Order order = orderQueue.getOrder();
+        orderQueueRepository.delete(orderQueue);
+        orderService.refuse(order.getId());
+    }
+
+    @Transactional
+    @Override
+    public void reject(Long id) {
+        OrderQueue orderQueue = orderQueueRepository.findOne(id);
+        Order order = orderQueue.getOrder();
+        orderQueueRepository.delete(orderQueue);
+        orderService.reject(order.getId());
     }
 
     public OrderQueue createQueueByOrderId(Long id) {
