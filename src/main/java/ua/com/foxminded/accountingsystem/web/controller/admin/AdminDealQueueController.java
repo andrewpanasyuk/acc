@@ -46,4 +46,23 @@ public class AdminDealQueueController {
         dealQueueService.createQueueByDealId(dealId);
         return "redirect:/admin/queues";
     }
+
+    @DeleteMapping(value = "/{id}/fromQueue")
+    public String removeOrderFromQueue(@PathVariable long id) {
+        OrderQueue orderQueue = orderQueueService.findOne(id);
+        orderQueueService.delete(orderQueue);
+        return "redirect:/admin/queues";
+    }
+
+    @DeleteMapping(value = "/{id}/refused")
+    public String refusedOrderFromQueue(@PathVariable long id) {
+        orderQueueService.refuse(id);
+        return "redirect:/admin/queues";
+    }
+
+    @DeleteMapping(value = "/{id}/rejected")
+    public String rejectedOrderFromQueue(@PathVariable long id) {
+        orderQueueService.reject(id);
+        return "redirect:/admin/queues";
+    }
 }
