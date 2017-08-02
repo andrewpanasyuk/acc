@@ -26,4 +26,8 @@ public interface OrderQueueService {
 
     OrderQueue findQueueByOrder(Order order);
 
+    void refuse(Long id);
+
+    void reject(Long id);
+
 }

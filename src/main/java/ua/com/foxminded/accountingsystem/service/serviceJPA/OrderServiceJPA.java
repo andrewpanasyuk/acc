@@ -68,8 +68,17 @@ public class OrderServiceJPA implements OrderService {
     }
 
     @Override
-    public void close(Order order, OrderStatus orderStatus) {
-        order.setStatus(orderStatus);
+    public void refuse(Long id) {
+        Order order = orderRepository.findOne(id);
+        order.setStatus(OrderStatus.REFUSED);
+        order.setCloseDate(LocalDate.now());
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void reject(Long id) {
+        Order order = orderRepository.findOne(id);
+        order.setStatus(OrderStatus.REJECTED);
         order.setCloseDate(LocalDate.now());
         orderRepository.save(order);
     }

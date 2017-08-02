@@ -43,8 +43,22 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     }
 
     @Override
+    @Transactional
     public void delete(OrderQueue orderQueue) {
+        Order order = orderQueue.getOrder();
+        List<Contract> contracts = contractRepository.findAllByOrderOrderByContractDateDesc(order);
+        if(contracts.isEmpty()){
+            order.setStatus(OrderStatus.NEW);
+        } else {
+            order.setStatus(OrderStatus.FROZEN);
+        }
+        orderRepository.save(order);
         orderQueueRepository.delete(orderQueue);
+    }
+
+    @Override
+    public void delete(Long id) {
+        orderQueueRepository.delete(id);
     }
 
     @Override
@@ -73,6 +87,7 @@ public class OrderQueueServiceJPA implements OrderQueueService {
         services.forEach(service -> queuesByService.put(service, new ArrayList<>()));
         orderQueues.forEach(orderQueue -> queuesByService.get(orderQueue.getOrder().getService()).add(orderQueue));
         return queuesByService;
+
     }
 
     @Override
@@ -82,27 +97,27 @@ public class OrderQueueServiceJPA implements OrderQueueService {
 
     @Transactional
     @Override
-    public void leaveQueue(Long id, String cause) {
+    public void refuse(Long id) {
         OrderQueue orderQueue = orderQueueRepository.findOne(id);
         Order order = orderQueue.getOrder();
-        if(!cause.equals("delete")){
-            orderService.close(order, OrderStatus.valueOf(cause));
-        } else {
-            if(contractRepository.existsContractByOrderId(order.getId())){
-                order.setStatus(OrderStatus.FROZEN);
-            } else {
-                order.setStatus(OrderStatus.NEW);
-            }
-            orderRepository.save(order);
-        }
         orderQueueRepository.delete(orderQueue);
+        orderService.refuse(order.getId());
+    }
+
+    @Transactional
+    @Override
+    public void reject(Long id) {
+        OrderQueue orderQueue = orderQueueRepository.findOne(id);
+        Order order = orderQueue.getOrder();
+        orderQueueRepository.delete(orderQueue);
+        orderService.reject(order.getId());
     }
 
     public OrderQueue createQueueByOrderId(Long id) {
         Order order = orderRepository.findOne(id);
         OrderQueue orderQueue = new OrderQueue();
         orderQueue.setQueuingDate(LocalDate.now());
-        if (order.getStatus().equals(OrderStatus.NEW)) {
+        if (order.getStatus().equals(OrderStatus.NEW)){
             orderQueue.setPriority(Priority.NORMAL);
         } else {
             orderQueue.setPriority(Priority.HIGH);
