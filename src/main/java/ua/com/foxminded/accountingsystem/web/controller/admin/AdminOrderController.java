@@ -20,6 +20,7 @@ import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -95,7 +96,7 @@ public class AdminOrderController {
     @GetMapping(value = "/{id}/freeze")
     public String frozenOrder(@PathVariable long id) {
         List<Invoice> invoices = contractService.findOpenedContractByOrderId(id).getInvoices();
-        salaryItemService.createPretermSalaryItem(invoices.get(invoices.size() - 1));
+        salaryItemService.createPretermSalaryItem(invoices.get(invoices.size() - 1), LocalDate.now());
         orderService.freeze(id);
         return "redirect:/admin/orders";
     }

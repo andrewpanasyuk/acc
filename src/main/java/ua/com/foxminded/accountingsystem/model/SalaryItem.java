@@ -127,7 +127,11 @@ public class SalaryItem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SalaryItem that = (SalaryItem) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(id, that.id)
+            && Objects.equals(employee.getId(), that.employee.getId())
+            && Objects.equals(invoice.getId(), that.invoice.getId())
+            && Objects.equals(dateFrom, that.dateFrom)
+            && Objects.equals(dateTo, that.dateTo);
     }
 
     @Override

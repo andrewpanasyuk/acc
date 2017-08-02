@@ -22,9 +22,9 @@ public class SalaryItemServiceJPA implements SalaryItemService {
         this.salaryItemRepository = salaryItemRepository;
     }
 
-    private static long calculateEmployeePayment(Invoice invoice) {
+    private static long calculateEmployeePayment(Invoice invoice, LocalDate closureDate) {
         long daysInPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
-        long salaryItemPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), LocalDate.now());
+        long salaryItemPeriod = ChronoUnit.DAYS.between(invoice.getPaymentPeriodFrom(), closureDate);
         return invoice.getContract().getEmployeeRate().getPrice() / daysInPeriod * salaryItemPeriod;
     }
 
@@ -49,17 +49,17 @@ public class SalaryItemServiceJPA implements SalaryItemService {
     }
 
     @Override
-    public void createSalaryItem(Invoice invoice) {
+    public SalaryItem createSalaryItem(Invoice invoice) {
         Money employeePayment = new Money(invoice.getContract().getEmployeeRate().getPrice(), invoice.getContract().getEmployeeRate().getCurrency());
         SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
-        salaryItemRepository.save(salaryItem);
+        return salaryItemRepository.save(salaryItem);
     }
 
     @Override
-    public void createPretermSalaryItem(Invoice invoice) {
+    public SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate) {
         //TODO: Remove int cast when Money.amount will be long
-        Money employeePayment = new Money((int) calculateEmployeePayment(invoice), invoice.getContract().getEmployeeRate().getCurrency());
-        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), LocalDate.now());
-        salaryItemRepository.save(salaryItem);
+        Money employeePayment = new Money((int) calculateEmployeePayment(invoice, closureDate), invoice.getContract().getEmployeeRate().getCurrency());
+        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), closureDate);
+        return salaryItemRepository.save(salaryItem);
     }
 }
