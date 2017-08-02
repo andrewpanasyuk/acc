@@ -58,6 +58,12 @@ public class ContractServiceJPA implements ContractService {
             Order order = contract.getOrder();
             order.setStatus(OrderStatus.ACTIVE);
             orderService.save(order);
+
+            if(contract.getPaymentType() == PaymentType.PREPAY){
+                contract.setPaymentDate(LocalDate.now());
+            } else if (contract.getPaymentType() == PaymentType.POSTPAY){
+                contract.setPaymentDate(LocalDate.now().plusMonths(1).minusDays(1));
+            }
         }
         return contractRepository.save(contract);
     }
@@ -85,7 +91,7 @@ public class ContractServiceJPA implements ContractService {
         contract.setPaymentType(PaymentType.PREPAY);
         contract.setOrder(order);
         contract.setContractDate(LocalDate.now());
-        contract.setPaymentDate(LocalDate.now());
+//        contract.setPaymentDate(LocalDate.now());
         contract.setEmployeeRate(employeeRate);
         contract.setPrice(price);
 

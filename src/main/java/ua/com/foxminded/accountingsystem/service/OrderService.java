@@ -22,4 +22,8 @@ public interface OrderService {
 
     List<Order> findOrdersByStatus(OrderStatus orderStatus);
 
+    void refuse(Long id);
+
+    void reject(Long id);
+
 }
