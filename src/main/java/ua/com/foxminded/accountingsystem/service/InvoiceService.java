@@ -23,4 +23,6 @@ public interface InvoiceService {
     void addPayment(Payment payment);
 
     Invoice issueInvoice(Invoice invoice);
+
+    Invoice findLastInvoiceInActiveContractByOrderId(long orderId);
 }

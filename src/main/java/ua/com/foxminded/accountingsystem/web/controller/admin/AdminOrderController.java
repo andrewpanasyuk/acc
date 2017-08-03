@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.ContractService;
+import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
@@ -32,15 +32,17 @@ public class AdminOrderController {
     private final ServiceService service;
     private final ContractService contractService;
     private final SalaryItemService salaryItemService;
+    private final InvoiceService invoiceService;
 
     @Autowired
     public AdminOrderController(OrderService orderService, ClientService clientService,
-                                ServiceService service, ContractService contractService, SalaryItemService salaryItemService) {
+                                ServiceService service, ContractService contractService, SalaryItemService salaryItemService, InvoiceService invoiceService) {
         this.orderService = orderService;
         this.clientService = clientService;
         this.service = service;
         this.contractService = contractService;
         this.salaryItemService = salaryItemService;
+        this.invoiceService = invoiceService;
     }
 
     @PostMapping
@@ -94,9 +96,8 @@ public class AdminOrderController {
     }
 
     @GetMapping(value = "/{id}/freeze")
-    public String frozenOrder(@PathVariable long id) {
-        List<Invoice> invoices = contractService.findOpenedContractByOrderId(id).getInvoices();
-        salaryItemService.createPretermSalaryItem(invoices.get(invoices.size() - 1), LocalDate.now());
+    public String freezeOrder(@PathVariable long id) {
+        salaryItemService.createPretermSalaryItem(invoiceService.findLastInvoiceInActiveContractByOrderId(id), LocalDate.now());
         orderService.freeze(id);
         return "redirect:/admin/orders";
     }
