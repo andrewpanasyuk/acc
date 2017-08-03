@@ -80,9 +80,9 @@
   <script type="text/javascript">
     function setupId(x) {
       var baseURL = "/admin/queues/";
-      var delURL = baseURL + x + "/" + "fromQueue";
-      var refusedURL = baseURL + x + "/" + "refused";
-      var rejectedURL = baseURL + x + "/" + "rejected";
+      var delURL = baseURL + x;
+      var refusedURL = baseURL + x + "/" + "refuse";
+      var rejectedURL = baseURL + x + "/" + "reject";
       document.getElementById('delete').setAttribute('action', delURL);
       document.getElementById('refused').setAttribute('action', refusedURL);
       document.getElementById('rejected').setAttribute('action', rejectedURL);
