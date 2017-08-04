@@ -1,6 +1,5 @@
 package ua.com.foxminded.accountingsystem.service;
 
-import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 
@@ -22,8 +21,6 @@ public interface OrderService {
 
     List<Order> findOrdersByStatus(OrderStatus orderStatus);
 
-    void refuse(Long id);
-
-    void reject(Long id);
+    void close(Order order, OrderStatus orderStatus);
 
 }
