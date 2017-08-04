@@ -95,6 +95,37 @@
         </tr>
         </tbody>
       </table>
+      <br/>
+      <div id="withdraw-table-toolbar-client" class="pull-right search">
+        <div id="createWithDrawMoney" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Withdraw Money</h4>
+              </div>
+              <div class="modal-body">
+                <form th:action="@{/admin/clients/withdraw}" th:object="${withdraw}" method="post">
+                  <div class="form-group">
+                    <p>
+                      <input type="number" th:field="*{money.amount}" id="clientTransferMoney" tabindex="1" class="form-control"
+                             placeholder="0" />
+                    </p>
+                    <p>
+                      <input type="text"  th:field="*{description}" id="clientTransferDesc" tabindex="2" class="form-control"
+                             placeholder="Withdraw description" value=""/>
+                    </p>
+                  </div>
+                  <button type="submit" class="btn btn-primary">save</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createWithDrawMoney">
+          Create New Client Field
+        </button>
+      </div>
     </div>
   </div>
   <form th:object="${client}">
