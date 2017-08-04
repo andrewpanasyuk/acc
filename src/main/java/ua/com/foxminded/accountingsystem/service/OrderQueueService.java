@@ -13,7 +13,7 @@ public interface OrderQueueService {
 
     void delete(OrderQueue orderQueue);
 
-    void delete(Long id);
+    void deleteWithoutContract(Long id, String cause);
 
     OrderQueue save(OrderQueue orderQueue);
 
@@ -24,9 +24,5 @@ public interface OrderQueueService {
     Map<Service, List<OrderQueue>> findAllGroupByService();
 
     OrderQueue findQueueByOrder(Order order);
-
-    void refuse(Long id);
-
-    void reject(Long id);
 
 }
