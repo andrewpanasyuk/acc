@@ -36,7 +36,8 @@ public class AdminOrderController {
 
     @Autowired
     public AdminOrderController(OrderService orderService, ClientService clientService,
-                                ServiceService service, ContractService contractService, SalaryItemService salaryItemService, InvoiceService invoiceService) {
+                                ServiceService service, ContractService contractService,
+                                SalaryItemService salaryItemService, InvoiceService invoiceService) {
         this.orderService = orderService;
         this.clientService = clientService;
         this.service = service;

@@ -50,15 +50,25 @@ public class SalaryItemServiceJPA implements SalaryItemService {
 
     @Override
     public SalaryItem createSalaryItem(Invoice invoice) {
-        Money employeePayment = new Money(invoice.getContract().getEmployeeRate().getAmount(), invoice.getContract().getEmployeeRate().getCurrency());
-        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
+
+        Money employeePayment = new Money(invoice.getContract().getEmployeeRate().getAmount(),
+            invoice.getContract().getEmployeeRate().getCurrency());
+
+        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment,
+            invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
+
         return salaryItemRepository.save(salaryItem);
     }
 
     @Override
     public SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate) {
-        Money employeePayment = new Money(calculateEmployeePayment(invoice, closureDate), invoice.getContract().getEmployeeRate().getCurrency());
-        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment, invoice.getPaymentPeriodFrom(), closureDate);
+
+        Money employeePayment = new Money(calculateEmployeePayment(invoice, closureDate),
+            invoice.getContract().getEmployeeRate().getCurrency());
+
+        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment,
+            invoice.getPaymentPeriodFrom(), closureDate);
+
         return salaryItemRepository.save(salaryItem);
     }
 }
