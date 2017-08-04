@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Client;
+import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHistory;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 
 @Controller
@@ -38,7 +39,13 @@ public class AdminClientController {
 
     @GetMapping("/{id}")
     public String getClientByID(@PathVariable long id, Model model) {
-        model.addAttribute("client", clientService.findOne(id));
+        Client client = clientService.findOne(id);
+        model.addAttribute("client", client);
+        PersonalAccountMoneyTransferHistory withdraw = new PersonalAccountMoneyTransferHistory();
+        if (client != null){
+            withdraw.setPersonalAccount(client.getPersonalAccount());
+        }
+        model.addAttribute("withdraw", withdraw);
         return "admin/client";
     }
 
@@ -53,6 +60,12 @@ public class AdminClientController {
         Client client = new Client();
         model.addAttribute("client", client);
         return "admin/client";
+    }
+
+    @PostMapping("/withdraw")
+    public String createClientField(@ModelAttribute PersonalAccountMoneyTransferHistory withdraw) {
+        System.out.println("Withdraw: " + withdraw);
+        return "redirect:/admin/client";
     }
 
 }
