@@ -41,22 +41,9 @@ public class AdminOrderQueueController {
         return "redirect:/admin/queues";
     }
 
-    @DeleteMapping(value = "/{id}")
-    public String remove(@PathVariable long id) {
-        OrderQueue orderQueue = orderQueueService.findOne(id);
-        orderQueueService.delete(orderQueue);
-        return "redirect:/admin/queues";
-    }
-
-    @DeleteMapping(value = "/{id}/refuse")
-    public String refuse(@PathVariable long id) {
-        orderQueueService.refuse(id);
-        return "redirect:/admin/queues";
-    }
-
-    @DeleteMapping(value = "/{id}/reject")
-    public String reject(@PathVariable long id) {
-        orderQueueService.reject(id);
+    @DeleteMapping(value = "/{id}/{cause}")
+    public String refuse(@PathVariable long id, @PathVariable String cause) {
+        orderQueueService.deleteWithoutContract(id, cause);
         return "redirect:/admin/queues";
     }
 }
