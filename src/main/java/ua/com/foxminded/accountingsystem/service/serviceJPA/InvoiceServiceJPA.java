@@ -89,4 +89,9 @@ public class InvoiceServiceJPA implements InvoiceService {
         log.info("New invoice created: {}", invoice);
         return saved;
     }
+
+    @Override
+    public Invoice findLastInvoiceInActiveContractByOrderId(long orderId) {
+        return invoiceRepository.findFirstByContractOrderIdOrderByCreationDateDesc(orderId);
+    }
 }

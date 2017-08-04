@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.ContractService;
+import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
+import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 import java.util.ArrayList;
@@ -35,6 +37,11 @@ public class AdminOrderControllerTest {
     private ServiceService serviceService;
     @Mock
     private ContractService contractService;
+    @Mock
+    private SalaryItemService salaryItemService;
+    @Mock
+    private InvoiceService invoiceService;
+
 
     private AdminOrderController controller;
 
@@ -59,7 +66,7 @@ public class AdminOrderControllerTest {
     @Before
     public void init() {
         model = new ExtendedModelMap();
-        controller = new AdminOrderController(orderService, clientService, serviceService, contractService);
+        controller = new AdminOrderController(orderService, clientService, serviceService, contractService, salaryItemService, invoiceService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(orderService.findAll()).thenReturn(Arrays.asList(order_1, order_2));
         when(orderService.findOne(1L)).thenReturn(order_1);

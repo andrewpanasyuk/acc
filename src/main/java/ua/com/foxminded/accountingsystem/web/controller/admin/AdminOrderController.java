@@ -14,10 +14,13 @@ import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.ContractService;
+import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.OrderService;
+import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -28,14 +31,19 @@ public class AdminOrderController {
     private final ClientService clientService;
     private final ServiceService service;
     private final ContractService contractService;
+    private final SalaryItemService salaryItemService;
+    private final InvoiceService invoiceService;
 
     @Autowired
     public AdminOrderController(OrderService orderService, ClientService clientService,
-                                ServiceService service, ContractService contractService) {
+                                ServiceService service, ContractService contractService,
+                                SalaryItemService salaryItemService, InvoiceService invoiceService) {
         this.orderService = orderService;
         this.clientService = clientService;
         this.service = service;
         this.contractService = contractService;
+        this.salaryItemService = salaryItemService;
+        this.invoiceService = invoiceService;
     }
 
     @PostMapping
@@ -89,7 +97,8 @@ public class AdminOrderController {
     }
 
     @GetMapping(value = "/{id}/freeze")
-    public String frozenOrder(@PathVariable long id) {
+    public String freezeOrder(@PathVariable long id) {
+        salaryItemService.createPretermSalaryItem(invoiceService.findLastInvoiceInActiveContractByOrderId(id), LocalDate.now());
         orderService.freeze(id);
         return "redirect:/admin/orders";
     }

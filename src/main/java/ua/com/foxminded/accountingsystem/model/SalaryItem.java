@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.model;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "salary_item")
@@ -52,6 +54,17 @@ public class SalaryItem implements Serializable {
 
     @Column(name = "accounted")
     private Boolean accounted = false;
+
+    public SalaryItem() {
+    }
+
+    public SalaryItem(Employee employee, Invoice invoice, Money employeePayment, LocalDate dateFrom, LocalDate dateTo) {
+        this.employee = employee;
+        this.invoice = invoice;
+        this.employeePayment = employeePayment;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+    }
 
     public Long getId() {
         return id;
@@ -109,4 +122,37 @@ public class SalaryItem implements Serializable {
         this.accounted = accounted;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SalaryItem that = (SalaryItem) o;
+        return Objects.equals(id, that.id)
+            && Objects.equals(employee.getId(), that.employee.getId())
+            && Objects.equals(invoice.getId(), that.invoice.getId())
+            && Objects.equals(dateFrom, that.dateFrom)
+            && Objects.equals(dateTo, that.dateTo);
+    }
+
+    @Override
+    public int hashCode() {
+        if (id == null) {
+            return 31;
+        }
+        return id.hashCode();
+
+    }
+
+    @Override
+    public String toString() {
+        return "SalaryItem{" +
+            "id=" + id +
+            ", employee=" + employee +
+            ", invoice=" + invoice +
+            ", employeePayment=" + employeePayment +
+            ", dateFrom=" + dateFrom +
+            ", dateTo=" + dateTo +
+            ", accounted=" + accounted +
+            '}';
+    }
 }
