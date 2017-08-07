@@ -84,7 +84,7 @@
     function setIdQueueInModal(queueId) {
       var baseURL = "/admin/queues/";
       var delURL = baseURL + queueId + "/" + "delete";
-      var refuseURL = baseURL + queueId + "/" + "refuse";
+      var refuseURL = baseURL + queueId + "/" + "${OrderStatus.REFUSED}";
       var rejectURL = baseURL + queueId + "/" + "reject";
       document.getElementById('delete').setAttribute('action', delURL);
       document.getElementById('refuse').setAttribute('action', refuseURL);
