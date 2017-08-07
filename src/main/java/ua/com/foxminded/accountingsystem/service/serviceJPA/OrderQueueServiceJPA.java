@@ -85,12 +85,10 @@ public class OrderQueueServiceJPA implements OrderQueueService {
     public void leaveQueue(Long id, String cause) {
         OrderQueue orderQueue = orderQueueRepository.findOne(id);
         Order order = orderQueue.getOrder();
-        if (cause.equals("refuse")) {
-            orderService.close(order, OrderStatus.REFUSED);
-        } else if (cause.equals("reject")) {
-            orderService.close(order, OrderStatus.REJECTED);
+        if(!cause.equals("delete")){
+            orderService.close(order, OrderStatus.valueOf(cause));
         } else {
-            if (contractRepository.existsContractByOrderId(order.getId())) {
+            if(contractRepository.existsContractByOrderId(order.getId())){
                 order.setStatus(OrderStatus.FROZEN);
             } else {
                 order.setStatus(OrderStatus.NEW);
