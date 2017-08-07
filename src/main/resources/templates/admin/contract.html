@@ -35,8 +35,8 @@
             <label th:for="${#ids.next('paymentType')}">Payment type:</label>
           </div>
           <div class="col-sm-9">
-            <select th:field="*{paymentType}" class="form-control" onchange="schedule(this.value)">
-              <option id="paymentType" value="">Select payment type</option>
+            <select th:field="*{paymentType}" class="form-control">
+              <option value="">Select payment type</option>
               <option th:each="paymentTypeValue : ${T(ua.com.foxminded.accountingsystem.model.PaymentType).values()}"
                       th:value="${paymentTypeValue}"
                       th:text="${paymentTypeValue}"/>
@@ -52,7 +52,7 @@
             <label th:for="${#ids.next('paymentDate')}">Payment date:</label>
           </div>
           <div class="col-sm-9">
-            <input id="paymentDay" type="date" th:field="*{paymentDate}" value="" class="form-control"/>
+            <input type="date" th:field="*{paymentDate}" class="form-control"/>
           </div>
         </div>
         <div class="form-group">
@@ -158,19 +158,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    function schedule(selectedValue) {
-        alert(selectedValue);
-        if (selectedValue == 'POSTPAY'){
-          var currentDate = new Date();
-          currentDate.setMonth(currentDate.getMonth()+1);
-//          Xrm.Page.getAttribute("field").setValue(currentDate);
-            document.getElementById('selectedValue').setAttribute('field', currentDate);
-        }
-
-    }
-  </script>
 
 </section>
 </body>
