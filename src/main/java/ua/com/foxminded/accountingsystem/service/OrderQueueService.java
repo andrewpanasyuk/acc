@@ -2,6 +2,7 @@ package ua.com.foxminded.accountingsystem.service;
 
 import ua.com.foxminded.accountingsystem.model.Order;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.Service;
 
 import java.util.List;
