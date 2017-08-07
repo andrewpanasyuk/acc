@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
+import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.Service;
 import ua.com.foxminded.accountingsystem.service.OrderQueueService;
 
