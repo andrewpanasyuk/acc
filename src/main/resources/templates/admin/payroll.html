@@ -11,21 +11,20 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <i class="icon-calendar"></i>
-          <h3 class="panel-title">Choose range to form salary</h3>
+          <h3 class="panel-title">Choose range to calculate salary</h3>
         </div>
         <div class="panel-body">
           <form class="form-horizontal row-border" th:action="@{/admin/salary/payroll}" method="get">
             <div class="form-group">
               <label class="col-md-2 control-label">Date from</label>
               <div class="col-md-10">
-                <input class="form-control" type="date" name="dateFrom"
-                       th:value="${dateFrom}"/>
+                <input class="form-control datepicker" data-provide="datepicker" name="dateFrom" th:value="${#temporals.format(dateFrom, 'dd-MM-yyyy')}"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-md-2 control-label">Date to</label>
               <div class="col-md-10">
-                <input class="form-control" type="date" name="dateTo" th:value="${dateTo}"/>
+                <input class="form-control datepicker" data-provide="datepicker" name="dateTo" th:value="${#temporals.format(dateTo, 'dd-MM-yyyy')}"/>
               </div>
             </div>
             <button type="submit" class="btn btn-primary pull-right">Calculate salaries</button>
@@ -72,6 +71,20 @@
       </tbody>
     </table>
   </div>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    $('.datepicker').datepicker({
+      format: "dd-mm-yyyy",
+      todayBtn: "linked",
+      clearBtn: true,
+      language: "ru",
+      calendarWeeks: true,
+      autoclose: true,
+      todayHighlight: true,
+      weekStart: 1
+    });
+    /*]]>*/
+  </script>
 </section>
 </body>
 </html>
