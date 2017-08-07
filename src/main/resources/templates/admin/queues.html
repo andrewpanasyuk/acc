@@ -56,25 +56,25 @@
   </div>
 
   <div id="removeDialog" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
           <button class="close" type="button" data-dismiss="modal">×</button>
           <h4 class="modal-title">Select delete type:</h4>
         </div>
         <section>
-          <form id="delete" action="" th:method="delete">
-            <button type="delete" class="btn btn-danger btn" onclick="$('#link').submit()">Delete only from queue
-            </button>
-          </form>
-          <form id="refuse" action="" th:method="delete">
-            <button type="delete" class="btn btn-danger btn" onclick="$('#link').submit()"> Delete from queue (REFUSED)
-            </button>
-          </form>
-          <form id="reject" action="" th:method="delete">
-            <button type="delete" class="btn btn-danger btn" onclick="$('#link').submit()"> Delete from queue (REJECTED)
-            </button>
-          </form>
+              <form id="delete" action="" th:method="delete">
+                <button type="delete" class="btn btn-danger btn-block" onclick="$('#link').submit()">Delete from queue
+                </button>
+              </form>
+              <form id="refuse" action="" th:method="delete">
+                <button type="delete" class="btn btn-warning btn-block" onclick="$('#link').submit()"> REFUSED
+                </button>
+              </form>
+              <form id="reject" action="" th:method="delete">
+                <button type="delete" class="btn btn-warning btn-block" onclick="$('#link').submit()"> REJECTED
+                </button>
+              </form>
         </section>
       </div>
     </div>
