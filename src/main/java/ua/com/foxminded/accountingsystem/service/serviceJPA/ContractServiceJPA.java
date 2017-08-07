@@ -130,6 +130,11 @@ public class ContractServiceJPA implements ContractService {
     public boolean existsContractByOrderId(Long id) {
         return contractRepository.existsContractByOrderId(id);
     }
+
+    @Override
+    public boolean existsContractByOrderId(Long id) {
+        return contractRepository.existsContractByOrderId(id);
+    }
 }
 
 
