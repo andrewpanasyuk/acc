@@ -131,6 +131,11 @@ public class ContractServiceJPA implements ContractService {
     public Contract findOpenedContractByOrderId(Long orderId) {
         return contractRepository.findContractByOrderIdAndCloseTypeIsNull(orderId);
     }
+
+    @Override
+    public boolean existsContractByOrderId(Long id) {
+        return contractRepository.existsContractByOrderId(id);
+    }
 }
 
 

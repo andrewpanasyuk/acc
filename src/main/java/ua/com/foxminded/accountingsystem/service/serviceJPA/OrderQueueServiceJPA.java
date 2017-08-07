@@ -82,7 +82,7 @@ public class OrderQueueServiceJPA implements OrderQueueService {
 
     @Transactional
     @Override
-    public void deleteWithoutContract(Long id, String cause) {
+    public void leaveQueue(Long id, String cause) {
         OrderQueue orderQueue = orderQueueRepository.findOne(id);
         Order order = orderQueue.getOrder();
         if (cause.equals("refuse")) {
@@ -90,11 +90,10 @@ public class OrderQueueServiceJPA implements OrderQueueService {
         } else if (cause.equals("reject")) {
             orderService.close(order, OrderStatus.REJECTED);
         } else {
-            List<Contract> contracts = contractRepository.findAllByOrderOrderByContractDateDesc(order);
-            if (contracts.isEmpty()) {
-                order.setStatus(OrderStatus.NEW);
-            } else {
+            if (contractRepository.existsContractByOrderId(order.getId())) {
                 order.setStatus(OrderStatus.FROZEN);
+            } else {
+                order.setStatus(OrderStatus.NEW);
             }
             orderRepository.save(order);
         }

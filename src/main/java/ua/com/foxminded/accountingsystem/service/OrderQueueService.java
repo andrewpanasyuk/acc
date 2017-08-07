@@ -13,7 +13,7 @@ public interface OrderQueueService {
 
     void delete(OrderQueue orderQueue);
 
-    void deleteWithoutContract(Long id, String cause);
+    void leaveQueue(Long id, String cause);
 
     OrderQueue save(OrderQueue orderQueue);
 
