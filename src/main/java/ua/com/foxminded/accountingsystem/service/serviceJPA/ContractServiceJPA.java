@@ -85,7 +85,7 @@ public class ContractServiceJPA implements ContractService {
         contract.setPaymentType(PaymentType.PREPAY);
         contract.setOrder(order);
         contract.setContractDate(LocalDate.now());
-//        contract.setPaymentDate(LocalDate.now());
+        contract.setPaymentDate(LocalDate.now());
         contract.setEmployeeRate(employeeRate);
         contract.setPrice(price);
 
