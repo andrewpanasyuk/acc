@@ -62,20 +62,20 @@
           <button class="close" type="button" data-dismiss="modal">×</button>
           <h4 class="modal-title">Select delete type:</h4>
         </div>
-        <section>
-              <form id="delete" action="" th:method="delete">
-                <button type="delete" class="btn btn-danger btn-block" onclick="$('#link').submit()">Delete from queue
-                </button>
-              </form>
-              <form id="refuse" action="" th:method="delete">
-                <button type="delete" class="btn btn-warning btn-block" onclick="$('#link').submit()"> REFUSED
-                </button>
-              </form>
-              <form id="reject" action="" th:method="delete">
-                <button type="delete" class="btn btn-warning btn-block" onclick="$('#link').submit()"> REJECTED
-                </button>
-              </form>
-        </section>
+        <div class="modal-body">
+          <form id="refuse" action="" th:method="delete">
+            <button type="delete" class="btn btn-warning btn-block" onclick="$('#link').submit()"> Refused
+            </button>
+          </form>
+          <form id="reject" action="" th:method="delete">
+            <button type="delete" class="btn btn-warning btn-block" onclick="$('#link').submit()"> Reject
+            </button>
+          </form>
+          <form id="delete" action="" th:method="delete">
+            <button type="delete" class="btn btn-danger btn-block" onclick="$('#link').submit()">Delete (silently)
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
