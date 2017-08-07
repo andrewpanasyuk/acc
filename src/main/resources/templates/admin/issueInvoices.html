@@ -26,7 +26,7 @@
       <td th:text="${invoice.paymentPeriodFrom}"></td>
       <td th:text="${invoice.paymentPeriodTo}"></td>
       <td th:text="${invoice.contract.paymentType}"></td>
-      <td th:text="${invoice.price.price} + ' ' + ${invoice.price.currency}"></td>
+      <td th:text="${invoice.price.amount} + ' ' + ${invoice.price.currency}"></td>
       <td>
         <form th:action="@{/admin/invoices/issue}" th:object="${invoice}" method="post">
           <input type="hidden" name="creationDate" th:value="${invoice.creationDate}"/>
