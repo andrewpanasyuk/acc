@@ -21,4 +21,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findAllByOrderOrderByContractDateDesc(Order order);
 
     Contract findContractByOrderIdAndCloseTypeIsNull(Long orderId);
+
+    Boolean existsContractByOrderId(Long id);
 }

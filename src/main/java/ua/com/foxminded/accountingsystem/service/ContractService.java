@@ -25,4 +25,6 @@ public interface ContractService {
 
     Contract findOpenedContractByOrderId(Long orderId);
 
+    boolean existsContractByOrderId(Long id);
+
 }

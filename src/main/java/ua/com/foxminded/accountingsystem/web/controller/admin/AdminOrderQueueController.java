@@ -43,7 +43,7 @@ public class AdminOrderQueueController {
 
     @DeleteMapping(value = "/{id}/{cause}")
     public String delete(@PathVariable long id, @PathVariable String cause) {
-        orderQueueService.deleteWithoutContract(id, cause);
+        orderQueueService.leaveQueue(id, cause);
         return "redirect:/admin/queues";
     }
 }

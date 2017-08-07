@@ -66,14 +66,12 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" th:if="${order.closeDate != null}">
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="closeDate">Close Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <input id="closeDate" type="date" class="form-control"
-                       th:value="${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'yyyy-MM-dd')} : ''"
-                       th:field="${order.closeDate}"/>
+                <output id="closeDate" th:text="${order.closeDate}"/>
               </div>
             </div>
           </form>
