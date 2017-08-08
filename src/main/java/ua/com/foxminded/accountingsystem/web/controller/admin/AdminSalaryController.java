@@ -41,8 +41,7 @@ public class AdminSalaryController {
     @GetMapping(value = "/{id}")
     public String getSalaryItemsBySalaryId(@PathVariable long id, Model model) {
         List<SalaryItem> salaryItems = salaryService.findSalaryItemsBySalaryId(id);
-        model
-            .addAttribute("salaryItems", salaryItems);
+        model.addAttribute("salaryItems", salaryItems);
         return "admin/salaryItems";
     }
 
