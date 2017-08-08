@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Client;
+import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHistory;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 
@@ -63,9 +64,12 @@ public class AdminClientController {
     }
 
     @PostMapping("/withdraw")
-    public String createClientField(@ModelAttribute PersonalAccountMoneyTransferHistory withdraw) {
-        System.out.println("Withdraw: " + withdraw);
-        return "redirect:/admin/client";
+    public String withdraw(@ModelAttribute Money money, @ModelAttribute Client client,
+                           @RequestAttribute String description) {
+        System.out.println("Withdraw: " + money);
+        System.out.println("Withdraw client: " + client);
+        System.out.println("Withdraw description: " + description);
+        return "redirect:/admin/clients";
     }
 
 }
