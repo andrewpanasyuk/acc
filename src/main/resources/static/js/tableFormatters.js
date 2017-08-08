@@ -4,6 +4,10 @@ function nameSorter(a, b) {
     return textFirst.localeCompare(textSecond);
 };
 
+function salaryIdLinkFormatter(value, row, index) {
+    return "<a href='/admin/salary/" + value + "'>" + value + "</a>";
+};
+
 function dealsIdLinkFormatter(value, row, index) {
     return "<a href='/admin/deals/" + value + "'>" + value + "</a>";
 };

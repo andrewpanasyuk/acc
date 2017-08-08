@@ -71,4 +71,23 @@ public class SalaryServiceJPA implements SalaryService {
         log.info("Salary saved: {}", persistedSalary);
         return persistedSalary;
     }
+
+    @Override
+    public List<Salary> findAllSalary() {
+
+        return salaryRepository.findAll();
+    }
+
+    @Override
+    public List<SalaryItem> findSalaryItemsBySalaryId(Long id) {
+
+        return salaryRepository.findSalaryItemsBySalaryId(id);
+    }
+
+    @Override
+    public Long sumAllSalaryTotalAmount() {
+
+        return salaryRepository.sumAllSalaryTotalAmount();
+    }
+
 }
