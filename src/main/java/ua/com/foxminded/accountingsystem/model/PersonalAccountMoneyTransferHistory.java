@@ -104,7 +104,8 @@ public class PersonalAccountMoneyTransferHistory {
 
         PersonalAccountMoneyTransferHistory that = (PersonalAccountMoneyTransferHistory) o;
 
-        if (id != that.id) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (transferType != that.transferType) return false;
         if (personalAccount != null ? !personalAccount.equals(that.personalAccount) : that.personalAccount != null)
             return false;
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
@@ -113,21 +114,11 @@ public class PersonalAccountMoneyTransferHistory {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (transferType != null ? transferType.hashCode() : 0);
         result = 31 * result + (personalAccount != null ? personalAccount.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (money != null ? money.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "PersonalAccountMoneyTransferHistory{" +
-            "id=" + id +
-            ", personalAccount=" + personalAccount +
-            ", createDate=" + createDate +
-            ", money=" + money +
-            ", description='" + description + '\'' +
-            '}';
     }
 }
