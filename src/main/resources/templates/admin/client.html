@@ -90,42 +90,19 @@
           <td data-valign="middle" class="col-xs-2" th:text="${money.currency}"></td>
           <td data-valign="middle" th:text="${money.amount}"></td>
           <td data-valign="middle">
-            <button action="#" class="btn btn-warning btn-sm">Withdraw</button>
+            <button class="btn btn-warning btn-sm"
+                    th:onclick="'withdraw(\'' + ${money.id}  + '\',
+                    \'' + ${money.currency}  + '\',
+                    \'' + ${money.amount}  + '\');'">
+
+              Withdraw
+            </button>
           </td>
         </tr>
         </tbody>
       </table>
       <br/>
-      <div id="withdraw-table-toolbar-client" class="pull-right search">
-        <div id="createWithDrawMoney" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Withdraw Money</h4>
-              </div>
-              <div class="modal-body">
-                <form th:action="@{/admin/clients/withdraw}" th:object="${withdraw}" method="post">
-                  <div class="form-group">
-                    <p>
-                      <input type="number" th:field="*{money.amount}" id="clientTransferMoney" tabindex="1" class="form-control"
-                             placeholder="0" />
-                    </p>
-                    <p>
-                      <input type="text"  th:field="*{description}" id="clientTransferDesc" tabindex="2" class="form-control"
-                             placeholder="Withdraw description" value=""/>
-                    </p>
-                  </div>
-                  <button type="submit" class="btn btn-primary">save</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createWithDrawMoney">
-          Create New Client Field
-        </button>
-      </div>
+
     </div>
   </div>
   <form th:object="${client}">
@@ -162,6 +139,56 @@
   <br/>
   <br/>
   <br/>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Make withdraw</h4>
+        </div>
+        <div class="modal-body">
+          <form th:action="@{/admin/clients/withdraw}" method="post">
+            <div class="form-group">
+              <input type="hidden" name="id" id="idInput"/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" name="currency" id="currencyInput"/>
+            </div>
+            <div class="form-group">
+              <input type="number" name="amount" id="amountInput" class="form-control"
+                     placeholder="Withdraw amount" value=""/>
+            </div>
+            <div class="form-group">
+              <input type="text" id="descriptionInput" name="description" class="form-control"
+                     placeholder="Description of withdraw" value=""/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" id="clientInput" th:value="${client}"/>
+            </div>
+            <button type="submit" class="btn btn-primary">save</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    function withdraw(id, currency, amount){
+
+      $('#idInput').val(id);
+      $('#currencyInput').val(currency);
+      $('#amountInput').val(amount);
+      $('#myModal').modal('show');
+    }
+    /*]]>*/
+  </script>
 </section>
 </body>
 </html>
