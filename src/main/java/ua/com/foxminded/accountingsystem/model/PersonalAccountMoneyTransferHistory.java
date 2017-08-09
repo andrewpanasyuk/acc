@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  * Created by andreb on 03.08.17.
  */
 @Entity
-@Table(name = "personal_acc_transfer_history")
+@Table(name = "personal_account_transfer_history")
 public class PersonalAccountMoneyTransferHistory {
 
     @Id
@@ -34,16 +34,16 @@ public class PersonalAccountMoneyTransferHistory {
     @Enumerated(EnumType.STRING)
     private TransferType transferType;
 
+    @Column(name = "create_date")
+    private LocalDateTime createDate = LocalDateTime.now();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private PersonalAccount personalAccount;
 
-    @Column(name = "create_date")
-    private LocalDateTime createDate = LocalDateTime.now();
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "money_id")
-    private Money money = new Money();
+    private Money money;
 
     @NotBlank(message = "It is required field")
     @Column(name = "description")
@@ -120,5 +120,17 @@ public class PersonalAccountMoneyTransferHistory {
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (money != null ? money.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonalAccountMoneyTransferHistory{" +
+            "id=" + id +
+            ", transferType=" + transferType +
+            ", createDate=" + createDate +
+            ", personalAccount=" + personalAccount +
+            ", money=" + money +
+            ", description='" + description + '\'' +
+            '}';
     }
 }

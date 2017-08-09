@@ -57,4 +57,12 @@ public class PersonalAccount implements Serializable {
         if (id != null && !id.equals(personalAccount.id)) return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "PersonalAccount{" +
+            "id=" + id +
+            ", money=" + money +
+            '}';
+    }
 }

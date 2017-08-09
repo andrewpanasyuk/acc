@@ -6,11 +6,13 @@ import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.ClientField;
 import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
+import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHistory;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.repository.OrderRepository;
 import ua.com.foxminded.accountingsystem.repository.ServiceRepository;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
+import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferHistoryService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
 import ua.com.foxminded.accountingsystem.service.dto.ServiceStatisticsDto;
 
@@ -28,14 +30,17 @@ public class ClientServiceJPA implements ClientService {
     private final ClientFieldService clientFieldService;
     private final ServiceRepository serviceRepository;
     private final OrderRepository orderRepository;
+    private final PersonalAccountMoneyTransferHistoryService transferHistoryService;
 
     @Autowired
     public ClientServiceJPA(ClientRepository clientRepository, ClientFieldService clientFieldService,
-                            ServiceRepository serviceRepository, OrderRepository orderRepository) {
+                            ServiceRepository serviceRepository, OrderRepository orderRepository,
+                            PersonalAccountMoneyTransferHistoryService transferHistoryService) {
         this.clientRepository = clientRepository;
         this.clientFieldService = clientFieldService;
         this.serviceRepository = serviceRepository;
         this.orderRepository = orderRepository;
+        this.transferHistoryService = transferHistoryService;
     }
 
     @Override
@@ -127,6 +132,11 @@ public class ClientServiceJPA implements ClientService {
         }
 
         return statistics;
+    }
+
+    @Override
+    public void makeWithdraw(PersonalAccountMoneyTransferHistory withdraw) {
+        transferHistoryService.save(withdraw);
     }
 
 }

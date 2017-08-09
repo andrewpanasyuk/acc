@@ -151,6 +151,7 @@ public class Client extends AbstractAuditEntity {
             "id=" + id +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            ", personalAccount=" + personalAccount +
             '}';
     }
 }
