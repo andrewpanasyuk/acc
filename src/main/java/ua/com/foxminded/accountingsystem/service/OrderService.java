@@ -23,4 +23,6 @@ public interface OrderService {
 
     void close(Order order, OrderStatus orderStatus);
 
+    void recoveryOrderStatus(Order order);
+
 }
