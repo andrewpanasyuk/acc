@@ -7,9 +7,6 @@ import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHistory;
 
-/**
- * Created by andreb on 09.08.17.
- */
 public interface PersonalAccountMoneyTransferHistoryRepository extends JpaRepository<PersonalAccountMoneyTransferHistory, Long> {
 
     @Query("select money from Money money where money.id = ?1")

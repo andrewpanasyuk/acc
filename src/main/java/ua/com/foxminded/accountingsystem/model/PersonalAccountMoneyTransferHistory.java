@@ -18,9 +18,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-/**
- * Created by andreb on 03.08.17.
- */
 @Entity
 @Table(name = "personal_account_transfer_history")
 public class PersonalAccountMoneyTransferHistory {
