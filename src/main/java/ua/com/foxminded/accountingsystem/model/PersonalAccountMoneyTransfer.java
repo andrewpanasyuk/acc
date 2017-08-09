@@ -1,5 +1,7 @@
 package ua.com.foxminded.accountingsystem.model;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.CascadeType;
@@ -19,21 +21,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "personal_account_transfer")
+@Audited
 public class PersonalAccountMoneyTransfer extends AbstractAuditEntity {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transfer_sequence")
-    @SequenceGenerator(name = "transfer_sequence", sequenceName = "transfer_sequence", initialValue = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personal_account_transfer_sequence")
+    @SequenceGenerator(name = "personal_account_transfer_sequence", sequenceName = "personal_account_transfer_sequence", initialValue = 50)
     private Long id;
 
     @Column(name = "transfer_type")
     @Enumerated(EnumType.STRING)
     private TransferType transferType;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private PersonalAccount personalAccount;
 
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "money_id")
     private Money money = new Money();
