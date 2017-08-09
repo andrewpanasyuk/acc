@@ -77,10 +77,9 @@ public class AdminClientController {
         PersonalAccount account = new PersonalAccount();
         account.setId(accountId);
         withdraw.setPersonalAccount(account);
-        withdraw.setMoney(money);
         withdraw.setDescription(description);
 
-        accountTransferHistoryService.makeWithdraw(withdraw);
+        accountTransferHistoryService.makeWithdraw(money, withdraw);
 
         return "redirect:/admin/clients/" + clientId;
     }
