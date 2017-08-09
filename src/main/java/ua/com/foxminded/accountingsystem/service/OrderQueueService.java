@@ -14,7 +14,7 @@ public interface OrderQueueService {
 
     void delete(OrderQueue orderQueue);
 
-    void leaveQueue(Long id, OrderStatus cause);
+    void deleteQueue(Long id, OrderStatus cause);
 
     OrderQueue save(OrderQueue orderQueue);
 
