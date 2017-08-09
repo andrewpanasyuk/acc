@@ -82,18 +82,18 @@ public class OrderQueueServiceJPA implements OrderQueueService {
 
     @Transactional
     @Override
-    public void leaveQueue(Long id, String cause) {
+    public void leaveQueue(Long id, OrderStatus cause) {
         OrderQueue orderQueue = orderQueueRepository.findOne(id);
         Order order = orderQueue.getOrder();
-        if(!cause.equals("delete")){
-            orderService.close(order, OrderStatus.valueOf(cause));
-        } else {
+        if (cause == null){
             if(contractRepository.existsContractByOrderId(order.getId())){
                 order.setStatus(OrderStatus.FROZEN);
             } else {
                 order.setStatus(OrderStatus.NEW);
             }
             orderRepository.save(order);
+        } else {
+            orderService.close(order, cause);
         }
         orderQueueRepository.delete(orderQueue);
     }
