@@ -103,7 +103,7 @@ public class ContractServiceJPA implements ContractService {
         List<Contract> contracts = contractRepository.findContractsForInvoicesCreation(payDay.getDayOfMonth(),
             today);
         for (Contract contract : contracts) {
-            if (contract.getPaymentType() == PaymentType.PREPAY || contract.getPaymentType() == PaymentType.TRIAL) {
+            if (contract.getPaymentType() == PaymentType.PREPAY) {
                 paymentPeriodFrom = today.plusDays(signalPeriod);
                 paymentPeriodTo = today.plusDays(signalPeriod).plusMonths(1);
             } else {
