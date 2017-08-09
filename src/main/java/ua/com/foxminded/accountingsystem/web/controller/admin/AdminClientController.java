@@ -10,17 +10,21 @@ import ua.com.foxminded.accountingsystem.model.PersonalAccount;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHistory;
 import ua.com.foxminded.accountingsystem.model.TransferType;
 import ua.com.foxminded.accountingsystem.service.ClientService;
-
-import java.time.LocalDateTime;
+import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferHistoryService;
 
 @Controller
 @RequestMapping("/admin/clients")
 public class AdminClientController {
+
     private final ClientService clientService;
+    private final PersonalAccountMoneyTransferHistoryService accountTransferHistoryService;
 
     @Autowired
-    public AdminClientController(ClientService clientService) {
+    public AdminClientController(ClientService clientService,
+                                 PersonalAccountMoneyTransferHistoryService accountTransferHistoryService) {
+
         this.clientService = clientService;
+        this.accountTransferHistoryService = accountTransferHistoryService;
     }
 
     @GetMapping
@@ -46,7 +50,6 @@ public class AdminClientController {
     public String getClientByID(@PathVariable long id, Model model) {
         Client client = clientService.findOne(id);
         model.addAttribute("client", client);
-        System.out.println(client);
         return "admin/client";
     }
 
@@ -68,21 +71,15 @@ public class AdminClientController {
                            @ModelAttribute PersonalAccount account,
                            @RequestParam String description,
                            @RequestParam Long clientId) {
-        System.out.println("Withdraw: " + money);
-        System.out.println("Withdraw client acc: " + account);
-        System.out.println("Withdraw description: " + description);
-        System.out.println("Withdraw clientId: " + clientId);
 
         PersonalAccountMoneyTransferHistory withdraw = new PersonalAccountMoneyTransferHistory();
         withdraw.setTransferType(TransferType.OUTCOME);
         withdraw.setPersonalAccount(account);
         withdraw.setMoney(money);
         withdraw.setDescription(description);
-        System.out.println("Client controller: " + withdraw);
 
-        clientService.makeWithdraw(withdraw);
+        accountTransferHistoryService.makeWithdraw(withdraw);
 
         return "redirect:/admin/clients/" + clientId;
     }
-
 }

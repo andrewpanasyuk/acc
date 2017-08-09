@@ -7,5 +7,5 @@ import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHisto
  */
 public interface PersonalAccountMoneyTransferHistoryService {
 
-    void save(PersonalAccountMoneyTransferHistory transferHistory);
+    void makeWithdraw(PersonalAccountMoneyTransferHistory transferHistory);
 }

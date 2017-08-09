@@ -14,32 +14,28 @@ import javax.transaction.Transactional;
 @Service
 public class PersonalAccountMoneyTransferHistoryServiceJPA implements PersonalAccountMoneyTransferHistoryService {
 
-    private final PersonalAccountMoneyTransferHistoryRepository transferHistoryRepository;
+    private final PersonalAccountMoneyTransferHistoryRepository accountTransferHistoryRepository;
 
-    public PersonalAccountMoneyTransferHistoryServiceJPA(PersonalAccountMoneyTransferHistoryRepository transferHistoryRepository) {
-        this.transferHistoryRepository = transferHistoryRepository;
+    public PersonalAccountMoneyTransferHistoryServiceJPA(PersonalAccountMoneyTransferHistoryRepository accountTransferHistoryRepository) {
+        this.accountTransferHistoryRepository = accountTransferHistoryRepository;
     }
 
     @Override
     @Transactional
-    public void save(PersonalAccountMoneyTransferHistory transferHistory) {
+    public void makeWithdraw(PersonalAccountMoneyTransferHistory transferHistory) {
 
-        Money oldValue = transferHistoryRepository
+        Money oldValue = accountTransferHistoryRepository
             .findMoneyById(transferHistory.getMoney().getId());
 
-        Money newValue = transferHistory.getMoney();
+        Money withdraw = transferHistory.getMoney();
 
-        System.out.println("Withdraw: " + transferHistory);
-        System.out.println("oldValue: " + oldValue);
-        System.out.println("NewValue: " + newValue);
-
-        if (newValue.getAmount() <= oldValue.getAmount()){
-            transferHistoryRepository.updateMoney(newValue.getId(), newValue.getCurrency(), newValue.getAmount());
+        if (withdraw.getAmount() <= oldValue.getAmount()){
+            long newAmount = oldValue.getAmount() - withdraw.getAmount();
+            accountTransferHistoryRepository.updateMoney(withdraw.getId(), withdraw.getCurrency(), newAmount);
             transferHistory.getMoney().setId(0);
-            transferHistoryRepository.save(transferHistory);
-            System.out.println("!!!!!!!!!!!!!!!!!!!");
+            accountTransferHistoryRepository.save(transferHistory);
         }else{
-            System.out.println("*******************");
+
         }
     }
 }
