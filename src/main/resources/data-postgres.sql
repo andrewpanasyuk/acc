@@ -80,10 +80,24 @@ INSERT INTO money (id, currency, amount) VALUES
     (38, 'EUR', 105),
     (39, 'UAH', 1000),
     (40, 'UAH', 1000),
-    (41, 'UAH', 9000),
-    (42, 'UAH', 4500),
-    (43, 'UAH', 1000),
-    (44, 'UAH', 1500);
+    (41, 'UAH', 3000),
+    (42, 'UAH', 3000),
+    (43, 'UAH', 3000),
+    (44, 'UAH', 1500),
+    (45, 'UAH', 1500),
+    (46, 'UAH', 1500),
+    (47, 'UAH', 1500),
+    (48, 'UAH', 500),
+    (49, 'UAH', 500),
+    (50, 'UAH', 3000),
+    (51, 'UAH', 3000),
+    (52, 'UAH', 3000),
+    (53, 'UAH', 1500),
+    (54, 'UAH', 1500),
+    (55, 'UAH', 1500),
+    (56, 'UAH', 1500),
+    (57, 'UAH', 500),
+    (58, 'UAH', 500);
 
 INSERT INTO consultancy (id, name, description, employee_rate_id, created_by, created_date) VALUES
     (1, 'Mentoring', 'Focuses on the knowledge and needs of clients. Training during free time. No lectures.', 9, 'system', '2017-07-11'),
@@ -204,10 +218,15 @@ INSERT INTO deal_queue (id, queuing_date, priority, deal_id, created_by, created
     (3, now() - interval '4 day', 'NORMAL', 4, 'system', '2017-07-11');
 
 INSERT INTO salary(id, date_salary, date_from, date_to, employee_id, paid, total_amount_id) VALUES
-    (1, now() - interval '1 day',  now() - interval '4 mon', now() - interval '1 mon', 1, TRUE, 41),
-    (2, now() - interval '1 day',  now() - interval '3 mon + 10 day', now() - interval '11 day', 4, TRUE, 42),
-    (3, now() - interval '1 day',  now() - interval '1 mon + 4 day', now() - interval '5 day', 2, TRUE, 43),
-    (4, now() - interval '1 day',  now() - interval '2 mon + 10 day', now() - interval '10 day', 3, TRUE, 44);
+    (1, date_trunc('month' , now() - interval '3 mon') + interval '14 day',  date_trunc('month' , now() - interval '4 mon') + interval '15 day', date_trunc('month' , now() - interval '3 mon') + interval '14 day', 1, TRUE, 50),
+    (2, date_trunc('month' , now() - interval '2 mon') + interval '14 day',  date_trunc('month' , now() - interval '3 mon') + interval '15 day', date_trunc('month' , now() - interval '2 mon') + interval '14 day', 1, TRUE, 51),
+    (3, date_trunc('month' , now() - interval '1 mon') + interval '14 day',  date_trunc('month' , now() - interval '2 mon') + interval '15 day', date_trunc('month' , now() - interval '1 mon') + interval '14 day', 1, TRUE, 52),
+    (4, date_trunc('month' , now() - interval '2 mon') + interval '14 day',  date_trunc('month' , now() - interval '3 mon') + interval '15 day', date_trunc('month' , now() - interval '2 mon') + interval '14 day', 4, TRUE, 53),
+    (5, date_trunc('month' , now() - interval '1 mon') + interval '14 day',  date_trunc('month' , now() - interval '2 mon') + interval '15 day', date_trunc('month' , now() - interval '1 mon') + interval '14 day', 4, TRUE, 54),
+    (6, date_trunc('month' , now()) + interval '14 day',  date_trunc('month' , now() - interval '1 mon') + interval '15 day', date_trunc('month' , now()) + interval '14 day', 4, TRUE, 55),
+    (7, date_trunc('month' , now()) + interval '14 day',  date_trunc('month' , now() - interval '1 mon') + interval '15 day', date_trunc('month' , now()) + interval '14 day', 3, TRUE, 56),
+    (8, date_trunc('month' , now() - interval '1 mon') + interval '14 day',  date_trunc('month' , now() - interval '2 mon') + interval '15 day', date_trunc('month' , now() - interval '1 mon') + interval '14 day', 2, TRUE, 57),
+    (9, date_trunc('month' , now()) + interval '14 day',  date_trunc('month' , now() - interval '1 mon') + interval '15 day', date_trunc('month' , now()) + interval '14 day', 2, TRUE, 58);
 
 INSERT INTO salary_item(id, salary_id, employee_id, invoice_id, employee_payment_id, date_from, date_to, accounted) VALUES
     (1, null, 1, 1, 22, now() - interval '4 mon', now() - interval '3 mon', FALSE),
@@ -220,13 +239,12 @@ INSERT INTO salary_item(id, salary_id, employee_id, invoice_id, employee_payment
     (8, null, 3, 8, 26, now() - interval '1 mon + 4 day', now() - interval '5 day', FALSE),
     (9, null, 2, 9, 28, now() - interval '2 mon + 10 day', now() - interval '1 mon + 10 day', FALSE),
     (10, null, 2, 10, 28, now() - interval '1 mon + 10 day', now() - interval '10 day', FALSE),
-    (11, 1, 1, 1, 22, now() - interval '4 mon', now() - interval '3 mon', TRUE),
-    (12, 1, 1, 2, 22, now() - interval '3 mon', now() - interval '2 mon', TRUE),
-    (13, 1, 1, 3, 22, now() - interval '2 mon', now() - interval '1 mon', TRUE),
-    (14, null, 1, 4, 22, now() - interval '1 mon', now(), TRUE),
-    (15, 2, 4, 5, 24, now() - interval '3 mon + 10 day', now() - interval '2 mon + 11 day', TRUE),
-    (16, 2, 4, 6, 24, now() - interval '2 mon + 10 day', now() - interval '1 mon + 11 day', TRUE),
-    (17, 2, 4, 7, 24, now() - interval '1 mon + 10 day', now() - interval '11 day', TRUE),
-    (18, 3, 3, 8, 26, now() - interval '1 mon + 4 day', now() - interval '5 day', TRUE),
-    (19, 4, 2, 9, 28, now() - interval '2 mon + 10 day', now() - interval '1 mon + 10 day', TRUE),
-    (20, 4, 2, 10, 28, now() - interval '1 mon + 10 day', now() - interval '10 day', TRUE);
+    (11, 1, 1, 1, 41, now() - interval '4 mon', now() - interval '3 mon', TRUE),
+    (12, 2, 1, 2, 42, now() - interval '3 mon', now() - interval '2 mon', TRUE),
+    (13, 3, 1, 3, 43, now() - interval '2 mon', now() - interval '1 mon', TRUE),
+    (14, 4, 4, 5, 44, now() - interval '3 mon + 10 day', now() - interval '2 mon + 11 day', TRUE),
+    (15, 5, 4, 6, 45, now() - interval '2 mon + 10 day', now() - interval '1 mon + 11 day', TRUE),
+    (16, 6, 4, 7, 46, now() - interval '1 mon + 10 day', now() - interval '11 day', TRUE),
+    (17, 7, 3, 8, 47, now() - interval '1 mon + 4 day', now() - interval '5 day', TRUE),
+    (18, 8, 2, 9, 48, now() - interval '2 mon + 10 day', now() - interval '1 mon + 10 day', TRUE),
+    (19, 9, 2, 10, 49, now() - interval '1 mon + 10 day', now() - interval '10 day', TRUE);
