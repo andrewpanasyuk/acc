@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ua.com.foxminded.accountingsystem.config.StringOrderStatusConverter;
 import ua.com.foxminded.accountingsystem.model.OrderQueue;
 import ua.com.foxminded.accountingsystem.model.OrderStatus;
 import ua.com.foxminded.accountingsystem.model.Service;
@@ -44,7 +45,7 @@ public class AdminOrderQueueController {
 
     @DeleteMapping(value = "/{id}/{cause}")
     public String delete(@PathVariable long id, @PathVariable String cause) {
-        orderQueueService.leaveQueue(id, cause);
+        orderQueueService.leaveQueue(id, new StringOrderStatusConverter().convert(cause));
         return "redirect:/admin/queues";
     }
 }
