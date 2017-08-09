@@ -1,30 +1,38 @@
 package ua.com.foxminded.accountingsystem.web.controller.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Client;
-import ua.com.foxminded.accountingsystem.model.Money;
-import ua.com.foxminded.accountingsystem.model.PersonalAccount;
-import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHistory;
-import ua.com.foxminded.accountingsystem.model.TransferType;
+import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransfer;
 import ua.com.foxminded.accountingsystem.service.ClientService;
-import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferHistoryService;
+import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferService;
 
 @Controller
 @RequestMapping("/admin/clients")
 public class AdminClientController {
 
+    private static final Logger log = LoggerFactory.getLogger(AdminClientController.class);
+
     private final ClientService clientService;
-    private final PersonalAccountMoneyTransferHistoryService accountTransferHistoryService;
+    private final PersonalAccountMoneyTransferService moneyTransferService;
 
     @Autowired
     public AdminClientController(ClientService clientService,
-                                 PersonalAccountMoneyTransferHistoryService accountTransferHistoryService) {
+                                 PersonalAccountMoneyTransferService moneyTransferService) {
 
         this.clientService = clientService;
-        this.accountTransferHistoryService = accountTransferHistoryService;
+        this.moneyTransferService = moneyTransferService;
     }
 
     @GetMapping
@@ -67,19 +75,12 @@ public class AdminClientController {
     }
 
     @PostMapping("/withdraw")
-    public String withdraw(@ModelAttribute Money money,
-                           @RequestParam Long accountId,
-                           @RequestParam String description,
+    public String withdraw(@ModelAttribute PersonalAccountMoneyTransfer withdraw,
+                           @RequestParam Long accountMoneyId,
                            @RequestParam Long clientId) {
 
-        PersonalAccountMoneyTransferHistory withdraw = new PersonalAccountMoneyTransferHistory();
-        withdraw.setTransferType(TransferType.OUTCOME);
-        PersonalAccount account = new PersonalAccount();
-        account.setId(accountId);
-        withdraw.setPersonalAccount(account);
-        withdraw.setDescription(description);
-
-        accountTransferHistoryService.makeWithdraw(money, withdraw);
+        log.debug("Withdraw: " + withdraw);
+        moneyTransferService.makeWithdraw(accountMoneyId, withdraw);
 
         return "redirect:/admin/clients/" + clientId;
     }
