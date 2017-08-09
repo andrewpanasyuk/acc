@@ -9,12 +9,10 @@ public class StringOrderStatusConverter implements Converter<String, OrderStatus
 
     @Override
     public OrderStatus convert(String s) {
-
-        for (OrderStatus status : OrderStatus.values()) {
-            if (status.name().equals(s)) {
-                return OrderStatus.valueOf(s);
-            }
+        try {
+            return OrderStatus.valueOf(s);
+        } catch (IllegalArgumentException ex) {
+            return null;
         }
-        return null;
     }
 }
