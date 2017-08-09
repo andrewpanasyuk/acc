@@ -29,7 +29,7 @@ public class AdminClientControllerTest {
     private ClientService clientService;
 
     @Mock
-    private PersonalAccountMoneyTransferService accountMoneyTransferHistoryService;
+    private PersonalAccountMoneyTransferService moneyTransferService;
 
     private AdminClientController adminClientController;
 
@@ -59,7 +59,7 @@ public class AdminClientControllerTest {
 
     @Before
     public void init(){
-        adminClientController = new AdminClientController(clientService, accountMoneyTransferHistoryService);
+        adminClientController = new AdminClientController(clientService, moneyTransferService);
         mockMvc = MockMvcBuilders.standaloneSetup(adminClientController).build();
         when(clientService.findAll()).thenReturn(clients);
         when(clientService.findOne(john.getId())).thenReturn(john);
