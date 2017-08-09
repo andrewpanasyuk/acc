@@ -43,7 +43,7 @@ public class PersonalAccountMoneyTransferHistory {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "money_id")
-    private Money money;
+    private Money money = new Money();
 
     @NotBlank(message = "It is required field")
     @Column(name = "description")
