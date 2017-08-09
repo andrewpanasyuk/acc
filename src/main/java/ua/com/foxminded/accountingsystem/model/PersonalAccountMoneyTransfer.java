@@ -19,12 +19,12 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "personal_account_transfer_history")
+@Table(name = "personal_account_transfer")
 public class PersonalAccountMoneyTransfer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transfer_history_sequence")
-    @SequenceGenerator(name = "transfer_history_sequence", sequenceName = "transfer_history_sequence", initialValue = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transfer_sequence")
+    @SequenceGenerator(name = "transfer_sequence", sequenceName = "transfer_sequence", initialValue = 50)
     private Long id;
 
     @Column(name = "transfer_type")
