@@ -151,21 +151,24 @@
         <div class="modal-body">
           <form id="withdrawForm" th:action="@{/admin/clients/withdraw}" method="post">
             <div class="form-group">
-              <input type="hidden" name="id" id="idMoneyModal"/>
+              <input type="hidden" name="accountMoneyId" id="idMoneyModal"/>
             </div>
             <div class="form-group">
-              <input type="hidden" name="currency" id="currencyMoneyModal"/>
+              <input type="hidden" name="money.currency" id="currencyMoneyModal"/>
             </div>
             <div class="form-group">
-              <input type="number" name="amount" id="amountMoneyModal" class="form-control"
-                     placeholder="Withdraw amount" value=""/>
+              <input type="number" name="money.amount" id="amountMoneyModal" class="form-control"
+                     placeholder="Withdraw amount" value="0"/>
             </div>
             <div class="form-group">
               <input type="text" id="descriptionModal" name="description" class="form-control"
                      placeholder="Description of withdraw" value=""/>
             </div>
             <div class="form-group">
-              <input type="hidden" id="accountIdModal" name="accountId" th:value="${client.personalAccount.id}"/>
+              <input type="hidden" id="transferTypeModal" name="transferType" th:value="${T(ua.com.foxminded.accountingsystem.model.TransferType).OUTCOME}"/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" id="accountIdModal" name="personalAccount.id" th:value="${client.personalAccount.id}"/>
             </div>
             <div class="form-group">
               <input type="hidden" id="clientModal" name="clientId" th:value="${client.id}"/>

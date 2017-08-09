@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "personal_account_transfer_history")
-public class PersonalAccountMoneyTransferHistory {
+public class PersonalAccountMoneyTransfer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transfer_history_sequence")
@@ -99,7 +99,7 @@ public class PersonalAccountMoneyTransferHistory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonalAccountMoneyTransferHistory that = (PersonalAccountMoneyTransferHistory) o;
+        PersonalAccountMoneyTransfer that = (PersonalAccountMoneyTransfer) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (transferType != that.transferType) return false;
@@ -121,7 +121,7 @@ public class PersonalAccountMoneyTransferHistory {
 
     @Override
     public String toString() {
-        return "PersonalAccountMoneyTransferHistory{" +
+        return "PersonalAccountMoneyTransfer{" +
             "id=" + id +
             ", transferType=" + transferType +
             ", createDate=" + createDate +

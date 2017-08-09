@@ -12,15 +12,15 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.service.ClientService;
-import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferHistoryService;
+import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasEntry;
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class AdminClientControllerTest {
@@ -29,7 +29,7 @@ public class AdminClientControllerTest {
     private ClientService clientService;
 
     @Mock
-    private PersonalAccountMoneyTransferHistoryService accountMoneyTransferHistoryService;
+    private PersonalAccountMoneyTransferService accountMoneyTransferHistoryService;
 
     private AdminClientController adminClientController;
 
