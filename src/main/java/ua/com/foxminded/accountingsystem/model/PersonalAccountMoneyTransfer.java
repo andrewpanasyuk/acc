@@ -16,11 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "personal_account_transfer")
-public class PersonalAccountMoneyTransfer {
+public class PersonalAccountMoneyTransfer extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transfer_sequence")
@@ -30,9 +29,6 @@ public class PersonalAccountMoneyTransfer {
     @Column(name = "transfer_type")
     @Enumerated(EnumType.STRING)
     private TransferType transferType;
-
-    @Column(name = "create_date")
-    private LocalDateTime createDate = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
@@ -60,14 +56,6 @@ public class PersonalAccountMoneyTransfer {
 
     public void setPersonalAccount(PersonalAccount personalAccount) {
         this.personalAccount = personalAccount;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
     }
 
     public Money getMoney() {
@@ -105,7 +93,6 @@ public class PersonalAccountMoneyTransfer {
         if (transferType != that.transferType) return false;
         if (personalAccount != null ? !personalAccount.equals(that.personalAccount) : that.personalAccount != null)
             return false;
-        if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
         return money != null ? money.equals(that.money) : that.money == null;
     }
 
@@ -114,7 +101,6 @@ public class PersonalAccountMoneyTransfer {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (transferType != null ? transferType.hashCode() : 0);
         result = 31 * result + (personalAccount != null ? personalAccount.hashCode() : 0);
-        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (money != null ? money.hashCode() : 0);
         return result;
     }
@@ -124,7 +110,6 @@ public class PersonalAccountMoneyTransfer {
         return "PersonalAccountMoneyTransfer{" +
             "id=" + id +
             ", transferType=" + transferType +
-            ", createDate=" + createDate +
             ", personalAccount=" + personalAccount +
             ", money=" + money +
             ", description='" + description + '\'' +
