@@ -3,15 +3,24 @@
     <EMPLOYEE id="2" last_name="Teplinsky" first_name="Anton" max_clients="10" created_by="system" created_date="2017-07-11" />
     <EMPLOYEE id="3" last_name="Gubar" first_name="Andrey" max_clients="5" created_by="system" created_date="2017-07-11" />
 
-    <DEALS id="1" service_id="1" status="ACTIVE" client_id="1" open_date="2017-01-24" close_date="2017-02-25" created_by="system" created_date="2017-07-11" />
-    <DEALS id="2" service_id="2" status="ACTIVE" client_id="2" open_date="2017-02-24" created_by="system" created_date="2017-07-11" />
-    <DEALS id="3" service_id="2" status="ACTIVE" client_id="3" open_date="2017-03-24" created_by="system" created_date="2017-07-11" />
-    <DEALS id="4" service_id="2" status="WAITING" client_id="4" open_date="2017-04-24" created_by="system" created_date="2017-07-11" />
-    <DEALS id="5" service_id="2" status="FROZEN" client_id="5" open_date="2017-05-24" created_by="system" created_date="2017-07-11" />
-    <DEALS id="6" service_id="2" status="COMPLETED" client_id="6" open_date="2017-06-24" created_by="system" created_date="2017-07-11" />
-    <DEALS id="7" service_id="2" status="ACTIVE" client_id="6" open_date="2017-03-14" created_by="system" created_date="2017-07-11" />
-    <DEALS id="8" service_id="2" status="WAITING" client_id="7" open_date="2017-07-01" created_by="system" created_date="2017-07-11" />
-    <DEALS id="9" service_id="2" status="NEW" client_id="8" open_date="2017-06-23" created_by="system" created_date="2017-07-11" />
+    <DEAL id="1" service_id="1" status="ACTIVE" client_id="1" open_date="2017-01-24" close_date="2017-02-25"
+          created_by="system" created_date="2017-07-11"/>
+    <DEAL id="2" service_id="2" status="ACTIVE" client_id="2" open_date="2017-02-24" created_by="system"
+          created_date="2017-07-11"/>
+    <DEAL id="3" service_id="2" status="ACTIVE" client_id="3" open_date="2017-03-24" created_by="system"
+          created_date="2017-07-11"/>
+    <DEAL id="4" service_id="2" status="WAITING" client_id="4" open_date="2017-04-24" created_by="system"
+          created_date="2017-07-11"/>
+    <DEAL id="5" service_id="2" status="FROZEN" client_id="5" open_date="2017-05-24" created_by="system"
+          created_date="2017-07-11"/>
+    <DEAL id="6" service_id="2" status="COMPLETED" client_id="6" open_date="2017-06-24" created_by="system"
+          created_date="2017-07-11"/>
+    <DEAL id="7" service_id="2" status="ACTIVE" client_id="6" open_date="2017-03-14" created_by="system"
+          created_date="2017-07-11"/>
+    <DEAL id="8" service_id="2" status="WAITING" client_id="7" open_date="2017-07-01" created_by="system"
+          created_date="2017-07-11"/>
+    <DEAL id="9" service_id="2" status="NEW" client_id="8" open_date="2017-06-23" created_by="system"
+          created_date="2017-07-11"/>
 
     <CONTRACT id="1" contract_date="2017-01-24"  deal_id="1" employee_id="1" payment_type="PREPAY" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
     <CONTRACT id="2" contract_date="2017-02-24"  deal_id="2" employee_id="1" payment_type="PREPAY" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />

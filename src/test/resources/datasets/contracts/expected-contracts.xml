@@ -1,6 +1,6 @@
 <dataset>
-    <DEALS id="50" status="ACTIVE" service_id="50" created_by="system" created_date="2017-07-11" />
-    <DEALS id="51" status="WAITING" service_id="51" created_by="system" created_date="2017-07-11" />
+    <DEAL id="50" status="ACTIVE" service_id="50" created_by="system" created_date="2017-07-11"/>
+    <DEAL id="51" status="WAITING" service_id="51" created_by="system" created_date="2017-07-11"/>
 
     <EMPLOYEE id="51"  created_by="system" created_date="2017-07-11" />
     <EMPLOYEE id="51"  created_by="system" created_date="2017-07-11" />
