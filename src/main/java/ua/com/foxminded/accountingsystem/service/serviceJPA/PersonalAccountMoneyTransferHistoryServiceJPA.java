@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.stereotype.Service;
+import ua.com.foxminded.accountingsystem.exception.WithdrawException;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHistory;
 import ua.com.foxminded.accountingsystem.repository.PersonalAccountMoneyTransferHistoryRepository;
@@ -22,20 +23,19 @@ public class PersonalAccountMoneyTransferHistoryServiceJPA implements PersonalAc
 
     @Override
     @Transactional
-    public void makeWithdraw(PersonalAccountMoneyTransferHistory transferHistory) {
+    public void makeWithdraw(Money withdraw, PersonalAccountMoneyTransferHistory transferHistory) {
 
         Money oldValue = accountTransferHistoryRepository
-            .findMoneyById(transferHistory.getMoney().getId());
+            .findMoneyById(withdraw.getId());
 
-        Money withdraw = transferHistory.getMoney();
-
-        if (withdraw.getAmount() <= oldValue.getAmount()){
+        if (oldValue.getAmount() > 0 && oldValue.getAmount() >= withdraw.getAmount()){
             long newAmount = oldValue.getAmount() - withdraw.getAmount();
             accountTransferHistoryRepository.updateMoney(withdraw.getId(), withdraw.getCurrency(), newAmount);
-            transferHistory.getMoney().setId(0);
+            transferHistory.getMoney().setAmount(newAmount);
+            transferHistory.getMoney().setCurrency(withdraw.getCurrency());
             accountTransferHistoryRepository.save(transferHistory);
         }else{
-
+            throw new WithdrawException("Withdraw rejected. Have no money for this transaction.");
         }
     }
 }

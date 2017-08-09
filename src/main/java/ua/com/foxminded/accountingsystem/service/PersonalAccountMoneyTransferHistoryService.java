@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.service;
 
+import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHistory;
 
 /**
@@ -7,5 +8,5 @@ import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransferHisto
  */
 public interface PersonalAccountMoneyTransferHistoryService {
 
-    void makeWithdraw(PersonalAccountMoneyTransferHistory transferHistory);
+    void makeWithdraw(Money money, PersonalAccountMoneyTransferHistory transferHistory);
 }
