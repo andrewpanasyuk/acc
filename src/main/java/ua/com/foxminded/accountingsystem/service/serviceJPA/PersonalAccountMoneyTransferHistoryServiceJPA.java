@@ -17,13 +17,15 @@ public class PersonalAccountMoneyTransferHistoryServiceJPA implements PersonalAc
 
     private final PersonalAccountMoneyTransferHistoryRepository accountTransferHistoryRepository;
 
-    public PersonalAccountMoneyTransferHistoryServiceJPA(PersonalAccountMoneyTransferHistoryRepository accountTransferHistoryRepository) {
+    public PersonalAccountMoneyTransferHistoryServiceJPA(
+        PersonalAccountMoneyTransferHistoryRepository accountTransferHistoryRepository) {
         this.accountTransferHistoryRepository = accountTransferHistoryRepository;
     }
 
     @Override
     @Transactional
-    public void makeWithdraw(Money withdraw, PersonalAccountMoneyTransferHistory transferHistory) {
+    public void makeWithdraw(Money withdraw,
+                             PersonalAccountMoneyTransferHistory transferHistory) {
 
         Money oldValue = accountTransferHistoryRepository
             .findMoneyById(withdraw.getId());
