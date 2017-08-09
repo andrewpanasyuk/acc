@@ -68,12 +68,14 @@ public class AdminClientController {
 
     @PostMapping("/withdraw")
     public String withdraw(@ModelAttribute Money money,
-                           @ModelAttribute PersonalAccount account,
+                           @RequestParam Long accountId,
                            @RequestParam String description,
                            @RequestParam Long clientId) {
 
         PersonalAccountMoneyTransferHistory withdraw = new PersonalAccountMoneyTransferHistory();
         withdraw.setTransferType(TransferType.OUTCOME);
+        PersonalAccount account = new PersonalAccount();
+        account.setId(accountId);
         withdraw.setPersonalAccount(account);
         withdraw.setMoney(money);
         withdraw.setDescription(description);
