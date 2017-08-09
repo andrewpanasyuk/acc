@@ -86,20 +86,11 @@ public class OrderQueueServiceJPA implements OrderQueueService {
         OrderQueue orderQueue = orderQueueRepository.findOne(id);
         Order order = orderQueue.getOrder();
         if (cause == null){
-           recoveryOrderStatus(order);
+            orderService.recoveryOrderStatus(order);
         } else {
             orderService.close(order, cause);
         }
         orderQueueRepository.delete(orderQueue);
-    }
-
-    private void recoveryOrderStatus(Order order){
-        if(contractRepository.existsContractByOrderId(order.getId())){
-            order.setStatus(OrderStatus.FROZEN);
-        } else {
-            order.setStatus(OrderStatus.NEW);
-        }
-        orderRepository.save(order);
     }
 
     public OrderQueue createQueueByOrderId(Long id) {

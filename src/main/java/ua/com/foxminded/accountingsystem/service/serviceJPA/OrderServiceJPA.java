@@ -86,4 +86,13 @@ public class OrderServiceJPA implements OrderService {
         contractRepository.save(contract);
         orderRepository.save(order);
     }
+
+    public void recoveryOrderStatus(Order order){
+        if(contractRepository.existsContractByOrderId(order.getId())){
+            order.setStatus(OrderStatus.FROZEN);
+        } else {
+            order.setStatus(OrderStatus.NEW);
+        }
+        orderRepository.save(order);
+    }
 }
