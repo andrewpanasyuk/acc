@@ -44,8 +44,8 @@ public class AdminOrderQueueController {
     }
 
     @DeleteMapping(value = "/{id}/{cause}")
-    public String delete(@PathVariable long id, @PathVariable String cause) {
-        orderQueueService.leaveQueue(id, new StringOrderStatusConverter().convert(cause));
+    public String delete(@PathVariable long id, @PathVariable OrderStatus cause) {
+        orderQueueService.leaveQueue(id, cause);
         return "redirect:/admin/queues";
     }
 }
