@@ -16,7 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("select distinct new ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto"
         + "(client.id, client.firstName, client.lastName, contract.deal.id, contract.paymentType) "
-        + "from Client client inner join client.deal cl_deals, Contract contract "
+        + "from Client client inner join client.deals cl_deals, Contract contract "
         + "where contract.deal = cl_deals "
         + "and contract.employee.id = ?1 "
         + "and contract.closeType is null "
