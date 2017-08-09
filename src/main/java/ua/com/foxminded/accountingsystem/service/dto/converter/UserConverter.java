@@ -6,9 +6,6 @@ import ua.com.foxminded.accountingsystem.service.dto.UserDto;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by andreb on 05.07.17.
- */
 public class UserConverter {
 
     public static UserDto convertToDto(User user){

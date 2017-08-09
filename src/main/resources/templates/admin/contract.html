@@ -10,16 +10,16 @@
       <form id="saveContract" class="form-horizontal" th:action="@{/admin/contracts}" th:object="${contract}"
             method="post">
         <input type="hidden" th:field="*{id}"/>
-        <input type="hidden" th:field="*{order}"/>
+        <input type="hidden" th:field="*{deal}"/>
         <input type="hidden" th:field="*{employeeRate.id}"/>
         <input type="hidden" th:field="*{employeeRate.currency}"/>
         <div class="form-group">
           <div class="col-sm-3">
-            <label for="order-link">Order:</label>
+            <label for="deal-link">Deal:</label>
           </div>
           <div class="col-sm-9">
-            <a id="order-link" th:href="@{/admin/orders/{id}(id=${contract.order.id})}"
-               th:text="${contract.order.service.name} + ' from ' + ${contract.order.openDate}"></a>
+            <a id="deal-link" th:href="@{/admin/deals/{id}(id=${contract.deal.id})}"
+               th:text="${contract.deal.service.name} + ' from ' + ${contract.deal.openDate}"></a>
           </div>
         </div>
         <div class="form-group">

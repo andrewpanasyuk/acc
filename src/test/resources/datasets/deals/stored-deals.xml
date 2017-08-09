@@ -1,0 +1,6 @@
+<dataset>
+    <DEAL id="1" service_id="1" status="ACTIVE" client_id="1" open_date="2017-01-24" close_date="2017-01-25"
+          created_by="system" created_date="2017-07-11"/>
+    <DEAL id="2" service_id="2" status="WAITING" client_id="2" open_date="2010-01-24" created_by="system"
+          created_date="2017-07-11"/>
+</dataset>

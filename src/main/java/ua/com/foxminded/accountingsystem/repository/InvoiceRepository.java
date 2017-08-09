@@ -16,5 +16,5 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
         "AND invoice.paymentPeriodTo < current_date ))")
     List<Invoice> findDebtInvoices();
 
-    Invoice findFirstByContractOrderIdOrderByCreationDateDesc(long orderId);
+    Invoice findFirstByContractDealIdOrderByCreationDateDesc(long dealId);
 }

@@ -1,8 +1,5 @@
 package ua.com.foxminded.accountingsystem.service.dto;
 
-/**
- * Created by andreb on 26.07.17.
- */
 public class ClientStatisticsDto {
 
     private long activeClients;

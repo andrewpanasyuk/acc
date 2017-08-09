@@ -2,6 +2,6 @@
     <CLIENT id="1" first_name="John" last_name="Snow" personal_account_id="1" created_by="system" created_date="2017-07-11" />
     <CLIENT_FIELD id="1" name="email"  created_by="system" created_date="2017-07-11" />
     <CLIENT_FIELD_VALUE id="1" value="test@mail.com" client_id="1" client_field_id="1" created_by="system" created_date="2017-07-11" />
-    <ORDERS id="1" status="ACTIVE" client_id="1" created_by="system" created_date="2017-07-11" />
+    <DEAL id="1" status="ACTIVE" client_id="1" created_by="system" created_date="2017-07-11"/>
     <PERSONAL_ACCOUNT id="1" />
 </dataset>

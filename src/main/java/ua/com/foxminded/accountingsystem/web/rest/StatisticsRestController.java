@@ -13,9 +13,6 @@ import ua.com.foxminded.accountingsystem.service.dto.ServiceStatisticsDto;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by andreb on 24.07.17.
- */
 @RestController
 @RequestMapping("/api/statistics")
 public class StatisticsRestController {

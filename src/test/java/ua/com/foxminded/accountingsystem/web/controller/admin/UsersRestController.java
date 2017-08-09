@@ -19,9 +19,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Created by andreb on 11.07.17.
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UsersRestController {

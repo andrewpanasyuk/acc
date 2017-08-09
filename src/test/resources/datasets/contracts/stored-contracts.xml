@@ -10,12 +10,12 @@
     <MONEY id="54" currency="UAH" amount="3000" />
     <MONEY id="55" currency="UAH" amount="1500" />
 
-    <ORDERS id="50" status="ACTIVE" service_id="50" created_by="system" created_date="2017-07-11" />
-    <ORDERS id="51" status="WAITING" service_id="51" created_by="system" created_date="2017-07-11" />
+    <DEAL id="50" status="ACTIVE" service_id="50" created_by="system" created_date="2017-07-11"/>
+    <DEAL id="51" status="WAITING" service_id="51" created_by="system" created_date="2017-07-11"/>
 
     <EMPLOYEE id="50"  created_by="system" created_date="2017-07-11" />
     <EMPLOYEE id="51"  created_by="system" created_date="2017-07-11" />
 
-    <CONTRACT id="50" contract_date="2017-06-01" payment_date="2017-07-12" order_id="50" employee_id="50" payment_type="PREPAY" price_id="51" employee_rate_id="50" created_by="system" created_date="2017-07-11" />
-    <CONTRACT id="51" contract_date="2017-06-10" payment_date="2017-07-14" order_id="51" employee_id="51" payment_type="POSTPAY" price_id="54" employee_rate_id="53"  created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="50" contract_date="2017-06-01" payment_date="2017-07-12" deal_id="50" employee_id="50" payment_type="PREPAY" price_id="51" employee_rate_id="50" created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="51" contract_date="2017-06-10" payment_date="2017-07-14" deal_id="51" employee_id="51" payment_type="POSTPAY" price_id="54" employee_rate_id="53"  created_by="system" created_date="2017-07-11" />
 </dataset>

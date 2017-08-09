@@ -12,7 +12,7 @@
         <div class="col-md-12">
           <form id="saveClient" class="form-horizontal" th:object="${client}"
                 th:action="@{/admin/clients/{id}(id=${client.id})}" th:method="put">
-            <input type="hidden" th:field="${client.orders}"/>
+            <input type="hidden" th:field="${client.deals}"/>
 
             <div class="form-group">
               <input type="hidden" th:value="${client.id}" id="id"/>
@@ -63,7 +63,7 @@
                   <a th:href="@{/admin/clients}" class="btn btn-default">Go back</a>
                 </div>
                 <div class="btn-group" role="group">
-                  <a th:href="@{/admin/orders/create?clientId={id} (id=${client.id})}" class="btn btn-primary">New Order</a>
+                  <a th:href="@{/admin/deals/create?clientId={id} (id=${client.id})}" class="btn btn-primary">New Deal</a>
                 </div>
                 <div class="btn-group" role="group">
                   <button type="submit" class="btn btn-primary" onclick="$('#saveClient').submit()">Save</button>
@@ -99,28 +99,28 @@
   </div>
   <form th:object="${client}">
     <div class="display-grid">
-      <label>Orders:</label>
+      <label>Deals:</label>
       <table data-toggle="table">
         <thead>
         <tr>
           <th>id</th>
           <th>Service</th>
-          <th>order Status</th>
+          <th>deal Status</th>
           <th>open Date</th>
           <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order : ${client.orders}">
+        <tr th:each="deal : ${client.deals}">
           <td>
-            <p th:text="${order.id}">id</p>
+            <p th:text="${deal.id}">id</p>
           </td>
-          <!--/*@thymesVar ordersrder" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-          <td th:text="${order.service != null} ? ${order.service.name} : 'order'"></td>
-          <td th:text="${order.status}"></td>
-          <td th:text="${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd-MMM-yyyy')} : ''"></td>
+          <!--/*@thymesVar id="deal" type="ua.com.foxminded.accountingsystem.model.Deal"*/-->
+          <td th:text="${deal.service != null} ? ${deal.service.name} : 'deal'"></td>
+          <td th:text="${deal.status}"></td>
+          <td th:text="${deal.openDate != null} ? ${#temporals.format(deal.openDate, 'dd-MMM-yyyy')} : ''"></td>
           <td>
-            <a th:href="@{/admin/orders/{id}(id=${order.id})}">Update</a>
+            <a th:href="@{/admin/deals/{id}(id=${deal.id})}">Update</a>
           </td>
         </tr>
         </tbody>

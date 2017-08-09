@@ -13,8 +13,8 @@ import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
-import ua.com.foxminded.accountingsystem.service.OrderQueueService;
-import ua.com.foxminded.accountingsystem.service.OrderService;
+import ua.com.foxminded.accountingsystem.service.DealQueueService;
+import ua.com.foxminded.accountingsystem.service.DealService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +32,9 @@ public class AdminContractControllerTest {
     @Mock
     private EmployeeService employeeService;
     @Mock
-    private OrderService orderService;
+    private DealService dealService;
     @Mock
-    private OrderQueueService orderQueueService;
+    private DealQueueService dealQueueService;
 
     private AdminContractController controller;
 
@@ -57,7 +57,7 @@ public class AdminContractControllerTest {
 
     @Before
     public void init() {
-        controller = new AdminContractController(contractService, employeeService, orderService, orderQueueService);
+        controller = new AdminContractController(contractService, employeeService, dealService, dealQueueService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(contractService.findAll()).thenReturn(contracts);
         when(contractService.findOne(1L)).thenReturn(contract1);

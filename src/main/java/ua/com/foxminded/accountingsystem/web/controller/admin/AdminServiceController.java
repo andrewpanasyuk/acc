@@ -63,7 +63,7 @@ public class AdminServiceController {
 
     @PostMapping
     public String save(@ModelAttribute("service") @Valid Service service, BindingResult result) {
-        log.debug("Try to createOrderByClientId service: " + service);
+        log.debug("Try to createDealByClientId service: " + service);
         if (result.hasErrors()) {
             log.debug("Binding result: " + result.getAllErrors());
             return "admin/service";

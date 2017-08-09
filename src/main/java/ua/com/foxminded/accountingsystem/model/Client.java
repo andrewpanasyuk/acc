@@ -36,7 +36,7 @@ public class Client extends AbstractAuditEntity {
 
     @NotAudited
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<Deal> deals;
 
     @NotAudited
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -50,11 +50,11 @@ public class Client extends AbstractAuditEntity {
 
     }
 
-    public Client(String firstName, String lastName, List<Order> orders, List<ClientFieldValue> extraFields,
+    public Client(String firstName, String lastName, List<Deal> deals, List<ClientFieldValue> extraFields,
                   PersonalAccount personalAccount) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.orders = orders;
+        this.deals = deals;
         this.extraFields = extraFields;
         this.personalAccount = personalAccount;
     }
@@ -69,22 +69,22 @@ public class Client extends AbstractAuditEntity {
         clientFieldValue.setClient(null);
     }
 
-    public void addOrder(Order order) {
-        orders.add(order);
-        order.setClient(this);
+    public void addDeal(Deal deal) {
+        deals.add(deal);
+        deal.setClient(this);
     }
 
-    public void removeOrder(Order order) {
-        orders.remove(order);
-        order.setClient(null);
+    public void removeDeal(Deal deal) {
+        deals.remove(deal);
+        deal.setClient(null);
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<Deal> getDeals() {
+        return deals;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setDeals(List<Deal> deals) {
+        this.deals = deals;
     }
 
     public Long getId() {

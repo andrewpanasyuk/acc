@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
+import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
-import ua.com.foxminded.accountingsystem.model.Order;
-import ua.com.foxminded.accountingsystem.model.OrderStatus;
+import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
-import ua.com.foxminded.accountingsystem.service.OrderService;
+import ua.com.foxminded.accountingsystem.service.DealService;
 
 
 import java.time.LocalDate;
@@ -27,13 +27,13 @@ public class ContractServiceJPA implements ContractService {
     private int signalPeriod;
 
     private final ContractRepository contractRepository;
-    private final OrderService orderService;
+    private final DealService dealService;
 
 
     @Autowired
-    public ContractServiceJPA(ContractRepository contractRepository, OrderService orderService) {
+    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService) {
         this.contractRepository = contractRepository;
-        this.orderService = orderService;
+        this.dealService = dealService;
     }
 
     @Override
@@ -55,27 +55,27 @@ public class ContractServiceJPA implements ContractService {
     @Transactional
     public Contract save(Contract contract) {
         if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
-            Order order = contract.getOrder();
-            order.setStatus(OrderStatus.ACTIVE);
-            orderService.save(order);
+            Deal deal = contract.getDeal();
+            deal.setStatus(DealStatus.ACTIVE);
+            dealService.save(deal);
         }
         return contractRepository.save(contract);
     }
 
     @Override
-    public Contract prepareNewByOrderId(Long orderId) {
+    public Contract prepareNewByDealId(Long dealId) {
 
-        Order order = orderService.findOne(orderId);
-        order.setStatus(OrderStatus.ACTIVE);
+        Deal deal = dealService.findOne(dealId);
+        deal.setStatus(DealStatus.ACTIVE);
 
         Contract contract = new Contract();
 
         Money employeeRate = new Money();
-        employeeRate.setAmount(order.getService().getEmployeeRate().getAmount());
+        employeeRate.setAmount(deal.getService().getEmployeeRate().getAmount());
         employeeRate.setCurrency(Currency.UAH);
 
         Money price = new Money();
-        for (Money curPrice : order.getService().getPrices()) {
+        for (Money curPrice : deal.getService().getPrices()) {
             if (curPrice.getCurrency() == Currency.UAH) {
                 price.setAmount(curPrice.getAmount());
             }
@@ -83,7 +83,7 @@ public class ContractServiceJPA implements ContractService {
         price.setCurrency(Currency.UAH);
 
         contract.setPaymentType(PaymentType.PREPAY);
-        contract.setOrder(order);
+        contract.setDeal(deal);
         contract.setContractDate(LocalDate.now());
         contract.setPaymentDate(LocalDate.now());
         contract.setEmployeeRate(employeeRate);
@@ -117,13 +117,13 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public List<Contract> findAllByOrder(Order order) {
-        return contractRepository.findAllByOrderOrderByContractDateDesc(order);
+    public List<Contract> findAllByDeal(Deal deal) {
+        return contractRepository.findAllByDealOrderByContractDateDesc(deal);
     }
 
     @Override
-    public Contract findOpenedContractByOrderId(Long orderId) {
-        return contractRepository.findContractByOrderIdAndCloseTypeIsNull(orderId);
+    public Contract findOpenedContractByDealId(Long dealId) {
+        return contractRepository.findContractByDealIdAndCloseTypeIsNull(dealId);
     }
 }
 

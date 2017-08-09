@@ -7,8 +7,8 @@
     <CLIENT_FIELD_VALUE id="1" value="test@mail.com" client_id="1" client_field_id="1"  created_by="system" created_date="2017-07-11" />
     <CLIENT_FIELD_VALUE id="2" value="jane@mail.com" client_id="2" client_field_id="1"  created_by="system" created_date="2017-07-11" />
 
-    <ORDERS id="1" status="ACTIVE" client_id="1"  created_by="system" created_date="2017-07-11" />
-    <ORDERS id="2" status="ACTIVE" client_id="2"  created_by="system" created_date="2017-07-11" />
+    <DEAL id="1" status="ACTIVE" client_id="1" created_by="system" created_date="2017-07-11"/>
+    <DEAL id="2" status="ACTIVE" client_id="2" created_by="system" created_date="2017-07-11"/>
 
     <PERSONAL_ACCOUNT id="2" />
     <PERSONAL_ACCOUNT id="1" />

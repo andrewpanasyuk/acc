@@ -21,7 +21,7 @@ public interface SalaryRepository extends JpaRepository<Salary, Long> {
         + "(s.salaryDate, s.id, si.employeePayment.currency, sum(si.employeePayment.amount)) "
         + "from Salary s inner join s.salaryItems si "
         + "where s.salaryDate >= ?1 and s.salaryDate <= ?2 "
-        + "and si.invoice.contract.order.service.id = ?3  "
+        + "and si.invoice.contract.deal.service.id = ?3  "
         + "group by s.salaryDate, s.id, si.employeePayment.currency "
         + "order by s.salaryDate")
     List<CashOutflowDto> findCashOutflowByServiceAndSalaryDateBetween(LocalDate beginDate, LocalDate endDate, Long serviceId);

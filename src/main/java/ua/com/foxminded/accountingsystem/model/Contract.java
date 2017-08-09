@@ -40,8 +40,8 @@ public class Contract extends AbstractAuditEntity {
 
     @NotNull(message = "It's a required field.")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "deal_id")
+    private Deal deal;
 
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull(message = "It's a required field.")
@@ -99,12 +99,12 @@ public class Contract extends AbstractAuditEntity {
         this.contractDate = contractDate;
     }
 
-    public Order getOrder() {
-        return order;
+    public Deal getDeal() {
+        return deal;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setDeal(Deal deal) {
+        this.deal = deal;
     }
 
     public Money getPrice() {
@@ -194,7 +194,7 @@ public class Contract extends AbstractAuditEntity {
         return "Contract{" +
             "id=" + id +
             ", contractDate=" + contractDate +
-            ", orders=" + order +
+            ", deals=" + deal +
             '}';
     }
 

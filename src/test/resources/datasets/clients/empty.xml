@@ -2,6 +2,6 @@
     <CLIENT />
     <CLIENT_FIELD />
     <CLIENT_FIELD_VALUE />
-    <ORDERS />
+    <DEAL/>
     <PERSONAL_ACCOUNT/>
 </dataset>

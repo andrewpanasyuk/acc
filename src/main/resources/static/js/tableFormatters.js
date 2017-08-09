@@ -4,8 +4,8 @@ function nameSorter(a, b) {
     return textFirst.localeCompare(textSecond);
 };
 
-function ordersIdLinkFormatter(value, row, index) {
-    return "<a href='/admin/orders/" + value + "'>" + value + "</a>";
+function dealsIdLinkFormatter(value, row, index) {
+    return "<a href='/admin/deals/" + value + "'>" + value + "</a>";
 };
 
 function clientsIdLinkFormatter(value, row, index) {

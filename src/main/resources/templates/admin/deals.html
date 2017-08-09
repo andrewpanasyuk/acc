@@ -9,28 +9,28 @@
          data-side-pagination="client" data-search="true" data-show-refresh="true" data-sort-name="id">
     <thead>
     <tr>
-      <th data-field="id" data-halign="center" data-align="center" data-formatter="ordersIdLinkFormatter" data-sortable="true" class="col-xs-1">Id</th>
+      <th data-field="id" data-halign="center" data-align="center" data-formatter="dealsIdLinkFormatter" data-sortable="true" class="col-xs-1">Id</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Client</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Service</th>
-      <th data-halign="center" data-align="center" data-sortable="true" data-sorter="nameSorter" class="col-xs-1">Order
+      <th data-halign="center" data-align="center" data-sortable="true" data-sorter="nameSorter" class="col-xs-1">Deal
         status
       </th>
       <th data-halign="center" data-align="left" data-sortable="true" class="col-xs-3">Start date - Close date</th>
     </tr>
     </thead>
     <tbody>
-    <!--/*@thymesVar id="order" type="ua.com.foxminded.accountingsystem.model.Order"*/-->
-    <tr th:each="order : ${orders}">
-      <td th:text="${order.id}"/>
+    <!--/*@thymesVar id="deal" type="ua.com.foxminded.accountingsystem.model.Deal"*/-->
+    <tr th:each="deal : ${deals}">
+      <td th:text="${deal.id}"/>
       <td>
-        <p th:text="${order.client.lastName} + ' ' + ${order.client.firstName}"></p>
+        <p th:text="${deal.client.lastName} + ' ' + ${deal.client.firstName}"></p>
       </td>
       <td>
-        <p th:text="${order.service != null} ? ${order.service.name} : ''"></p>
+        <p th:text="${deal.service != null} ? ${deal.service.name} : ''"></p>
       </td>
-      <td th:text="${order.status}"></td>
-      <td th:text="(${order.openDate != null} ? ${#temporals.format(order.openDate, 'dd MMM yyyy')} : '')
-            + ' - ' + (${order.closeDate != null} ? ${#temporals.format(order.closeDate, 'dd MMM yyyy')} : '')">
+      <td th:text="${deal.status}"></td>
+      <td th:text="(${deal.openDate != null} ? ${#temporals.format(deal.openDate, 'dd MMM yyyy')} : '')
+            + ' - ' + (${deal.closeDate != null} ? ${#temporals.format(deal.closeDate, 'dd MMM yyyy')} : '')">
       </td>
     </tr>
     </tbody>
