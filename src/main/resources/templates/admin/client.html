@@ -92,8 +92,7 @@
           <td data-valign="middle">
             <button class="btn btn-warning btn-sm"
                     th:onclick="'withdraw(\'' + ${money.id}  + '\',
-                    \'' + ${money.currency}  + '\',
-                    \'' + ${money.amount}  + '\');'">
+                    \'' + ${money.currency}  + '\');'">
 
               Withdraw
             </button>
@@ -185,11 +184,10 @@
 
   <script th:inline="javascript">
     /*<![CDATA[*/
-    function withdraw(id, currency, amount){
+    function withdraw(id, currency){
 
       $('#idMoneyModal').val(id);
       $('#currencyMoneyModal').val(currency);
-      $('#amountMoneyModal').val(amount);
       $('#withdrawModal').modal('show');
     }
     /*]]>*/
