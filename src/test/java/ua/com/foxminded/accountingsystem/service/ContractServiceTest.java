@@ -13,7 +13,7 @@ import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.service.serviceJPA.ContractServiceJPA;
-import ua.com.foxminded.accountingsystem.service.serviceJPA.OrderServiceJPA;
+import ua.com.foxminded.accountingsystem.service.serviceJPA.DealServiceJPA;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class ContractServiceTest {
     private static ContractRepository contractRepository;
 
     @Mock
-    private static OrderServiceJPA orderService;
+    private static DealServiceJPA dealService;
 
     @InjectMocks
     private static ContractServiceJPA contractService;
@@ -56,7 +56,7 @@ public class ContractServiceTest {
         payDate = billDate.plusDays(signalPeriod);
 
         contractRepository = mock(ContractRepository.class);
-        orderService = mock(OrderServiceJPA.class);
+        dealService = mock(DealServiceJPA.class);
 
         trialInvoice = new Invoice();
         prepayInvoice = new Invoice();

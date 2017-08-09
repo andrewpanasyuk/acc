@@ -21,8 +21,8 @@
     <tbody>
     <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
     <tr th:each="invoice : ${invoices}">
-      <td th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"></td>
-      <td th:text="${invoice.contract.order.service.name}"></td>
+      <td th:text="${invoice.contract.deal.client.firstName} + ' ' + ${invoice.contract.deal.client.lastName}"></td>
+      <td th:text="${invoice.contract.deal.service.name}"></td>
       <td th:text="${invoice.paymentPeriodFrom}"></td>
       <td th:text="${invoice.paymentPeriodTo}"></td>
       <td th:text="${invoice.contract.paymentType}"></td>

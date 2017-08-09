@@ -19,14 +19,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "deal")
 @Audited
-public class Order extends AbstractAuditEntity {
+public class Deal extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
-    @SequenceGenerator(name = "order_sequence", sequenceName = "order_sequence", initialValue = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deal_sequence")
+    @SequenceGenerator(name = "deal_sequence", sequenceName = "deal_sequence", initialValue = 50)
     private Long id;
 
     @Column(name = "open_date")
@@ -48,7 +48,7 @@ public class Order extends AbstractAuditEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private DealStatus status;
 
     public Service getService() {
         return service;
@@ -58,11 +58,11 @@ public class Order extends AbstractAuditEntity {
         this.service = service;
     }
 
-    public OrderStatus getStatus() {
+    public DealStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(DealStatus status) {
         this.status = status;
     }
 
@@ -100,7 +100,7 @@ public class Order extends AbstractAuditEntity {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Deal{" +
             "id=" + id +
             ", openDate=" + openDate +
             ", closeDate=" + closeDate +
@@ -111,8 +111,8 @@ public class Order extends AbstractAuditEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return id.equals(order.id);
+        Deal deal = (Deal) o;
+        return id.equals(deal.id);
     }
 
     @Override

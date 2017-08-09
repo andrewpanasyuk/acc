@@ -10,11 +10,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
-import ua.com.foxminded.accountingsystem.model.Order;
+import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
-import ua.com.foxminded.accountingsystem.service.OrderService;
+import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.ServiceService;
 
@@ -28,9 +28,9 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-public class AdminOrderControllerTest {
+public class AdminDealControllerTest {
     @Mock
-    private OrderService orderService;
+    private DealService dealService;
     @Mock
     private ClientService clientService;
     @Mock
@@ -43,57 +43,57 @@ public class AdminOrderControllerTest {
     private InvoiceService invoiceService;
 
 
-    private AdminOrderController controller;
+    private AdminDealController controller;
 
     private MockMvc mockMvc;
     private Model model;
 
-    private static Order order_1;
-    private static Order order_2;
-    private static List<Order> orders;
+    private static Deal deal_1;
+    private static Deal deal_2;
+    private static List<Deal> deals;
 
     @BeforeClass
     public static void initClass(){
-        order_1 = new Order();
-        order_1.setId(1L);
-        order_2 = new Order();
-        order_2.setId(2L);
-        orders = new ArrayList<>();
-        orders.add(order_1);
-        orders.add(order_2);
+        deal_1 = new Deal();
+        deal_1.setId(1L);
+        deal_2 = new Deal();
+        deal_2.setId(2L);
+        deals = new ArrayList<>();
+        deals.add(deal_1);
+        deals.add(deal_2);
     }
 
     @Before
     public void init() {
         model = new ExtendedModelMap();
-        controller = new AdminOrderController(orderService, clientService, serviceService, contractService, salaryItemService, invoiceService);
+        controller = new AdminDealController(dealService, clientService, serviceService, contractService, salaryItemService, invoiceService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        when(orderService.findAll()).thenReturn(Arrays.asList(order_1, order_2));
-        when(orderService.findOne(1L)).thenReturn(order_1);
+        when(dealService.findAll()).thenReturn(Arrays.asList(deal_1, deal_2));
+        when(dealService.findOne(1L)).thenReturn(deal_1);
     }
 
     @Test
-    public void ordersAddedToModel() {
-        assertThat(controller.getAllOrders(model), equalTo("admin/orders"));
-        assertThat(model.asMap(), hasEntry("orders", orders));
+    public void dealsAddedToModel() {
+        assertThat(controller.getAllDeals(model), equalTo("admin/deals"));
+        assertThat(model.asMap(), hasEntry("deals", deals));
     }
 
     @Test
-    public void ordersTitleAddedToModel() {
-        assertThat(controller.getAllOrders(model), equalTo("admin/orders"));
-        assertThat(model.asMap(), hasEntry("title", "Orders"));
+    public void dealsTitleAddedToModel() {
+        assertThat(controller.getAllDeals(model), equalTo("admin/deals"));
+        assertThat(model.asMap(), hasEntry("title", "Deals"));
     }
 
     @Test
-    public void oneOrderAddedToModel() {
-        assertThat(controller.getOrderById(order_1.getId(), model), equalTo("admin/order"));
-        assertThat(model.asMap(), hasEntry("order", order_1));
+    public void oneDealAddedToModel() {
+        assertThat(controller.getDealById(deal_1.getId(), model), equalTo("admin/deal"));
+        assertThat(model.asMap(), hasEntry("deal", deal_1));
     }
 
     @Test
     public void userTitleAddedToModel() {
-        assertThat(controller.getOrderById(order_1.getId(), model), equalTo("admin/order"));
-        assertThat(model.asMap(), hasEntry("title", "Order: " + order_1.getId()));
+        assertThat(controller.getDealById(deal_1.getId(), model), equalTo("admin/deal"));
+        assertThat(model.asMap(), hasEntry("title", "Deal: " + deal_1.getId()));
     }
 
 }

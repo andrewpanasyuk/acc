@@ -1,5 +1,5 @@
 package ua.com.foxminded.accountingsystem.model;
 
-public enum OrderStatus {
+public enum DealStatus {
     NEW, WAITING, ACTIVE, FROZEN, COMPLETED
 }

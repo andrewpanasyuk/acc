@@ -16,8 +16,8 @@
           <label>Client:</label>
         </div>
         <div class="col-xs-7">
-          <a th:href="@{/admin/clients/{id}(id=${invoice.contract.order.client.id})}"
-             th:text="${invoice.contract.order.client.firstName} + ' '  + ${invoice.contract.order.client.lastName}"></a>
+          <a th:href="@{/admin/clients/{id}(id=${invoice.contract.deal.client.id})}"
+             th:text="${invoice.contract.deal.client.firstName} + ' '  + ${invoice.contract.deal.client.lastName}"></a>
         </div>
       </div>
 
@@ -36,8 +36,8 @@
           <label>Service:</label>
         </div>
         <div class="col-xs-7">
-          <a th:href="@{/admin/services/{id}(id=${invoice.contract.order.service.id})}"
-             th:text="${invoice.contract.order.service.name}"></a>
+          <a th:href="@{/admin/services/{id}(id=${invoice.contract.deal.service.id})}"
+             th:text="${invoice.contract.deal.service.name}"></a>
         </div>
       </div>
 

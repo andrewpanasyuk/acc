@@ -9,25 +9,25 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
-import ua.com.foxminded.accountingsystem.service.OrderQueueService;
+import ua.com.foxminded.accountingsystem.service.DealQueueService;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
-public class AdminOrderQueueControllerTest {
+public class AdminDealQueueControllerTest {
 
     @Mock
-    private OrderQueueService orderQueueService;
+    private DealQueueService dealQueueService;
 
     private MockMvc mockMvc;
 
-    private AdminOrderQueueController controller;
+    private AdminDealQueueController controller;
 
     @Before
     public void init() {
-        controller = new AdminOrderQueueController(orderQueueService);
+        controller = new AdminDealQueueController(dealQueueService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 

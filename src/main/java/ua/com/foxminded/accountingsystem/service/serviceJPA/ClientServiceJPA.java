@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.ClientField;
 import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
-import ua.com.foxminded.accountingsystem.model.OrderStatus;
+import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
-import ua.com.foxminded.accountingsystem.repository.OrderRepository;
+import ua.com.foxminded.accountingsystem.repository.DealRepository;
 import ua.com.foxminded.accountingsystem.repository.ServiceRepository;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
@@ -27,15 +27,15 @@ public class ClientServiceJPA implements ClientService {
     private final ClientRepository clientRepository;
     private final ClientFieldService clientFieldService;
     private final ServiceRepository serviceRepository;
-    private final OrderRepository orderRepository;
+    private final DealRepository dealRepository;
 
     @Autowired
     public ClientServiceJPA(ClientRepository clientRepository, ClientFieldService clientFieldService,
-                            ServiceRepository serviceRepository, OrderRepository orderRepository) {
+                            ServiceRepository serviceRepository, DealRepository dealRepository) {
         this.clientRepository = clientRepository;
         this.clientFieldService = clientFieldService;
         this.serviceRepository = serviceRepository;
-        this.orderRepository = orderRepository;
+        this.dealRepository = dealRepository;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ClientServiceJPA implements ClientService {
         ClientStatisticsDto statistics = new ClientStatisticsDto();
 
         statistics.setActiveClients(clientRepository
-            .countClientByOrdersStatus(OrderStatus.ACTIVE));
+            .countClientByDealsStatus(DealStatus.ACTIVE));
 
         statistics.setAllClients(clientRepository.count());
 
@@ -103,10 +103,10 @@ public class ClientServiceJPA implements ClientService {
         statistics.setFrozenClientsForLastMonth(0L); //TODO Define value
 
         statistics.setGraduatedClients(clientRepository
-            .countClientByOrdersStatus(OrderStatus.COMPLETED));
+            .countClientByDealsStatus(DealStatus.COMPLETED));
 
         statistics.setGraduatedClientsForLastMonth(clientRepository
-            .countClientByOrdersStatusAndOrdersCloseDateAfter(OrderStatus.COMPLETED, LocalDate.now().minusMonths(1)));
+            .countClientByDealsStatusAndDealsCloseDateAfter(DealStatus.COMPLETED, LocalDate.now().minusMonths(1)));
 
         return statistics;
     }
@@ -120,9 +120,9 @@ public class ClientServiceJPA implements ClientService {
         for(ua.com.foxminded.accountingsystem.model.Service service : serviceList){
             ServiceStatisticsDto serviceStatisticsDto = new ServiceStatisticsDto();
             serviceStatisticsDto.setServiceName(service.getName());
-            serviceStatisticsDto.setCountActiveCases(orderRepository.countOrdersByStatusAndService(OrderStatus.ACTIVE, service));
-            serviceStatisticsDto.setCountFrozenCases(orderRepository.countOrdersByStatusAndService(OrderStatus.FROZEN, service));
-            serviceStatisticsDto.setCountCompletedCases(orderRepository.countOrdersByStatusAndService(OrderStatus.COMPLETED, service));
+            serviceStatisticsDto.setCountActiveCases(dealRepository.countDealsByStatusAndService(DealStatus.ACTIVE, service));
+            serviceStatisticsDto.setCountFrozenCases(dealRepository.countDealsByStatusAndService(DealStatus.FROZEN, service));
+            serviceStatisticsDto.setCountCompletedCases(dealRepository.countDealsByStatusAndService(DealStatus.COMPLETED, service));
             statistics.add(serviceStatisticsDto);
         }
 

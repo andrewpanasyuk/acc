@@ -56,17 +56,17 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         service2.setCreatedBy("system");
         service2.setCreatedDate(LocalDateTime.now());
 
-        Order order1 = new Order();
-        order1.setId(50L);
-        order1.setService(service1);
-        order1.setCreatedBy("system");
-        order1.setCreatedDate(LocalDateTime.now());
+        Deal deal1 = new Deal();
+        deal1.setId(50L);
+        deal1.setService(service1);
+        deal1.setCreatedBy("system");
+        deal1.setCreatedDate(LocalDateTime.now());
 
-        Order order2 = new Order();
-        order2.setId(51L);
-        order2.setService(service2);
-        order2.setCreatedBy("system");
-        order2.setCreatedDate(LocalDateTime.now());
+        Deal deal2 = new Deal();
+        deal2.setId(51L);
+        deal2.setService(service2);
+        deal2.setCreatedBy("system");
+        deal2.setCreatedDate(LocalDateTime.now());
 
         Employee employee1 = new Employee();
         employee1.setId(50L);
@@ -82,7 +82,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract1.setId(50L);
         contract1.setContractDate(LocalDate.of(2017, 06, 01));
         contract1.setPaymentType(PaymentType.PREPAY);
-        contract1.setOrder(order1);
+        contract1.setDeal(deal1);
         contract1.setEmployee(employee1);
         contract1.setEmployeeRate(contractEmployeeRate1);
         contract1.setPrice(price1);
@@ -93,7 +93,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract2.setId(51L);
         contract2.setContractDate(LocalDate.of(2017, 06, 10));
         contract2.setPaymentType(PaymentType.POSTPAY);
-        contract2.setOrder(order2);
+        contract2.setDeal(deal2);
         contract2.setEmployee(employee2);
         contract2.setEmployeeRate(contractEmployeeRate2);
         contract2.setPrice(price2);
@@ -123,7 +123,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @Test
     @Commit
     @DataSet(value = "contracts/empty.xml", cleanBefore = true, disableConstraints = true)
-    @ExpectedDataSet(value = "contracts/created-contract.xml", ignoreCols = {"id", "order_id", "employee_id", "service_id", "employee_rate_id", "price_id", "created_by", "created_date"})
+    @ExpectedDataSet(value = "contracts/created-contract.xml", ignoreCols = {"id", "deal_id", "employee_id", "service_id", "employee_rate_id", "price_id", "created_by", "created_date"})
     public void addContractTest() {
         repository.save(contract1);
     }
@@ -150,7 +150,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @Test
     @Commit
     @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true,  disableConstraints = true)
-    @ExpectedDataSet(value = "contracts/expected-contracts.xml", ignoreCols = {"id", "order_id", "employee_id", "service_id", "employee_rate_id", "price_id", "created_by", "created_date"})
+    @ExpectedDataSet(value = "contracts/expected-contracts.xml", ignoreCols = {"id", "deal_id", "employee_id", "service_id", "employee_rate_id", "price_id", "created_by", "created_date"})
     public void deleteContractByIdTest() {
         repository.delete(contract2.getId());
     }

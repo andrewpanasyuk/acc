@@ -42,7 +42,7 @@ public class AdminClientControllerTest {
         john.setFirstName("John");
         john.setLastName("Snow");
         john.setExtraFields(new ArrayList<>());
-        john.setOrders(new ArrayList<>());
+        john.setDeals(new ArrayList<>());
         john.setId(1L);
         jane = new Client();
         jane.setFirstName("Jane");

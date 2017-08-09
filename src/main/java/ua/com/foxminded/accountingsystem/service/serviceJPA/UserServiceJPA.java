@@ -1,9 +1,5 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
-/**
- * Created by andreb on 10.07.17.
- */
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

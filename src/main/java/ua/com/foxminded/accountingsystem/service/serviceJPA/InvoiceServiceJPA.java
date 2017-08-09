@@ -91,7 +91,7 @@ public class InvoiceServiceJPA implements InvoiceService {
     }
 
     @Override
-    public Invoice findLastInvoiceInActiveContractByOrderId(long orderId) {
-        return invoiceRepository.findFirstByContractOrderIdOrderByCreationDateDesc(orderId);
+    public Invoice findLastInvoiceInActiveContractByDealId(Long dealId) {
+        return invoiceRepository.findFirstByContractDealIdOrderByCreationDateDesc(dealId);
     }
 }

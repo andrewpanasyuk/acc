@@ -1,6 +1,6 @@
 <dataset>
-    <ORDERS id="50" status="ACTIVE" service_id="50" created_by="system" created_date="2017-07-11" />
-    <ORDERS id="51" status="WAITING" service_id="51" created_by="system" created_date="2017-07-11" />
+    <DEALS id="50" status="ACTIVE" service_id="50" created_by="system" created_date="2017-07-11" />
+    <DEALS id="51" status="WAITING" service_id="51" created_by="system" created_date="2017-07-11" />
 
     <EMPLOYEE id="51"  created_by="system" created_date="2017-07-11" />
     <EMPLOYEE id="51"  created_by="system" created_date="2017-07-11" />
@@ -13,5 +13,5 @@
     <MONEY id="52" currency="UAH" amount="1500" />
     <MONEY id="55" currency="UAH" amount="1500" />
 
-    <CONTRACT contract_date="2017-06-01" order_id="50" employee_id="50" payment_type="PREPAY" employee_rate_id="50" price_id="51" created_by="system" created_date="2017-07-11" />
+    <CONTRACT contract_date="2017-06-01" deal_id="50" employee_id="50" payment_type="PREPAY" employee_rate_id="50" price_id="51" created_by="system" created_date="2017-07-11" />
 </dataset>

@@ -5,9 +5,6 @@ import ua.com.foxminded.accountingsystem.model.UserRole;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by andreb on 05.07.17.
- */
 public class UserDto {
 
     private String username;

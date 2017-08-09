@@ -26,8 +26,8 @@
         <tr th:each="invoice : ${invoices}">
           <td th:text="${invoice.id}"/>
           <td>
-            <a th:href="@{/admin/clients/{id}(id=${invoice.contract.order.client.id})}"
-               th:text="${invoice.contract.order.client.firstName} + ' ' + ${invoice.contract.order.client.lastName}"></a>
+            <a th:href="@{/admin/clients/{id}(id=${invoice.contract.deal.client.id})}"
+               th:text="${invoice.contract.deal.client.firstName} + ' ' + ${invoice.contract.deal.client.lastName}"></a>
           </td>
           <td th:text="${invoice.contract.id}"></td>
           <td th:text="${invoice.price.currency} + ' ' + ${invoice.price.amount}"></td>

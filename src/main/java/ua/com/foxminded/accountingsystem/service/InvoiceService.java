@@ -24,5 +24,5 @@ public interface InvoiceService {
 
     Invoice issueInvoice(Invoice invoice);
 
-    Invoice findLastInvoiceInActiveContractByOrderId(long orderId);
+    Invoice findLastInvoiceInActiveContractByDealId(Long dealId);
 }

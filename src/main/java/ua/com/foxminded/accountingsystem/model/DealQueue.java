@@ -18,14 +18,14 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "order_queue")
+@Table(name = "deal_queue")
 @Audited
-public class OrderQueue extends AbstractAuditEntity implements Comparable<OrderQueue> {
+public class DealQueue extends AbstractAuditEntity implements Comparable<DealQueue> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_queue_sequence")
-    @SequenceGenerator(name = "order_queue_sequence", sequenceName = "order_queue_sequence", initialValue = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deal_queue_sequence")
+    @SequenceGenerator(name = "deal_queue_sequence", sequenceName = "deal_queue_sequence", initialValue = 50)
     private Long id;
 
     @Column(name = "queuing_date")
@@ -37,8 +37,8 @@ public class OrderQueue extends AbstractAuditEntity implements Comparable<OrderQ
     private Priority priority;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "deal_id")
+    private Deal deal;
 
     public Long getId() {
         return id;
@@ -64,20 +64,20 @@ public class OrderQueue extends AbstractAuditEntity implements Comparable<OrderQ
         this.priority = priority;
     }
 
-    public Order getOrder() {
-        return order;
+    public Deal getDeal() {
+        return deal;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setDeal(Deal deal) {
+        this.deal = deal;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderQueue orderQueue = (OrderQueue) o;
-        return id.equals(orderQueue.id);
+        DealQueue dealQueue = (DealQueue) o;
+        return id.equals(dealQueue.id);
     }
 
     @Override
@@ -89,11 +89,11 @@ public class OrderQueue extends AbstractAuditEntity implements Comparable<OrderQ
     }
 
     @Override
-    public int compareTo(OrderQueue orderQueue) {
-        int value = getPriority().name().compareTo(orderQueue.getPriority().name());
+    public int compareTo(DealQueue dealQueue) {
+        int value = getPriority().name().compareTo(dealQueue.getPriority().name());
         if (value != 0) {
             return value;
         }
-        return getQueuingDate().compareTo(orderQueue.getQueuingDate());
+        return getQueuingDate().compareTo(dealQueue.getQueuingDate());
     }
 }

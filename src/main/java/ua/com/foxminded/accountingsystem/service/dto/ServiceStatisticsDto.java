@@ -1,8 +1,5 @@
 package ua.com.foxminded.accountingsystem.service.dto;
 
-/**
- * Created by andreb on 27.07.17.
- */
 public class ServiceStatisticsDto {
 
     private String serviceName;

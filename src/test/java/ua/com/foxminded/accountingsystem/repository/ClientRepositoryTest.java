@@ -10,8 +10,8 @@ import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.ClientField;
 import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
-import ua.com.foxminded.accountingsystem.model.Order;
-import ua.com.foxminded.accountingsystem.model.OrderStatus;
+import ua.com.foxminded.accountingsystem.model.Deal;
+import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.PersonalAccount;
 
 import java.time.LocalDateTime;
@@ -33,8 +33,8 @@ public class ClientRepositoryTest extends AbstractRepositoryTest<ClientRepositor
     private static ClientField extraField;
     private static ClientFieldValue johnEmail;
     private static ClientFieldValue janeEmail;
-    private static Order johnOrder;
-    private static Order janeOrder;
+    private static Deal johnDeal;
+    private static Deal janeDeal;
     private static PersonalAccount johnAccount;
     private static PersonalAccount janeAccount;
 
@@ -69,19 +69,19 @@ public class ClientRepositoryTest extends AbstractRepositoryTest<ClientRepositor
         janeEmail.setCreatedBy("system");
         janeEmail.setCreatedDate(LocalDateTime.now());
 
-        johnOrder = new Order();
-        johnOrder.setId(1L);
-        johnOrder.setStatus(OrderStatus.ACTIVE);
-        johnOrder.setCreatedBy("system");
-        johnOrder.setCreatedDate(LocalDateTime.now());
-        janeOrder = new Order();
-        janeOrder.setId(2L);
-        janeOrder.setStatus(OrderStatus.ACTIVE);
-        johnOrder.setCreatedBy("system");
-        johnOrder.setCreatedDate(LocalDateTime.now());
+        johnDeal = new Deal();
+        johnDeal.setId(1L);
+        johnDeal.setStatus(DealStatus.ACTIVE);
+        johnDeal.setCreatedBy("system");
+        johnDeal.setCreatedDate(LocalDateTime.now());
+        janeDeal = new Deal();
+        janeDeal.setId(2L);
+        janeDeal.setStatus(DealStatus.ACTIVE);
+        johnDeal.setCreatedBy("system");
+        johnDeal.setCreatedDate(LocalDateTime.now());
 
-        john.addOrder(johnOrder);
-        jane.addOrder(janeOrder);
+        john.addDeal(johnDeal);
+        jane.addDeal(janeDeal);
         john.addClientFieldValue(johnEmail);
         jane.addClientFieldValue(janeEmail);
 
@@ -115,7 +115,7 @@ public class ClientRepositoryTest extends AbstractRepositoryTest<ClientRepositor
     public void clientsCanBeFoundById() {
         assertEquals(repository.findOne(1L), john);
         assertThat(repository.findOne(1L).getExtraFields(), contains(johnEmail));
-        assertThat(repository.findOne(1L).getOrders(), contains(johnOrder));
+        assertThat(repository.findOne(1L).getDeals(), contains(johnDeal));
         assertThat(repository.findOne(1L).getPersonalAccount(), equalTo(johnAccount));
         assertEquals(repository.getOne(1L), john);
         assertThat(repository.exists(1L), is(true));

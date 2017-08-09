@@ -8,27 +8,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.foxminded.accountingsystem.model.OrderQueue;
+import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.Service;
-import ua.com.foxminded.accountingsystem.service.OrderQueueService;
+import ua.com.foxminded.accountingsystem.service.DealQueueService;
 
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/queues")
-public class AdminOrderQueueController {
+public class AdminDealQueueController {
 
-    private final OrderQueueService orderQueueService;
+    private final DealQueueService dealQueueService;
 
     @Autowired
-    public AdminOrderQueueController(OrderQueueService orderQueueService) {
-        this.orderQueueService = orderQueueService;
+    public AdminDealQueueController(DealQueueService dealQueueService) {
+        this.dealQueueService = dealQueueService;
     }
 
     @GetMapping
     public String getQueues(Model model) {
-        Map<Service, List<OrderQueue>> queuesByService = orderQueueService.findAllGroupByService();
+        Map<Service, List<DealQueue>> queuesByService = dealQueueService.findAllGroupByService();
         model
             .addAttribute("title", "Queue")
             .addAttribute("queuesByService", queuesByService);
@@ -37,13 +37,13 @@ public class AdminOrderQueueController {
 
     @DeleteMapping(value = "/{id}")
     public  String deleteQueue(@PathVariable long id){
-        orderQueueService.delete(id);
+        dealQueueService.delete(id);
         return "redirect:/admin/queues";
     }
 
     @GetMapping(value = "/new")
-    public String addOrder(@RequestParam long orderId) {
-        orderQueueService.createQueueByOrderId(orderId);
+    public String addDeal(@RequestParam long dealId) {
+        dealQueueService.createQueueByDealId(dealId);
         return "redirect:/admin/queues";
     }
 }

@@ -7,14 +7,14 @@ public class ClientOfEmployeeDto {
     private Long clientId;
     private String firstName;
     private String lastName;
-    private Long orderId;
+    private Long dealId;
     private PaymentType contractPaymentType;
 
-    public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long orderId, PaymentType contractPaymentType) {
+    public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId, PaymentType contractPaymentType) {
         this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.orderId = orderId;
+        this.dealId = dealId;
         this.contractPaymentType = contractPaymentType;
     }
 
@@ -30,8 +30,8 @@ public class ClientOfEmployeeDto {
         return lastName;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getDealId() {
+        return dealId;
     }
 
     public PaymentType getContractPaymentType() {
@@ -49,7 +49,7 @@ public class ClientOfEmployeeDto {
         if (!clientId.equals(that.clientId)) return false;
         if (!firstName.equals(that.firstName)) return false;
         if (!lastName.equals(that.lastName)) return false;
-        if (!orderId.equals(that.orderId)) return false;
+        if (!dealId.equals(that.dealId)) return false;
         return contractPaymentType == that.contractPaymentType;
     }
 

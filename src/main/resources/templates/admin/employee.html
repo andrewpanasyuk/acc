@@ -87,7 +87,7 @@
       <table data-toggle="table">
         <thead>
         <tr>
-          <th data-halign="center" data-align="center" data-sortable="true" class="col-xs-1">Order</th>
+          <th data-halign="center" data-align="center" data-sortable="true" class="col-xs-1">Deal</th>
           <th data-halign="center" data-align="left" data-sortable="true">Student</th>
           <th data-halign="center" data-align="left" data-sortable="true" class="col-xs-1">Payment type</th>
         </tr>
@@ -95,8 +95,8 @@
         <tbody>
         <tr th:each="client : ${relatedActiveClients}">
           <td>
-            <a th:href="@{'/admin/orders/'+${client.orderId}}">
-              <span th:text="${client.orderId}"></span>
+            <a th:href="@{'/admin/deals/'+${client.dealId}}">
+              <span th:text="${client.dealId}"></span>
             </a>
           </td>
           <td>

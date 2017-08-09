@@ -28,18 +28,18 @@
           </tr>
           </thead>
           <tbody>
-          <!--/*@thymesVar id="queue" type="ua.com.foxminded.accountingsystem.model.OrderQueue"*/-->
+          <!--/*@thymesVar id="queue" type="ua.com.foxminded.accountingsystem.model.DealQueue"*/-->
           <tr th:each="queue : ${queueByService.value}">
             <td th:text="${queue.id}"/>
-            <td th:text="${queue.order.service.name}"></td>
-            <td th:text="${queue.order.client.firstName} + ' ' + ${queue.order.client.lastName}"></td>
+            <td th:text="${queue.deal.service.name}"></td>
+            <td th:text="${queue.deal.client.firstName} + ' ' + ${queue.deal.client.lastName}"></td>
             <td
               th:text="${queue.queuingDate != null} ? ${#temporals.format(queue.queuingDate, 'dd-MMM-yyyy')} : ''"></td>
             <td th:text="${queue.priority}"></td>
             <td>
               <form id="deleteQueue" class="form-horizontal" th:action="@{/admin/queues/{id}(id=${queue.id})}"
                     th:method="delete"></form>
-              <a th:href="@{/admin/contracts/new?orderId={id}(id=${queue.order.id})}" class="btn btn-primary">Contract</a>
+              <a th:href="@{/admin/contracts/new?dealId={id}(id=${queue.deal.id})}" class="btn btn-primary">Contract</a>
               <button type="button" class="btn btn-danger" onclick="$('#deleteQueue').submit()">Delete</button>
             </td>
           </tr>

@@ -149,7 +149,7 @@ INSERT INTO client_field_value (id, client_id, client_field_id, value, created_b
     (12, 6, 2, NULL, 'system', '2017-07-11');
 
 
-INSERT INTO orders (id, service_id, status, client_id, open_date, close_date, created_by, created_date) VALUES
+INSERT INTO deal (id, service_id, status, client_id, open_date, close_date, created_by, created_date) VALUES
     (1, 3, 'NEW', 4, now() - interval '1 day', NULL, 'system', '2017-07-11'),
     (2, 1, 'WAITING', 1, now() - interval '3 day', NULL, 'system', '2017-07-11'),
     (3, 3, 'WAITING', 1, now() - interval '3 day', NULL, 'system', '2017-07-11'),
@@ -163,7 +163,7 @@ INSERT INTO orders (id, service_id, status, client_id, open_date, close_date, cr
     (11, 3, 'ACTIVE', 6, now() - interval '8 day', NULL, 'system', '2017-07-11');
 
 
-INSERT INTO contract (id, order_id, contract_date, employee_id, payment_type, price_id, employee_rate_id, payment_date, close_date, close_type, created_by, created_date)
+INSERT INTO contract (id, deal_id, contract_date, employee_id, payment_type, price_id, employee_rate_id, payment_date, close_date, close_type, created_by, created_date)
 VALUES
     (1, 5, now() - interval '4 mon + 10 day', 1, 'TRIAL', 21, 22, NULL, now() - interval '4 mon + 1 day', 'COMPLETED', 'system', '2017-07-11'),
     (2, 5, now() - interval '4 mon', 1, 'POSTPAY', 21, 22, now() - interval '3 mon + 1 day', NULL, NULL, 'system', '2017-07-11'),
@@ -198,7 +198,7 @@ INSERT INTO payment (id, invoice_id, date_paid, sum_id, created_by, created_date
     (8, 9, now() - interval '2 mon + 11 day', 39, 'system', '2017-07-11'),
     (9, 10, now() - interval '1 mon + 10 day', 40, 'system', '2017-07-11');
 
-INSERT INTO order_queue (id, queuing_date, priority, order_id, created_by, created_date) VALUES
+INSERT INTO deal_queue (id, queuing_date, priority, deal_id, created_by, created_date) VALUES
     (1, now() - interval '3 day', 'NORMAL', 2, 'system', '2017-07-11'),
     (2, now() - interval '3 day', 'NORMAL', 3, 'system', '2017-07-11'),
     (3, now() - interval '4 day', 'NORMAL', 4, 'system', '2017-07-11');
