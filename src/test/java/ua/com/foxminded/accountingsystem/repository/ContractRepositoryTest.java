@@ -158,11 +158,11 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @Test
     @DataSet(value = "contracts/find-contracts-for-payment.xml", cleanBefore = true, disableConstraints = true)
     public void findContractsForPaymentTest() {
-        assertEquals(3, repository.findContractsForInvoicesCreation(24,
+        assertEquals(2, repository.findContractsForInvoicesCreation(24,
             LocalDate.of(2017, 07, 21)).size());
         assertThat(repository.findContractsForInvoicesCreation(24,
             LocalDate.of(2017, 07, 21)),
-            hasItems(postpay, prepay, trial));
+            hasItems(postpay, prepay));
     }
 
 }

@@ -38,10 +38,8 @@ public class ContractServiceTest {
     @InjectMocks
     private static ContractServiceJPA contractService;
 
-    private static Invoice trialInvoice;
     private static Invoice prepayInvoice;
     private static Invoice postpayInvoice;
-    private static Contract trialContract;
     private static Contract prepayContract;
     private static Contract postpayContract;
     private static List<Invoice> createdInvoices;
@@ -58,51 +56,40 @@ public class ContractServiceTest {
         contractRepository = mock(ContractRepository.class);
         orderService = mock(OrderServiceJPA.class);
 
-        trialInvoice = new Invoice();
         prepayInvoice = new Invoice();
         postpayInvoice = new Invoice();
 
-        trialContract = new Contract();
         prepayContract = new Contract();
         postpayContract = new Contract();
 
-        trialContract.setId(1L);
         prepayContract.setId(2L);
         postpayContract.setId(3L);
 
-        trialContract.setPrice(new Money());
         prepayContract.setPrice(new Money());
         postpayContract.setPrice(new Money());
 
-        trialContract.setPaymentType(PaymentType.TRIAL);
         prepayContract.setPaymentType(PaymentType.PREPAY);
         postpayContract.setPaymentType(PaymentType.POSTPAY);
 
-        trialInvoice.setContract(trialContract);
         prepayInvoice.setContract(prepayContract);
         postpayInvoice.setContract(postpayContract);
 
-        trialInvoice.setCreationDate(billDate);
         prepayInvoice.setCreationDate(billDate);
         postpayInvoice.setCreationDate(billDate);
 
-        trialInvoice.setPaymentPeriodFrom(payDate);
-        trialInvoice.setPaymentPeriodTo(payDate.plusMonths(1));
         prepayInvoice.setPaymentPeriodFrom(payDate);
         prepayInvoice.setPaymentPeriodTo(payDate.plusMonths(1));
         postpayInvoice.setPaymentPeriodFrom(payDate.minusMonths(1));
         postpayInvoice.setPaymentPeriodTo(payDate);
 
-        trialInvoice.setPrice(new Money());
         prepayInvoice.setPrice(new Money());
         postpayInvoice.setPrice(new Money());
 
-        trialInvoice.setEmployeePaid(false);
         prepayInvoice.setEmployeePaid(false);
         postpayInvoice.setEmployeePaid(false);
 
-        createdInvoices = Arrays.asList(trialInvoice, prepayInvoice, postpayInvoice);
-        contractsForPayment = Arrays.asList(trialContract, prepayContract, postpayContract);
+        createdInvoices = Arrays.asList(prepayInvoice, postpayInvoice);
+        contractsForPayment = Arrays.asList(prepayContract, postpayContract);
     }
 
     @Test
