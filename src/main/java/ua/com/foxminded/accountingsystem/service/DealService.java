@@ -21,4 +21,6 @@ public interface DealService {
 
     List<Deal> findDealsByStatus(DealStatus dealStatus);
 
+    void close(Deal deal, DealStatus dealStatus);
+
 }

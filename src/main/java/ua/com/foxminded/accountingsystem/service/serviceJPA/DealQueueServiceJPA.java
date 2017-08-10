@@ -11,7 +11,9 @@ import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
 import ua.com.foxminded.accountingsystem.repository.ConsultancyRepository;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
+import ua.com.foxminded.accountingsystem.service.DealService;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,12 +27,15 @@ public class DealQueueServiceJPA implements DealQueueService {
     private final DealQueueRepository dealQueueRepository;
     private final DealRepository dealRepository;
     private final ConsultancyRepository consultancyRepository;
+    private final DealService dealService;
 
     @Autowired
-    public DealQueueServiceJPA(DealQueueRepository dealQueueRepository, DealRepository dealRepository, ConsultancyRepository consultancyRepository) {
+    public DealQueueServiceJPA(DealQueueRepository dealQueueRepository, DealRepository dealRepository,
+                               ConsultancyRepository consultancyRepository, DealService dealService) {
         this.dealQueueRepository = dealQueueRepository;
         this.dealRepository = dealRepository;
         this.consultancyRepository = consultancyRepository;
+        this.dealService = dealService;
     }
 
     @Override
@@ -75,6 +80,15 @@ public class DealQueueServiceJPA implements DealQueueService {
     @Override
     public DealQueue findQueueByDeal(Deal deal) {
         return dealQueueRepository.findByDeal(deal);
+    }
+
+    @Transactional
+    @Override
+    public void deleteQueue(Long id, DealStatus cause) {
+        DealQueue dealQueue = dealQueueRepository.findOne(id);
+        Deal deal = dealQueue.getDeal();
+        dealService.close(deal, cause);
+        dealQueueRepository.delete(dealQueue);
     }
 
     public DealQueue createQueueByDealId(Long id) {

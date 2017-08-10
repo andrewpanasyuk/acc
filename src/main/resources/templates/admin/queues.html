@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="admin/mainTemplate">
 <head>
-  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
 </head>
 <body>
 <section layout:fragment="content">
@@ -39,8 +39,12 @@
             <td>
               <form id="deleteQueue" class="form-horizontal" th:action="@{/admin/queues/{id}(id=${queue.id})}"
                     th:method="delete"></form>
-              <a th:href="@{/admin/contracts/new?dealId={id}(id=${queue.deal.id})}" class="btn btn-primary">Contract</a>
-              <button type="button" class="btn btn-danger" onclick="$('#deleteQueue').submit()">Delete</button>
+              <a th:href="@{/admin/contracts/new?dealId={id}(id=${queue.deal.id})}"
+                 class="btn btn-primary">Contract</a>
+              <button class="btn btn-danger" type="button"
+                      th:onclick="'setIdQueueInModal(\'' + ${queue.id} + '\');'"
+                      data-toggle="modal" data-target="#removeDialog" id="removeButton">Remove
+              </button>
             </td>
           </tr>
           </tbody>
@@ -48,6 +52,45 @@
       </div>
     </div>
   </div>
+
+  <div id="removeDialog" class="modal fade">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" type="button" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Select delete type:</h4>
+        </div>
+        <div class="modal-body">
+          <form id="refuse" action="" th:method="delete">
+            <button type="delete" class="btn btn-warning btn-block" onclick="$('#link').submit()"> Refused
+            </button>
+          </form>
+          <form id="reject" action="" th:method="delete">
+            <button type="delete" class="btn btn-warning btn-block" onclick="$('#link').submit()"> Reject
+            </button>
+          </form>
+          <form id="delete" action="" th:method="delete">
+            <button type="delete" class="btn btn-danger btn-block" onclick="$('#link').submit()">Delete (silently)
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+    function setIdQueueInModal(queueId) {
+      var baseURL = "/admin/queues/";
+      var delURL = baseURL + queueId + "/" + "delete";
+      var refuseURL = baseURL + queueId + "/" + "REFUSED";
+      var rejectURL = baseURL + queueId + "/" + "REJECTED";
+      document.getElementById('delete').setAttribute('action', delURL);
+      document.getElementById('refuse').setAttribute('action', refuseURL);
+      document.getElementById('reject').setAttribute('action', rejectURL);
+    }
+  </script>
+
 </section>
 </body>
 </html>
