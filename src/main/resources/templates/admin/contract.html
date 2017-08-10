@@ -117,7 +117,7 @@
             </output>
           </div>
         </div>
-        <div class="form-group" th:if="!${contract.id == null}">
+        <div class="form-group" th:if="${contract.id != null and contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}">
           <div class="col-sm-3">
             <label th:for="${#ids.next('closeDate')}">Close date:</label>
           </div>
