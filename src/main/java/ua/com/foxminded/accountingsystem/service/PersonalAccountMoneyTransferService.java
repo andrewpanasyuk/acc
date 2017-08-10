@@ -4,5 +4,5 @@ import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransfer;
 
 public interface PersonalAccountMoneyTransferService {
 
-    void makeWithdraw(Long accountMoneyId, PersonalAccountMoneyTransfer moneyTransfer);
+    void withdraw(Long accountMoneyId, PersonalAccountMoneyTransfer moneyTransfer);
 }

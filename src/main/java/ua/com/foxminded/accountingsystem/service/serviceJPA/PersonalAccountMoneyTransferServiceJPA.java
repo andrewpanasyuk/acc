@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransfer;
@@ -16,6 +17,7 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
     private final PersonalAccountMoneyTransferRepository moneyTransferRepository;
     private final MoneyRepository moneyRepository;
 
+    @Autowired
     public PersonalAccountMoneyTransferServiceJPA(PersonalAccountMoneyTransferRepository moneyTransferRepository, MoneyRepository moneyRepository) {
         this.moneyTransferRepository = moneyTransferRepository;
         this.moneyRepository = moneyRepository;
@@ -23,7 +25,7 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
 
     @Override
     @Transactional
-    public void makeWithdraw(Long accountMoneyId, PersonalAccountMoneyTransfer moneyTransfer) {
+    public void withdraw(Long accountMoneyId, PersonalAccountMoneyTransfer moneyTransfer) {
 
         Money currentBalance = moneyRepository.findOne(accountMoneyId);
 
