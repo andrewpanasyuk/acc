@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public class PersonalAccount implements Serializable {
     private Long id;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("currency")
     private Set<Money> money;
 
     public Long getId() {
@@ -56,5 +58,13 @@ public class PersonalAccount implements Serializable {
         PersonalAccount personalAccount = (PersonalAccount) o;
         if (id != null && !id.equals(personalAccount.id)) return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonalAccount{" +
+            "id=" + id +
+            ", money=" + money +
+            '}';
     }
 }

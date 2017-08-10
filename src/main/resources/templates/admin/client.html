@@ -90,11 +90,18 @@
           <td data-valign="middle" class="col-xs-2" th:text="${money.currency}"></td>
           <td data-valign="middle" th:text="${money.amount}"></td>
           <td data-valign="middle">
-            <button action="#" class="btn btn-warning btn-sm">Withdraw</button>
+            <button class="btn btn-warning btn-sm"
+                    th:onclick="'withdraw(\'' + ${money.id}  + '\',
+                    \'' + ${money.currency}  + '\');'">
+
+              Withdraw
+            </button>
           </td>
         </tr>
         </tbody>
       </table>
+      <br/>
+
     </div>
   </div>
   <form th:object="${client}">
@@ -131,6 +138,60 @@
   <br/>
   <br/>
   <br/>
+
+  <!-- Modal -->
+  <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Make withdraw</h4>
+        </div>
+        <div class="modal-body">
+          <form id="withdrawForm" th:action="@{/admin/clients/withdraw}" method="post">
+            <div class="form-group">
+              <input type="hidden" name="accountMoneyId" id="idMoneyModal"/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" name="money.currency" id="currencyMoneyModal"/>
+            </div>
+            <div class="form-group">
+              <input type="number" name="money.amount" id="amountMoneyModal" class="form-control"
+                     placeholder="Withdraw amount" value="0" th:required="required"/>
+            </div>
+            <div class="form-group">
+              <input type="text" id="descriptionModal" name="description" class="form-control"
+                     placeholder="Description of withdraw" value="" th:required="required"/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" id="transferTypeModal" name="transferType" th:value="${T(ua.com.foxminded.accountingsystem.model.TransferType).OUTCOME}"/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" id="accountIdModal" name="personalAccount.id" th:value="${client.personalAccount.id}"/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" id="clientModal" name="clientId" th:value="${client.id}"/>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button submit" class="btn btn-primary" form="withdrawForm">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    function withdraw(id, currency){
+
+      $('#idMoneyModal').val(id);
+      $('#currencyMoneyModal').val(currency);
+      $('#withdrawModal').modal('show');
+    }
+    /*]]>*/
+  </script>
 </section>
 </body>
 </html>

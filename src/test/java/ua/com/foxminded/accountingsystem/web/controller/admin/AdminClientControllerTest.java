@@ -12,20 +12,24 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.service.ClientService;
+import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasEntry;
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class AdminClientControllerTest {
 
     @Mock
     private ClientService clientService;
+
+    @Mock
+    private PersonalAccountMoneyTransferService moneyTransferService;
 
     private AdminClientController adminClientController;
 
@@ -55,7 +59,7 @@ public class AdminClientControllerTest {
 
     @Before
     public void init(){
-        adminClientController = new AdminClientController(clientService);
+        adminClientController = new AdminClientController(clientService, moneyTransferService);
         mockMvc = MockMvcBuilders.standaloneSetup(adminClientController).build();
         when(clientService.findAll()).thenReturn(clients);
         when(clientService.findOne(john.getId())).thenReturn(john);
