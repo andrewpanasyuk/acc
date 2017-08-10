@@ -128,5 +128,4 @@ public class ClientServiceJPA implements ClientService {
 
         return statistics;
     }
-
 }
