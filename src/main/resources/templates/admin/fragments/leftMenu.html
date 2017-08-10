@@ -114,7 +114,7 @@
         $(document).ready(function () {
           $(function () {
             var url = window.location.pathname;
-            $('.sidebar-menu a[href="' + url + '"]').parentsUntil('.  sidebar-menu').addClass("menu-open active");
+            $('.sidebar-menu a[href="' + url + '"]').parentsUntil('.sidebar-menu').addClass("menu-open active");
             $('.sidebar-menu a').filter(function () {
               return this.href.endsWith(url);
             }).parent('li').addClass('active');
