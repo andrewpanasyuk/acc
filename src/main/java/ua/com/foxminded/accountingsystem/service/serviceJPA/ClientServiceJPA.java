@@ -5,14 +5,15 @@ import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.ClientField;
 import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
+import ua.com.foxminded.accountingsystem.model.Consultancy;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
-import ua.com.foxminded.accountingsystem.repository.ServiceRepository;
+import ua.com.foxminded.accountingsystem.repository.ConsultancyRepository;
 import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
-import ua.com.foxminded.accountingsystem.service.dto.ServiceStatisticsDto;
+import ua.com.foxminded.accountingsystem.service.dto.ConsultancyStatisticsDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,15 +27,15 @@ public class ClientServiceJPA implements ClientService {
 
     private final ClientRepository clientRepository;
     private final ClientFieldService clientFieldService;
-    private final ServiceRepository serviceRepository;
+    private final ConsultancyRepository consultancyRepository;
     private final DealRepository dealRepository;
 
     @Autowired
     public ClientServiceJPA(ClientRepository clientRepository, ClientFieldService clientFieldService,
-                            ServiceRepository serviceRepository, DealRepository dealRepository) {
+                            ConsultancyRepository consultancyRepository, DealRepository dealRepository) {
         this.clientRepository = clientRepository;
         this.clientFieldService = clientFieldService;
-        this.serviceRepository = serviceRepository;
+        this.consultancyRepository = consultancyRepository;
         this.dealRepository = dealRepository;
     }
 
@@ -112,18 +113,18 @@ public class ClientServiceJPA implements ClientService {
     }
 
     @Override
-    public List<ServiceStatisticsDto> getServiceStatistics() {
+    public List<ConsultancyStatisticsDto> getConsultancyStatistics() {
 
-        List<ServiceStatisticsDto> statistics = new ArrayList<>();
-        List<ua.com.foxminded.accountingsystem.model.Service> serviceList = serviceRepository.findAll();
+        List<ConsultancyStatisticsDto> statistics = new ArrayList<>();
+        List<Consultancy> consultancyList = consultancyRepository.findAll();
 
-        for(ua.com.foxminded.accountingsystem.model.Service service : serviceList){
-            ServiceStatisticsDto serviceStatisticsDto = new ServiceStatisticsDto();
-            serviceStatisticsDto.setServiceName(service.getName());
-            serviceStatisticsDto.setCountActiveCases(dealRepository.countDealsByStatusAndService(DealStatus.ACTIVE, service));
-            serviceStatisticsDto.setCountFrozenCases(dealRepository.countDealsByStatusAndService(DealStatus.FROZEN, service));
-            serviceStatisticsDto.setCountCompletedCases(dealRepository.countDealsByStatusAndService(DealStatus.COMPLETED, service));
-            statistics.add(serviceStatisticsDto);
+        for(Consultancy consultancy : consultancyList){
+            ConsultancyStatisticsDto consultancyStatisticsDto = new ConsultancyStatisticsDto();
+            consultancyStatisticsDto.setConsultancyName(consultancy.getName());
+            consultancyStatisticsDto.setCountActiveCases(dealRepository.countDealsByStatusAndConsultancy(DealStatus.ACTIVE, consultancy));
+            consultancyStatisticsDto.setCountFrozenCases(dealRepository.countDealsByStatusAndConsultancy(DealStatus.FROZEN, consultancy));
+            consultancyStatisticsDto.setCountCompletedCases(dealRepository.countDealsByStatusAndConsultancy(DealStatus.COMPLETED, consultancy));
+            statistics.add(consultancyStatisticsDto);
         }
 
         return statistics;

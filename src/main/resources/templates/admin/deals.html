@@ -11,7 +11,7 @@
     <tr>
       <th data-field="id" data-halign="center" data-align="center" data-formatter="dealsIdLinkFormatter" data-sortable="true" class="col-xs-1">Id</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Client</th>
-      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Service</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Consultancy</th>
       <th data-halign="center" data-align="center" data-sortable="true" data-sorter="nameSorter" class="col-xs-1">Deal
         status
       </th>
@@ -26,7 +26,7 @@
         <p th:text="${deal.client.lastName} + ' ' + ${deal.client.firstName}"></p>
       </td>
       <td>
-        <p th:text="${deal.service != null} ? ${deal.service.name} : ''"></p>
+        <p th:text="${deal.consultancy != null} ? ${deal.consultancy.name} : ''"></p>
       </td>
       <td th:text="${deal.status}"></td>
       <td th:text="(${deal.openDate != null} ? ${#temporals.format(deal.openDate, 'dd MMM yyyy')} : '')

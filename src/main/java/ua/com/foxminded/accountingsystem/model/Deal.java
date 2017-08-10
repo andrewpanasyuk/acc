@@ -41,21 +41,21 @@ public class Deal extends AbstractAuditEntity {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @NotNull(message = "You have to choose 'Service'")
+    @NotNull(message = "You have to choose 'Consultancy'")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id")
-    private Service service;
+    @JoinColumn(name = "consultancy_id")
+    private Consultancy consultancy;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private DealStatus status;
 
-    public Service getService() {
-        return service;
+    public Consultancy getConsultancy() {
+        return consultancy;
     }
 
-    public void setService(Service service) {
-        this.service = service;
+    public void setConsultancy(Consultancy consultancy) {
+        this.consultancy = consultancy;
     }
 
     public DealStatus getStatus() {

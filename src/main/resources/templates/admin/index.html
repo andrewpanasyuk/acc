@@ -86,7 +86,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="box box-info">
           <div class="box-header with-border">
-            <h3 class="box-title">Service Statistics</h3>
+            <h3 class="box-title">Consultancy Statistics</h3>
 
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -100,13 +100,13 @@
               <table class="table no-margin">
                 <thead>
                 <tr>
-                  <th>Service</th>
+                  <th>Consultancy</th>
                   <th style="text-align: center;">Active Cases</th>
                   <th style="text-align: center;">Frozen Cases</th>
                   <th style="text-align: center;">Completed Cases</th>
                 </tr>
                 </thead>
-                <tbody id="serviceStaticticsTbody">
+                <tbody id="consultancyStaticticsTbody">
                 </tbody>
               </table>
             </div>
@@ -148,13 +148,13 @@
 
       $.ajax({
         type: "GET",
-        url: "/api/statistics/service",
+        url: "/api/statistics/consultancy",
         dataType: "json",
         cache: false,
         timeout: 600000,
         success: function(data) {
           $.each(data, function (i, stat) {
-            var tr = "<tr><td>" + stat.serviceName + "</td>"+
+            var tr = "<tr><td>" + stat.consultancyName + "</td>"+
               "<td style='text-align: center;'>" +
               "<div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countActiveCases + "</div></td>" +
               "<td style='text-align: center;'>" +
@@ -162,12 +162,12 @@
               "<td style='text-align: center;'>" +
               "<div class='sparkbar' data-color='#00a65a' data-height='20'>" + stat.countCompletedCases + "</div></td>" +
               "</tr>\n";
-            $("#serviceStaticticsTbody").append(tr);
+            $("#consultancyStaticticsTbody").append(tr);
           });
 
         },
         error: function(e) {
-          $("#serviceStaticticsTbody").append("Error: " + e);
+          $("#consultancyStaticticsTbody").append("Error: " + e);
         }
       });
 

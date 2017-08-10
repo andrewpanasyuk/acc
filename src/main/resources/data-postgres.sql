@@ -85,14 +85,14 @@ INSERT INTO money (id, currency, amount) VALUES
     (43, 'UAH', 1000),
     (44, 'UAH', 1500);
 
-INSERT INTO service (id, service_name, description, employee_rate_id, created_by, created_date) VALUES
+INSERT INTO consultancy (id, name, description, employee_rate_id, created_by, created_date) VALUES
     (1, 'Mentoring', 'Focuses on the knowledge and needs of clients. Training during free time. No lectures.', 9, 'system', '2017-07-11'),
     (2, 'Personal Mentor', 'Personal couching with Sergey Nemchinskiy', 10, 'system', '2017-07-11'),
     (3, 'Group Development', 'Interact with the team;
 Solve conflicts that inevitably arise during teamwork;
 Create a project from scratch.', 11, 'system', '2017-07-11');
 
-INSERT INTO service_prices (service_id, prices_id) VALUES
+INSERT INTO consultancy_prices (consultancy_id, prices_id) VALUES
     (1, 12),
     (1, 13),
     (1, 14),
@@ -149,7 +149,7 @@ INSERT INTO client_field_value (id, client_id, client_field_id, value, created_b
     (12, 6, 2, NULL, 'system', '2017-07-11');
 
 
-INSERT INTO deal (id, service_id, status, client_id, open_date, close_date, created_by, created_date) VALUES
+INSERT INTO deal (id, consultancy_id, status, client_id, open_date, close_date, created_by, created_date) VALUES
     (1, 3, 'NEW', 4, now() - interval '1 day', NULL, 'system', '2017-07-11'),
     (2, 1, 'WAITING', 1, now() - interval '3 day', NULL, 'system', '2017-07-11'),
     (3, 3, 'WAITING', 1, now() - interval '3 day', NULL, 'system', '2017-07-11'),

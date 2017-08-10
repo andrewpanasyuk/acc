@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
-import ua.com.foxminded.accountingsystem.service.dto.ServiceStatisticsDto;
+import ua.com.foxminded.accountingsystem.service.dto.ConsultancyStatisticsDto;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/statistics")
@@ -31,8 +30,8 @@ public class StatisticsRestController {
         return clientService.getClientStatistics();
     }
 
-    @GetMapping("/service")
-    public List<ServiceStatisticsDto> getStatisticsByService() {
-        return clientService.getServiceStatistics();
+    @GetMapping("/consultancy")
+    public List<ConsultancyStatisticsDto> getStatisticsByConsultancy() {
+        return clientService.getConsultancyStatistics();
     }
 }

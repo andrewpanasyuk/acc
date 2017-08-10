@@ -17,7 +17,7 @@ import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
-import ua.com.foxminded.accountingsystem.service.ServiceService;
+import ua.com.foxminded.accountingsystem.service.ConsultancyService;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -29,18 +29,18 @@ public class AdminDealController {
 
     private final DealService dealService;
     private final ClientService clientService;
-    private final ServiceService service;
+    private final ConsultancyService consultancyService;
     private final ContractService contractService;
     private final SalaryItemService salaryItemService;
     private final InvoiceService invoiceService;
 
     @Autowired
     public AdminDealController(DealService dealService, ClientService clientService,
-                               ServiceService service, ContractService contractService,
+                               ConsultancyService consultancyService, ContractService contractService,
                                SalaryItemService salaryItemService, InvoiceService invoiceService) {
         this.dealService = dealService;
         this.clientService = clientService;
-        this.service = service;
+        this.consultancyService = consultancyService;
         this.contractService = contractService;
         this.salaryItemService = salaryItemService;
         this.invoiceService = invoiceService;
@@ -49,7 +49,7 @@ public class AdminDealController {
     @PostMapping
     public String create(@Valid Deal deal, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("services", service.findAll());
+            model.addAttribute("consultancies", consultancyService.findAll());
             return "admin/deal";
         }
         dealService.save(deal);
@@ -70,7 +70,7 @@ public class AdminDealController {
         Deal deal = dealService.findOne(id);
         model.addAttribute("deal", deal)
             .addAttribute("title", "Deal: " + deal.getId())
-            .addAttribute("services", service.findAll())
+            .addAttribute("consultancies", consultancyService.findAll())
             .addAttribute("contracts", contractService.findAllByDeal(deal));
         return "admin/deal";
     }
@@ -85,7 +85,7 @@ public class AdminDealController {
     public String addDeal(@RequestParam long clientId, Model model) {
         Deal deal = dealService.createDealByClientId(clientId);
         model.addAttribute("deal", deal)
-            .addAttribute("services", service.findAll());
+            .addAttribute("consultancies", consultancyService.findAll());
         return "admin/deal";
     }
 

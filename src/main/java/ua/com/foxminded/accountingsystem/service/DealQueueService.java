@@ -2,7 +2,7 @@ package ua.com.foxminded.accountingsystem.service;
 
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
-import ua.com.foxminded.accountingsystem.model.Service;
+import ua.com.foxminded.accountingsystem.model.Consultancy;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +21,7 @@ public interface DealQueueService {
 
     List<DealQueue> findAll();
 
-    Map<Service, List<DealQueue>> findAllGroupByService();
+    Map<Consultancy, List<DealQueue>> findAllGroupByConsultancy();
 
     DealQueue findQueueByDeal(Deal deal);
 

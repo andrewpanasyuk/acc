@@ -42,29 +42,29 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         price2.setCurrency(Currency.UAH);
         price2.setAmount(3000);
 
-        Service service1 = new Service();
-        service1.setId(50L);
-        service1.setName("java test");
-        service1.setDescription("bla-bla-bla");
-        service1.setCreatedBy("system");
-        service1.setCreatedDate(LocalDateTime.now());
+        Consultancy consultancy1 = new Consultancy();
+        consultancy1.setId(50L);
+        consultancy1.setName("java test");
+        consultancy1.setDescription("bla-bla-bla");
+        consultancy1.setCreatedBy("system");
+        consultancy1.setCreatedDate(LocalDateTime.now());
 
-        Service service2 = new Service();
-        service2.setId(51L);
-        service2.setName("javascript test");
-        service2.setDescription("something written here");
-        service2.setCreatedBy("system");
-        service2.setCreatedDate(LocalDateTime.now());
+        Consultancy consultancy2 = new Consultancy();
+        consultancy2.setId(51L);
+        consultancy2.setName("javascript test");
+        consultancy2.setDescription("something written here");
+        consultancy2.setCreatedBy("system");
+        consultancy2.setCreatedDate(LocalDateTime.now());
 
         Deal deal1 = new Deal();
         deal1.setId(50L);
-        deal1.setService(service1);
+        deal1.setConsultancy(consultancy1);
         deal1.setCreatedBy("system");
         deal1.setCreatedDate(LocalDateTime.now());
 
         Deal deal2 = new Deal();
         deal2.setId(51L);
-        deal2.setService(service2);
+        deal2.setConsultancy(consultancy2);
         deal2.setCreatedBy("system");
         deal2.setCreatedDate(LocalDateTime.now());
 
@@ -123,7 +123,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @Test
     @Commit
     @DataSet(value = "contracts/empty.xml", cleanBefore = true, disableConstraints = true)
-    @ExpectedDataSet(value = "contracts/created-contract.xml", ignoreCols = {"id", "deal_id", "employee_id", "service_id", "employee_rate_id", "price_id", "created_by", "created_date"})
+    @ExpectedDataSet(value = "contracts/created-contract.xml", ignoreCols = {"id", "deal_id", "employee_id", "consultancy_id", "employee_rate_id", "price_id", "created_by", "created_date"})
     public void addContractTest() {
         repository.save(contract1);
     }
@@ -150,7 +150,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @Test
     @Commit
     @DataSet(value = "contracts/stored-contracts.xml", cleanBefore = true,  disableConstraints = true)
-    @ExpectedDataSet(value = "contracts/expected-contracts.xml", ignoreCols = {"id", "deal_id", "employee_id", "service_id", "employee_rate_id", "price_id", "created_by", "created_date"})
+    @ExpectedDataSet(value = "contracts/expected-contracts.xml", ignoreCols = {"id", "deal_id", "employee_id", "consultancy_id", "employee_rate_id", "price_id", "created_by", "created_date"})
     public void deleteContractByIdTest() {
         repository.delete(contract2.getId());
     }

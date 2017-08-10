@@ -23,19 +23,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "service")
+@Table(name = "consultancy")
 @Audited
-public class Service extends AbstractAuditEntity {
+public class Consultancy extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_sequence")
-    @SequenceGenerator(name = "service_sequence", sequenceName = "service_sequence", initialValue = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consultancy_sequence")
+    @SequenceGenerator(name = "consultancy_sequence", sequenceName = "consultancy_sequence", initialValue = 50)
     private long id;
 
     @NotNull(message = "It is required field")
     @Size(min = 2, max = 50)
-    @Column(name = "service_name")
+    @Column(name = "name")
     private String name;
 
     @NotBlank(message = "It is required field")
@@ -53,7 +53,7 @@ public class Service extends AbstractAuditEntity {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Money employeeRate;
 
-    public Service() {
+    public Consultancy() {
         prices = new ArrayList<>();
         employeeRate = new Money();
     }
@@ -102,9 +102,9 @@ public class Service extends AbstractAuditEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Service service = (Service) o;
-        if (name != null ? !name.equals(service.name) : service.name != null) return false;
-        return description != null ? description.equals(service.description) : service.description == null;
+        Consultancy consultancy = (Consultancy) o;
+        if (name != null ? !name.equals(consultancy.name) : consultancy.name != null) return false;
+        return description != null ? description.equals(consultancy.description) : consultancy.description == null;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class Service extends AbstractAuditEntity {
 
     @Override
     public String toString() {
-        return "Service{" +
+        return "Consultancy{" +
             "name='" + name + '\'' +
             ", description='" + description + '\'' +
             ", prices=" + prices +

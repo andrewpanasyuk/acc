@@ -1,12 +1,12 @@
 <dataset>
-    <DEAL id="50" status="ACTIVE" service_id="50" created_by="system" created_date="2017-07-11"/>
-    <DEAL id="51" status="WAITING" service_id="51" created_by="system" created_date="2017-07-11"/>
+    <DEAL id="50" status="ACTIVE" consultancy_id="50" created_by="system" created_date="2017-07-11"/>
+    <DEAL id="51" status="WAITING" consultancy_id="51" created_by="system" created_date="2017-07-11"/>
 
     <EMPLOYEE id="51"  created_by="system" created_date="2017-07-11" />
     <EMPLOYEE id="51"  created_by="system" created_date="2017-07-11" />
 
-    <SERVICE id="50" service_name="test_java" description="bla-bla-bla" employee_rate_id="54" created_by="system" created_date="2017-07-11" />
-    <SERVICE id="51" service_name="test_javascript" description="something written here" employee_rate_id="55" created_by="system" created_date="2017-07-11" />
+    <CONSULTANCY id="50" name="test_java" description="bla-bla-bla" employee_rate_id="54" created_by="system" created_date="2017-07-11" />
+    <CONSULTANCY id="51" name="test_javascript" description="something written here" employee_rate_id="55" created_by="system" created_date="2017-07-11" />
 
     <MONEY id="50" currency="UAH" amount="1500" />
     <MONEY id="51" currency="UAH" amount="3000" />

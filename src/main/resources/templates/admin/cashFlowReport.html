@@ -13,16 +13,16 @@
 
     <div class="form-group">
       <div class="col-sm-2">
-        <label for="selectedServiceField">Service: </label>
+        <label for="selectedConsultancyField">Consultancy: </label>
       </div>
       <div class="col-sm-10">
-        <select id="selectedServiceField" th:field="${selectedService.id}" class="form-control">
-          <option selected="selected" th:value="${selectedService.id}" th:text="${selectedService.name}"></option>
-          <option value="0" th:if="${selectedService.id != 0}">All services</option>
-          <option th:each="service : ${services}"
-                  th:value="${service.id}"
-                  th:if="${selectedService.id != service.id}"
-                  th:text="${service.name}">
+        <select id="selectedConsultancyField" th:field="${selectedConsultancy.id}" class="form-control">
+          <option selected="selected" th:value="${selectedConsultancy.id}" th:text="${selectedConsultancy.name}"></option>
+          <option value="0" th:if="${selectedConsultancy.id != 0}">All consultancies</option>
+          <option th:each="consultancy : ${consultancies}"
+                  th:value="${consultancy.id}"
+                  th:if="${selectedConsultancy.id != consultancy.id}"
+                  th:text="${consultancy.name}">
           </option>
         </select><br/>
       </div>
@@ -62,7 +62,7 @@
         <thead>
         <tr>
           <th>Date</th>
-          <th>Service</th>
+          <th>Consultancy</th>
           <th>Payment</th>
           <th>Amount</th>
           <th>Currency</th>
@@ -74,7 +74,7 @@
             <p th:text="${cashInflow.paymentDate}"></p>
           </td>
           <td>
-            <p th:text="${cashInflow.paidService}"></p>
+            <p th:text="${cashInflow.paidConsultancy}"></p>
           </td>
           <td>
             <p th:text="${cashInflow.paymentId}"></p>
