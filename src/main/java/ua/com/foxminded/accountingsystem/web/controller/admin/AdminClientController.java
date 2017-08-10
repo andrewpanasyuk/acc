@@ -80,7 +80,6 @@ public class AdminClientController {
                            @RequestParam Long clientId) {
 
         moneyTransferService.withdraw(accountMoneyId, withdraw);
-
         return "redirect:/admin/clients/" + clientId;
     }
 }
