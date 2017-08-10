@@ -20,7 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "personal_account_transfer")
+@Table(name = "personal_account_money_transfer")
 @Audited
 public class PersonalAccountMoneyTransfer extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class PersonalAccountMoneyTransfer extends AbstractAuditEntity {
 
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "personal_account_id")
     private PersonalAccount personalAccount;
 
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)

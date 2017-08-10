@@ -79,8 +79,7 @@ public class AdminClientController {
                            @RequestParam Long accountMoneyId,
                            @RequestParam Long clientId) {
 
-        log.debug("Withdraw: " + withdraw);
-        moneyTransferService.makeWithdraw(accountMoneyId, withdraw);
+        moneyTransferService.withdraw(accountMoneyId, withdraw);
 
         return "redirect:/admin/clients/" + clientId;
     }
