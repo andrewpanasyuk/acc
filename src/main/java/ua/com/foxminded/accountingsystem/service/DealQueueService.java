@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.service;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.Consultancy;
+import ua.com.foxminded.accountingsystem.model.DealStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -24,5 +25,7 @@ public interface DealQueueService {
     Map<Consultancy, List<DealQueue>> findAllGroupByConsultancy();
 
     DealQueue findQueueByDeal(Deal deal);
+
+    void deleteQueue(Long id, DealStatus cause);
 
 }
