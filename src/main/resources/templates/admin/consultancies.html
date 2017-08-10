@@ -6,14 +6,14 @@
 <body>
 <section layout:fragment="content">
   <div id="fixed-table-toolbar--buttons" class="pull-left search">
-    <a th:href="@{/admin/services/new}" class="btn btn-primary">New service</a>
+    <a th:href="@{/admin/consultancies/new}" class="btn btn-primary">New consultancy</a>
   </div>
 
   <table data-toggle="table" data-class="table table-striped table-hover" data-pagination="true"
          data-side-pagination="client" data-search="true" data-show-refresh="true" data-sort-name="id">
     <thead>
     <tr>
-      <th data-field="id" data-halign="center" data-align="center" data-formatter="servicesIdLinkFormatter" data-sortable="true" class="col-xs-1">Id</th>
+      <th data-field="id" data-halign="center" data-align="center" data-formatter="consultanciesIdLinkFormatter" data-sortable="true" class="col-xs-1">Id</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Name</th>
       <th data-halign="center" data-align="left">Description</th>
       <th data-halign="center" data-align="left" class="col-xs-1">Employee rate</th>
@@ -21,18 +21,18 @@
     </tr>
     </thead>
     <tbody th:remove="all-but-first">
-    <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
-    <!--/*@thymesVar id="services" type="java.util.List"*/-->
-    <tr th:each="service : ${services}">
-      <td th:text="${service.id}"></td>
+    <!--/*@thymesVar id="consultancy" type="ua.com.foxminded.accountingsystem.model.Consultancy"*/-->
+    <!--/*@thymesVar id="consultancies" type="java.util.List"*/-->
+    <tr th:each="consultancy : ${consultancies}">
+      <td th:text="${consultancy.id}"></td>
       <td>
-        <a th:text="${service.name}" th:href="@{/admin/services/{id}(id=${service.id})}"></a>
+        <a th:text="${consultancy.name}" th:href="@{/admin/consultancies/{id}(id=${consultancy.id})}"></a>
       </td>
-      <td th:text="${service.description}"></td>
-      <td th:text="${service.employeeRate.amount} + ' ' + ${service.employeeRate.currency}"></td>
+      <td th:text="${consultancy.description}"></td>
+      <td th:text="${consultancy.employeeRate.amount} + ' ' + ${consultancy.employeeRate.currency}"></td>
       <td>
         <table>
-          <tr th:each="money : ${service.prices}">
+          <tr th:each="money : ${consultancy.prices}">
             <td th:text="${money.amount} + ' ' + ${money.currency}"></td>
           </tr>
         </table>

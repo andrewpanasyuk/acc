@@ -1,20 +1,19 @@
 package ua.com.foxminded.accountingsystem.service.dto;
 
 import ua.com.foxminded.accountingsystem.model.Money;
-import ua.com.foxminded.accountingsystem.model.Service;
 
 import java.time.LocalDate;
 
 public class CashInflowDto {
 
     private LocalDate paymentDate;
-    private String paidService;
+    private String paidConsultancy;
     private Long paymentId;
     private Money paymentSum;
 
-    public CashInflowDto(LocalDate paymentDate, String paidService, Long paymentId, Money paymentSum) {
+    public CashInflowDto(LocalDate paymentDate, String paidConsultancy, Long paymentId, Money paymentSum) {
         this.paymentDate = paymentDate;
-        this.paidService = paidService;
+        this.paidConsultancy = paidConsultancy;
         this.paymentId = paymentId;
         this.paymentSum = paymentSum;
     }
@@ -23,8 +22,8 @@ public class CashInflowDto {
         return paymentDate;
     }
 
-    public String getPaidService() {
-        return paidService;
+    public String getPaidConsultancy() {
+        return paidConsultancy;
     }
 
     public Long getPaymentId() {
@@ -44,7 +43,7 @@ public class CashInflowDto {
         CashInflowDto that = (CashInflowDto) o;
 
         if (!paymentDate.equals(that.paymentDate)) return false;
-        if (paidService != that.paidService) return false;
+        if (paidConsultancy != that.paidConsultancy) return false;
         if (!paymentId.equals(that.paymentId)) return false;
         return paymentSum != null ? paymentSum.equals(that.paymentSum) : that.paymentSum == null;
     }

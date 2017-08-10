@@ -4,18 +4,18 @@
 </head>
 <body>
 <section layout:fragment="content">
-  <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
+  <!--/*@thymesVar id="consultancy" type="ua.com.foxminded.accountingsystem.model.Consultancy"*/-->
   <!--/*@thymesVar id="money" type="ua.com.foxminded.accountingsystem.model.Money"*/-->
   <div class="row">
     <div class="col-md-6">
-      <form id="saveService" class="form-horizontal" th:action="@{/admin/services}" th:object="${service}"
+      <form id="saveConsultancy" class="form-horizontal" th:action="@{/admin/consultancies}" th:object="${consultancy}"
             method="post">
         <input type="hidden" th:field="*{id}"/>
         <input type="hidden" th:field="*{employeeRate.id}"/>
         <input type="hidden" th:field="*{employeeRate.currency}"/>
         <div class="form-group">
           <div class="col-md-3 col-sm-3">
-            <label th:for="${#ids.next('name')}">Service name:</label>
+            <label th:for="${#ids.next('name')}">Title:</label>
           </div>
           <div class="col-md-9 col-sm-9">
             <input type="text" th:field="*{name}" class="form-control"/>
@@ -81,19 +81,19 @@
           </div>
         </div>
       </form>
-      <form id="deleteService" th:action="@{/admin/services/{id}(id=${service.id})}" th:method="delete">
+      <form id="deleteConsultancy" th:action="@{/admin/consultancies/{id}(id=${consultancy.id})}" th:method="delete">
       </form>
       <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 15px 0 0">
         <div class="btn-group col-md-4 col-sm-4 col-xs-3" role="group" style="padding: 0">
-          <button type="submit" class="btn btn-danger btn" onclick="$('#deleteservice').submit()">Delete</button>
+          <button type="submit" class="btn btn-danger btn" onclick="$('#deleteConsultancy').submit()">Delete</button>
         </div>
         <div class="pull-right col-md-8 col-sm-8 col-xs-9" style="padding: 0">
           <div class="btn-group btn-group-justified" role="group">
             <div class="btn-group" role="group">
-              <a th:href="@{/admin/services}" class="btn btn-default">Go back</a>
+              <a th:href="@{/admin/consultancies}" class="btn btn-default">Go back</a>
             </div>
             <div class="btn-group" role="group">
-              <button type="submit" class="btn btn-primary" onclick="$('#saveService').submit()">Save</button>
+              <button type="submit" class="btn btn-primary" onclick="$('#saveConsultancy').submit()">Save</button>
             </div>
           </div>
         </div>

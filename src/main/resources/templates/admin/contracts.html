@@ -12,7 +12,7 @@
     <tr>
       <th data-field="id" data-halign="center" data-align="center" data-formatter="contractsIdLinkFormatter" data-sortable="true" class="col-xs-1">Contract</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Client</th>
-      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Service</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Consultancy</th>
       <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Mentor</th>
       <th data-halign="center" data-align="center" data-sortable="true" class="col-xs-2">Contract date</th>
     </tr>
@@ -22,7 +22,7 @@
     <tr th:each="contract : ${contracts}">
       <td th:text="${contract.id}"/>
       <td th:text="${contract.deal.client.firstName} + ' ' + ${contract.deal.client.lastName}"/>
-      <td th:text="${contract.deal.service.name}"/>
+      <td th:text="${contract.deal.consultancy.name}"/>
       <td th:text="${contract.employee.firstName} + ' ' + ${contract.employee.lastName}"/>
       <td
         th:text="${contract.contractDate != null} ? ${#temporals.format(contract.contractDate, 'dd-MMM-yyyy')} : ''"></td>

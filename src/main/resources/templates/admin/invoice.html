@@ -33,11 +33,11 @@
 
       <div class="form-group">
         <div class="col-xs-5">
-          <label>Service:</label>
+          <label>Consultancy:</label>
         </div>
         <div class="col-xs-7">
-          <a th:href="@{/admin/services/{id}(id=${invoice.contract.deal.service.id})}"
-             th:text="${invoice.contract.deal.service.name}"></a>
+          <a th:href="@{/admin/consultancies/{id}(id=${invoice.contract.deal.consultancy.id})}"
+             th:text="${invoice.contract.deal.consultancy.name}"></a>
         </div>
       </div>
 

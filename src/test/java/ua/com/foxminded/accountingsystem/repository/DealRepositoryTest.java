@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.Client;
+import ua.com.foxminded.accountingsystem.model.Consultancy;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
-import ua.com.foxminded.accountingsystem.model.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,11 +24,11 @@ public class DealRepositoryTest extends AbstractRepositoryTest<DealRepository> {
 
     @Before
     public void init() {
-        Service service = new Service();
-        service.setId(1L);
+        Consultancy consultancy = new Consultancy();
+        consultancy.setId(1L);
 
-        Service service_1 = new Service();
-        service_1.setId(2L);
+        Consultancy consultancy_1 = new Consultancy();
+        consultancy_1.setId(2L);
 
         Client client = new Client();
         client.setId(1L);
@@ -39,7 +39,7 @@ public class DealRepositoryTest extends AbstractRepositoryTest<DealRepository> {
         deal = new Deal();
         deal.setId(1L);
         deal.setStatus(DealStatus.ACTIVE);
-        deal.setService(service);
+        deal.setConsultancy(consultancy);
         deal.setClient(client);
         deal.setOpenDate(LocalDate.of(2017, 01, 24));
         deal.setCloseDate(LocalDate.of(2017, 01, 25));
@@ -49,7 +49,7 @@ public class DealRepositoryTest extends AbstractRepositoryTest<DealRepository> {
         deal_1 = new Deal();
         deal_1.setId(2L);
         deal_1.setStatus(DealStatus.WAITING);
-        deal_1.setService(service_1);
+        deal_1.setConsultancy(consultancy_1);
         deal_1.setClient(client_1);
         deal_1.setOpenDate(LocalDate.of(2010, 01, 24));
     }

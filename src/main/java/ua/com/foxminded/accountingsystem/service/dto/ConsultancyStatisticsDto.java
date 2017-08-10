@@ -1,18 +1,18 @@
 package ua.com.foxminded.accountingsystem.service.dto;
 
-public class ServiceStatisticsDto {
+public class ConsultancyStatisticsDto {
 
-    private String serviceName;
+    private String consultancyName;
     private long countActiveCases;
     private long countFrozenCases;
     private long countCompletedCases;
 
-    public String getServiceName() {
-        return serviceName;
+    public String getConsultancyName() {
+        return consultancyName;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setConsultancyName(String consultancyName) {
+        this.consultancyName = consultancyName;
     }
 
     public long getCountActiveCases() {

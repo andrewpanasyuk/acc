@@ -2,13 +2,14 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.foxminded.accountingsystem.model.Consultancy;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Priority;
 import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
-import ua.com.foxminded.accountingsystem.repository.ServiceRepository;
+import ua.com.foxminded.accountingsystem.repository.ConsultancyRepository;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 
 import java.time.LocalDate;
@@ -23,13 +24,13 @@ public class DealQueueServiceJPA implements DealQueueService {
 
     private final DealQueueRepository dealQueueRepository;
     private final DealRepository dealRepository;
-    private final ServiceRepository serviceRepository;
+    private final ConsultancyRepository consultancyRepository;
 
     @Autowired
-    public DealQueueServiceJPA(DealQueueRepository dealQueueRepository, DealRepository dealRepository, ServiceRepository serviceRepository) {
+    public DealQueueServiceJPA(DealQueueRepository dealQueueRepository, DealRepository dealRepository, ConsultancyRepository consultancyRepository) {
         this.dealQueueRepository = dealQueueRepository;
         this.dealRepository = dealRepository;
-        this.serviceRepository = serviceRepository;
+        this.consultancyRepository = consultancyRepository;
     }
 
     @Override
@@ -60,14 +61,14 @@ public class DealQueueServiceJPA implements DealQueueService {
     }
 
     @Override
-    public Map<ua.com.foxminded.accountingsystem.model.Service, List<DealQueue>> findAllGroupByService() {
-        Map<ua.com.foxminded.accountingsystem.model.Service, List<DealQueue>> queuesByService = new HashMap<>();
+    public Map<Consultancy, List<DealQueue>> findAllGroupByConsultancy() {
+        Map<Consultancy, List<DealQueue>> queuesByConsultancy = new HashMap<>();
         List<DealQueue> dealQueues = dealQueueRepository.findAll();
         Collections.sort(dealQueues);
-        List<ua.com.foxminded.accountingsystem.model.Service> services = serviceRepository.findAll();
-        services.forEach(service -> queuesByService.put(service, new ArrayList<>()));
-        dealQueues.forEach(dealQueue -> queuesByService.get(dealQueue.getDeal().getService()).add(dealQueue));
-        return queuesByService;
+        List<Consultancy> consultancies = consultancyRepository.findAll();
+        consultancies.forEach(consultancy -> queuesByConsultancy.put(consultancy, new ArrayList<>()));
+        dealQueues.forEach(dealQueue -> queuesByConsultancy.get(dealQueue.getDeal().getConsultancy()).add(dealQueue));
+        return queuesByConsultancy;
 
     }
 

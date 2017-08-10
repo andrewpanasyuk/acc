@@ -2,7 +2,6 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.repository.SalaryRepository;
@@ -29,20 +28,20 @@ public class CashFlowReportServiceJPA implements CashFlowReportService {
     }
 
     @Override
-    public List<CashInflowDto> makeCashInflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
+    public List<CashInflowDto> makeCashInflowReport(LocalDate beginDate, LocalDate endDate, Long consultancyId) {
 
-        if (serviceId != 0) {
-            return paymentRepository.findCashInflowByServiceAndDatePaidBetween(beginDate, endDate, serviceId);
+        if (consultancyId != 0) {
+            return paymentRepository.findCashInflowByConsultancyAndDatePaidBetween(beginDate, endDate, consultancyId);
         }
 
         return paymentRepository.findAllCashInflowByDatePaidBetween(beginDate, endDate);
     }
 
     @Override
-    public List<CashOutflowDto> makeCashOutflowReport(LocalDate beginDate, LocalDate endDate, Long serviceId) {
+    public List<CashOutflowDto> makeCashOutflowReport(LocalDate beginDate, LocalDate endDate, Long consultancyId) {
 
-        if (serviceId != 0) {
-            return salaryRepository.findCashOutflowByServiceAndSalaryDateBetween(beginDate, endDate, serviceId);
+        if (consultancyId != 0) {
+            return salaryRepository.findCashOutflowByConsultancyAndSalaryDateBetween(beginDate, endDate, consultancyId);
         }
 
         return salaryRepository.findAllCashOutflowBySalaryDateBetween(beginDate, endDate);

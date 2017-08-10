@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.foxminded.accountingsystem.model.Money;
-import ua.com.foxminded.accountingsystem.model.Service;
-import ua.com.foxminded.accountingsystem.service.ServiceService;
+import ua.com.foxminded.accountingsystem.model.Consultancy;
+import ua.com.foxminded.accountingsystem.service.ConsultancyService;
 import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
 import ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto;
 import ua.com.foxminded.accountingsystem.service.CashFlowReportService;
@@ -25,27 +25,27 @@ import java.util.Set;
 public class AdminCashFlowReportController {
 
     private final CashFlowReportService cashFlowReportService;
-    private final ServiceService service;
+    private final ConsultancyService consultancyService;
 
     @Autowired
-    public AdminCashFlowReportController(CashFlowReportService cashFlowReportService, ServiceService service) {
+    public AdminCashFlowReportController(CashFlowReportService cashFlowReportService, ConsultancyService consultancyService) {
         this.cashFlowReportService = cashFlowReportService;
-        this.service = service;
+        this.consultancyService = consultancyService;
     }
 
     @PostMapping
-    public String makeCashFlowReport(@ModelAttribute Service selectedService,
+    public String makeCashFlowReport(@ModelAttribute Consultancy selectedConsultancy,
                                      @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate beginDate,
                                      @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate endDate,
                                      Model model) {
 
         List<CashInflowDto> cashInflowReport =
-        cashFlowReportService.makeCashInflowReport(beginDate, endDate, selectedService.getId());
+        cashFlowReportService.makeCashInflowReport(beginDate, endDate, selectedConsultancy.getId());
 
         List<CashOutflowDto> cashOutflowReport =
-        cashFlowReportService.makeCashOutflowReport(beginDate, endDate, selectedService.getId());
+        cashFlowReportService.makeCashOutflowReport(beginDate, endDate, selectedConsultancy.getId());
 
-        selectedService.setName((selectedService.getId() != 0) ? service.findOne(selectedService.getId()).getName() : "All services");
+        selectedConsultancy.setName((selectedConsultancy.getId() != 0) ? consultancyService.findOne(selectedConsultancy.getId()).getName() : "All consultancies");
 
         Set<Money> totalsCashInflow = cashFlowReportService.getTotalsCashInflowReport(cashInflowReport);
         Set<Money> totalsCashOutflow = cashFlowReportService.getTotalsCashOutflowReport(cashOutflowReport);
@@ -53,8 +53,8 @@ public class AdminCashFlowReportController {
 
         model
             .addAttribute("title", "Cash Flow Report")
-            .addAttribute("services", service.findAll())
-            .addAttribute("selectedService", selectedService)
+            .addAttribute("consultancies", consultancyService.findAll())
+            .addAttribute("selectedConsultancy", selectedConsultancy)
             .addAttribute("beginDate", beginDate)
             .addAttribute("endDate", endDate)
             .addAttribute("cashInflowReport", cashInflowReport)
@@ -69,14 +69,14 @@ public class AdminCashFlowReportController {
     @GetMapping
     public String getCashFlowReportPage(Model model) {
 
-        Service selectedService = new Service();
-        selectedService.setId(0);
-        selectedService.setName("All services");
+        Consultancy selectedConsultancy = new Consultancy();
+        selectedConsultancy.setId(0);
+        selectedConsultancy.setName("All consultancies");
 
         model
             .addAttribute("title", "Cash Flow Report")
-            .addAttribute("services", service.findAll())
-            .addAttribute("selectedService", selectedService)
+            .addAttribute("consultancies", consultancyService.findAll())
+            .addAttribute("selectedConsultancy", selectedConsultancy)
             .addAttribute("beginDate", LocalDate.now().minusMonths(3))
             .addAttribute("endDate", LocalDate.now());
         return "admin/cashFlowReport";

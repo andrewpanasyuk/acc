@@ -24,6 +24,6 @@ function invoicesIdLinkFormatter(value, row, index) {
     return "<a href='/admin/invoices/" + value + "'>" + value + "</a>";
 };
 
-function servicesIdLinkFormatter(value, row, index) {
-    return "<a href='/admin/services/" + value + "'>" + value + "</a>";
+function consultanciesIdLinkFormatter(value, row, index) {
+    return "<a href='/admin/consultancies/" + value + "'>" + value + "</a>";
 };

@@ -6,8 +6,8 @@
 <section layout:fragment="content">
   <!--/*@thymesVar id="deal" type="ua.com.foxminded.accountingsystem.model.Deal"*/-->
   <!--/*@thymesVar id="client" type="ua.com.foxminded.accountingsystem.model.Client"*/-->
-  <!--/*@thymesVar id="service" type="ua.com.foxminded.accountingsystem.model.Service"*/-->
-  <!--/*@thymesVar id="services" type="java.util.List<ua.com.foxminded.accountingsystem.model.Service>"*/-->
+  <!--/*@thymesVar id="consultancy" type="ua.com.foxminded.accountingsystem.model.Consultancy"*/-->
+  <!--/*@thymesVar id="consultancies" type="java.util.List<ua.com.foxminded.accountingsystem.model.Consultancy>"*/-->
   <div class="row">
     <div class="col-md-6">
       <div class="row">
@@ -31,17 +31,17 @@
 
             <div class="form-group">
               <div class="col-md-2 col-sm-4 col-xs-4">
-                <label for="serviceName">Service:</label>
+                <label for="consultancyName">Consultancy:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <select id="serviceName" th:field="${deal.service}" class="form-control">
-                  <option value="">Select Service</option>
+                <select id="consultancyName" th:field="${deal.consultancy}" class="form-control">
+                  <option value="">Select Consultancy</option>
 
-                  <option th:each="service : ${services}"
-                          th:value="${service.id}"
-                          th:text="${service.name}"></option>
+                  <option th:each="consultancy : ${consultancies}"
+                          th:value="${consultancy.id}"
+                          th:text="${consultancy.name}"></option>
                 </select>
-                <output th:if="${#fields.hasErrors('service')}" th:errors="${deal.service}" class="text-danger">Name
+                <output th:if="${#fields.hasErrors('consultancy')}" th:errors="${deal.consultancy}" class="text-danger">Name
                   Error
                 </output>
 
@@ -154,7 +154,7 @@
           </div>
           <li class="list-group-item">
             <span th:text="${deal.openDate} +' - Подана заявка на услугу ('"></span>
-            <a th:href="@{/admin/services/{id}(id=${deal.service.id})}" th:text="${deal.service.name}"></a>
+            <a th:href="@{/admin/consultancies/{id}(id=${deal.consultancy.id})}" th:text="${deal.consultancy.name}"></a>
             <span>)</span>
           </li>
         </ul>
