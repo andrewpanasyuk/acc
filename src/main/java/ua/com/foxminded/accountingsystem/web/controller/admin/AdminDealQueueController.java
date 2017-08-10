@@ -44,7 +44,6 @@ public class AdminDealQueueController {
 
     @DeleteMapping(value = "/{id}/{cause}")
     public String deleteQueue(@PathVariable long id, @PathVariable DealStatus cause) {
-        System.out.println(cause);
         dealQueueService.deleteQueue(id, cause);
         return "redirect:/admin/queues";
     }
