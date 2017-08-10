@@ -41,7 +41,7 @@
             <td>
               <form id="deleteQueue" class="form-horizontal" th:action="@{/admin/queues/{id}(id=${queue.id})}"
                     th:method="delete"></form>
-              <a th:href="@{/admin/contracts/new?orderId={id}(id=${queue.order.id})}"
+              <a th:href="@{/admin/contracts/new?dealId={id}(id=${queue.deal.id})}"
                  class="btn btn-primary">Contract</a>
               <button class="btn btn-danger" type="button"
                       th:onclick="'setIdQueueInModal(\'' + ${queue.id} + '\');'"

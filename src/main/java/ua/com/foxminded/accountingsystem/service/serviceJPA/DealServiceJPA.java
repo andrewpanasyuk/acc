@@ -68,6 +68,25 @@ public class DealServiceJPA implements DealService {
     }
 
     @Override
+    public void close(Deal deal, DealStatus dealStatus) {
+        if (dealStatus == null) {
+            recoveryDealStatus(deal);
+        } else {
+            deal.setStatus(dealStatus);
+            deal.setCloseDate(LocalDate.now());
+        }
+        dealRepository.save(deal);
+    }
+
+    private void recoveryDealStatus(Deal deal) {
+        if (contractRepository.existsContractByDealId(deal.getId())) {
+            deal.setStatus(DealStatus.FROZEN);
+        } else {
+            deal.setStatus(DealStatus.NEW);
+        }
+    }
+
+    @Override
     @Transactional
     public void freeze(Long id) {
         Deal deal = dealRepository.findOne(id);
@@ -79,4 +98,5 @@ public class DealServiceJPA implements DealService {
         contractRepository.save(contract);
         dealRepository.save(deal);
     }
+
 }

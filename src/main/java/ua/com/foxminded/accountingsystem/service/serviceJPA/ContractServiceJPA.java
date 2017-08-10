@@ -55,15 +55,6 @@ public class ContractServiceJPA implements ContractService {
     @Transactional
     public Contract save(Contract contract) {
         if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
-            Order order = contract.getOrder();
-            order.setStatus(OrderStatus.ACTIVE);
-            orderService.save(order);
-
-            if(contract.getPaymentType() == PaymentType.PREPAY){
-                contract.setPaymentDate(LocalDate.now());
-            } else if (contract.getPaymentType() == PaymentType.POSTPAY){
-                contract.setPaymentDate(LocalDate.now().plusMonths(1).minusDays(1));
-            }
             Deal deal = contract.getDeal();
             deal.setStatus(DealStatus.ACTIVE);
             dealService.save(deal);
@@ -136,14 +127,10 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public boolean existsContractByOrderId(Long id) {
-        return contractRepository.existsContractByOrderId(id);
+    public boolean existsContractByDealId(Long id) {
+        return contractRepository.existsContractByDealId(id);
     }
 
-    @Override
-    public boolean existsContractByOrderId(Long id) {
-        return contractRepository.existsContractByOrderId(id);
-    }
 }
 
 

@@ -10,7 +10,9 @@ import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
 import ua.com.foxminded.accountingsystem.repository.ServiceRepository;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
+import ua.com.foxminded.accountingsystem.service.DealService;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,13 +25,16 @@ public class DealQueueServiceJPA implements DealQueueService {
 
     private final DealQueueRepository dealQueueRepository;
     private final DealRepository dealRepository;
+    private final DealService dealService;
     private final ServiceRepository serviceRepository;
 
     @Autowired
-    public DealQueueServiceJPA(DealQueueRepository dealQueueRepository, DealRepository dealRepository, ServiceRepository serviceRepository) {
+    public DealQueueServiceJPA(DealQueueRepository dealQueueRepository, DealRepository dealRepository,
+                               ServiceRepository serviceRepository, DealService dealService) {
         this.dealQueueRepository = dealQueueRepository;
         this.dealRepository = dealRepository;
         this.serviceRepository = serviceRepository;
+        this.dealService = dealService;
     }
 
     @Override
@@ -76,11 +81,20 @@ public class DealQueueServiceJPA implements DealQueueService {
         return dealQueueRepository.findByDeal(deal);
     }
 
+    @Transactional
+    @Override
+    public void deleteQueue(Long id, DealStatus cause) {
+        DealQueue dealQueue = dealQueueRepository.findOne(id);
+        Deal deal = dealQueue.getDeal();
+        dealService.close(deal, cause);
+        dealQueueRepository.delete(dealQueue);
+    }
+
     public DealQueue createQueueByDealId(Long id) {
         Deal deal = dealRepository.findOne(id);
         DealQueue dealQueue = new DealQueue();
         dealQueue.setQueuingDate(LocalDate.now());
-        if (deal.getStatus().equals(DealStatus.NEW)){
+        if (deal.getStatus().equals(DealStatus.NEW)) {
             dealQueue.setPriority(Priority.NORMAL);
         } else {
             dealQueue.setPriority(Priority.HIGH);
