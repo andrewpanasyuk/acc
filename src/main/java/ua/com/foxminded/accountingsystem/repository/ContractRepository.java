@@ -11,7 +11,7 @@ import java.util.List;
 public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     @Query("SELECT c FROM Contract as c WHERE c.closeType is NULL " +
-        "AND function('DAY', c.paymentDate) = ?1 " +
+        "AND function('DAY', c.paymentDate) <= ?1 " +
         "AND c.paymentType is NOT ua.com.foxminded.accountingsystem.model.PaymentType.TRIAL " +
         "AND c.id NOT IN(" +
         "SELECT processed FROM Contract as processed join processed.invoices as i " +

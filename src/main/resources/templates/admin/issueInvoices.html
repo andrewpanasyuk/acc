@@ -28,17 +28,63 @@
       <td th:text="${invoice.contract.paymentType}"></td>
       <td th:text="${invoice.price.amount} + ' ' + ${invoice.price.currency}"></td>
       <td>
-        <form th:action="@{/admin/invoices/issue}" th:object="${invoice}" method="post">
+        <form th:object="${invoice}">
           <input type="hidden" name="creationDate" th:value="${invoice.creationDate}"/>
           <input type="hidden" name="paymentPeriodFrom" th:value="${invoice.paymentPeriodFrom}"/>
           <input type="hidden" name="paymentPeriodTo" th:value="${invoice.paymentPeriodTo}"/>
           <input type="hidden" name="contract.id" th:value="${invoice.contract.id}"/>
-          <button type="submit" id="submit" class="btn btn-primary" style="height:40px;width:80px">Create</button>
+          <button class="btn btn-primary" type="button"
+                  th:onclick="'setDataInModal(\'' + ${invoice.contract.id} + '\', \''
+                                                  + ${invoice.price.amount} + '\', \''
+                                                  + ${invoice.price.currency} + '\', \''
+                                                  + ${invoice.paymentPeriodFrom} + '\', \''
+                                                  + ${invoice.paymentPeriodTo} + '\',  \''
+                                                  + ${invoice.creationDate} + '\');'"
+                  data-toggle="modal" data-target="#updateDialog" id="updateButton">Create
+          </button>
         </form>
       </td>
     </tr>
     </tbody>
   </table>
+
+  <div id="updateDialog" class="modal fade">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" type="button" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Confirm sum invoice</h4>
+        </div>
+        <div class="modal-body">
+          <form id="correctSum" th:action="@{/admin/invoices/issue}" th:object="${invoice}" method="post">
+            <input type="hidden" id="contract" name="contract" value=""/>
+            <input type="hidden" id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
+            <input type="hidden" id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
+            <input type="hidden" id="price.currency" name="price.currency" value=""/>
+            <input type="hidden" id="creationDate"  name="creationDate" value=""/>
+            <div class="form-group">
+              <label for="price.amount">Sum:</label>
+              <input type="number" class="form-control" id="price.amount" name="price.amount" value=""/>
+            </div>
+          </form>
+          <button type="delete" form="correctSum" class="btn btn-success" onclick="$('#link').submit()"> Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    function setDataInModal(contractId, sum, currency, dateFrom, dateTo, creationDate) {
+      document.getElementById('contract').setAttribute('value', contractId);
+      document.getElementById('price.amount').setAttribute('value', sum);
+      document.getElementById('price.currency').setAttribute('value', currency);
+      document.getElementById('paymentPeriodFrom').setAttribute('value', dateFrom);
+      document.getElementById('paymentPeriodTo').setAttribute('value', dateTo);
+      document.getElementById('creationDate').setAttribute('value', creationDate);
+    }
+  </script>
+
 </section>
 </body>
 </html>
