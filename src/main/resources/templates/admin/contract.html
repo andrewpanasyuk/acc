@@ -67,7 +67,7 @@
               <input type="date" th:field="*{paymentDate}" class="form-control"/>
             </div>
             <div th:if="${contract.id != null}">
-              <p th:text="${contract.paymentDate}" />
+              <p th:text="${(contract.paymentDate) != null ? contract.paymentDate : 'not specified' }" />
             </div>
           </div>
         </div>
