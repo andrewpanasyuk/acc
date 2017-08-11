@@ -190,6 +190,25 @@
       </div>
     </div>
   </div>
+
+  <script>
+    function schedule(selectedValue) {
+//      alert(selectedValue);
+      var currentDate = new Date();
+//      var now = moment();
+//      if (selectedValue == 'POSTPAY') {
+//
+        currentDate = currentDate.setMonth(currentDate.getMonth() + 1);
+//      }
+      alert(currentDate);
+
+//      currentDate = currentDate.setMonth(10);
+//      alert(currentDate);
+        document.getAttribute("field").setValue(currentDate);
+        document.getElementById('paymentDate').setAttribute('field', currentDate);
+    }
+  </script>
+
 </section>
 </body>
 </html>
