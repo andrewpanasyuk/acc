@@ -63,7 +63,12 @@
             <label th:for="${#ids.next('paymentDate')}">Payment date:</label>
           </div>
           <div class="col-sm-9">
-            <p type="date" th:text="${contract.paymentDate}" class=""/>
+            <div th:if="${contract.id == null}">
+              <input type="date" th:field="*{paymentDate}" class="form-control"/>
+            </div>
+            <div th:if="${contract.id != null}">
+              <p th:text="${contract.paymentDate}" />
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -144,7 +149,7 @@
 
           </div>
         </div>
-        <div id="closeDate" class="form-group" style="display: none">
+        <div id="closeDate" class="form-group" th:style="${(contract.id != null and contract.closeType == null) ? 'display : none;' : ''}">
           <!--${contract.id != null and contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}-->
           <div class="col-sm-3">
             <label th:for="${#ids.next('closeDate')}">Close date:</label>
@@ -191,7 +196,12 @@
     $(function(){
 
       $('#closeSelect').on('change', function () {
-        $('#closeDate').show();
+        var selected = $('#closeSelect').val();
+        if ($('#closeSelect').val() != ""){
+          $('#closeDate').show();
+        } else {
+          $('#closeDate').hide();
+        }
       });
 
     });
