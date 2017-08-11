@@ -14,8 +14,5 @@ public interface SalaryService {
 
     List<Salary> findAllSalary();
 
-    List<SalaryItem> findSalaryItemsBySalaryId(Long id);
-
-    Long sumAllSalaryTotalAmount();
-
+    List<SalaryItem> findAllSalaryItemBySalaryId(Long id);
 }

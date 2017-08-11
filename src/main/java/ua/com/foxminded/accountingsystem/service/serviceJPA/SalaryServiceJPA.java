@@ -79,15 +79,9 @@ public class SalaryServiceJPA implements SalaryService {
     }
 
     @Override
-    public List<SalaryItem> findSalaryItemsBySalaryId(Long id) {
+    public List<SalaryItem> findAllSalaryItemBySalaryId(Long id) {
 
-        return salaryRepository.findSalaryItemsBySalaryId(id);
-    }
-
-    @Override
-    public Long sumAllSalaryTotalAmount() {
-
-        return salaryRepository.sumAllSalaryTotalAmount();
+        return salaryRepository.findAllSalaryItemBySalaryId(id);
     }
 
 }

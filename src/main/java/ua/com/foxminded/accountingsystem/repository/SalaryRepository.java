@@ -28,8 +28,5 @@ public interface SalaryRepository extends JpaRepository<Salary, Long> {
     List<CashOutflowDto> findCashOutflowByConsultancyAndSalaryDateBetween(LocalDate beginDate, LocalDate endDate, Long consultancyId);
 
     @Query("select s.salaryItems from Salary s where s.id = ?1")
-    List<SalaryItem> findSalaryItemsBySalaryId(Long id);
-
-    @Query("select sum(totalAmount.amount) from Salary")
-    Long sumAllSalaryTotalAmount();
+    List<SalaryItem> findAllSalaryItemBySalaryId(Long id);
 }

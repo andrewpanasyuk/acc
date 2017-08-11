@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.config.FmConstants;
 import ua.com.foxminded.accountingsystem.model.Salary;
 import ua.com.foxminded.accountingsystem.model.SalaryItem;
+import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.SalaryService;
 
 import java.time.LocalDate;
@@ -34,14 +35,12 @@ public class AdminSalaryController {
     @GetMapping
     public String getAllSalary(Model model) {
         model.addAttribute("allSalary", salaryService.findAllSalary());
-        model.addAttribute("sumAllSalaryTotalAmount", salaryService.sumAllSalaryTotalAmount());
         return "admin/salary";
     }
 
     @GetMapping(value = "/{id}")
     public String getSalaryItemsBySalaryId(@PathVariable long id, Model model) {
-        List<SalaryItem> salaryItems = salaryService.findSalaryItemsBySalaryId(id);
-        model.addAttribute("salaryItems", salaryItems);
+        model.addAttribute("salaryItems", salaryService.findAllSalaryItemBySalaryId(id));
         return "admin/salaryItems";
     }
 
@@ -71,5 +70,4 @@ public class AdminSalaryController {
         redirectAttributes.addAttribute("dateTo", salary.getDateTo().plusDays(1).format(formatter));
         return "redirect:/admin/salary/payroll";
     }
-
 }
