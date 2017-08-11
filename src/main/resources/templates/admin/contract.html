@@ -27,10 +27,10 @@
             <label th:for="${#ids.next('contractDate')}">Contract Date:</label>
           </div>
           <div class="col-sm-9">
-            <div th:if="${contract.id == null}">
+            <div th:if="${contract.id == null}" th:remove="tag">
               <input type="date" th:field="*{contractDate}" class="form-control" />
             </div>
-            <div th:if="${contract.id != null}">
+            <div th:if="${contract.id != null}" th:remove="tag">
               <p th:text="${contract.contractDate}" />
             </div>
           </div>
@@ -40,7 +40,7 @@
             <label th:for="${#ids.next('paymentType')}">Payment type:</label>
           </div>
           <div class="col-sm-9">
-            <div th:if="${contract.id == null}">
+            <div th:if="${contract.id == null}" th:remove="tag">
               <select th:field="*{paymentType}" class="form-control" th:disabled="${contract.id != null}">
                 <option value="">Select payment type</option>
                 <option th:each="paymentTypeValue : ${T(ua.com.foxminded.accountingsystem.model.PaymentType).values()}"
@@ -52,7 +52,7 @@
                 Error
               </output>
             </div>
-            <div th:if="${contract.id != null}">
+            <div th:if="${contract.id != null}" th:remove="tag">
               <p th:text="${contract.paymentType}" />
             </div>
 
@@ -63,10 +63,10 @@
             <label th:for="${#ids.next('paymentDate')}">Payment date:</label>
           </div>
           <div class="col-sm-9">
-            <div th:if="${contract.id == null}">
+            <div th:if="${contract.id == null}" th:remove="tag">
               <input type="date" th:field="*{paymentDate}" class="form-control"/>
             </div>
-            <div th:if="${contract.id != null}">
+            <div th:if="${contract.id != null}" th:remove="tag">
               <p th:text="${(contract.paymentDate) != null ? contract.paymentDate : 'not specified' }" />
             </div>
           </div>
@@ -76,7 +76,7 @@
             <label th:for="${#ids.next('price')}">Price:</label>
           </div>
           <div class="col-sm-9">
-            <div th:if="${contract.id == null}">
+            <div th:if="${contract.id == null}" th:remove="tag">
               <div class="col-xs-8" style="padding-left: 0">
                 <input th:value="*{price.amount > 0} ? *{price.amount}"
                        th:id="*{'price.amount'}" th:name="*{'price.amount'}"
@@ -94,7 +94,7 @@
                 Error
               </output>
             </div>
-            <div th:if="${contract.id != null}">
+            <div th:if="${contract.id != null}" th:remove="tag">
               <p th:text="${contract.price.amount} + ' ' + ${contract.price.currency}" />
             </div>
           </div>
@@ -104,7 +104,7 @@
             <label th:for="${#ids.next('employee')}">Employee:</label>
           </div>
           <div class="col-sm-9">
-            <div th:if="${contract.id == null}">
+            <div th:if="${contract.id == null}" th:remove="tag">
               <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
               <select th:field="*{employee}" class="form-control" >
                 <option value="">Select Employee</option>
@@ -117,7 +117,7 @@
                 Error
               </output>
             </div>
-            <div th:if="${contract.id != null}">
+            <div th:if="${contract.id != null}" th:remove="tag">
               <p th:text="${contract.employee.firstName} + ' ' + ${contract.employee.lastName}" />
             </div>
           </div>
@@ -127,7 +127,7 @@
             <label th:for="${#ids.next('employeeRate.price')}">Employee rate:</label>
           </div>
           <div class="col-sm-9">
-            <div th:if="${contract.id == null}">
+            <div th:if="${contract.id == null}" th:remove="tag">
               <div class="col-xs-8" style="padding-left: 0">
                 <input th:value="*{employeeRate.amount > 0} ? *{employeeRate.amount}"
                        th:id="*{'employeeRate.amount'}" th:name="*{'employeeRate.amount'}"
@@ -143,19 +143,23 @@
                       class="text-danger">Employee rate error
               </output>
             </div>
-            <div th:if="${contract.id != null}">
+            <div th:if="${contract.id != null}"  th:remove="tag">
               <p th:text="${contract.employeeRate.amount} + ' ' + ${contract.employeeRate.currency}" />
             </div>
 
           </div>
         </div>
         <div id="closeDate" class="form-group" th:style="${(contract.id != null and contract.closeType == null) ? 'display : none;' : ''}">
-          <!--${contract.id != null and contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}-->
           <div class="col-sm-3">
             <label th:for="${#ids.next('closeDate')}">Close date:</label>
           </div>
           <div class="col-sm-9">
-            <input type="date" th:field="*{closeDate}" class="form-control" />
+            <div th:if="${contract.closeDate == null}" th:remove="tag">
+              <input type="date" th:field="*{closeDate}" class="form-control" />
+            </div>
+            <div th:if="${contract.closeDate != null}"  th:remove="tag">
+              <p th:text="${contract.closeDate}" />
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -163,12 +167,18 @@
             <label th:for="${#ids.next('closeType')}">Close type:</label>
           </div>
           <div class="col-sm-9">
-            <select th:field="*{closeType}" class="form-control" id="closeSelect">
-              <option value="" >Close contract (select type of closing)</option>
-              <option th:each="closeTypeValue : ${T(ua.com.foxminded.accountingsystem.model.CloseType).values()}"
-                      th:value="${closeTypeValue}"
-                      th:text="${closeTypeValue}"/>
-            </select>
+            <div th:if="${contract.closeType == null}" th:remove="tag">
+              <select th:field="*{closeType}" class="form-control" id="closeSelect">
+                <option value="" >Close contract (select type of closing)</option>
+                <option th:each="closeTypeValue : ${T(ua.com.foxminded.accountingsystem.model.CloseType).values()}"
+                        th:value="${closeTypeValue}"
+                        th:text="${closeTypeValue}"/>
+              </select>
+            </div>
+            <div th:if="${contract.closeType != null}" th:remove="tag">
+              <p th:text="${contract.closeType}" th:remove="tag" />
+            </div>
+
           </div>
         </div>
       </form>
