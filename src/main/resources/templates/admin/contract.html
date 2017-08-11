@@ -27,7 +27,12 @@
             <label th:for="${#ids.next('contractDate')}">Contract Date:</label>
           </div>
           <div class="col-sm-9">
-            <input type="date" th:field="*{contractDate}" class="form-control"/>
+            <div th:if="${contract.id == null}">
+              <input type="date" th:field="*{contractDate}" class="form-control" />
+            </div>
+            <div th:if="${contract.id != null}">
+              <p th:text="${contract.contractDate}" />
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -35,16 +40,22 @@
             <label th:for="${#ids.next('paymentType')}">Payment type:</label>
           </div>
           <div class="col-sm-9">
-            <select th:field="*{paymentType}" class="form-control">
-              <option value="">Select payment type</option>
-              <option th:each="paymentTypeValue : ${T(ua.com.foxminded.accountingsystem.model.PaymentType).values()}"
-                      th:value="${paymentTypeValue}"
-                      th:text="${paymentTypeValue}"/>
-            </select>
-            <output th:if="${#fields.hasErrors('paymentType')}" th:errors="*{paymentType}" class="text-danger">Payment
-              Type
-              Error
-            </output>
+            <div th:if="${contract.id == null}">
+              <select th:field="*{paymentType}" class="form-control" th:disabled="${contract.id != null}">
+                <option value="">Select payment type</option>
+                <option th:each="paymentTypeValue : ${T(ua.com.foxminded.accountingsystem.model.PaymentType).values()}"
+                        th:value="${paymentTypeValue}"
+                        th:text="${paymentTypeValue}"/>
+              </select>
+              <output th:if="${#fields.hasErrors('paymentType')}" th:errors="*{paymentType}" class="text-danger">Payment
+                Type
+                Error
+              </output>
+            </div>
+            <div th:if="${contract.id != null}">
+              <p th:text="${contract.paymentType}" />
+            </div>
+
           </div>
         </div>
         <div class="form-group">
@@ -52,7 +63,7 @@
             <label th:for="${#ids.next('paymentDate')}">Payment date:</label>
           </div>
           <div class="col-sm-9">
-            <input type="date" th:field="*{paymentDate}" class="form-control"/>
+            <p type="date" th:text="${contract.paymentDate}" class=""/>
           </div>
         </div>
         <div class="form-group">
@@ -60,22 +71,27 @@
             <label th:for="${#ids.next('price')}">Price:</label>
           </div>
           <div class="col-sm-9">
-            <div class="col-xs-8" style="padding-left: 0">
-              <input th:value="*{price.amount > 0} ? *{price.amount}"
-                     th:id="*{'price.amount'}" th:name="*{'price.amount'}"
-                     type="number" class="form-control" required="required" min="0" max="2147483647"/>
-              <input type="hidden" th:field="*{price.id}"/>
+            <div th:if="${contract.id == null}">
+              <div class="col-xs-8" style="padding-left: 0">
+                <input th:value="*{price.amount > 0} ? *{price.amount}"
+                       th:id="*{'price.amount'}" th:name="*{'price.amount'}"
+                       type="number" class="form-control" required="required" min="0" max="2147483647"/>
+                <input type="hidden" th:field="*{price.id}"/>
+              </div>
+              <div class="col-xs-4" style="padding: 0">
+                <select th:field="*{price.currency}" class="form-control" disabled="disabled">
+                  <option th:each="currencyTypeValue : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
+                          th:value="${currencyTypeValue}"
+                          th:text="${currencyTypeValue}"/>
+                </select>
+              </div>
+              <output th:if="${#fields.hasErrors('price')}" th:errors="${contract.price}" class="text-danger">Price
+                Error
+              </output>
             </div>
-            <div class="col-xs-4" style="padding: 0">
-              <select th:field="*{price.currency}" class="form-control">
-                <option th:each="currencyTypeValue : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
-                        th:value="${currencyTypeValue}"
-                        th:text="${currencyTypeValue}"/>
-              </select>
+            <div th:if="${contract.id != null}">
+              <p th:text="${contract.price.amount} + ' ' + ${contract.price.currency}" />
             </div>
-            <output th:if="${#fields.hasErrors('price')}" th:errors="${contract.price}" class="text-danger">Price
-              Error
-            </output>
           </div>
         </div>
         <div class="form-group">
@@ -83,17 +99,22 @@
             <label th:for="${#ids.next('employee')}">Employee:</label>
           </div>
           <div class="col-sm-9">
-            <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
-            <select th:field="*{employee}" class="form-control">
-              <option value="">Select Employee</option>
-              <option th:each="employee : ${employees}"
-                      th:value="${employee.id}"
-                      th:text="${employee.firstName} + ' ' + ${employee.lastName}">
-              </option>
-            </select>
-            <output th:if="${#fields.hasErrors('employee')}" th:errors="*{employee}" class="text-danger">Employee
-              Error
-            </output>
+            <div th:if="${contract.id == null}">
+              <!--/*@thymesVar id="employee" type="ua.com.foxminded.accountingsystem.model.Employee"*/-->
+              <select th:field="*{employee}" class="form-control" >
+                <option value="">Select Employee</option>
+                <option th:each="employee : ${employees}"
+                        th:value="${employee.id}"
+                        th:text="${employee.firstName} + ' ' + ${employee.lastName}">
+                </option>
+              </select>
+              <output th:if="${#fields.hasErrors('employee')}" th:errors="*{employee}" class="text-danger">Employee
+                Error
+              </output>
+            </div>
+            <div th:if="${contract.id != null}">
+              <p th:text="${contract.employee.firstName} + ' ' + ${contract.employee.lastName}" />
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -101,28 +122,35 @@
             <label th:for="${#ids.next('employeeRate.price')}">Employee rate:</label>
           </div>
           <div class="col-sm-9">
-            <div class="col-xs-8" style="padding-left: 0">
-              <input th:value="*{employeeRate.amount > 0} ? *{employeeRate.amount}"
-                     th:id="*{'employeeRate.amount'}" th:name="*{'employeeRate.amount'}"
-                     type="number" class="form-control" required="required" min="0" max="2147483647"/>
+            <div th:if="${contract.id == null}">
+              <div class="col-xs-8" style="padding-left: 0">
+                <input th:value="*{employeeRate.amount > 0} ? *{employeeRate.amount}"
+                       th:id="*{'employeeRate.amount'}" th:name="*{'employeeRate.amount'}"
+                       type="number" class="form-control" required="required" min="0" max="2147483647" />
+              </div>
+              <div class="col-xs-4" style="padding: 0">
+                <select class="form-control" disabled="disabled">
+                  <option selected="selected" th:value="*{employeeRate.currency}"
+                          th:text="*{employeeRate.currency}"/>
+                </select>
+              </div>
+              <output th:if="${#fields.hasErrors('employeeRate.amount')}" th:errors="*{employeeRate.amount}"
+                      class="text-danger">Employee rate error
+              </output>
             </div>
-            <div class="col-xs-4" style="padding: 0">
-              <select class="form-control" disabled="disabled">
-                <option selected="selected" th:value="*{employeeRate.currency}"
-                        th:text="*{employeeRate.currency}"/>
-              </select>
+            <div th:if="${contract.id != null}">
+              <p th:text="${contract.employeeRate.amount} + ' ' + ${contract.employeeRate.currency}" />
             </div>
-            <output th:if="${#fields.hasErrors('employeeRate.amount')}" th:errors="*{employeeRate.amount}"
-                    class="text-danger">Employee rate error
-            </output>
+
           </div>
         </div>
-        <div class="form-group" th:if="${contract.id != null and contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}">
+        <div id="closeDate" class="form-group" style="display: none">
+          <!--${contract.id != null and contract.closeType == T(ua.com.foxminded.accountingsystem.model.CloseType).COMPLETED}-->
           <div class="col-sm-3">
             <label th:for="${#ids.next('closeDate')}">Close date:</label>
           </div>
           <div class="col-sm-9">
-            <input type="date" th:field="*{closeDate}" class="form-control"/>
+            <input type="date" th:field="*{closeDate}" class="form-control" />
           </div>
         </div>
         <div class="form-group">
@@ -130,8 +158,8 @@
             <label th:for="${#ids.next('closeType')}">Close type:</label>
           </div>
           <div class="col-sm-9">
-            <select th:field="*{closeType}" class="form-control">
-              <option value="">Close contract (select type of closing)</option>
+            <select th:field="*{closeType}" class="form-control" id="closeSelect">
+              <option value="" >Close contract (select type of closing)</option>
               <option th:each="closeTypeValue : ${T(ua.com.foxminded.accountingsystem.model.CloseType).values()}"
                       th:value="${closeTypeValue}"
                       th:text="${closeTypeValue}"/>
@@ -158,7 +186,17 @@
       </div>
     </div>
   </div>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function(){
 
+      $('#closeSelect').on('change', function () {
+        $('#closeDate').show();
+      });
+
+    });
+    /*]]>*/
+  </script>
 </section>
 </body>
 </html>
