@@ -55,7 +55,6 @@
             <div th:if="${contract.id != null}" th:remove="tag">
               <p th:text="${contract.paymentType}" />
             </div>
-
           </div>
         </div>
         <div class="form-group">
@@ -146,7 +145,6 @@
             <div th:if="${contract.id != null}"  th:remove="tag">
               <p th:text="${contract.employeeRate.amount} + ' ' + ${contract.employeeRate.currency}" />
             </div>
-
           </div>
         </div>
         <div id="closeDate" class="form-group" th:style="${(contract.id != null and contract.closeType == null) ? 'display : none;' : ''}">
@@ -205,14 +203,12 @@
     $(function(){
 
       $('#closeSelect').on('change', function () {
-        var selected = $('#closeSelect').val();
         if ($('#closeSelect').val() != ""){
           $('#closeDate').show();
         } else {
           $('#closeDate').hide();
         }
       });
-
     });
     /*]]>*/
   </script>
