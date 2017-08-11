@@ -31,7 +31,7 @@
               <input type="date" th:field="*{contractDate}" class="form-control" />
             </div>
             <div th:if="${contract.id != null}" th:remove="tag">
-              <p th:text="${contract.contractDate}" />
+              <p th:text="${contract.contractDate}" class="form-group"/>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
               </output>
             </div>
             <div th:if="${contract.id != null}" th:remove="tag">
-              <p th:text="${contract.paymentType}" />
+              <p th:text="${contract.paymentType}" class="form-group"/>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
               <input type="date" th:field="*{paymentDate}" class="form-control"/>
             </div>
             <div th:if="${contract.id != null}" th:remove="tag">
-              <p th:text="${(contract.paymentDate) != null ? contract.paymentDate : 'not specified' }" />
+              <p th:text="${(contract.paymentDate) != null ? contract.paymentDate : 'not specified' }" class="form-group"/>
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
               </output>
             </div>
             <div th:if="${contract.id != null}" th:remove="tag">
-              <p th:text="${contract.price.amount} + ' ' + ${contract.price.currency}" />
+              <p th:text="${contract.price.amount} + ' ' + ${contract.price.currency}" class="form-group"/>
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@
               </output>
             </div>
             <div th:if="${contract.id != null}" th:remove="tag">
-              <p th:text="${contract.employee.firstName} + ' ' + ${contract.employee.lastName}" />
+              <p th:text="${contract.employee.firstName} + ' ' + ${contract.employee.lastName}" class="form-group"/>
             </div>
           </div>
         </div>
@@ -143,39 +143,24 @@
               </output>
             </div>
             <div th:if="${contract.id != null}"  th:remove="tag">
-              <p th:text="${contract.employeeRate.amount} + ' ' + ${contract.employeeRate.currency}" />
+              <p th:text="${contract.employeeRate.amount} + ' ' + ${contract.employeeRate.currency}" class="form-group"/>
             </div>
           </div>
         </div>
-        <div id="closeDate" class="form-group" th:style="${(contract.id != null and contract.closeType == null) ? 'display : none;' : ''}">
+        <div id="closeDate" class="form-group" th:if="${contract.closeType != null}">
           <div class="col-sm-3">
             <label th:for="${#ids.next('closeDate')}">Close date:</label>
           </div>
           <div class="col-sm-9">
-            <div th:if="${contract.closeDate == null}" th:remove="tag">
-              <input type="date" th:field="*{closeDate}" class="form-control" />
-            </div>
-            <div th:if="${contract.closeDate != null}"  th:remove="tag">
-              <p th:text="${contract.closeDate}" />
-            </div>
+              <p th:text="${contract.closeDate}" class="form-group"/>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" th:if="${contract.closeType != null}">
           <div class="col-sm-3">
             <label th:for="${#ids.next('closeType')}">Close type:</label>
           </div>
           <div class="col-sm-9">
-            <div th:if="${contract.closeType == null}" th:remove="tag">
-              <select th:field="*{closeType}" class="form-control" id="closeSelect">
-                <option value="" >Close contract (select type of closing)</option>
-                <option th:each="closeTypeValue : ${T(ua.com.foxminded.accountingsystem.model.CloseType).values()}"
-                        th:value="${closeTypeValue}"
-                        th:text="${closeTypeValue}"/>
-              </select>
-            </div>
-            <div th:if="${contract.closeType != null}" th:remove="tag">
-              <p th:text="${contract.closeType}" th:remove="tag" />
-            </div>
+            <p th:text="${contract.closeType}" class="form-group"/>
           </div>
         </div>
       </form>
@@ -186,32 +171,25 @@
           <button type="submit" class="btn btn-danger btn" onclick="$('#deleteContract').submit()">Delete</button>
         </div>
         <div class="pull-right col-md-8 col-sm-8 col-xs-9" style="padding: 0">
-          <div class="btn-group btn-group-justified" role="group">
+          <div class="btn-group btn-group-justified" role="group" th:if="${contract.id == null}">
             <div class="btn-group" role="group">
               <a th:href="@{/admin/contracts}" class="btn btn-default">Cancel</a>
             </div>
             <div class="btn-group" role="group">
-              <button type="submit" class="btn btn-primary" onclick="$('#saveContract').submit()">Save</button>
+              <button th:if="${contract.id == null}" type="submit" class="btn btn-primary" onclick="$('#saveContract').submit()">Save</button>
+            </div>
+          </div>
+          <div th:if="${contract.id != null}" class="btn-group btn-group-justified" role="group">
+            <div class="btn-group" role="group">
+              <div class="col-md-4">
+                <a th:href="@{/admin/contracts}" class="btn btn-default">Go Back</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script th:inline="javascript">
-    /*<![CDATA[*/
-    $(function(){
-
-      $('#closeSelect').on('change', function () {
-        if ($('#closeSelect').val() != ""){
-          $('#closeDate').show();
-        } else {
-          $('#closeDate').hide();
-        }
-      });
-    });
-    /*]]>*/
-  </script>
 </section>
 </body>
 </html>
