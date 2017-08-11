@@ -81,7 +81,6 @@ public class AdminInvoiceController {
 
     @PostMapping("/issue")
     public String issueInvoice(@ModelAttribute Invoice invoice) {
-        System.out.println(invoice);
         invoiceService.issueInvoice(invoice);
         return "redirect:/admin/invoices/issue";
     }
