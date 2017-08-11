@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -23,6 +23,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#"><span>Foxminded</span></a>
+      <a sec:authorize="hasAuthority('ADMIN')" class="navbar-brand" href="/admin"><span>Admin Panel</span></a>
     </div>
     <div class="collapse navbar-collapse" id="navbar-ex-collapse">
       <ul class="nav navbar-nav navbar-right">
