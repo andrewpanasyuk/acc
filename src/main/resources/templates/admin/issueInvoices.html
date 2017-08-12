@@ -34,7 +34,10 @@
           <input type="hidden" name="paymentPeriodTo" th:value="${invoice.paymentPeriodTo}"/>
           <input type="hidden" name="contract.id" th:value="${invoice.contract.id}"/>
           <button class="btn btn-primary" type="button"
-                  th:onclick="'setDataInModal(\'' + ${invoice.contract.id} + '\', \''
+                  th:onclick="'setModalData(\'' + ${invoice.contract.id} + '\', \''
+                                                  + ${invoice.contract.deal.client.firstName} + '\', \''
+                                                  + ${invoice.contract.deal.client.lastName} + '\', \''
+                                                  + ${invoice.contract.deal.consultancy.name} + '\', \''
                                                   + ${invoice.price.amount} + '\', \''
                                                   + ${invoice.price.currency} + '\', \''
                                                   + ${invoice.paymentPeriodFrom} + '\', \''
@@ -49,25 +52,68 @@
   </table>
 
   <div id="updateDialog" class="modal fade">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
+
         <div class="modal-header">
           <button class="close" type="button" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Confirm sum invoice</h4>
+          <h4 class="modal-title">Confirm invoice</h4>
         </div>
+
         <div class="modal-body">
-          <form id="correctSum" th:action="@{/admin/invoices/issue}" th:object="${invoice}" method="post">
+          <form id="confirmInvoice" th:action="@{/admin/invoices/issue}" th:object="${invoice}" method="post">
             <input type="hidden" id="contract" name="contract" value=""/>
-            <input type="hidden" id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
-            <input type="hidden" id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
-            <input type="hidden" id="price.currency" name="price.currency" value=""/>
-            <input type="hidden" id="creationDate"  name="creationDate" value=""/>
-            <div class="form-group">
-              <label for="price.amount">Sum:</label>
-              <input type="number" class="form-control" id="price.amount" name="price.amount" value=""/>
+            <input type="hidden" id="currency" name="price.currency" value=""/>
+
+            <div class="col-md-6">
+              <label for="student">Client:</label>
+            </div>
+            <div class="col-md-6">
+              <output id="student" value=""/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="consultancy">Consultancy:</label>
+            </div>
+            <div class="col-md-6">
+              <output id="consultancy" value=""/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="creationDate">Creation Date:</label>
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" type="date" id="creationDate" name="creationDate" value=""/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="paymentPeriodFrom">Payment from:</label>
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" type="date" id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="paymentPeriodTo">Payment to:</label>
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" type="date" id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
+            </div>
+
+            <div class="col-md-6">
+              <label for="amount">Sum:</label>
+            </div>
+            <div class="col-md-3">
+              <input type="number" class="form-control" id="amount" name="price.amount" value=""/>
+            </div>
+            <div class="col-md-3">
+              <output id="currency_value" value=""/>
             </div>
           </form>
-          <button type="delete" form="correctSum" class="btn btn-success" onclick="$('#link').submit()"> Confirm
+        </div>
+
+        <div class="modal-footer">
+          <button form="confirmInvoice" class="btn btn-primary" onclick="$('#link').submit()"> Confirm
           </button>
         </div>
       </div>
@@ -75,16 +121,18 @@
   </div>
 
   <script type="text/javascript">
-    function setDataInModal(contractId, sum, currency, dateFrom, dateTo, creationDate) {
-      document.getElementById('contract').setAttribute('value', contractId);
-      document.getElementById('price.amount').setAttribute('value', sum);
-      document.getElementById('price.currency').setAttribute('value', currency);
-      document.getElementById('paymentPeriodFrom').setAttribute('value', dateFrom);
-      document.getElementById('paymentPeriodTo').setAttribute('value', dateTo);
-      document.getElementById('creationDate').setAttribute('value', creationDate);
+    function setModalData(contractId, firstName, lastName, consultancy, sum, currency, dateFrom, dateTo, creationDate) {
+      $('#contract').val(contractId);
+      $('#creationDate').val(creationDate);
+      $('#paymentPeriodFrom').val(dateFrom);
+      $('#paymentPeriodTo').val(dateTo);
+      $('#student').val(firstName + " " + lastName);
+      $('#consultancy').val(consultancy);
+      $('#amount').val(sum);
+      $('#currency').val(currency);
+      $('#currency_value').text(currency);
     }
   </script>
-
 </section>
 </body>
 </html>
