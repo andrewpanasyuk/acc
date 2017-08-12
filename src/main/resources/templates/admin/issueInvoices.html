@@ -65,6 +65,7 @@
                 th:object="${invoice}" method="post">
             <input type="hidden" id="contract" name="contract" value=""/>
             <input type="hidden" id="currency" name="price.currency" value=""/>
+            <input type="hidden" id="creationDate" name="creationDate" value=""/>
 
             <div class="form-group">
               <div class="col-md-3">
@@ -86,10 +87,10 @@
 
             <div class="form-group">
               <div class="col-md-3">
-                <label for="creationDate" class="control-label">Creation Date:</label>
+                <label for="creationDate_value" class="control-label">Creation Date:</label>
               </div>
               <div class="col-md-9">
-                <input class="form-control datepicker" data-provide="datepicker"  id="creationDate" name="creationDate" value=""/>
+                <output id="creationDate_value" value=""/>
               </div>
             </div>
 
@@ -137,13 +138,14 @@
     /*<![CDATA[*/
     function setModalData(contractId, firstName, lastName, consultancy, sum, currency, dateFrom, dateTo, creationDate) {
       $('#contract').val(contractId);
+      $('#currency').val(currency);
+      $('#creationDate').val(creationDate);
       $('#student').val(firstName + " " + lastName);
       $('#consultancy').val(consultancy);
+      $('#creationDate_value').text(creationDate);
       $('#amount').val(sum);
-      $('#currency').val(currency);
       $('#currency_value').text(currency);
 
-      $('#creationDate').datepicker('update', creationDate);
       $('#paymentPeriodFrom').datepicker('update', dateFrom);
       $('#paymentPeriodTo').datepicker('update', dateTo);
     }
