@@ -17,6 +17,7 @@ import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransfer;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferService;
+import ua.com.foxminded.accountingsystem.service.exception.NotEnoughMoneyException;
 
 @Controller
 @RequestMapping("/admin/clients")
@@ -76,9 +77,15 @@ public class AdminClientController {
     @PostMapping("/withdraw")
     public String withdraw(@ModelAttribute PersonalAccountMoneyTransfer withdraw,
                            @RequestParam Long accountMoneyId,
-                           @RequestParam Long clientId) {
+                           @RequestParam Long clientId,
+                           Model model) {
 
-        moneyTransferService.withdraw(accountMoneyId, withdraw);
-        return "redirect:/admin/clients/" + clientId;
+        try{
+            moneyTransferService.withdraw(accountMoneyId, withdraw);
+        } catch (NotEnoughMoneyException e){
+            model.addAttribute("transferError", e.getMessage());
+        }
+        model.addAttribute("client", clientService.findOne(clientId));
+        return "/admin/client";
     }
 }
