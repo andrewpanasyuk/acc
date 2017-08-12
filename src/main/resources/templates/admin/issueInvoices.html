@@ -29,9 +29,9 @@
       <td th:text="${invoice.price.amount} + ' ' + ${invoice.price.currency}"></td>
       <td>
         <form th:object="${invoice}">
-          <input type="hidden" name="creationDate" th:value="${invoice.creationDate}"/>
-          <input type="hidden" name="paymentPeriodFrom" th:value="${invoice.paymentPeriodFrom}"/>
-          <input type="hidden" name="paymentPeriodTo" th:value="${invoice.paymentPeriodTo}"/>
+          <input type="hidden" name="creationDate" th:value="${#temporals.format(invoice.creationDate, 'dd-MM-yyyy')}"/>
+          <input type="hidden" name="paymentPeriodFrom" th:value="${#temporals.format(invoice.paymentPeriodFrom, 'dd-MM-yyyy')}"/>
+          <input type="hidden" name="paymentPeriodTo" th:value="${#temporals.format(invoice.paymentPeriodTo, 'dd-MM-yyyy')}"/>
           <input type="hidden" name="contract.id" th:value="${invoice.contract.id}"/>
           <button class="btn btn-primary" type="button"
                   th:onclick="'setModalData(\'' + ${invoice.contract.id} + '\', \''
@@ -40,9 +40,9 @@
                                                   + ${invoice.contract.deal.consultancy.name} + '\', \''
                                                   + ${invoice.price.amount} + '\', \''
                                                   + ${invoice.price.currency} + '\', \''
-                                                  + ${invoice.paymentPeriodFrom} + '\', \''
-                                                  + ${invoice.paymentPeriodTo} + '\',  \''
-                                                  + ${invoice.creationDate} + '\');'"
+                                                  + ${#temporals.format(invoice.paymentPeriodFrom, 'dd-MM-yyyy')} + '\', \''
+                                                  + ${#temporals.format(invoice.paymentPeriodTo, 'dd-MM-yyyy')} + '\',  \''
+                                                  + ${#temporals.format(invoice.creationDate, 'dd-MM-yyyy')} + '\');'"
                   data-toggle="modal" data-target="#updateDialog" id="updateButton">Create
           </button>
         </form>
@@ -89,7 +89,7 @@
                 <label for="creationDate" class="control-label">Creation Date:</label>
               </div>
               <div class="col-md-9">
-                <input class="form-control" type="date" id="creationDate" name="creationDate" value=""/>
+                <input class="form-control datepicker" data-provide="datepicker"  id="creationDate" name="creationDate" value=""/>
               </div>
             </div>
 
@@ -98,7 +98,7 @@
                 <label for="paymentPeriodFrom" class="control-label">Payment from:</label>
               </div>
               <div class="col-md-9">
-                <input class="form-control" type="date" id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
+                <input class="form-control datepicker" data-provide="datepicker"  id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
               </div>
             </div>
 
@@ -107,7 +107,7 @@
                 <label for="paymentPeriodTo" class="control-label">Payment to:</label>
               </div>
               <div class="col-md-9">
-                <input class="form-control" type="date" id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
+                <input class="form-control datepicker" data-provide="datepicker"  id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
               </div>
             </div>
 
@@ -134,17 +134,30 @@
   </div>
 
   <script type="text/javascript">
+    /*<![CDATA[*/
     function setModalData(contractId, firstName, lastName, consultancy, sum, currency, dateFrom, dateTo, creationDate) {
       $('#contract').val(contractId);
-      $('#creationDate').val(creationDate);
-      $('#paymentPeriodFrom').val(dateFrom);
-      $('#paymentPeriodTo').val(dateTo);
       $('#student').val(firstName + " " + lastName);
       $('#consultancy').val(consultancy);
       $('#amount').val(sum);
       $('#currency').val(currency);
       $('#currency_value').text(currency);
+
+      $('#creationDate').datepicker('update', creationDate);
+      $('#paymentPeriodFrom').datepicker('update', dateFrom);
+      $('#paymentPeriodTo').datepicker('update', dateTo);
     }
+    $('.datepicker').datepicker({
+      format: "dd-mm-yyyy",
+      todayBtn: "linked",
+      clearBtn: true,
+      language: "ru",
+      calendarWeeks: true,
+      autoclose: true,
+      todayHighlight: true,
+      weekStart: 1
+    });
+    /*]]>*/
   </script>
 </section>
 </body>
