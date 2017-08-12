@@ -61,53 +61,66 @@
         </div>
 
         <div class="modal-body">
-          <form id="confirmInvoice" th:action="@{/admin/invoices/issue}" th:object="${invoice}" method="post">
+          <form id="confirmInvoice" class="form-horizontal" th:action="@{/admin/invoices/issue}"
+                th:object="${invoice}" method="post">
             <input type="hidden" id="contract" name="contract" value=""/>
             <input type="hidden" id="currency" name="price.currency" value=""/>
 
-            <div class="col-md-6">
-              <label for="student">Client:</label>
-            </div>
-            <div class="col-md-6">
-              <output id="student" value=""/>
-            </div>
-
-            <div class="col-md-6">
-              <label for="consultancy">Consultancy:</label>
-            </div>
-            <div class="col-md-6">
-              <output id="consultancy" value=""/>
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="student" class="control-label">Client:</label>
+              </div>
+              <div class="col-md-9">
+                <output id="student" class="form-control" value=""/>
+              </div>
             </div>
 
-            <div class="col-md-6">
-              <label for="creationDate">Creation Date:</label>
-            </div>
-            <div class="col-md-6">
-              <input class="form-control" type="date" id="creationDate" name="creationDate" value=""/>
-            </div>
-
-            <div class="col-md-6">
-              <label for="paymentPeriodFrom">Payment from:</label>
-            </div>
-            <div class="col-md-6">
-              <input class="form-control" type="date" id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="consultancy" class="control-label">Consultancy:</label>
+              </div>
+              <div class="col-md-9">
+                <output id="consultancy" class="form-control" value=""/>
+              </div>
             </div>
 
-            <div class="col-md-6">
-              <label for="paymentPeriodTo">Payment to:</label>
-            </div>
-            <div class="col-md-6">
-              <input class="form-control" type="date" id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="creationDate" class="control-label">Creation Date:</label>
+              </div>
+              <div class="col-md-9">
+                <input class="form-control" type="date" id="creationDate" name="creationDate" value=""/>
+              </div>
             </div>
 
-            <div class="col-md-6">
-              <label for="amount">Sum:</label>
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="paymentPeriodFrom" class="control-label">Payment from:</label>
+              </div>
+              <div class="col-md-9">
+                <input class="form-control" type="date" id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
+              </div>
             </div>
-            <div class="col-md-3">
-              <input type="number" class="form-control" id="amount" name="price.amount" value=""/>
+
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="paymentPeriodTo" class="control-label">Payment to:</label>
+              </div>
+              <div class="col-md-9">
+                <input class="form-control" type="date" id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
+              </div>
             </div>
-            <div class="col-md-3">
-              <output id="currency_value" value=""/>
+
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="amount" class="control-label">Sum:</label>
+              </div>
+              <div class="col-md-5">
+                <input type="number" class="form-control" id="amount" name="price.amount" value=""/>
+              </div>
+              <div class="col-md-4">
+                <output id="currency_value" value=""/>
+              </div>
             </div>
           </form>
         </div>
