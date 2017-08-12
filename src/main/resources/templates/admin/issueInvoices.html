@@ -29,9 +29,9 @@
       <td th:text="${invoice.price.amount} + ' ' + ${invoice.price.currency}"></td>
       <td>
         <form th:object="${invoice}">
-          <input type="hidden" name="creationDate" th:value="${invoice.creationDate}"/>
-          <input type="hidden" name="paymentPeriodFrom" th:value="${invoice.paymentPeriodFrom}"/>
-          <input type="hidden" name="paymentPeriodTo" th:value="${invoice.paymentPeriodTo}"/>
+          <input type="hidden" name="creationDate" th:value="${#temporals.format(invoice.creationDate, 'dd-MM-yyyy')}"/>
+          <input type="hidden" name="paymentPeriodFrom" th:value="${#temporals.format(invoice.paymentPeriodFrom, 'dd-MM-yyyy')}"/>
+          <input type="hidden" name="paymentPeriodTo" th:value="${#temporals.format(invoice.paymentPeriodTo, 'dd-MM-yyyy')}"/>
           <input type="hidden" name="contract.id" th:value="${invoice.contract.id}"/>
           <button class="btn btn-primary" type="button"
                   th:onclick="'setModalData(\'' + ${invoice.contract.id} + '\', \''
@@ -40,9 +40,9 @@
                                                   + ${invoice.contract.deal.consultancy.name} + '\', \''
                                                   + ${invoice.price.amount} + '\', \''
                                                   + ${invoice.price.currency} + '\', \''
-                                                  + ${invoice.paymentPeriodFrom} + '\', \''
-                                                  + ${invoice.paymentPeriodTo} + '\',  \''
-                                                  + ${invoice.creationDate} + '\');'"
+                                                  + ${#temporals.format(invoice.paymentPeriodFrom, 'dd-MM-yyyy')} + '\', \''
+                                                  + ${#temporals.format(invoice.paymentPeriodTo, 'dd-MM-yyyy')} + '\',  \''
+                                                  + ${#temporals.format(invoice.creationDate, 'dd-MM-yyyy')} + '\');'"
                   data-toggle="modal" data-target="#updateDialog" id="updateButton">Create
           </button>
         </form>
@@ -61,54 +61,66 @@
         </div>
 
         <div class="modal-body">
-          <form id="confirmInvoice" th:action="@{/admin/invoices/issue}" th:object="${invoice}" method="post">
+          <form id="confirmInvoice" class="form-horizontal" th:action="@{/admin/invoices/issue}"
+                th:object="${invoice}" method="post">
             <input type="hidden" id="contract" name="contract" value=""/>
             <input type="hidden" id="currency" name="price.currency" value=""/>
-            <input type="hidden" id="creationDate" name="creationDate" value=""/>
 
-            <div class="col-md-3">
-              <label for="student">Client:</label>
-            </div>
-            <div class="col-md-9">
-              <output id="student" value=""/>
-            </div>
-
-            <div class="col-md-3">
-              <label for="consultancy">Consultancy:</label>
-            </div>
-            <div class="col-md-9">
-              <output id="consultancy" value=""/>
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="student" class="control-label">Client:</label>
+              </div>
+              <div class="col-md-9">
+                <output id="student" class="form-control" value=""/>
+              </div>
             </div>
 
-            <div class="col-md-3">
-              <label for="creationDate">Creation Date:</label>
-            </div>
-            <div class="col-md-9">
-              <output id="creationDate_value" value=""/>
-            </div>
-
-            <div class="col-md-3">
-              <label for="paymentPeriodFrom">Payment from:</label>
-            </div>
-            <div class="col-md-9">
-              <input class="form-control" type="date" id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="consultancy" class="control-label">Consultancy:</label>
+              </div>
+              <div class="col-md-9">
+                <output id="consultancy" class="form-control" value=""/>
+              </div>
             </div>
 
-            <div class="col-md-3">
-              <label for="paymentPeriodTo">Payment to:</label>
-            </div>
-            <div class="col-md-9">
-              <input class="form-control" type="date" id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="creationDate" class="control-label">Creation Date:</label>
+              </div>
+              <div class="col-md-9">
+                <input class="form-control datepicker" data-provide="datepicker"  id="creationDate" name="creationDate" value=""/>
+              </div>
             </div>
 
-            <div class="col-md-3">
-              <label for="amount">Sum:</label>
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="paymentPeriodFrom" class="control-label">Payment from:</label>
+              </div>
+              <div class="col-md-9">
+                <input class="form-control datepicker" data-provide="datepicker"  id="paymentPeriodFrom" name="paymentPeriodFrom" value=""/>
+              </div>
             </div>
-            <div class="col-md-5">
-              <input type="number" class="form-control" id="amount" name="price.amount" value=""/>
+
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="paymentPeriodTo" class="control-label">Payment to:</label>
+              </div>
+              <div class="col-md-9">
+                <input class="form-control datepicker" data-provide="datepicker"  id="paymentPeriodTo" name="paymentPeriodTo" value=""/>
+              </div>
             </div>
-            <div class="col-md-4">
-              <output id="currency_value" value=""/>
+
+            <div class="form-group">
+              <div class="col-md-3">
+                <label for="amount" class="control-label">Sum:</label>
+              </div>
+              <div class="col-md-5">
+                <input type="number" class="form-control" id="amount" name="price.amount" value=""/>
+              </div>
+              <div class="col-md-4">
+                <output id="currency_value" value=""/>
+              </div>
             </div>
           </form>
         </div>
@@ -122,18 +134,30 @@
   </div>
 
   <script type="text/javascript">
+    /*<![CDATA[*/
     function setModalData(contractId, firstName, lastName, consultancy, sum, currency, dateFrom, dateTo, creationDate) {
       $('#contract').val(contractId);
-      $('#creationDate').val(creationDate);
-      $('#creationDate_value').text(creationDate);
-      $('#paymentPeriodFrom').val(dateFrom);
-      $('#paymentPeriodTo').val(dateTo);
       $('#student').val(firstName + " " + lastName);
       $('#consultancy').val(consultancy);
       $('#amount').val(sum);
       $('#currency').val(currency);
       $('#currency_value').text(currency);
+
+      $('#creationDate').datepicker('update', creationDate);
+      $('#paymentPeriodFrom').datepicker('update', dateFrom);
+      $('#paymentPeriodTo').datepicker('update', dateTo);
     }
+    $('.datepicker').datepicker({
+      format: "dd-mm-yyyy",
+      todayBtn: "linked",
+      clearBtn: true,
+      language: "ru",
+      calendarWeeks: true,
+      autoclose: true,
+      todayHighlight: true,
+      weekStart: 1
+    });
+    /*]]>*/
   </script>
 </section>
 </body>
