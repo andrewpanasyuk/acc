@@ -81,4 +81,13 @@ public class AdminClientController {
         moneyTransferService.withdraw(accountMoneyId, withdraw);
         return "redirect:/admin/clients/" + clientId;
     }
+
+    @PostMapping("/addFunds")
+    public String addFunds(@ModelAttribute PersonalAccountMoneyTransfer deposit,
+                           @RequestParam Long clientId) {
+
+        System.out.println("Deposit: " + deposit);
+        moneyTransferService.addFunds(deposit);
+        return "redirect:/admin/clients/" + clientId;
+    }
 }
