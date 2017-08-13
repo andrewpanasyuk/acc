@@ -107,7 +107,7 @@
         </tbody>
       </table>
       <br/>
-
+      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addFundsModal">Add Funds</button>
     </div>
   </div>
   <form th:object="${client}">
@@ -183,6 +183,51 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button submit" class="btn btn-primary" form="withdrawForm">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Add Funds-->
+  <div class="modal fade" id="addFundsModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="addFundsModalLabel">Add Funds</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <form id="addFundsForm" th:action="@{/admin/clients/addFunds}" method="post">
+              <div class="form-group">
+                <div class="col-sm-8">
+                  <input type="number" name="money.amount" class="form-control"
+                         placeholder="Withdraw amount" value="0" th:required="required"/>
+                </div>
+                <div class="col-sm-4">
+                  <select name="money.currency" class="form-control" th:required="required">
+                    <option th:each="currencyTypeValue : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
+                            th:value="${currencyTypeValue}"
+                            th:text="${currencyTypeValue}"/>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-12">
+              <div class="form-group">
+
+                <textarea id="addFundsDescriptionModal" name="description" class="form-control"
+                          placeholder="Description of withdraw" th:required="required" rows="2"/>
+                </div>
+              </div>
+              <input type="hidden" id="addFundsTransferTypeModal" name="transferType" th:value="${T(ua.com.foxminded.accountingsystem.model.TransferType).INCOME}"/>
+              <input type="hidden" id="addFundsAccountIdModal" name="personalAccount" th:value="${client.personalAccount}"/>
+              <input type="hidden" id="addFundsClientModal" name="clientId" th:value="${client.id}"/>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button submit" class="btn btn-primary" form="addFundsForm">Save changes</button>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 @Service
 public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMoneyTransferService {
 
+
     private final PersonalAccountMoneyTransferRepository moneyTransferRepository;
     private final MoneyRepository moneyRepository;
 
@@ -38,5 +39,10 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
         } else {
             throw new NotEnoughMoneyException("Withdraw rejected. Have no money for this transaction.");
         }
+    }
+
+    @Override
+    public void addFunds(PersonalAccountMoneyTransfer deposit) {
+        System.out.println("addFunds" + deposit);
     }
 }
