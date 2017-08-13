@@ -214,7 +214,7 @@
                 </div>
               </div>
               <input type="hidden" id="addFundsTransferTypeModal" name="transferType" th:value="${T(ua.com.foxminded.accountingsystem.model.TransferType).INCOME}"/>
-              <input type="hidden" id="addFundsAccountIdModal" name="personalAccount" th:value="${client.personalAccount}"/>
+              <input type="hidden" id="addFundsAccountIdModal" name="personalAccount.id" th:value="${client.personalAccount.id}"/>
               <input type="hidden" id="addFundsClientModal" name="clientId" th:value="${client.id}"/>
             </form>
         </div>
