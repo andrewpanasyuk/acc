@@ -189,7 +189,8 @@
   </div>
 
   <!-- Modal Add Funds-->
-  <div class="modal fade" id="addFundsModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel">
+  <div id="fixed-table-toolbar--buttons-client" class="pull-right search">
+  <div class="modal fade" id="addFundsModal" role="dialog" aria-labelledby="withdrawModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -197,12 +198,11 @@
           <h4 class="modal-title" id="addFundsModalLabel">Add Funds</h4>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <form id="addFundsForm" th:action="@{/admin/clients/addFunds}" method="post">
+            <form id="addFundsForm" th:action="@{/admin/clients/addFunds}" method="post" class="form-horizontal">
               <div class="form-group">
                 <div class="col-sm-8">
                   <input type="number" name="money.amount" class="form-control"
-                         placeholder="Withdraw amount" value="0" th:required="required"/>
+                         placeholder="Deposit amount" value="0" th:required="required"/>
                 </div>
                 <div class="col-sm-4">
                   <select name="money.currency" class="form-control" th:required="required">
@@ -212,18 +212,17 @@
                   </select>
                 </div>
               </div>
-              <div class="col-sm-12">
-              <div class="form-group">
 
+              <div class="form-group">
+                <div class="col-sm-12">
                 <textarea id="addFundsDescriptionModal" name="description" class="form-control"
-                          placeholder="Description of withdraw" th:required="required" rows="2"/>
+                          placeholder="Description of deposit" th:required="required" rows="2"/>
                 </div>
               </div>
               <input type="hidden" id="addFundsTransferTypeModal" name="transferType" th:value="${T(ua.com.foxminded.accountingsystem.model.TransferType).INCOME}"/>
               <input type="hidden" id="addFundsAccountIdModal" name="personalAccount" th:value="${client.personalAccount}"/>
               <input type="hidden" id="addFundsClientModal" name="clientId" th:value="${client.id}"/>
             </form>
-          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -231,6 +230,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 
   <script th:inline="javascript">
