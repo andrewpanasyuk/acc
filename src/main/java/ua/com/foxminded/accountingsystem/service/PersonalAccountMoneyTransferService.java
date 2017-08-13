@@ -6,5 +6,5 @@ public interface PersonalAccountMoneyTransferService {
 
     void withdraw(Long accountMoneyId, PersonalAccountMoneyTransfer moneyTransfer);
 
-    void addFunds(PersonalAccountMoneyTransfer withdraw);
+    void deposit(PersonalAccountMoneyTransfer withdraw);
 }
