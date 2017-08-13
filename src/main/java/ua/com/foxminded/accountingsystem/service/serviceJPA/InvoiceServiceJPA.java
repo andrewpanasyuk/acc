@@ -57,7 +57,7 @@ public class InvoiceServiceJPA implements InvoiceService {
         long monthsPassedSinceFirstPayment = MONTHS.between(contractPaymentDate, currentDate);
         LocalDate paymentDate = contractPaymentDate.plusMonths(monthsPassedSinceFirstPayment + 1L);
 
-        invoice.setPaymentPeriodTo(paymentDate);
+        invoice.setPaymentPeriodTo(paymentDate.minusDays(1L));
         invoice.setPaymentPeriodFrom(paymentDate.minusMonths(1L));
         invoice.setPrice(amountForInvoice);
         invoice.setCreationDate(LocalDate.now());

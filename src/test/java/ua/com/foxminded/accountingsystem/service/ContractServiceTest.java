@@ -95,7 +95,7 @@ public class ContractServiceTest {
     @Test
     public void invoicesHaveCorrectPaymentPeriod(){
         ReflectionTestUtils.setField(contractService, "signalPeriod", signalPeriod);
-        when(contractRepository.findContractsForInvoicesCreation(payDate.getDayOfMonth(), billDate)).thenReturn(contractsForPayment);
+        when(contractRepository.findContractsForInvoicesCreation(payDate.getDayOfMonth())).thenReturn(contractsForPayment);
 
         assertThat(contractService.prepareIssueInvoices(), is(createdInvoices));
     }
