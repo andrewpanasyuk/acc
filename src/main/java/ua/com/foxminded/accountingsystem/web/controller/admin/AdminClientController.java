@@ -89,12 +89,11 @@ public class AdminClientController {
         return "/admin/client";
     }
 
-    @PostMapping("/addFunds")
-    public String addFunds(@ModelAttribute PersonalAccountMoneyTransfer deposit,
-                           @RequestParam Long clientId) {
+    @PostMapping("/deposit")
+    public String deposit(@ModelAttribute PersonalAccountMoneyTransfer deposit,
+                          @RequestParam Long clientId) {
 
-        System.out.println("Deposit: " + deposit);
-        moneyTransferService.addFunds(deposit);
+        moneyTransferService.deposit(deposit);
         return "redirect:/admin/clients/" + clientId;
     }
 }

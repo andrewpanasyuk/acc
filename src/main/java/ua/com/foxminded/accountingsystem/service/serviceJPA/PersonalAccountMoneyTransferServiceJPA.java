@@ -47,17 +47,24 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
 
     @Override
     @Transactional
-    public void addFunds(PersonalAccountMoneyTransfer deposit) {
+    public void deposit(PersonalAccountMoneyTransfer deposit) {
         PersonalAccount account = personalAccountRepository.findOne(deposit.getPersonalAccount().getId());
-        System.out.println("Personal acc: " + account);
+        boolean moneyFound = false;
         for (Money money  : account.getMoney()){
-            System.out.println("Money: " + money);
             if (money.getCurrency().equals(deposit.getMoney().getCurrency())){
                 money.setAmount(money.getAmount() + Math.abs(deposit.getMoney().getAmount()));
                 moneyRepository.save(money);
                 moneyTransferRepository.save(deposit);
+                moneyFound = true;
                 break;
             }
         }
+        if (!moneyFound) {
+            Money newMoney = new Money(Math.abs(deposit.getMoney().getAmount()), deposit.getMoney().getCurrency());
+            account.getMoney().add(newMoney);
+            personalAccountRepository.save(account);
+            moneyTransferRepository.save(deposit);
+        }
+
     }
 }
