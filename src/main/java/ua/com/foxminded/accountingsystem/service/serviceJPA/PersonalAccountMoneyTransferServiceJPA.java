@@ -3,9 +3,11 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Money;
+import ua.com.foxminded.accountingsystem.model.PersonalAccount;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransfer;
 import ua.com.foxminded.accountingsystem.repository.MoneyRepository;
 import ua.com.foxminded.accountingsystem.repository.PersonalAccountMoneyTransferRepository;
+import ua.com.foxminded.accountingsystem.repository.PersonalAccountRepository;
 import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferService;
 import ua.com.foxminded.accountingsystem.service.exception.NotEnoughMoneyException;
 
@@ -17,11 +19,13 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
 
     private final PersonalAccountMoneyTransferRepository moneyTransferRepository;
     private final MoneyRepository moneyRepository;
+    private final PersonalAccountRepository personalAccountRepository;
 
     @Autowired
-    public PersonalAccountMoneyTransferServiceJPA(PersonalAccountMoneyTransferRepository moneyTransferRepository, MoneyRepository moneyRepository) {
+    public PersonalAccountMoneyTransferServiceJPA(PersonalAccountMoneyTransferRepository moneyTransferRepository, MoneyRepository moneyRepository, PersonalAccountRepository personalAccountRepository) {
         this.moneyTransferRepository = moneyTransferRepository;
         this.moneyRepository = moneyRepository;
+        this.personalAccountRepository = personalAccountRepository;
     }
 
     @Override
@@ -42,7 +46,18 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
     }
 
     @Override
+    @Transactional
     public void addFunds(PersonalAccountMoneyTransfer deposit) {
-        System.out.println("addFunds" + deposit);
+        PersonalAccount account = personalAccountRepository.findOne(deposit.getPersonalAccount().getId());
+        System.out.println("Personal acc: " + account);
+        for (Money money  : account.getMoney()){
+            System.out.println("Money: " + money);
+            if (money.getCurrency().equals(deposit.getMoney().getCurrency())){
+                money.setAmount(money.getAmount() + Math.abs(deposit.getMoney().getAmount()));
+                moneyRepository.save(money);
+                moneyTransferRepository.save(deposit);
+                break;
+            }
+        }
     }
 }
