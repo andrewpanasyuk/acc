@@ -78,7 +78,7 @@ public class ContractServiceTest {
         postpayInvoice.setCreationDate(billDate);
 
         prepayInvoice.setPaymentPeriodFrom(payDate);
-        prepayInvoice.setPaymentPeriodTo(payDate.plusMonths(1));
+        prepayInvoice.setPaymentPeriodTo(payDate.plusMonths(1).minusDays(1));
         postpayInvoice.setPaymentPeriodFrom(payDate.minusMonths(1));
         postpayInvoice.setPaymentPeriodTo(payDate);
 

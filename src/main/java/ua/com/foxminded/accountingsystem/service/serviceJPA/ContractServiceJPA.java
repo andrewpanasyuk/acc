@@ -107,7 +107,7 @@ public class ContractServiceJPA implements ContractService {
                 paymentPeriodTo = today.plusDays(signalPeriod).plusMonths(1).minusDays(1L);
             } else {
                 paymentPeriodFrom = today.plusDays(signalPeriod).minusMonths(1);
-                paymentPeriodTo = today.plusDays(signalPeriod).minusDays(1L);
+                paymentPeriodTo = today.plusDays(signalPeriod);
             }
             invoices.add(new Invoice(today, contract, paymentPeriodFrom, paymentPeriodTo, contract.getPrice()));
         }
