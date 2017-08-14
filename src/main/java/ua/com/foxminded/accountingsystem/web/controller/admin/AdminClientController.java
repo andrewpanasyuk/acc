@@ -85,11 +85,11 @@ public class AdminClientController {
         try{
             moneyTransferService.withdraw(accountMoneyId, withdraw);
         } catch (NotEnoughMoneyException e){
-            redirectAttributes.addAttribute("transferError", e.getMessage());
+            redirectAttributes.addAttribute("clientId", clientId).addFlashAttribute("transferError", e.getMessage());
         }
         model.addAttribute("client", clientService.findOne(clientId));
 
-        return "redirect:/admin/clients/" + clientId;
+        return "redirect:/admin/clients/{clientId}";
     }
 
     @PostMapping("/deposit")
