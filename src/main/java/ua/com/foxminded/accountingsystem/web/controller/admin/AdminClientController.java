@@ -76,25 +76,20 @@ public class AdminClientController {
     }
 
     @PostMapping("/withdraw")
-    public String withdraw(@ModelAttribute PersonalAccountMoneyTransfer withdraw,
-                           @RequestParam Long accountMoneyId,
-                           @RequestParam Long clientId,
-                           Model model,
-                           RedirectAttributes redirectAttributes) {
+    public String withdraw(@ModelAttribute PersonalAccountMoneyTransfer withdraw, @RequestParam Long clientId,
+                           RedirectAttributes redirectAttrs) {
 
         try{
-            moneyTransferService.withdraw(accountMoneyId, withdraw);
+            moneyTransferService.withdraw(withdraw);
         } catch (NotEnoughMoneyException e){
-            redirectAttributes.addAttribute("clientId", clientId).addFlashAttribute("transferError", e.getMessage());
+            redirectAttrs.addFlashAttribute("transferError", e.getMessage());
         }
-        model.addAttribute("client", clientService.findOne(clientId));
 
-        return "redirect:/admin/clients/{clientId}";
+        return "redirect:/admin/clients/" + clientId;
     }
 
     @PostMapping("/deposit")
-    public String deposit(@ModelAttribute PersonalAccountMoneyTransfer deposit,
-                          @RequestParam Long clientId) {
+    public String deposit(@ModelAttribute PersonalAccountMoneyTransfer deposit, @RequestParam Long clientId) {
 
         moneyTransferService.deposit(deposit);
         return "redirect:/admin/clients/" + clientId;

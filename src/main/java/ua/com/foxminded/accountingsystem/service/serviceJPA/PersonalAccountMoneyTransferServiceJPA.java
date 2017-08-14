@@ -30,16 +30,25 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
 
     @Override
     @Transactional
-    public void withdraw(Long accountMoneyId, PersonalAccountMoneyTransfer moneyTransfer) {
+    public void withdraw(PersonalAccountMoneyTransfer withdraw) {
 
-        Money currentBalance = moneyRepository.findOne(accountMoneyId);
+        PersonalAccount account = personalAccountRepository.findOne(withdraw.getPersonalAccount().getId());
+        Money currentBalance = null;
+        for (Money money: account.getMoney()) {
+            if (money.getCurrency().equals(withdraw.getMoney().getCurrency())){
+                currentBalance = money;
+                break;
+            }
+        }
+        if (currentBalance == null){
+            return;
+        }
+        long withdrawAmount = Math.abs(withdraw.getMoney().getAmount());
 
-        long withdrawValue = Math.abs(moneyTransfer.getMoney().getAmount());
-
-        if (currentBalance.getAmount() > 0 && currentBalance.getAmount() >= withdrawValue){
-            currentBalance.setAmount(currentBalance.getAmount() - withdrawValue);
+        if (currentBalance.getAmount() > 0 && currentBalance.getAmount() >= withdrawAmount){
+            currentBalance.setAmount(currentBalance.getAmount() - withdrawAmount);
             moneyRepository.save(currentBalance);
-            moneyTransferRepository.save(moneyTransfer);
+            moneyTransferRepository.save(withdraw);
         } else {
             throw new NotEnoughMoneyException("Withdraw rejected. Have no money for this transaction.");
         }
