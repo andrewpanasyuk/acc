@@ -104,4 +104,12 @@ public class AdminClientController {
         moneyTransferService.deposit(deposit);
         return "redirect:/admin/clients/" + clientId;
     }
+
+    @PostMapping("/deposit")
+    public String deposit(@ModelAttribute PersonalAccountMoneyTransfer deposit,
+                          @RequestParam Long clientId) {
+
+        moneyTransferService.deposit(deposit);
+        return "redirect:/admin/clients/" + clientId;
+    }
 }
