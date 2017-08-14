@@ -2,7 +2,6 @@ package ua.com.foxminded.accountingsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 
 import java.util.List;
@@ -17,4 +16,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     List<Invoice> findDebtInvoices();
 
     Invoice findFirstByContractDealIdOrderByCreationDateDesc(long dealId);
+
+    @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE FUNCTION('DAY', invoice.paymentPeriodFrom) = ?1")
+    List<Invoice> getAllByDay(int day);
 }
