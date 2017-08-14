@@ -48,17 +48,6 @@ public class SalaryItemServiceJPA implements SalaryItemService {
         return salaryItemRepository.findAll();
     }
 
-    @Override
-    public SalaryItem createSalaryItem(Invoice invoice) {
-
-        Money employeePayment = new Money(invoice.getContract().getEmployeeRate().getAmount(),
-            invoice.getContract().getEmployeeRate().getCurrency());
-
-        SalaryItem salaryItem = new SalaryItem(invoice.getContract().getEmployee(), invoice, employeePayment,
-            invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodTo());
-
-        return salaryItemRepository.save(salaryItem);
-    }
 
     @Override
     public SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate) {
