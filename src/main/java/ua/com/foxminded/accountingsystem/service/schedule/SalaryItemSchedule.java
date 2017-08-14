@@ -24,7 +24,7 @@ public class SalaryItemSchedule {
         this.salaryItemRepository = salaryItemRepository;
     }
 
-    @Scheduled(cron = "0 1 0 ? * * *")
+    @Scheduled(cron = "${salary.item.creation.schedule}")
     public void scheduleSalaryItemCreation() {
         List<Invoice> invoiceList = invoiceRepository.getAllByDay(LocalDate.now().getDayOfMonth() - 1);
         for (Invoice invoice : invoiceList) {
