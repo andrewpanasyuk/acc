@@ -50,9 +50,10 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
     public void deposit(PersonalAccountMoneyTransfer deposit) {
         PersonalAccount account = personalAccountRepository.findOne(deposit.getPersonalAccount().getId());
         boolean moneyFound = false;
+        long depositAmount = Math.abs(deposit.getMoney().getAmount());
         for (Money money  : account.getMoney()){
             if (money.getCurrency().equals(deposit.getMoney().getCurrency())){
-                money.setAmount(money.getAmount() + Math.abs(deposit.getMoney().getAmount()));
+                money.setAmount(money.getAmount() + depositAmount);
                 moneyRepository.save(money);
                 moneyTransferRepository.save(deposit);
                 moneyFound = true;
@@ -60,7 +61,7 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
             }
         }
         if (!moneyFound) {
-            Money newMoney = new Money(Math.abs(deposit.getMoney().getAmount()), deposit.getMoney().getCurrency());
+            Money newMoney = new Money(depositAmount, deposit.getMoney().getCurrency());
             account.getMoney().add(newMoney);
             personalAccountRepository.save(account);
             moneyTransferRepository.save(deposit);
