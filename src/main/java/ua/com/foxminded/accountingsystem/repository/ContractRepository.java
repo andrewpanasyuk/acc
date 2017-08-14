@@ -5,18 +5,16 @@ import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Deal;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     @Query("SELECT c FROM Contract as c WHERE c.closeType is NULL " +
-        "AND function('DAY', c.paymentDate) = ?1 " +
+        "AND function('DAY', c.paymentDate) <= ?1 " +
         "AND c.paymentType is NOT ua.com.foxminded.accountingsystem.model.PaymentType.TRIAL " +
-        "AND c.id NOT IN(" +
-        "SELECT processed FROM Contract as processed join processed.invoices as i " +
-        "WHERE i.creationDate = ?2 )")
-    List<Contract> findContractsForInvoicesCreation(int payDay, LocalDate today);
+        "AND NOT EXISTS(SELECT contract FROM Contract contract JOIN contract.invoices as i " +
+        "LEFT JOIN i.payment as p WHERE p.id IS NULL AND contract.id = c.id)")
+    List<Contract> findContractsForInvoicesCreation(int payDay);
 
     List<Contract> findAllByDealOrderByContractDateDesc(Deal deal);
 

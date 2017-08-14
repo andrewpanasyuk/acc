@@ -30,18 +30,18 @@ public class Invoice extends AbstractAuditEntity {
     private Long id;
 
     @Column(name = "creation_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Contract contract;
 
     @Column(name = "period_from")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate paymentPeriodFrom;
 
     @Column(name = "period_to")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate paymentPeriodTo;
 
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)

@@ -100,17 +100,15 @@ public class ContractServiceJPA implements ContractService {
         LocalDate payDay = today.plusDays(signalPeriod);
         LocalDate paymentPeriodFrom;
         LocalDate paymentPeriodTo;
-        List<Contract> contracts = contractRepository.findContractsForInvoicesCreation(payDay.getDayOfMonth(),
-            today);
+        List<Contract> contracts = contractRepository.findContractsForInvoicesCreation(payDay.getDayOfMonth());
         for (Contract contract : contracts) {
             if (contract.getPaymentType() == PaymentType.PREPAY) {
                 paymentPeriodFrom = today.plusDays(signalPeriod);
-                paymentPeriodTo = today.plusDays(signalPeriod).plusMonths(1);
+                paymentPeriodTo = today.plusDays(signalPeriod).plusMonths(1).minusDays(1L);
             } else {
                 paymentPeriodFrom = today.plusDays(signalPeriod).minusMonths(1);
-                paymentPeriodTo = today.plusDays(signalPeriod);
+                paymentPeriodTo = today.plusDays(signalPeriod).minusDays(1L);
             }
-
             invoices.add(new Invoice(today, contract, paymentPeriodFrom, paymentPeriodTo, contract.getPrice()));
         }
         return invoices;
