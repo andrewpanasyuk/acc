@@ -29,7 +29,7 @@ public class PersonalAccountMoneyTransferServiceJPA implements PersonalAccountMo
 
         Money currentBalance = moneyRepository.findOne(accountMoneyId);
 
-        long withdrawValue = moneyTransfer.getMoney().getAmount();
+        long withdrawValue = Math.abs(moneyTransfer.getMoney().getAmount());
 
         if (currentBalance.getAmount() > 0 && currentBalance.getAmount() >= withdrawValue){
             currentBalance.setAmount(currentBalance.getAmount() - withdrawValue);
