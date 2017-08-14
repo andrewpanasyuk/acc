@@ -34,7 +34,7 @@ public class Contract extends AbstractAuditEntity {
     @SequenceGenerator(name = "contract_sequence", sequenceName = "contract_sequence", initialValue = 50)
     private Long id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "contract_date")
     private LocalDate contractDate;
 
@@ -65,14 +65,14 @@ public class Contract extends AbstractAuditEntity {
     @JoinColumn(name = "employee_rate_id")
     private Money employeeRate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
     @OneToMany(mappedBy = "contract", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<Invoice> invoices;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "close_date")
     private LocalDate closeDate;
 
