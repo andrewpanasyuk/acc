@@ -61,8 +61,8 @@ public class AdminContractController {
         return "admin/contract";
     }
 
-    @PutMapping()
-    public String save(@ModelAttribute Contract contract, BindingResult bindingResult, Model model) {
+    @PutMapping
+    public String save(@Valid Contract contract, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("employees", employeeService.findAll());
             return "admin/contract";
