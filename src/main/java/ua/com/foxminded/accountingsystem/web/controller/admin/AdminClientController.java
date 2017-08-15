@@ -77,12 +77,12 @@ public class AdminClientController {
 
     @PostMapping("/withdraw")
     public String withdraw(@ModelAttribute PersonalAccountMoneyTransfer withdraw, @RequestParam Long clientId,
-                           RedirectAttributes redirectAttrs) {
+                           RedirectAttributes redirectAttributes) {
 
         try{
             moneyTransferService.withdraw(withdraw);
         } catch (NotEnoughMoneyException e){
-            redirectAttrs.addFlashAttribute("transferError", e.getMessage());
+            redirectAttributes.addFlashAttribute("transferError", e.getMessage());
         }
 
         return "redirect:/admin/clients/" + clientId;
