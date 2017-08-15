@@ -1,14 +1,15 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="admin/mainTemplate">
 <head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
 </head>
 <body>
 <section layout:fragment="content">
   <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
   <div class="row">
     <div class="col-md-6">
-      <form id="saveContract" class="form-horizontal" th:action="@{/admin/contracts}" th:object="${contract}"
-            method="post">
+      <form id="saveContract" class="form-horizontal" th:object="${contract}"
+            th:action="@{/admin/contracts/{id}(id=${contract.id})}" th:method="put">
         <input type="hidden" th:field="*{id}"/>
         <input type="hidden" th:field="*{deal}"/>
         <input type="hidden" th:field="*{employeeRate.id}"/>
