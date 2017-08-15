@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransfer;
 import ua.com.foxminded.accountingsystem.service.ClientService;
@@ -75,17 +76,22 @@ public class AdminClientController {
     }
 
     @PostMapping("/withdraw")
-    public String withdraw(@ModelAttribute PersonalAccountMoneyTransfer withdraw,
-                           @RequestParam Long accountMoneyId,
-                           @RequestParam Long clientId,
-                           Model model) {
+    public String withdraw(@ModelAttribute PersonalAccountMoneyTransfer withdraw, @RequestParam Long clientId,
+                           RedirectAttributes redirectAttributes) {
 
         try{
-            moneyTransferService.withdraw(accountMoneyId, withdraw);
+            moneyTransferService.withdraw(withdraw);
         } catch (NotEnoughMoneyException e){
-            model.addAttribute("transferError", e.getMessage());
+            redirectAttributes.addFlashAttribute("transferError", e.getMessage());
         }
-        model.addAttribute("client", clientService.findOne(clientId));
-        return "/admin/client";
+
+        return "redirect:/admin/clients/" + clientId;
+    }
+
+    @PostMapping("/deposit")
+    public String deposit(@ModelAttribute PersonalAccountMoneyTransfer deposit, @RequestParam Long clientId) {
+
+        moneyTransferService.deposit(deposit);
+        return "redirect:/admin/clients/" + clientId;
     }
 }
