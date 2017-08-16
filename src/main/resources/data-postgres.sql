@@ -212,12 +212,12 @@ INSERT INTO deal_queue (id, queuing_date, priority, deal_id, created_by, created
     (3, now() - interval '4 day', 'NORMAL', 4, 'system', '2017-07-11');
 
 INSERT INTO salary(id, date_salary, date_from, date_to, employee_id, paid, total_amount_id) VALUES
-    (1, now() - interval '2 mon + 21 day', now() - interval '3 mon + 20 day', now() - interval '2 mon + 21 day', 1, TRUE, 47),
-    (2, now() - interval '1 mon + 21 day', now() - interval '2 mon + 20 day', now() - interval '1 mon + 21 day', 1, TRUE, 48),
-    (3, now() - interval '21 day', now() - interval '1 mon + 20 day', now() - interval '21 day', 1, TRUE, 49),
-    (4, now() - interval '1 mon + 21 day', now() - interval '2 mon + 20 day', now() - interval '1 mon + 21 day', 4, TRUE, 50),
-    (5, now() - interval '21 day', now() - interval '1 mon + 20 day', now() - interval '21 day', 4, TRUE, 51),
-    (6, now() - interval '21 day', now() - interval '1 mon + 20 day', now() - interval '21 day', 2, TRUE, 52);
+    (1, now() - interval '2 mon' - interval '21 day', now() - interval '3 mon' - interval '21 day', now() - interval '2 mon' - interval '21 day', 1, TRUE, 47),
+    (2, now() - interval '1 mon' - interval '21 day', now() - interval '2 mon' - interval '21 day', now() - interval '1 mon' - interval '21 day', 1, TRUE, 48),
+    (3, now() - interval '21 day', now() - interval '1 mon' - interval '21 day', now() - interval '21 day', 1, TRUE, 49),
+    (4, now() - interval '1 mon' - interval '21 day', now() - interval '2 mon' - interval '21 day', now() - interval '1 mon' - interval '21 day', 4, TRUE, 50),
+    (5, now() - interval '21 day', now() - interval '1 mon' - interval '21 day', now() - interval '21 day', 4, TRUE, 51),
+    (6, now() - interval '21 day', now() - interval '1 mon' - interval '21 day', now() - interval '21 day', 2, TRUE, 52);
 
 INSERT INTO salary_item(id, salary_id, employee_id, invoice_id, employee_payment_id, date_from, date_to, accounted) VALUES
     (1, null, 1, 1, 22, now() - interval '4 mon', now() - interval '3 mon + 1 day', FALSE),
