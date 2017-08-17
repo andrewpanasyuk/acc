@@ -11,7 +11,7 @@ public class FlywayConfig {
 
     @Bean
     @Profile("prod")
-    public FlywayMigrationStrategy cleanMigrateStrategy() {
+    public FlywayMigrationStrategy migrateStrategyForProd() {
 
         return flyway -> {
             flyway.clean();
@@ -22,7 +22,7 @@ public class FlywayConfig {
 
     @Bean
     @Profile("dev")
-    public FlywayMigrationStrategy migrateStrategy() {
+    public FlywayMigrationStrategy migrateStrategyForDev() {
 
         return flyway -> {
             flyway.clean();
