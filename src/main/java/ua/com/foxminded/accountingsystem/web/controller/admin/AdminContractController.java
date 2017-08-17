@@ -55,9 +55,11 @@ public class AdminContractController {
 
     @GetMapping("/{id}")
     public String getContract(@PathVariable Long id, Model model) {
+        Contract contract = contractService.findOne(id);
         model
-            .addAttribute("contract", contractService.findOne(id))
-            .addAttribute("employees", employeeService.findAll());
+            .addAttribute("contract", contract)
+            .addAttribute("employees", employeeService.findAll())
+            .addAttribute("payments", contractService.findAllRelatedPayments(contract));
         return "admin/contract";
     }
 
