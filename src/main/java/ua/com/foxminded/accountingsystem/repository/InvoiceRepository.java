@@ -17,6 +17,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
     Invoice findFirstByContractDealIdOrderByCreationDateDesc(long dealId);
 
-    @Query("SELECT DISTINCT invoice FROM Invoice invoice WHERE FUNCTION('DAY', invoice.paymentPeriodFrom) = ?1")
-    List<Invoice> getAllByDay(int day);
+    @Query("SELECT invoice FROM Invoice invoice WHERE invoice.paymentPeriodTo < current_date " +
+        "AND FUNCTION('DAY', invoice.paymentPeriodTo) = ?1 " +
+        "AND invoice.id NOT IN (SELECT si.invoice.id FROM SalaryItem as si) ")
+    List<Invoice> findAllByDayOfMonthAndEmployeePaidIsFalseAndInvoiceIsNotDebt(int day);
 }
