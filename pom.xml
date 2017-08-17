@@ -111,6 +111,13 @@
             <artifactId>bootstrap-datepicker</artifactId>
             <version>1.6.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+
     </dependencies>
     <profiles>
         <profile>
@@ -141,6 +148,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>4.2.0</version>
+                <configuration>
+                    <user>fm_accounting</user>
+                    <password>foxminded</password>
+                    <url>jdbc:postgresql://localhost:5432/fm_accounting_db</url>
+                </configuration>
             </plugin>
         </plugins>
     </build>
