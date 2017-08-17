@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 public class FlywayConfig {
 
     @Bean
-    @Profile("prod")
+    @Profile("dev")
     public FlywayMigrationStrategy cleanMigrateStrategy() {
 
         return flyway -> {
