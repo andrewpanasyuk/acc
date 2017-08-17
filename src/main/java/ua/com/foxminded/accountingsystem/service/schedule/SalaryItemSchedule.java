@@ -26,7 +26,7 @@ public class SalaryItemSchedule {
 
     @Scheduled(cron = "${salary.item.creation.schedule}")
     public void scheduleSalaryItemCreation() {
-        List<Invoice> invoiceList = invoiceRepository.findAllByDayOfMonthAndEmployeePaidIsFalseAndInvoiceIsNotDebt(LocalDate.now().getDayOfMonth() - 1);
+        List<Invoice> invoiceList = invoiceRepository.findAllByCurrentDayAndNotAssignedToSalaryItemsAndLessThenCurrentDate(LocalDate.now().getDayOfMonth() - 1);
         for (Invoice invoice : invoiceList) {
             createSalaryItem(invoice);
         }
