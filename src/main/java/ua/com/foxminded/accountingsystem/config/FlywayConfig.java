@@ -10,24 +10,12 @@ import org.springframework.context.annotation.Profile;
 public class FlywayConfig {
 
     @Bean
-    @Profile("prod")
+    @Profile("dev")
     public FlywayMigrationStrategy migrateStrategyForProd() {
 
         return flyway -> {
-            flyway.setLocations("db\\prod");
-            flyway.migrate();
-        };
-    }
-
-    @Bean
-    @Profile("dev")
-    public FlywayMigrationStrategy migrateStrategyForDev() {
-
-        return flyway -> {
             flyway.clean();
-            flyway.setLocations("db\\prod", "db\\dev");
             flyway.migrate();
         };
     }
-
 }
