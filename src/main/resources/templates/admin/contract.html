@@ -196,6 +196,20 @@
         </div>
       </div>
     </div>
+    <div class="col-md-6">
+      <div th:if="${payments!= null and !payments.empty}">
+        <h3>Payments history</h3>
+        <ul id="history-list" class="list-group">
+          <div th:each="payment : ${payments}" th:remove="tag">
+            <li class="list-group-item">
+              <span th:text="${payment.datePaid}"></span>
+              <span th:text="': '"></span>
+              <span th:text="${payment.sum.amount} + ' ' + ${payment.sum.currency}"></span>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <script type="text/javascript">

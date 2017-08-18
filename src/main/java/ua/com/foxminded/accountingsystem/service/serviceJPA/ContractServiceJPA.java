@@ -10,8 +10,10 @@ import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
+import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
+import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 
@@ -28,12 +30,14 @@ public class ContractServiceJPA implements ContractService {
 
     private final ContractRepository contractRepository;
     private final DealService dealService;
+    private final PaymentRepository paymentRepository;
 
 
     @Autowired
-    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService) {
+    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService, PaymentRepository paymentRepository) {
         this.contractRepository = contractRepository;
         this.dealService = dealService;
+        this.paymentRepository = paymentRepository;
     }
 
     @Override
@@ -129,6 +133,11 @@ public class ContractServiceJPA implements ContractService {
         return contractRepository.existsContractByDealId(id);
     }
 
+
+    @Override
+    public List<Payment> findAllRelatedPayments(Contract contract) {
+        return paymentRepository.findAllByInvoiceContractOrderByDatePaid(contract);
+    }
 }
 
 
