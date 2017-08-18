@@ -156,7 +156,6 @@ INSERT INTO client_field_value (id, client_id, client_field_id, value, created_b
     (11, 6, 1, NULL, 'system', '2017-07-11'),
     (12, 6, 2, NULL, 'system', '2017-07-11');
 
-
 INSERT INTO deal (id, consultancy_id, status, client_id, open_date, close_date, created_by, created_date) VALUES
     (1, 3, 'NEW', 4, now() - interval '1 day', NULL, 'system', '2017-07-11'),
     (2, 1, 'WAITING', 1, now() - interval '3 day', NULL, 'system', '2017-07-11'),
@@ -169,7 +168,6 @@ INSERT INTO deal (id, consultancy_id, status, client_id, open_date, close_date, 
     (9, 2, 'FROZEN', 1, now() - interval '20 day', NULL, 'system', '2017-07-11'),
     (10, 1, 'FROZEN', 6, now() - interval '2 mon + 20 day', NULL, 'system', '2017-07-11'),
     (11, 3, 'ACTIVE', 6, now() - interval '8 day', NULL, 'system', '2017-07-11');
-
 
 INSERT INTO contract (id, deal_id, contract_date, employee_id, payment_type, price_id, employee_rate_id, payment_date, close_date, close_type, created_by, created_date)
 VALUES
