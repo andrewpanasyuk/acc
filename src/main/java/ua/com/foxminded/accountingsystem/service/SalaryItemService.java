@@ -16,8 +16,6 @@ public interface SalaryItemService {
 
     List<SalaryItem> findAll();
 
-    SalaryItem createSalaryItem(Invoice invoice);
-
     SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate);
 }
 
