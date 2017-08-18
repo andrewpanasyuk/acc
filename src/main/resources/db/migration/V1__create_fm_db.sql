@@ -10,7 +10,7 @@ create sequence employee_field_value_sequence start 50 increment 1;
 create sequence employee_sequence start 50 increment 50;
 create sequence hibernate_sequence start 1 increment 1;
 create sequence invoice_sequence start 50 increment 50;
-create sequence money_sequence start 50 increment 50;
+create sequence money_sequence start 100 increment 50;
 create sequence payment_sequence start 50 increment 50;
 create sequence personal_account_sequence start 50 increment 50;
 create sequence personal_account_transfer_sequence start 50 increment 50;
