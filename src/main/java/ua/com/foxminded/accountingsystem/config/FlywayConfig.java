@@ -25,7 +25,7 @@ public class FlywayConfig {
 
         return flyway -> {
             flyway.clean();
-            flyway.setLocations("db\\dev");
+            flyway.setLocations("db\\prod", "db\\dev");
             flyway.migrate();
         };
     }
