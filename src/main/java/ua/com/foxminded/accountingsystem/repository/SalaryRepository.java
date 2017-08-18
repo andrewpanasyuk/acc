@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Salary;
+import ua.com.foxminded.accountingsystem.model.SalaryItem;
 import ua.com.foxminded.accountingsystem.service.dto.CashOutflowDto;
 
 import java.time.LocalDate;
@@ -26,4 +27,6 @@ public interface SalaryRepository extends JpaRepository<Salary, Long> {
         + "order by s.salaryDate")
     List<CashOutflowDto> findCashOutflowByConsultancyAndSalaryDateBetween(LocalDate beginDate, LocalDate endDate, Long consultancyId);
 
+    @Query("select s.salaryItems from Salary s where s.id = ?1")
+    List<SalaryItem> findAllSalaryItemBySalaryId(Long id);
 }

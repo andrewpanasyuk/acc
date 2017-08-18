@@ -6,16 +6,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.config.FmConstants;
 import ua.com.foxminded.accountingsystem.model.Salary;
+import ua.com.foxminded.accountingsystem.model.SalaryItem;
+import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.SalaryService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,6 +31,18 @@ public class AdminSalaryController {
     @Autowired
     public AdminSalaryController(SalaryService salaryService) {
         this.salaryService = salaryService;
+    }
+
+    @GetMapping
+    public String getAllSalary(Model model) {
+        model.addAttribute("allSalary", salaryService.findAllSalary());
+        return "admin/salary";
+    }
+
+    @GetMapping(value = "/{id}")
+    public String getSalaryItemsBySalaryId(@PathVariable long id, Model model) {
+        model.addAttribute("salaryItems", salaryService.findAllSalaryItemBySalaryId(id));
+        return "admin/salaryItems";
     }
 
     @GetMapping("/payroll")
@@ -55,5 +71,4 @@ public class AdminSalaryController {
         redirectAttributes.addAttribute("dateTo", salary.getDateTo().plusDays(1).format(formatter));
         return "redirect:/admin/salary/payroll";
     }
-
 }

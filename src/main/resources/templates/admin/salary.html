@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
+</head>
+<body>
+<section layout:fragment="content">
+  <h3>Salary</h3>
+  <table data-toggle="table" data-class="table table-striped table-hover" data-pagination="true"
+         data-side-pagination="client" data-search="true" data-show-refresh="true" data-sort-name="id">
+    <thead>
+    <tr>
+      <th data-field="id" data-halign="center" data-align="center" data-formatter="salaryIdLinkFormatter" data-sortable="true" class="col-xs-1">Id</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Salary date</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Employee name</th>
+      <th data-halign="center" data-align="center" data-sortable="true" data-sorter="nameSorter">Payroll period</th>
+      <th data-halign="center" data-align="right" data-sortable="true" data-sorter="nameSorter">Amount, UAH</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="salary : ${allSalary}">
+      <td th:text="${salary.id}"/>
+      <td>
+        <p th:text="${salary.salaryDate}"></p>
+      </td>
+      <td>
+        <p th:text="${salary.employee.lastName} + ' ' + ${salary.employee.firstName}"></p>
+      </td>
+      <td th:text="(${salary.dateFrom != null} ? ${#temporals.format(salary.dateFrom, 'dd MMM yyyy')} : '')
+            + ' - ' + (${salary.dateTo != null} ? ${#temporals.format(salary.dateTo, 'dd MMM yyyy')} : '')">
+      </td>
+      <td>
+        <p th:text="${salary.totalAmount.amount}"></p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+</body>
+</html>

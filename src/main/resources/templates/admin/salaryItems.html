@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
+</head>
+<body>
+<section layout:fragment="content">
+  <h3>Salary details</h3>
+  <table data-toggle="table" data-class="table table-striped table-hover" data-pagination="true"
+         data-side-pagination="client" data-search="true" data-show-refresh="true" data-sort-name="id">
+    <thead>
+    <tr>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Employee</th>
+      <th data-halign="center" data-align="center" data-sortable="true" data-sorter="nameSorter">Invoice</th>
+      <th data-halign="center" data-align="center" data-sortable="true" data-sorter="nameSorter">Paid period</th>
+      <th data-halign="center" data-align="right" data-sortable="true" data-sorter="nameSorter">Amount, UAH</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="salaryItem : ${salaryItems}">
+      <td>
+        <a th:href="@{'/admin/employees/'+${salaryItem.employee.id}}">
+          <span th:text="${salaryItem.employee.lastName} + ' ' +${salaryItem.employee.firstName}"></span>
+        </a>
+      </td>
+      <td>
+        <a th:href="@{'/admin/invoices/'+${salaryItem.invoice.id}}">
+          <span th:text="${salaryItem.invoice.id}"></span>
+        </a>
+      </td>
+      <td th:text="(${salaryItem.dateFrom != null} ? ${#temporals.format(salaryItem.dateFrom, 'dd MMM yyyy')} : '')
+            + ' - ' + (${salaryItem.dateTo != null} ? ${#temporals.format(salaryItem.dateTo, 'dd MMM yyyy')} : '')">
+      </td>
+      <td>
+        <p th:text="${salaryItem.employeePayment.amount}"></p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</section>
+</body>
+</html>
