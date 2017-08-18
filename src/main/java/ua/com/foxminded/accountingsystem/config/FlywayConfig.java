@@ -14,7 +14,6 @@ public class FlywayConfig {
     public FlywayMigrationStrategy migrateStrategyForProd() {
 
         return flyway -> {
-            flyway.clean();
             flyway.setLocations("db\\prod");
             flyway.migrate();
         };
