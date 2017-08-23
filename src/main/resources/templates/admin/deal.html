@@ -117,7 +117,7 @@
                 <div class="btn-group" role="group">
                   <a th:href="@{/admin/deals}" class="btn btn-default">Go back</a>
                 </div>
-                <div class="btn-group" role="group">
+                <div class="btn-group" role="group" th:if="${deal.id} == null">
                   <button type="submit" class="btn btn-primary" onclick="$('#saveDeal').submit()">Save</button>
                 </div>
               </div>
