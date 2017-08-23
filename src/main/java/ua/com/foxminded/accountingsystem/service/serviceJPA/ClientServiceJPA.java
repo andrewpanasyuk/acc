@@ -7,6 +7,7 @@ import ua.com.foxminded.accountingsystem.model.ClientField;
 import ua.com.foxminded.accountingsystem.model.ClientFieldValue;
 import ua.com.foxminded.accountingsystem.model.Consultancy;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
+import ua.com.foxminded.accountingsystem.model.PersonalAccount;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
 import ua.com.foxminded.accountingsystem.repository.ConsultancyRepository;
@@ -66,6 +67,8 @@ public class ClientServiceJPA implements ClientService {
                 client.addClientFieldValue(clientFieldValue);
             }
         }
+
+        client.setPersonalAccount(new PersonalAccount());
 
         return clientRepository.save(client);
     }
