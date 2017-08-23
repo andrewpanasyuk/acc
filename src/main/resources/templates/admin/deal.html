@@ -17,12 +17,13 @@
             <input type="hidden" th:field="${deal.client}"/>
             <input type="hidden" th:field="${deal.status}"/>
             <input type="hidden" th:field="${deal.openDate}"/>
+            <input type="hidden" th:field="${deal.closeDate}"/>
             <div class="form-group">
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="client">Client: </label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <label id="client">
+                <label id="client" class="form-control">
                   <a th:href="@{/admin/clients/{id}(id=${deal.client.id})}"
                      th:text="${deal.client.firstName} + ' '  + ${deal.client.lastName}"></a>
                 </label>
@@ -33,7 +34,7 @@
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="consultancyName">Consultancy:</label>
               </div>
-              <div class="col-md-6 col-sm-4 col-xs-8">
+              <div class="col-md-6 col-sm-4 col-xs-8" th:if="${deal.consultancy == null}">
                 <select id="consultancyName" th:field="${deal.consultancy}" class="form-control">
                   <option value="">Select Consultancy</option>
 
@@ -41,10 +42,13 @@
                           th:value="${consultancy.id}"
                           th:text="${consultancy.name}"></option>
                 </select>
-                <output th:if="${#fields.hasErrors('consultancy')}" th:errors="${deal.consultancy}" class="text-danger">Name
+                <output th:if="${#fields.hasErrors('consultancy')}" th:errors="${deal.consultancy}" class="text-danger">
+                  Name
                   Error
                 </output>
-
+              </div>
+              <div class="col-md-6 col-sm-4 col-xs-8" th:if="${deal.consultancy != null}">
+                <output class="form-control" th:text="${deal.consultancy.name}"/>
               </div>
             </div>
 
@@ -53,7 +57,7 @@
                 <label for="dealStatus">Status:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <output id="dealStatus" th:text="${deal.status}"/>
+                <output id="dealStatus" class="form-control" th:text="${deal.status}"/>
               </div>
             </div>
 
@@ -62,18 +66,16 @@
                 <label for="openDate">Open Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <output id="openDate" th:text="${deal.openDate}"></output>
+                <output id="openDate" class="form-control" th:text="${deal.openDate}"></output>
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" th:if="${deal.closeDate != null}">
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="closeDate">Close Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <input id="closeDate" type="date" class="form-control"
-                       th:value="${deal.closeDate != null} ? ${#temporals.format(deal.closeDate, 'yyyy-MM-dd')} : ''"
-                       th:field="${deal.closeDate}"/>
+                <output id="closeDate" class="form-control" th:text="${deal.closeDate}"/>
               </div>
             </div>
           </form>
@@ -87,7 +89,8 @@
                  th:if="!${deal.status.toString().equals('WAITING')} and !${deal.status.toString().equals('ACTIVE')}">
               <a th:href="@{/admin/queues/new?dealId={id}(id=${deal.id})}" class="btn btn-primary">Queue</a>
             </div>
-            <div class="btn-group" role="group" th:if="!${deal.status.toString().equals('FROZEN')}">
+            <div class="btn-group" role="group" th:if="${deal.status.toString() !='FROZEN'} and
+                ${deal.status.toString() != 'NEW'} and ${deal.status.toString() != 'WAITING'}">
               <a th:href="@{/admin/deals/{id}/freeze(id=${deal.id})}" class="btn btn-info">Freeze</a>
             </div>
             <div class="btn-group" role="group" th:if="${deal.closeDate == null}">
@@ -105,7 +108,8 @@
           <form id="deleteDeal" th:action="@{/admin/deals/{id}(id=${deal.id})}" th:method="delete">
           </form>
           <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0">
-            <div class="btn-group col-md-4 col-sm-4 col-xs-3" role="group" style="padding: 0">
+            <div class="btn-group col-md-4 col-sm-4 col-xs-3" role="group" style="padding: 0"
+                 th:if="${deal.status.toString().equals('NEW')} and ${deal.id} != null">
               <button type="submit" class="btn btn-danger btn" onclick="$('#deleteDeal').submit()">Delete</button>
             </div>
             <div class="pull-right col-md-8 col-sm-8 col-xs-9" style="padding: 0">
