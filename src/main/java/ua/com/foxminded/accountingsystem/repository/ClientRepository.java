@@ -23,4 +23,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
         "where o2.client = o.client " +
         "and o2.status = ua.com.foxminded.accountingsystem.model.DealStatus.ACTIVE)")
     long countFrozenClients();
+
+
 }

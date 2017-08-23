@@ -12,6 +12,7 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.service.ClientService;
+import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferService;
 
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class AdminClientControllerTest {
 
     @Mock
     private PersonalAccountMoneyTransferService moneyTransferService;
+
+    @Mock
+    private DealService dealService;
 
     private AdminClientController adminClientController;
 
@@ -59,7 +63,7 @@ public class AdminClientControllerTest {
 
     @Before
     public void init(){
-        adminClientController = new AdminClientController(clientService, moneyTransferService);
+        adminClientController = new AdminClientController(clientService, moneyTransferService, dealService);
         mockMvc = MockMvcBuilders.standaloneSetup(adminClientController).build();
         when(clientService.findAll()).thenReturn(clients);
         when(clientService.findOne(john.getId())).thenReturn(john);

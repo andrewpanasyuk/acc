@@ -119,13 +119,15 @@
           <th>Consultancy</th>
           <th>deal Status</th>
           <th>open Date</th>
-          <th>Action</th>
+          <th>Mentor</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="deal : ${client.deals}">
           <td>
-            <p th:text="${deal.id}">id</p>
+            <a th:href="@{/admin/deals/{id}(id=${deal.id})}">
+              <p th:text="${deal.id}"></p>
+            </a>
           </td>
           <!--/*@thymesVar id="deal" type="ua.com.foxminded.accountingsystem.model.Deal"*/-->
           <td th:text="${deal.consultancy != null} ? ${deal.consultancy.name} : 'deal'"></td>
