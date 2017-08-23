@@ -9,6 +9,16 @@ public class ClientOfEmployeeDto {
     private String lastName;
     private Long dealId;
     private PaymentType contractPaymentType;
+    private String consultancyName;
+
+    public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId, PaymentType contractPaymentType, String consultancyName) {
+        this.clientId = clientId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dealId = dealId;
+        this.contractPaymentType = contractPaymentType;
+        this.consultancyName = consultancyName;
+    }
 
     public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId, PaymentType contractPaymentType) {
         this.clientId = clientId;
@@ -32,6 +42,10 @@ public class ClientOfEmployeeDto {
 
     public Long getDealId() {
         return dealId;
+    }
+
+    public String getConsultancyName() {
+        return consultancyName;
     }
 
     public PaymentType getContractPaymentType() {
@@ -59,5 +73,17 @@ public class ClientOfEmployeeDto {
             return 31;
         }
         return clientId.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ClientOfEmployeeDto{" +
+            "clientId=" + clientId +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", dealId=" + dealId +
+            ", contractPaymentType=" + contractPaymentType +
+            ", consultancyName='" + consultancyName + '\'' +
+            '}';
     }
 }

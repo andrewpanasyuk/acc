@@ -19,7 +19,7 @@ public interface EmployeeService {
 
     void delete(long id);
 
-    List<Client> findAllRelatedClients(Long id);
+    List<ClientOfEmployeeDto> findAllRelatedClients(Long id);
 
     List<ClientOfEmployeeDto> findRelatedActiveClients(Long id);
 

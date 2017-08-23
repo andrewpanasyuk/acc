@@ -48,7 +48,7 @@ public class EmployeeServiceJPA implements EmployeeService {
     }
 
     @Override
-    public List<Client> findAllRelatedClients(Long id) {
+    public List<ClientOfEmployeeDto> findAllRelatedClients(Long id) {
        return employeeRepository.findAllRelatedClients(id);
     }
 
