@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
+</head>
+<body>
+<section layout:fragment="content">
+  <table data-toggle="table">
+    <thead>
+    <tr>
+      <th>Student</th>
+      <th>Service</th>
+      <th>Order Status</th>
+      <th>Start date - Close date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+      <td>
+        <a th:href="@{'/admin/clients/'+${client.clientId}}">
+          <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
+        </a>
+      </td>
+      <td>
+        <span th:text="${client.consultancyName}"></span>
+      </td>
+      <td>
+        <span th:text="${client.contractPaymentType}"></span>
+      </td>
+      <td>
+        <span th:text="${client.createDate} + ' - '"></span>
+        <span th:text="${client.closeDate !=null}? ${client.closeDate} : '...'"></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+</body>
+</html>
