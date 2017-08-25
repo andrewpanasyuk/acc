@@ -109,32 +109,35 @@
       <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#depositModal">Add Funds</button>
     </div>
   </div>
-  <form th:object="${client}">
+  <form th:object="${dealsOfClient}">
     <div class="display-grid">
       <label>Deals:</label>
       <table data-toggle="table">
         <thead>
         <tr>
-          <th>id</th>
-          <th>Consultancy</th>
-          <th>deal Status</th>
-          <th>open Date</th>
-          <th>Mentor</th>
+          <th data-halign="center" data-align="center">Id</th>
+          <th data-halign="center" data-align="left">Consultancy</th>
+          <th data-halign="center" data-align="center">Deal status</th>
+          <th data-halign="center" data-align="center">Open date</th>
+          <th data-halign="center" data-align="center">Mentor</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="deal : ${client.deals}">
+        <tr th:each="deal : ${dealsOfClient}">
           <td>
-            <a th:href="@{/admin/deals/{id}(id=${deal.id})}">
-              <p th:text="${deal.id}"></p>
+            <a th:href="@{/admin/deals/{id}(id=${deal.dealId})}">
+              <p th:text="${deal.dealId}"></p>
             </a>
           </td>
           <!--/*@thymesVar id="deal" type="ua.com.foxminded.accountingsystem.model.Deal"*/-->
-          <td th:text="${deal.consultancy != null} ? ${deal.consultancy.name} : 'deal'"></td>
-          <td th:text="${deal.status}"></td>
-          <td th:text="${deal.openDate != null} ? ${#temporals.format(deal.openDate, 'dd-MMM-yyyy')} : ''"></td>
+          <td th:text="${deal.consultancyName}"></td>
+          <td th:text="${deal.dealStatus}"></td>
+          <td th:text="${deal.dealOpenDate != null} ? ${#temporals.format(deal.dealOpenDate, 'dd-MMM-yyyy')} : ''"></td>
           <td>
-            <a th:href="@{/admin/deals/{id}(id=${deal.id})}">Update</a>
+            <a th:if="${deal.employeeId != null}" th:href="@{/admin/employees/{id}(id=${deal.employeeId})}">
+              <p th:text="${deal.employeeFirstName} + ' ' +${deal.employeeLastName}"></p>
+            </a>
+            <p th:if="${deal.employeeId == null}" th:text="----"></p>
           </td>
         </tr>
         </tbody>

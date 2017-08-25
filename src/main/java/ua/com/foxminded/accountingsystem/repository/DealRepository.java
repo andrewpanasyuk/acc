@@ -15,12 +15,18 @@ public interface DealRepository extends JpaRepository<Deal, Long>{
 
     long countDealsByStatusAndConsultancy(DealStatus dealStatus, Consultancy consultancy);
 
-//    @Query("select distinct new ua.com.foxminded.accountingsystem.service.dto.DealOfClientDto"
-//        + "(deal.id, deal.consultancy.name, deal.status, deal.openDate, "
-//        + "contract.employee.id, contract.employee.firstName, contract.employee.lastName) "
-//        + "from Deal deal left join Contract contract on contract.deal = deal "
-//        + "where deal.client.id = ?1 ")
-//        + "and contract.contractDate = (select max(contractInner.contractDate) from Contract contractInner, Deal dealInner where contractInner.deal = dealInner and dealInner.client.id = ?1) ")
-    List<DealOfClientDto> findDealsByClient(Long clientId);
-
+    @Query("select distinct new ua.com.foxminded.accountingsystem.service.dto.DealOfClientDto"
+        + "(d.id, d.consultancy.name, d.status, d.openDate, e.id, e.firstName, e.lastName) "
+        + "from  Contract c inner join c.employee e right outer join c.deal d "
+        + "where d.client.id = ?1 "
+        + "and (c.id  = (select max(cMaxId.id) "
+        + "              from Contract cMaxId "
+        + "              where cMaxId.deal.client.id = ?1 "
+        + "              and cMaxId.deal.id = c.deal.id "
+        + "              and cMaxId.contractDate = (select max(cMaxDate.contractDate) "
+        + "                                       from Contract cMaxDate "
+        + "                                       where cMaxDate.deal.client.id = ?1 "
+        + "                                       and cMaxDate.deal.id = c.deal.id))"
+        + "      or c.id is null)")
+    List<DealOfClientDto> findDealsWithMentorsByClient(Long clientId);
 }

@@ -2,7 +2,6 @@ package ua.com.foxminded.accountingsystem.service;
 
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
-import ua.com.foxminded.accountingsystem.service.dto.DealOfClientDto;
 
 import java.util.List;
 
@@ -24,6 +23,4 @@ public interface DealService {
 
     void close(Deal deal, DealStatus dealStatus);
 
-    List<DealOfClientDto> findDealsByClient(Long clientId);
-
-}
+ }

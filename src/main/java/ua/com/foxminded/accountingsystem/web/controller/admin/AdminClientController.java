@@ -29,16 +29,13 @@ public class AdminClientController {
 
     private final ClientService clientService;
     private final PersonalAccountMoneyTransferService moneyTransferService;
-    private final DealService dealService;
 
     @Autowired
     public AdminClientController(ClientService clientService,
-                                 PersonalAccountMoneyTransferService moneyTransferService,
-                                 DealService dealService) {
+                                 PersonalAccountMoneyTransferService moneyTransferService) {
 
         this.clientService = clientService;
         this.moneyTransferService = moneyTransferService;
-        this.dealService = dealService;
     }
 
     @GetMapping
@@ -63,7 +60,7 @@ public class AdminClientController {
     @GetMapping("/{id}")
     public String getClientByID(@PathVariable long id, Model model) {
         model.addAttribute("client", clientService.findOne(id));
-        model.addAttribute("dealsOfClient", dealService.findDealsByClient(id));
+        model.addAttribute("dealsOfClient", clientService.findDealsWithMentorsByClient(id));
         return "admin/client";
     }
 

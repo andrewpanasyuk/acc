@@ -11,7 +11,6 @@ import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
 import ua.com.foxminded.accountingsystem.service.DealService;
-import ua.com.foxminded.accountingsystem.service.dto.DealOfClientDto;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -99,10 +98,4 @@ public class DealServiceJPA implements DealService {
         contractRepository.save(contract);
         dealRepository.save(deal);
     }
-
-    @Override
-    public List<DealOfClientDto> findDealsByClient(Long clientId) {
-        return dealRepository.findDealsByClient(clientId);
-    }
-
 }

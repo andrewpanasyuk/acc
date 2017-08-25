@@ -64,9 +64,10 @@ public class DealOfClientDto {
         if (!consultancyName.equals(that.consultancyName)) return false;
         if (dealStatus != that.dealStatus) return false;
         if (!dealOpenDate.equals(that.dealOpenDate)) return false;
-        if (!employeeId.equals(that.employeeId)) return false;
-        if (!employeeFirstName.equals(that.employeeFirstName)) return false;
-        return employeeLastName.equals(that.employeeLastName);
+        if (employeeId != null ? !employeeId.equals(that.employeeId) : that.employeeId != null) return false;
+        if (employeeFirstName != null ? !employeeFirstName.equals(that.employeeFirstName) : that.employeeFirstName != null)
+            return false;
+        return employeeLastName != null ? employeeLastName.equals(that.employeeLastName) : that.employeeLastName == null;
     }
 
     @Override

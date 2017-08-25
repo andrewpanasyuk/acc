@@ -15,6 +15,7 @@ import ua.com.foxminded.accountingsystem.service.ClientFieldService;
 import ua.com.foxminded.accountingsystem.service.ClientService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientStatisticsDto;
 import ua.com.foxminded.accountingsystem.service.dto.ConsultancyStatisticsDto;
+import ua.com.foxminded.accountingsystem.service.dto.DealOfClientDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -132,5 +133,11 @@ public class ClientServiceJPA implements ClientService {
 
         return statistics;
     }
+
+    @Override
+    public List<DealOfClientDto> findDealsWithMentorsByClient(Long clientId) {
+        return dealRepository.findDealsWithMentorsByClient(clientId);
+    }
+
 
 }
