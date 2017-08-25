@@ -29,7 +29,7 @@
     <CONTRACT id="5" contract_date="2017-05-24"  deal_id="5" employee_id="2" payment_type="PREPAY" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
     <CONTRACT id="6" contract_date="2017-04-14"  deal_id="7" employee_id="2" payment_type="TRIAL" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
     <CONTRACT id="7" contract_date="2017-04-24"  deal_id="7" employee_id="2" payment_type="TRIAL" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
-    <CONTRACT id="8" contract_date="2017-04-24"  deal_id="7" employee_id="3" payment_type="PREPAY" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="8" contract_date="2017-05-26"  deal_id="7" employee_id="3" payment_type="PREPAY" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
 
     <CONSULTANCY id="1" name="java" description="java description" employee_rate_id="1" created_by="system" created_date="2017-07-11"/>
     <CONSULTANCY id="2" name="javascript" description="javascript description" employee_rate_id="2" created_by="system" created_date="2017-07-11"/>
