@@ -98,4 +98,5 @@ public class DealServiceJPA implements DealService {
         contractRepository.save(contract);
         dealRepository.save(deal);
     }
+
 }

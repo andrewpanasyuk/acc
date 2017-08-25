@@ -28,5 +28,5 @@ public interface DealRepository extends JpaRepository<Deal, Long>{
         + "                                       where cMaxDate.deal.client.id = ?1 "
         + "                                       and cMaxDate.deal.id = c.deal.id))"
         + "      or c.id is null)")
-    List<DealOfClientDto> findDealsWithMentorsByClient(Long clientId);
+    List<DealOfClientDto> findDealsAndMentorsByClient(Long clientId);
 }

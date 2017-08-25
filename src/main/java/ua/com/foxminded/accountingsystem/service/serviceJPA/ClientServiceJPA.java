@@ -135,9 +135,8 @@ public class ClientServiceJPA implements ClientService {
     }
 
     @Override
-    public List<DealOfClientDto> findDealsWithMentorsByClient(Long clientId) {
-        return dealRepository.findDealsWithMentorsByClient(clientId);
+    public List<DealOfClientDto> findDealsAndMentorsByClient(Long clientId) {
+        return dealRepository.findDealsAndMentorsByClient(clientId);
     }
-
 
 }

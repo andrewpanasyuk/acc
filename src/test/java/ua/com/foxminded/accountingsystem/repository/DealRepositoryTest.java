@@ -107,11 +107,11 @@ public class DealRepositoryTest extends AbstractRepositoryTest<DealRepository> {
         DealOfClientDto expectedDeal5 = new DealOfClientDto(1L,"java", DealStatus.ACTIVE, LocalDate.of(2017,1,24), 1L, "Sergey", "Fedotov");
         DealOfClientDto expectedDeal6 = new DealOfClientDto(2L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,2,24), null, null, null);
 
-        assertEquals(4, repository.findDealsWithMentorsByClient(3L).size());
-        assertThat(repository.findDealsWithMentorsByClient(3L), hasItems(expectedDeal1, expectedDeal2, expectedDeal3, expectedDeal4));
-        List<DealOfClientDto> deals = repository.findDealsWithMentorsByClient(1L);
+        assertEquals(4, repository.findDealsAndMentorsByClient(3L).size());
+        assertThat(repository.findDealsAndMentorsByClient(3L), hasItems(expectedDeal1, expectedDeal2, expectedDeal3, expectedDeal4));
+        List<DealOfClientDto> deals = repository.findDealsAndMentorsByClient(1L);
 
-        assertEquals(2, repository.findDealsWithMentorsByClient(1L).size());
-        assertThat(repository.findDealsWithMentorsByClient(1L), hasItems(expectedDeal5, expectedDeal6));
+        assertEquals(2, repository.findDealsAndMentorsByClient(1L).size());
+        assertThat(repository.findDealsAndMentorsByClient(1L), hasItems(expectedDeal5, expectedDeal6));
     }
 }

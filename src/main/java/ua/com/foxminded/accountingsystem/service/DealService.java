@@ -23,4 +23,4 @@ public interface DealService {
 
     void close(Deal deal, DealStatus dealStatus);
 
- }
+}

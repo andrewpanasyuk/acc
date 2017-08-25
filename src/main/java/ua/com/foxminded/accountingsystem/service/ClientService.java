@@ -25,6 +25,5 @@ public interface ClientService {
 
     List<ConsultancyStatisticsDto> getConsultancyStatistics();
 
-    List<DealOfClientDto> findDealsWithMentorsByClient(Long clientId);
-
+    List<DealOfClientDto> findDealsAndMentorsByClient(Long clientId);
 }

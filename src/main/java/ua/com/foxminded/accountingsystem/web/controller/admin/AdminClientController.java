@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.PersonalAccountMoneyTransfer;
 import ua.com.foxminded.accountingsystem.service.ClientService;
-import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferService;
 import ua.com.foxminded.accountingsystem.service.exception.NotEnoughMoneyException;
 
@@ -60,7 +59,7 @@ public class AdminClientController {
     @GetMapping("/{id}")
     public String getClientByID(@PathVariable long id, Model model) {
         model.addAttribute("client", clientService.findOne(id));
-        model.addAttribute("dealsOfClient", clientService.findDealsWithMentorsByClient(id));
+        model.addAttribute("dealsOfClient", clientService.findDealsAndMentorsByClient(id));
         return "admin/client";
     }
 
