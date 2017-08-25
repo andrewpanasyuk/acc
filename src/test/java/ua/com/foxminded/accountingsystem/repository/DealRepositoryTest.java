@@ -9,13 +9,10 @@ import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Consultancy;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
-import ua.com.foxminded.accountingsystem.model.PaymentType;
-import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 import ua.com.foxminded.accountingsystem.service.dto.DealOfClientDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertEquals;
