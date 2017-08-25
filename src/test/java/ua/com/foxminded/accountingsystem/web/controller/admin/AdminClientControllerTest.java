@@ -12,7 +12,6 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.service.ClientService;
-import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.PersonalAccountMoneyTransferService;
 
 import java.util.ArrayList;
