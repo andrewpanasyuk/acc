@@ -20,9 +20,9 @@ public interface DealRepository extends JpaRepository<Deal, Long>{
         + "from  Contract c inner join c.employee e right outer join c.deal d "
         + "where d.client.id = ?1 "
         + "and (c.contractDate  = (select max(cMaxDate.contractDate) "
-        + "                                       from Contract cMaxDate "
-        + "                                       where cMaxDate.deal.client.id = ?1 "
-        + "                                       and cMaxDate.deal.id = c.deal.id) "
+        + "                        from Contract cMaxDate "
+        + "                        where cMaxDate.deal.client.id = ?1 "
+        + "                        and cMaxDate.deal.id = c.deal.id) "
         + "     or c.contractDate is null)")
     List<DealOfClientDto> findDealsAndMentorsByClient(Long clientId);
 }
