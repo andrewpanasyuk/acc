@@ -2,12 +2,11 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.repository.EmployeeRepository;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
-
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -49,7 +48,9 @@ public class EmployeeServiceJPA implements EmployeeService {
 
     @Override
     public List<ClientOfEmployeeDto> findAllRelatedClients(Long id) {
-       return employeeRepository.findAllRelatedClients(id);
+        List<ClientOfEmployeeDto> allRelatedClients = employeeRepository.findAllRelatedClients(id);
+        Collections.sort(allRelatedClients);
+        return allRelatedClients;
     }
 
     @Override

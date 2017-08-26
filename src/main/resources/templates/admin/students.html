@@ -22,10 +22,15 @@
         </a>
       </td>
       <td>
-        <span th:text="${client.consultancyName}"></span>
+        <span th:text="${client.consultancyName}" ></span>
+        <!--<div th:style="${client.consultancyName !=null ? 'border-style: solid;border-color: red;': ''}"></div>-->
+
       </td>
       <td>
-        <span th:text="${client.contractPaymentType}"></span>
+        <div th:switch="${client.dealStatus}">
+          <a th:case="'ACTIVE'" style='background-color: lightgreen;' th:text="${client.dealStatus}"></a>
+          <a th:case="*" th:text="${client.dealStatus}"></a>
+        </div>
       </td>
       <td>
         <span th:text="${client.createDate} + ' - '"></span>

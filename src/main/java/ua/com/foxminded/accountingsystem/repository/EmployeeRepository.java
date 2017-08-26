@@ -10,7 +10,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("select distinct new ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto"
         + "(client.id, client.firstName, client.lastName, contract.deal.id, "
-        + "contract.paymentType, contract.deal.consultancy.name) "
+        + "contract.paymentType) "
         + "from Client client inner join client.deals cl_deals, Contract contract "
         + "where contract.deal = cl_deals "
         + "and contract.employee.id = ?1 "
@@ -19,8 +19,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<ClientOfEmployeeDto> findRelatedActiveClients(Long employeeId);
 
     @Query("select distinct new ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto"
-        + "(client.id, client.firstName, client.lastName, contract.deal.id,"
-        + "contract.paymentType, contract.deal.consultancy.name, contract.deal.openDate, contract.deal.closeDate) "
+        + "(client.id, client.firstName, client.lastName, contract.deal.id,contract.paymentType, "
+        + "contract.deal.consultancy.name, contract.deal.openDate, contract.deal.closeDate, contract.deal.status)"
         + "from Client client inner join client.deals cl_deals, Contract contract "
         + "where contract.deal = cl_deals "
         + "and contract.employee.id = ?1")

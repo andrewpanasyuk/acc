@@ -1,9 +1,12 @@
 package ua.com.foxminded.accountingsystem.service.dto;
 
+import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
-public class ClientOfEmployeeDto {
+public class ClientOfEmployeeDto implements Comparable<ClientOfEmployeeDto> {
 
     private Long clientId;
     private String firstName;
@@ -13,20 +16,11 @@ public class ClientOfEmployeeDto {
     private String consultancyName;
     private LocalDate createDate;
     private LocalDate closeDate;
-
-    public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId,
-                               PaymentType contractPaymentType, String consultancyName) {
-        this.clientId = clientId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dealId = dealId;
-        this.contractPaymentType = contractPaymentType;
-        this.consultancyName = consultancyName;
-    }
+    private DealStatus dealStatus;
 
     public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId,
                                PaymentType contractPaymentType, String consultancyName, LocalDate createDate,
-                               LocalDate closeDate) {
+                               LocalDate closeDate, DealStatus dealStatus) {
         this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,15 +29,16 @@ public class ClientOfEmployeeDto {
         this.consultancyName = consultancyName;
         this.createDate = createDate;
         this.closeDate = closeDate;
+        this.dealStatus = dealStatus;
     }
 
-//    public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId, PaymentType contractPaymentType) {
-//        this.clientId = clientId;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.dealId = dealId;
-//        this.contractPaymentType = contractPaymentType;
-//    }
+    public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId, PaymentType contractPaymentType) {
+        this.clientId = clientId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dealId = dealId;
+        this.contractPaymentType = contractPaymentType;
+    }
 
     public Long getClientId() {
         return clientId;
@@ -75,6 +70,10 @@ public class ClientOfEmployeeDto {
 
     public LocalDate getCloseDate() {
         return closeDate;
+    }
+
+    public String getDealStatus() {
+        return dealStatus.toString();
     }
 
     @Override
@@ -110,5 +109,12 @@ public class ClientOfEmployeeDto {
             ", contractPaymentType=" + contractPaymentType +
             ", consultancyName='" + consultancyName + '\'' +
             '}';
+    }
+
+    @Override
+    public int compareTo(ClientOfEmployeeDto clientOfEmployeeDto) {
+        List<Enum> enumValues = Arrays.asList(DealStatus.values());
+        return enumValues.indexOf(DealStatus.valueOf(getDealStatus()))
+            - (enumValues.indexOf(DealStatus.valueOf(clientOfEmployeeDto.getDealStatus())));
     }
 }

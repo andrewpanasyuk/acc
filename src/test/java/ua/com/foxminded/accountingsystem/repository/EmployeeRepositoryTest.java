@@ -39,16 +39,16 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
         repository.save(employee);
     }
 
-//    @Test
-//    @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
-//    public void findRelatedActiveClientsTest() {
-//
-//        ClientOfEmployeeDto expectedClient1 = new ClientOfEmployeeDto(6L,"Andrey", "Vasilenko", 7L, PaymentType.TRIAL);
-//        ClientOfEmployeeDto expectedClient2 = new ClientOfEmployeeDto(3L,"Andrey", "Grigorenko", 3L, PaymentType.PREPAY);
-//
-//        assertEquals(2, repository.findRelatedActiveClients(2L).size());
-//        assertThat(repository.findRelatedActiveClients(2L), hasItems(expectedClient1, expectedClient2));
-//    }
+    @Test
+    @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
+    public void findRelatedActiveClientsTest() {
+
+        ClientOfEmployeeDto expectedClient1 = new ClientOfEmployeeDto(6L,"Andrey", "Vasilenko", 7L, PaymentType.TRIAL);
+        ClientOfEmployeeDto expectedClient2 = new ClientOfEmployeeDto(3L,"Andrey", "Grigorenko", 3L, PaymentType.PREPAY);
+
+        assertEquals(2, repository.findRelatedActiveClients(2L).size());
+        assertThat(repository.findRelatedActiveClients(2L), hasItems(expectedClient1, expectedClient2));
+    }
 
     @Test
     @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
