@@ -7,7 +7,7 @@
 <section layout:fragment="content">
   <div>
     <ul class="nav nav-tabs" role="tablist">
-      <li th:each="queueByConsultancy,iterStat : ${queuesByConsultancy}" role="presentation" th:class="${iterStat.index == 0}? 'active' : ''">
+      <li th:each="queueByConsultancy,iterStat : ${queuesByConsultancy}" role="presentation" th:class="${iterStat.index == 0} ? 'active' : ''">
         <a th:href="'#tab-' + ${queueByConsultancy.key.id}" th:attr="aria-controls='tab-' + ${queueByConsultancy.key.id}" role="tab" data-toggle="tab">
           <p th:text="${queueByConsultancy.key.name}"></p></a></li>
     </ul>

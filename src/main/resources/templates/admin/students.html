@@ -5,17 +5,17 @@
 </head>
 <body>
 <section layout:fragment="content">
-  <table data-toggle="table">
+  <table data-toggle="table" data-pagination="true" data-side-pagination="client" data-search="true">
     <thead>
     <tr>
-      <th>Student</th>
-      <th>Service</th>
-      <th>Order Status</th>
-      <th>Start date - Close date</th>
+      <th data-sortable="true">Student</th>
+      <th data-sortable="true">Service</th>
+      <th data-sortable="true">Order Status</th>
+      <th data-sortable="true">Start date - Close date</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="client : ${clients}">
+    <tr th:each="client : ${clients}" th:class="${client.dealStatus == 'ACTIVE'} ? active-line : ''">
       <td>
         <a th:href="@{'/admin/clients/'+${client.clientId}}">
           <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
@@ -25,14 +25,11 @@
         <span th:text="${client.consultancyName}" ></span>
       </td>
       <td>
-        <div th:switch="${client.dealStatus}">
-          <a th:case="'ACTIVE'" style='background-color: lightgreen;' th:text="${client.dealStatus}"></a>
-          <a th:case="*" th:text="${client.dealStatus}"></a>
-        </div>
+        <span th:text="${client.dealStatus}" ></span>
       </td>
       <td>
         <span th:text="${client.dealCreateDate} + ' - '"></span>
-        <span th:text="${client.dealCloseDate !=null}? ${client.dealCloseDate} : '...'"></span>
+        <span th:text="${client.dealCloseDate != null} ? ${client.dealCloseDate} : '...'"></span>
       </td>
     </tr>
     </tbody>
