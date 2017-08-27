@@ -14,30 +14,22 @@ public class ClientOfEmployeeDto implements Comparable<ClientOfEmployeeDto> {
     private Long dealId;
     private PaymentType contractPaymentType;
     private String consultancyName;
-    private LocalDate createDate;
-    private LocalDate closeDate;
+    private LocalDate dealCreateDate;
+    private LocalDate dealCloseDate;
     private DealStatus dealStatus;
 
     public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId,
-                               PaymentType contractPaymentType, String consultancyName, LocalDate createDate,
-                               LocalDate closeDate, DealStatus dealStatus) {
+                               PaymentType contractPaymentType, String consultancyName, LocalDate dealCreateDate,
+                               LocalDate dealCloseDate, DealStatus dealStatus) {
         this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dealId = dealId;
         this.contractPaymentType = contractPaymentType;
         this.consultancyName = consultancyName;
-        this.createDate = createDate;
-        this.closeDate = closeDate;
+        this.dealCreateDate = dealCreateDate;
+        this.dealCloseDate = dealCloseDate;
         this.dealStatus = dealStatus;
-    }
-
-    public ClientOfEmployeeDto(Long clientId, String firstName, String lastName, Long dealId, PaymentType contractPaymentType) {
-        this.clientId = clientId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dealId = dealId;
-        this.contractPaymentType = contractPaymentType;
     }
 
     public Long getClientId() {
@@ -64,12 +56,12 @@ public class ClientOfEmployeeDto implements Comparable<ClientOfEmployeeDto> {
         return contractPaymentType;
     }
 
-    public LocalDate getCreateDate() {
-        return createDate;
+    public LocalDate getDealCreateDate() {
+        return dealCreateDate;
     }
 
-    public LocalDate getCloseDate() {
-        return closeDate;
+    public LocalDate getDealCloseDate() {
+        return dealCloseDate;
     }
 
     public String getDealStatus() {
@@ -108,6 +100,9 @@ public class ClientOfEmployeeDto implements Comparable<ClientOfEmployeeDto> {
             ", dealId=" + dealId +
             ", contractPaymentType=" + contractPaymentType +
             ", consultancyName='" + consultancyName + '\'' +
+            ", dealCreateDate=" + dealCreateDate +
+            ", dealCloseDate=" + dealCloseDate +
+            ", dealStatus=" + dealStatus +
             '}';
     }
 

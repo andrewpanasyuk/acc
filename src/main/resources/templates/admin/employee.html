@@ -115,9 +115,9 @@
     </div>
   </form>
 
-  <form th:action="@{/admin/employees/{id}/students(id=${employee.id})}">
-    <input type="submit" class="btn btn-primary" value="Get all students for current mentor"/>
-  </form>
+  <a th:href="@{/admin/employees/{id}/students(id=${employee.id})}" class="btn form-horizontal">
+    Get all students for current mentor
+  </a>
 
 </section>
 </body>

@@ -23,8 +23,6 @@
       </td>
       <td>
         <span th:text="${client.consultancyName}" ></span>
-        <!--<div th:style="${client.consultancyName !=null ? 'border-style: solid;border-color: red;': ''}"></div>-->
-
       </td>
       <td>
         <div th:switch="${client.dealStatus}">
@@ -33,8 +31,8 @@
         </div>
       </td>
       <td>
-        <span th:text="${client.createDate} + ' - '"></span>
-        <span th:text="${client.closeDate !=null}? ${client.closeDate} : '...'"></span>
+        <span th:text="${client.dealCreateDate} + ' - '"></span>
+        <span th:text="${client.dealCloseDate !=null}? ${client.dealCloseDate} : '...'"></span>
       </td>
     </tr>
     </tbody>
