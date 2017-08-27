@@ -109,7 +109,7 @@
       <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#depositModal">Add Funds</button>
     </div>
   </div>
-  <form th:object="${dealsOfClient}">
+  <form th:object="${ClientDeals}">
     <div class="display-grid">
       <label>Deals:</label>
       <table data-toggle="table">
@@ -123,7 +123,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="deal : ${dealsOfClient}">
+        <tr th:each="deal : ${ClientDeals}">
           <td>
             <a th:href="@{/admin/deals/{id}(id=${deal.dealId})}">
               <p th:text="${deal.dealId}"></p>

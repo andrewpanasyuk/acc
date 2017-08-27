@@ -9,7 +9,7 @@ import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Consultancy;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
-import ua.com.foxminded.accountingsystem.service.dto.DealOfClientDto;
+import ua.com.foxminded.accountingsystem.service.dto.ClientDealDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -97,12 +97,12 @@ public class DealRepositoryTest extends AbstractRepositoryTest<DealRepository> {
     @DataSet(value = "deals/stored-deals-contracts.xml", disableConstraints = true)
     public void findDealsWithMentorsByClient() {
 
-        DealOfClientDto expectedDeal1 = new DealOfClientDto(3L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,3,24), null, null, null);
-        DealOfClientDto expectedDeal2 = new DealOfClientDto(5L,"angular", DealStatus.FROZEN, LocalDate.of(2017,5,24), 2L, "Anton", "Teplinsky");
-        DealOfClientDto expectedDeal3 = new DealOfClientDto(7L,"java", DealStatus.ACTIVE, LocalDate.of(2017,3,14), 3L, "Andrey", "Gubar");
-        DealOfClientDto expectedDeal4 = new DealOfClientDto(9L,"angular", DealStatus.NEW, LocalDate.of(2017,8,23), null, null, null);
-        DealOfClientDto expectedDeal5 = new DealOfClientDto(1L,"java", DealStatus.ACTIVE, LocalDate.of(2017,1,24), 1L, "Sergey", "Fedotov");
-        DealOfClientDto expectedDeal6 = new DealOfClientDto(2L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,2,24), null, null, null);
+        ClientDealDto expectedDeal1 = new ClientDealDto(3L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,3,24), null, null, null);
+        ClientDealDto expectedDeal2 = new ClientDealDto(5L,"angular", DealStatus.FROZEN, LocalDate.of(2017,5,24), 2L, "Anton", "Teplinsky");
+        ClientDealDto expectedDeal3 = new ClientDealDto(7L,"java", DealStatus.ACTIVE, LocalDate.of(2017,3,14), 3L, "Andrey", "Gubar");
+        ClientDealDto expectedDeal4 = new ClientDealDto(9L,"angular", DealStatus.NEW, LocalDate.of(2017,8,23), null, null, null);
+        ClientDealDto expectedDeal5 = new ClientDealDto(1L,"java", DealStatus.ACTIVE, LocalDate.of(2017,1,24), 1L, "Sergey", "Fedotov");
+        ClientDealDto expectedDeal6 = new ClientDealDto(2L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,2,24), null, null, null);
 
         assertEquals(4, repository.findDealsAndMentorsByClient(3L).size());
         assertThat(repository.findDealsAndMentorsByClient(3L), hasItems(expectedDeal1, expectedDeal2, expectedDeal3, expectedDeal4));

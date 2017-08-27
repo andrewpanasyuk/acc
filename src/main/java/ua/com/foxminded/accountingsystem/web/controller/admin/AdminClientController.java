@@ -59,7 +59,7 @@ public class AdminClientController {
     @GetMapping("/{id}")
     public String getClientByID(@PathVariable long id, Model model) {
         model.addAttribute("client", clientService.findOne(id));
-        model.addAttribute("dealsOfClient", clientService.findDealsAndMentorsByClient(id));
+        model.addAttribute("ClientDeals", clientService.findDealsAndMentorsByClient(id));
         return "admin/client";
     }
 
