@@ -6,8 +6,34 @@
 <body>
 <section layout:fragment="content">
 
-  <h3>Cash Flow Report</h3>
+  <h3>Payments</h3>
   <br/>
+  <table data-toggle="table" data-pagination="true" data-side-pagination="client" data-search="true">
+    <thead>
+    <tr>
+      <th data-sortable="true">Payment Id</th>
+      <th data-sortable="true">Payment Date</th>
+      <th data-sortable="true">Paid Consultancy</th>
+      <th data-sortable="true">Payment Sum</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="payment : ${payments}">
+      <td>
+        <span th:text="${payment.paymentId}" ></span>
+      </td>
+      <td>
+          <span th:text="${payment.paymentDate}"></span>
+      </td>
+      <td>
+        <span th:text="${payment.paidConsultancy}" ></span>
+      </td>
+      <td>
+        <span th:text="${payment.paymentSum.amount} + ' ' + ${payment.paymentSum.currency}" ></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
 
 
