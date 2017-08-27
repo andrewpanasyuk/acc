@@ -28,4 +28,11 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     List<Payment> findAllByInvoiceContractOrderByDatePaid(Contract contract);
 
+    @Query("select new ua.com.foxminded.accountingsystem.service.dto.CashInflowDto"
+        + "(p.datePaid, s.name, p.id, p.sum) "
+        + "from Payment p inner join p.invoice.contract.deal.consultancy s "
+        + "order by s.name, p.datePaid")
+    List<CashInflowDto> findAllPayments();
+
+
 }
