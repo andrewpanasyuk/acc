@@ -80,7 +80,6 @@ public class AdminContractController {
         } catch (ContractDateExistsException e){
             redirectAttributes.addFlashAttribute("contractSavingError", e.getMessage());
         }
-
         return "redirect:/admin/contracts";
     }
 
