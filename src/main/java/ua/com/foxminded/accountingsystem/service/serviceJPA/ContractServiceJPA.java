@@ -16,11 +16,9 @@ import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
-import ua.com.foxminded.accountingsystem.service.exception.ContractDateExistsException;
 
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,15 +56,8 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
+    @Transactional
     public Contract save(Contract contract) {
-
-        if (existsContractByContractDateAndDeal(contract.getContractDate(), contract.getDeal())) {
-            throw new ContractDateExistsException("Contract with date "
-                + contract.getContractDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-                + " for deal " + contract.getDeal().getId() + " already exists ! "
-                + "Please change contract date !");
-        }
-
         if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
             Deal deal = contract.getDeal();
             deal.setStatus(DealStatus.ACTIVE);
@@ -142,10 +133,6 @@ public class ContractServiceJPA implements ContractService {
         return contractRepository.existsContractByDealId(id);
     }
 
-    @Override
-    public boolean existsContractByContractDateAndDeal(LocalDate date, Deal deal) {
-        return contractRepository.existsContractByContractDateAndDeal(date, deal);
-    }
 
     @Override
     public List<Payment> findAllRelatedPayments(Contract contract) {
