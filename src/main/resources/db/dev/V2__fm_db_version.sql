@@ -183,8 +183,8 @@ VALUES
     (6, 10, now() - interval '2 mon + 13 day', 2, 'PREPAY', 27, 28, now() - interval '2 mon + 10 day', now() - interval '1 mon', 'FROZEN', 'system', '2017-07-11'),
     (7, 11, now() - interval '8 day', 1, 'TRIAL', 29, 30, NULL, NULL, NULL, 'system', '2017-07-11'),
     (8, 11, now() - interval '1 day', 1, 'PREPAY', 29, 30, now() + interval '2 day', NULL, NULL, 'system', '2017-07-11'),
-    (9, 8, now() - interval '7 mon', 3, 'PREPAY', 53, 54, now() - interval '6 mon' + interval '3 day', now() - interval '45 day', 'COMPLETED', 'system', '2017-07-11'),
-    (10, 9, now() - interval '20 day', 2, 'PREPAY', 55, 56, now() + interval '10 day' + interval '3 day', now() - interval '5 day', 'FROZEN', 'system', '2017-07-11');
+    (9, 8, now() - interval '7 mon', 3, 'PREPAY', 53, 54, now() - interval '6 mon', now() - interval '45 day', 'COMPLETED', 'system', '2017-07-11'),
+    (10, 9, now() - interval '20 day', 2, 'PREPAY', 55, 56, now() + interval '10 day', now() - interval '5 day', 'FROZEN', 'system', '2017-07-11');
 
 INSERT INTO invoice (id, contract_id, price_id, creation_date, employee_paid, period_from, period_to, created_by, created_date) VALUES
     (1, 2, 21, now() - interval '3 mon + 4 day', FALSE, now() - interval '4 mon', now() - interval '3 mon + 1 day', 'system', '2017-07-11'),
