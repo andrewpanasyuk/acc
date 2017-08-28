@@ -4,7 +4,7 @@ import ua.com.foxminded.accountingsystem.model.DealStatus;
 
 import java.time.LocalDate;
 
-public class ClientDealDto {
+public class ClientDealWithRelatedEmployeeDto {
 
     private Long dealId;
     private String consultancyName;
@@ -14,8 +14,8 @@ public class ClientDealDto {
     private String employeeFirstName;
     private String employeeLastName;
 
-    public ClientDealDto(Long dealId, String consultancyName, DealStatus dealStatus,
-                         LocalDate dealOpenDate, Long employeeId, String employeeFirstName, String employeeLastName) {
+    public ClientDealWithRelatedEmployeeDto(Long dealId, String consultancyName, DealStatus dealStatus,
+                                            LocalDate dealOpenDate, Long employeeId, String employeeFirstName, String employeeLastName) {
         this.dealId = dealId;
         this.consultancyName = consultancyName;
         this.dealStatus = dealStatus;
@@ -58,7 +58,7 @@ public class ClientDealDto {
         if (this == o) return true;
         if (getClass() != o.getClass()) return false;
 
-        ClientDealDto that = (ClientDealDto) o;
+        ClientDealWithRelatedEmployeeDto that = (ClientDealWithRelatedEmployeeDto) o;
 
         if (!dealId.equals(that.dealId)) return false;
         if (!consultancyName.equals(that.consultancyName)) return false;

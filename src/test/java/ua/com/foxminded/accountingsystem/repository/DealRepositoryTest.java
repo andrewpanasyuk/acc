@@ -9,7 +9,7 @@ import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Consultancy;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
-import ua.com.foxminded.accountingsystem.service.dto.ClientDealDto;
+import ua.com.foxminded.accountingsystem.service.dto.ClientDealWithRelatedEmployeeDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -97,16 +97,16 @@ public class DealRepositoryTest extends AbstractRepositoryTest<DealRepository> {
     @DataSet(value = "deals/stored-deals-contracts.xml", disableConstraints = true)
     public void findDealsWithMentorsByClient() {
 
-        ClientDealDto expectedDeal1 = new ClientDealDto(3L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,3,24), null, null, null);
-        ClientDealDto expectedDeal2 = new ClientDealDto(5L,"angular", DealStatus.FROZEN, LocalDate.of(2017,5,24), 2L, "Anton", "Teplinsky");
-        ClientDealDto expectedDeal3 = new ClientDealDto(7L,"java", DealStatus.ACTIVE, LocalDate.of(2017,3,14), 3L, "Andrey", "Gubar");
-        ClientDealDto expectedDeal4 = new ClientDealDto(9L,"angular", DealStatus.NEW, LocalDate.of(2017,8,23), null, null, null);
-        ClientDealDto expectedDeal5 = new ClientDealDto(1L,"java", DealStatus.ACTIVE, LocalDate.of(2017,1,24), 1L, "Sergey", "Fedotov");
-        ClientDealDto expectedDeal6 = new ClientDealDto(2L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,2,24), null, null, null);
+        ClientDealWithRelatedEmployeeDto expectedDeal1 = new ClientDealWithRelatedEmployeeDto(3L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,3,24), null, null, null);
+        ClientDealWithRelatedEmployeeDto expectedDeal2 = new ClientDealWithRelatedEmployeeDto(5L,"angular", DealStatus.FROZEN, LocalDate.of(2017,5,24), 2L, "Anton", "Teplinsky");
+        ClientDealWithRelatedEmployeeDto expectedDeal3 = new ClientDealWithRelatedEmployeeDto(7L,"java", DealStatus.ACTIVE, LocalDate.of(2017,3,14), 3L, "Andrey", "Gubar");
+        ClientDealWithRelatedEmployeeDto expectedDeal4 = new ClientDealWithRelatedEmployeeDto(9L,"angular", DealStatus.NEW, LocalDate.of(2017,8,23), null, null, null);
+        ClientDealWithRelatedEmployeeDto expectedDeal5 = new ClientDealWithRelatedEmployeeDto(1L,"java", DealStatus.ACTIVE, LocalDate.of(2017,1,24), 1L, "Sergey", "Fedotov");
+        ClientDealWithRelatedEmployeeDto expectedDeal6 = new ClientDealWithRelatedEmployeeDto(2L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,2,24), null, null, null);
 
-        assertEquals(4, repository.findDealsAndMentorsByClient(3L).size());
-        assertThat(repository.findDealsAndMentorsByClient(3L), hasItems(expectedDeal1, expectedDeal2, expectedDeal3, expectedDeal4));
-        assertEquals(2, repository.findDealsAndMentorsByClient(1L).size());
-        assertThat(repository.findDealsAndMentorsByClient(1L), hasItems(expectedDeal5, expectedDeal6));
+        assertEquals(4, repository.findDealsWithRelatedEmployeesByClient(3L).size());
+        assertThat(repository.findDealsWithRelatedEmployeesByClient(3L), hasItems(expectedDeal1, expectedDeal2, expectedDeal3, expectedDeal4));
+        assertEquals(2, repository.findDealsWithRelatedEmployeesByClient(1L).size());
+        assertThat(repository.findDealsWithRelatedEmployeesByClient(1L), hasItems(expectedDeal5, expectedDeal6));
     }
 }

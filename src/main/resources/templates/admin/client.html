@@ -123,7 +123,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="deal : ${ClientDeals}">
+        <tr th:each="deal : ${clientDeals}">
           <td>
             <a th:href="@{/admin/deals/{id}(id=${deal.dealId})}">
               <p th:text="${deal.dealId}"></p>
