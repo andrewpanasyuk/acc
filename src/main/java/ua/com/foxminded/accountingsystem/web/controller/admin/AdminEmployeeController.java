@@ -5,19 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.model.EmployeeField;
 import ua.com.foxminded.accountingsystem.model.EmployeeFieldValue;
 import ua.com.foxminded.accountingsystem.service.EmployeeFieldService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
-import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,8 +72,7 @@ public class AdminEmployeeController {
 
     @GetMapping("/{id}/students")
     public String findAllRelatedClients(@PathVariable long id, Model model) {
-        List<ClientOfEmployeeDto> clients = employeeService.findAllRelatedClients(id);
-        model.addAttribute("clients", clients);
+        model.addAttribute("clients", employeeService.findAllRelatedClients(id));
         return "admin/students";
     }
 
