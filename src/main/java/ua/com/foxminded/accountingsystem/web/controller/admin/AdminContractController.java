@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
+import ua.com.foxminded.accountingsystem.service.exception.ContractDateExistsException;
 
 import javax.validation.Valid;
 
@@ -70,7 +70,13 @@ public class AdminContractController {
             model.addAttribute("employees", employeeService.findAll());
             return "admin/contract";
         }
-        contractService.save(contract);
+
+        try{
+            contractService.save(contract);
+        } catch (ContractDateExistsException e){
+            redirectAttributes.addFlashAttribute("contractSavingError", e.getMessage());
+        }
+
         if (dealQueueService.findQueueByDeal(contract.getDeal()) != null) {
             dealQueueService.delete(dealQueueService.findQueueByDeal(contract.getDeal()));
         }
