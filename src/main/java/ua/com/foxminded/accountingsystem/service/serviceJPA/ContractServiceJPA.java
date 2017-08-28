@@ -20,7 +20,6 @@ import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsE
 
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
