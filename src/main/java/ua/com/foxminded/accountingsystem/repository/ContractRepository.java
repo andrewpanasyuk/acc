@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Deal;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ContractRepository extends JpaRepository<Contract, Long> {
@@ -21,4 +22,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     Contract findContractByDealIdAndCloseTypeIsNull(Long dealId);
 
     boolean existsContractByDealId(Long id);
+
+    boolean existsContractByContractDateAndDeal(LocalDate date, Deal deal);
 }

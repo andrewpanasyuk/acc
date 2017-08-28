@@ -6,6 +6,7 @@ import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ContractService {
@@ -22,11 +23,15 @@ public interface ContractService {
 
     List<Invoice> prepareIssueInvoices();
 
+    void checkContractDataBeforeSaving(Contract contract);
+
     List<Contract> findAllByDeal(Deal deal);
 
     Contract findOpenedContractByDealId(Long dealId);
 
     boolean existsContractByDealId(Long id);
+
+    boolean existsContractByContractDateAndDeal(LocalDate date, Deal deal);
 
     List<Payment> findAllRelatedPayments(Contract contract);
 }
