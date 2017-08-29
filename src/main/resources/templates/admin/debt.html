@@ -24,7 +24,7 @@
            th:text="${invoice.contract.deal.client.firstName} + ' ' + ${invoice.contract.deal.client.lastName}"></a>
       </td>
       <td th:text="${invoice.paymentPeriodTo}"></td>
-      <td th:text="${invoice.price.price} + ' ' + ${invoice.price.currency}"></td>
+      <td th:text="${invoice.price.amount} + ' ' + ${invoice.price.currency}"></td>
       <td th:text="${invoice.contract.paymentType}"></td>
       <td th:text="${invoice.contract.employee.firstName} + ' ' + ${invoice.contract.employee.lastName}"></td>
     </tr>

@@ -15,8 +15,7 @@
           <form id="saveDeal" class="form-horizontal" th:action="@{/admin/deals}" th:object="${deal}" method="post">
             <input type="hidden" th:field="${deal.id}"/>
             <input type="hidden" th:field="${deal.client}"/>
-            <!--<input type="hidden" th:field="${deal.status}"/>-->
-            <!--<input type="hidden" name="openDate" th:value="${#temporals.format(deal.openDate, 'dd-MM-yyyy')}"/>/>-->
+            <input type="hidden" th:field="${deal.status}"/>
             <input type="hidden" th:field="${deal.closeDate}"/>
             <div class="form-group">
               <div class="col-md-2 col-sm-4 col-xs-4">
@@ -61,12 +60,13 @@
               </div>
             </div>
 
+
             <div class="form-group">
               <div class="col-md-2 col-sm-4 col-xs-4">
-                <label for="openDate">Open Date:</label>
+                <label for="openDate" class="control-label">Open Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <input class="form-control datepicker" data-provide="datepicker"  id="openDate" name="openDate" value=""/>
+                <input class="form-control datepicker" data-provide="datepicker"  id="openDate" name="openDate" th:field="${deal.openDate}"/>
               </div>
             </div>
 
