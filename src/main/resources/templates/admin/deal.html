@@ -15,8 +15,8 @@
           <form id="saveDeal" class="form-horizontal" th:action="@{/admin/deals}" th:object="${deal}" method="post">
             <input type="hidden" th:field="${deal.id}"/>
             <input type="hidden" th:field="${deal.client}"/>
-            <input type="hidden" th:field="${deal.status}"/>
-            <input type="hidden" th:field="${deal.openDate}"/>
+            <!--<input type="hidden" th:field="${deal.status}"/>-->
+            <!--<input type="hidden" name="openDate" th:value="${#temporals.format(deal.openDate, 'dd-MM-yyyy')}"/>/>-->
             <input type="hidden" th:field="${deal.closeDate}"/>
             <div class="form-group">
               <div class="col-md-2 col-sm-4 col-xs-4">
@@ -66,7 +66,7 @@
                 <label for="openDate">Open Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <output id="openDate" class="form-control" th:text="${deal.openDate}"></output>
+                <input class="form-control datepicker" data-provide="datepicker"  id="openDate" name="openDate" value=""/>
               </div>
             </div>
 
@@ -117,7 +117,7 @@
                 <div class="btn-group" role="group">
                   <a th:href="@{/admin/deals}" class="btn btn-default">Go back</a>
                 </div>
-                <div class="btn-group" role="group" th:if="${deal.id} == null">
+                <div class="btn-group" role="group">
                   <button type="submit" class="btn btn-primary" onclick="$('#saveDeal').submit()">Save</button>
                 </div>
               </div>
@@ -165,7 +165,20 @@
       </div>
     </div>
   </div>
-
+  <script type="text/javascript">
+    /*<![CDATA[*/
+    $('.datepicker').datepicker({
+      format: "dd-mm-yyyy",
+      todayBtn: "linked",
+      clearBtn: true,
+      language: "ru",
+      calendarWeeks: true,
+      autoclose: true,
+      todayHighlight: true,
+      weekStart: 1
+    });
+    /*]]>*/
+  </script>
 </section>
 </body>
 </html>
