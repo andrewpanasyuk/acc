@@ -47,6 +47,7 @@
                 </output>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8" th:if="${deal.consultancy != null}">
+                <input type="hidden" th:field="${deal.consultancy}"/>
                 <output class="form-control" th:text="${deal.consultancy.name}"/>
               </div>
             </div>
