@@ -89,6 +89,7 @@
         <tr>
           <th data-halign="center" data-align="center" data-sortable="true" class="col-xs-1">Deal</th>
           <th data-halign="center" data-align="left" data-sortable="true">Student</th>
+          <th data-halign="center" data-align="left" data-sortable="true">Service</th>
           <th data-halign="center" data-align="left" data-sortable="true" class="col-xs-1">Payment type</th>
         </tr>
         </thead>
@@ -104,12 +105,20 @@
               <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
             </a>
           </td>
+          <td>
+            <span th:text="${client.consultancyName}"></span>
+          </td>
           <td th:text="${client.contractPaymentType}"></td>
         </tr>
         </tbody>
       </table>
     </div>
   </form>
+
+  <a th:href="@{/admin/employees/{id}/students(id=${employee.id})}" class="btn form-horizontal">
+    Get all students for current mentor
+  </a>
+
 </section>
 </body>
 </html>

@@ -5,10 +5,12 @@ import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.Commit;
+import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.dto.ClientOfEmployeeDto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
@@ -43,8 +45,10 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
     @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
     public void findRelatedActiveClientsTest() {
 
-        ClientOfEmployeeDto expectedClient1 = new ClientOfEmployeeDto(6L,"Andrey", "Vasilenko", 7L, PaymentType.TRIAL);
-        ClientOfEmployeeDto expectedClient2 = new ClientOfEmployeeDto(3L,"Andrey", "Grigorenko", 3L, PaymentType.PREPAY);
+        ClientOfEmployeeDto expectedClient1 = new ClientOfEmployeeDto(6L, "Andrey", "Vasilenko", 7L, PaymentType.TRIAL, "Personal Mentor", LocalDate.now(),
+            null, DealStatus.FROZEN);
+        ClientOfEmployeeDto expectedClient2 = new ClientOfEmployeeDto(3L, "Andrey", "Grigorenko", 3L, PaymentType.PREPAY, "Personal Mentor", LocalDate.now(),
+            null, DealStatus.FROZEN);
 
         assertEquals(2, repository.findRelatedActiveClients(2L).size());
         assertThat(repository.findRelatedActiveClients(2L), hasItems(expectedClient1, expectedClient2));
@@ -57,7 +61,7 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
     }
 
     @Test
-    @DataSet(value = "employee/stored-employee.xml" , disableConstraints = true)
+    @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
     public void findEmployeeByIdTest() {
         employee.setId(2L);
         assertEquals(employee, repository.findOne(2L));

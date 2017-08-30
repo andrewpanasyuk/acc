@@ -1,15 +1,11 @@
 package ua.com.foxminded.accountingsystem.web.controller.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ua.com.foxminded.accountingsystem.model.Employee;
 import ua.com.foxminded.accountingsystem.model.EmployeeField;
 import ua.com.foxminded.accountingsystem.model.EmployeeFieldValue;
@@ -22,6 +18,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/employees")
 public class AdminEmployeeController {
+    private final static Logger log = LoggerFactory.getLogger(AdminEmployeeController.class);
 
     private final EmployeeService employeeService;
     private final EmployeeFieldService employeeFieldService;
@@ -71,6 +68,12 @@ public class AdminEmployeeController {
         }
         employeeService.save(employee);
         return "redirect:/admin/employees";
+    }
+
+    @GetMapping("/{id}/students")
+    public String findAllRelatedClients(@PathVariable long id, Model model) {
+        model.addAttribute("clients", employeeService.findAllRelatedClients(id));
+        return "admin/students";
     }
 
 }
