@@ -20,6 +20,7 @@ import ua.com.foxminded.accountingsystem.service.exception.ContractDateExistsExc
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,10 +58,14 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    @Transactional
     public Contract save(Contract contract) {
 
-        checkContractDataBeforeSaving(contract);
+        if (existsContractByContractDateAndDeal(contract.getContractDate(), contract.getDeal())) {
+            throw new ContractDateExistsException("Contract with date "
+                + contract.getContractDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                + " for deal " + contract.getDeal().getId() + " already exists ! "
+                + "Please change contract date !");
+        }
 
         if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
             Deal deal = contract.getDeal();
@@ -120,16 +125,6 @@ public class ContractServiceJPA implements ContractService {
             invoices.add(new Invoice(today, contract, paymentPeriodFrom, paymentPeriodTo, contract.getPrice()));
         }
         return invoices;
-    }
-
-    @Override
-    public void checkContractDataBeforeSaving(Contract contract) {
-
-        if (existsContractByContractDateAndDeal(contract.getContractDate(), contract.getDeal())) {
-            throw new ContractDateExistsException("Contract with " + contract.getContractDate()
-                                                  + " date for deal " + contract.getDeal().getId() + " already exists ! "
-                                                  + "Please change contract date !");
-        }
     }
 
     @Override

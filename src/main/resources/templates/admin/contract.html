@@ -30,8 +30,10 @@
           <div class="col-sm-9">
             <div th:if="${contract.id == null}" th:remove="tag">
               <input class="form-control datepicker" data-provide="datepicker" th:field="*{contractDate}"/>
-              <!--<input type="date" th:field="*{contractDate}" class="form-control" />-->
             </div>
+            <output th:if="${contractSavingError != null}" th:text="${contractSavingError}" class="text-danger">
+              Saving error
+            </output>
             <div th:if="${contract.id != null}" th:remove="tag">
               <p th:text="${contract.contractDate}"/>
             </div>

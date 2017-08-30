@@ -66,7 +66,7 @@ public class AdminContractController {
     }
 
     @PutMapping
-    public String save(@Valid Contract contract, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    public String save(@Valid Contract contract, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("employees", employeeService.findAll());
@@ -79,7 +79,9 @@ public class AdminContractController {
                 dealQueueService.delete(dealQueueService.findQueueByDeal(contract.getDeal()));
             }
         } catch (ContractDateExistsException e){
-            redirectAttributes.addFlashAttribute("contractSavingError", e.getMessage());
+            model.addAttribute("employees", employeeService.findAll());
+            model.addAttribute("contractSavingError", e.getMessage());
+            return "admin/contract";
         }
 
         return "redirect:/admin/contracts";
