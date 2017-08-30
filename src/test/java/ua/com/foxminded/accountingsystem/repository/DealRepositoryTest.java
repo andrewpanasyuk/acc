@@ -9,6 +9,7 @@ import ua.com.foxminded.accountingsystem.model.Client;
 import ua.com.foxminded.accountingsystem.model.Consultancy;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
+import ua.com.foxminded.accountingsystem.service.dto.ClientDealWithRelatedEmployeeDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -79,7 +80,7 @@ public class DealRepositoryTest extends AbstractRepositoryTest<DealRepository> {
     @Commit
     @DataSet(value = "deals/stored-deals.xml", disableConstraints = true)
     @ExpectedDataSet(value = "deals/expected-deals.xml")
-    public void deleteODealByIdTest() {
+    public void deleteDealByIdTest() {
         repository.delete(2L);
     }
 
@@ -90,5 +91,22 @@ public class DealRepositoryTest extends AbstractRepositoryTest<DealRepository> {
         assertThat(repository.findDealsByStatus(DealStatus.ACTIVE), hasItems(deal));
         assertEquals(1, repository.findDealsByStatus(DealStatus.WAITING).size());
         assertThat(repository.findDealsByStatus(DealStatus.WAITING), hasItems(deal_1));
+    }
+
+    @Test
+    @DataSet(value = "deals/stored-deals-contracts.xml", disableConstraints = true)
+    public void findDealsWithMentorsByClient() {
+
+        ClientDealWithRelatedEmployeeDto expectedDeal1 = new ClientDealWithRelatedEmployeeDto(3L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,3,24), null, null, null);
+        ClientDealWithRelatedEmployeeDto expectedDeal2 = new ClientDealWithRelatedEmployeeDto(5L,"angular", DealStatus.FROZEN, LocalDate.of(2017,5,24), 2L, "Anton", "Teplinsky");
+        ClientDealWithRelatedEmployeeDto expectedDeal3 = new ClientDealWithRelatedEmployeeDto(7L,"java", DealStatus.ACTIVE, LocalDate.of(2017,3,14), 3L, "Andrey", "Gubar");
+        ClientDealWithRelatedEmployeeDto expectedDeal4 = new ClientDealWithRelatedEmployeeDto(9L,"angular", DealStatus.NEW, LocalDate.of(2017,8,23), null, null, null);
+        ClientDealWithRelatedEmployeeDto expectedDeal5 = new ClientDealWithRelatedEmployeeDto(1L,"java", DealStatus.ACTIVE, LocalDate.of(2017,1,24), 1L, "Sergey", "Fedotov");
+        ClientDealWithRelatedEmployeeDto expectedDeal6 = new ClientDealWithRelatedEmployeeDto(2L,"javascript", DealStatus.ACTIVE, LocalDate.of(2017,2,24), null, null, null);
+
+        assertEquals(4, repository.findDealsWithRelatedEmployeesByClient(3L).size());
+        assertThat(repository.findDealsWithRelatedEmployeesByClient(3L), hasItems(expectedDeal1, expectedDeal2, expectedDeal3, expectedDeal4));
+        assertEquals(2, repository.findDealsWithRelatedEmployeesByClient(1L).size());
+        assertThat(repository.findDealsWithRelatedEmployeesByClient(1L), hasItems(expectedDeal5, expectedDeal6));
     }
 }
