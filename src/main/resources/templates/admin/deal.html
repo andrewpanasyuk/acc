@@ -14,15 +14,13 @@
         <div class="col-md-12">
           <form id="saveDeal" class="form-horizontal" th:action="@{/admin/deals}" th:object="${deal}" method="post">
             <input type="hidden" th:field="${deal.id}"/>
-            <input type="hidden" th:field="${deal.client}"/>
-            <input type="hidden" th:field="${deal.status}"/>
-            <input type="hidden" th:field="${deal.closeDate}"/>
             <div class="form-group">
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="client">Client: </label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
                 <label id="client" class="form-control">
+                  <input type="hidden" th:field="${deal.client}"/>
                   <a th:href="@{/admin/clients/{id}(id=${deal.client.id})}"
                      th:text="${deal.client.firstName} + ' '  + ${deal.client.lastName}"></a>
                 </label>
@@ -57,17 +55,17 @@
                 <label for="dealStatus">Status:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
+                <input type="hidden" th:field="${deal.status}"/>
                 <output id="dealStatus" class="form-control" th:text="${deal.status}"/>
               </div>
             </div>
-
 
             <div class="form-group">
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="openDate">Open Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <input class="form-control datepicker" data-provide="datepicker"  id="openDate" name="openDate" th:field="${deal.openDate}"/>
+                <input class="form-control datepicker" data-provide="datepicker" id="openDate" th:field="${deal.openDate}"/>
               </div>
             </div>
 
@@ -76,6 +74,7 @@
                 <label for="closeDate">Close Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
+                <input type="hidden" th:field="${deal.closeDate}"/>
                 <output id="closeDate" class="form-control" th:text="${deal.closeDate}"/>
               </div>
             </div>
