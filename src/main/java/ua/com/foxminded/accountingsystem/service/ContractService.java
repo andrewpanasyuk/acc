@@ -23,8 +23,6 @@ public interface ContractService {
 
     List<Invoice> prepareIssueInvoices();
 
-    void checkContractDataBeforeSaving(Contract contract);
-
     List<Contract> findAllByDeal(Deal deal);
 
     Contract findOpenedContractByDealId(Long dealId);
