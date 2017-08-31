@@ -57,7 +57,7 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest<EmployeeRepos
     @Test
     @DataSet(value = "employee/stored-employee.xml", disableConstraints = true)
     public void findAllRelatedClientsTest() {
-        assertEquals(5, repository.findAllRelatedClients(2L).size());
+        assertEquals(6, repository.findAllRelatedClients(2L).size());
     }
 
     @Test
