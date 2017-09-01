@@ -57,6 +57,7 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
+    @Transactional
     public Contract save(Contract contract) {
 
         if (existsActiveContractByDeal(contract.getDeal())) {
