@@ -57,6 +57,7 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
+    @Transactional
     public Contract save(Contract contract) {
 
         checkContractDataBeforeSaving(contract);
@@ -66,6 +67,7 @@ public class ContractServiceJPA implements ContractService {
             deal.setStatus(DealStatus.ACTIVE);
             dealService.save(deal);
         }
+
         return contractRepository.save(contract);
     }
 
