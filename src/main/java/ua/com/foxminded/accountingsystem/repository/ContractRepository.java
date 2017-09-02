@@ -23,5 +23,5 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     boolean existsContractByDealId(Long id);
 
-    boolean existsContractByContractDateAndDeal(LocalDate date, Deal deal);
+    boolean existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(Deal deal);
 }

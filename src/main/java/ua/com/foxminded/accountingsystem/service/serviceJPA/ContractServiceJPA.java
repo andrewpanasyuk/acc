@@ -16,10 +16,11 @@ import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
-import ua.com.foxminded.accountingsystem.service.exception.ContractDateExistsException;
+import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,10 @@ public class ContractServiceJPA implements ContractService {
     @Transactional
     public Contract save(Contract contract) {
 
-        checkContractDataBeforeSaving(contract);
+        if (existsActiveContractByDeal(contract.getDeal())) {
+            throw new ActiveContractExistsException("Contract hasn't been created ! "
+                + "Current deal has already had an active contract !");
+        }
 
         if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
             Deal deal = contract.getDeal();
@@ -124,16 +128,6 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public void checkContractDataBeforeSaving(Contract contract) {
-
-        if (existsContractByContractDateAndDeal(contract.getContractDate(), contract.getDeal())) {
-            throw new ContractDateExistsException("Contract with " + contract.getContractDate()
-                                                  + " date for deal " + contract.getDeal().getId() + " already exists ! "
-                                                  + "Please change contract date !");
-        }
-    }
-
-    @Override
     public List<Contract> findAllByDeal(Deal deal) {
         return contractRepository.findAllByDealOrderByContractDateDesc(deal);
     }
@@ -149,8 +143,8 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public boolean existsContractByContractDateAndDeal(LocalDate date, Deal deal) {
-        return contractRepository.existsContractByContractDateAndDeal(date, deal);
+    public boolean existsActiveContractByDeal(Deal deal) {
+        return contractRepository.existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(deal);
     }
 
     @Override

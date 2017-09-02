@@ -29,7 +29,7 @@ public interface ContractService {
 
     boolean existsContractByDealId(Long id);
 
-    boolean existsContractByContractDateAndDeal(LocalDate date, Deal deal);
+    boolean existsActiveContractByDeal(Deal deal);
 
     List<Payment> findAllRelatedPayments(Contract contract);
 }
