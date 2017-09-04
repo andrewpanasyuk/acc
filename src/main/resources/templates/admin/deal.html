@@ -9,21 +9,28 @@
   <!--/*@thymesVar id="consultancy" type="ua.com.foxminded.accountingsystem.model.Consultancy"*/-->
   <!--/*@thymesVar id="consultancies" type="java.util.List<ua.com.foxminded.accountingsystem.model.Consultancy>"*/-->
   <div class="row">
+    <div class="col-sm-6 pull-right">
+      <div th:if="${contractCreatingError != null}" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <span th:text="${contractCreatingError}">Creating error</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-6">
       <div class="row">
         <div class="col-md-12">
           <form id="saveDeal" class="form-horizontal" th:action="@{/admin/deals}" th:object="${deal}" method="post">
             <input type="hidden" th:field="${deal.id}"/>
-            <input type="hidden" th:field="${deal.client}"/>
-            <input type="hidden" th:field="${deal.status}"/>
-            <input type="hidden" th:field="${deal.openDate}"/>
-            <input type="hidden" th:field="${deal.closeDate}"/>
             <div class="form-group">
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="client">Client: </label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
                 <label id="client" class="form-control">
+                  <input type="hidden" th:field="${deal.client}"/>
                   <a th:href="@{/admin/clients/{id}(id=${deal.client.id})}"
                      th:text="${deal.client.firstName} + ' '  + ${deal.client.lastName}"></a>
                 </label>
@@ -48,6 +55,7 @@
                 </output>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8" th:if="${deal.consultancy != null}">
+                <input type="hidden" th:field="${deal.consultancy}"/>
                 <output class="form-control" th:text="${deal.consultancy.name}"/>
               </div>
             </div>
@@ -57,6 +65,7 @@
                 <label for="dealStatus">Status:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
+                <input type="hidden" th:field="${deal.status}"/>
                 <output id="dealStatus" class="form-control" th:text="${deal.status}"/>
               </div>
             </div>
@@ -66,7 +75,7 @@
                 <label for="openDate">Open Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <output id="openDate" class="form-control" th:text="${deal.openDate}"></output>
+                <input class="form-control datepicker" data-provide="datepicker" id="openDate" th:field="${deal.openDate}"/>
               </div>
             </div>
 
@@ -75,6 +84,7 @@
                 <label for="closeDate">Close Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
+                <input type="hidden" th:field="${deal.closeDate}"/>
                 <output id="closeDate" class="form-control" th:text="${deal.closeDate}"/>
               </div>
             </div>
@@ -117,7 +127,7 @@
                 <div class="btn-group" role="group">
                   <a th:href="@{/admin/deals}" class="btn btn-default">Go back</a>
                 </div>
-                <div class="btn-group" role="group" th:if="${deal.id} == null">
+                <div class="btn-group" role="group">
                   <button type="submit" class="btn btn-primary" onclick="$('#saveDeal').submit()">Save</button>
                 </div>
               </div>
@@ -166,6 +176,20 @@
     </div>
   </div>
 
+  <script type="text/javascript">
+    /*<![CDATA[*/
+    $('.datepicker').datepicker({
+      format: "dd-mm-yyyy",
+      todayBtn: "linked",
+      clearBtn: true,
+      language: "ru",
+      calendarWeeks: true,
+      autoclose: true,
+      todayHighlight: true,
+      weekStart: 1
+    });
+    /*]]>*/
+  </script>
 </section>
 </body>
 </html>

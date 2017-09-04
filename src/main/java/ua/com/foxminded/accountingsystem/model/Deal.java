@@ -30,11 +30,11 @@ public class Deal extends AbstractAuditEntity {
     private Long id;
 
     @Column(name = "open_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate openDate;
 
     @Column(name = "close_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate closeDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

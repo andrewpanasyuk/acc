@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
+</head>
+<body>
+<section layout:fragment="content">
+  <table data-toggle="table" data-pagination="true" data-side-pagination="client" data-search="true">
+    <thead>
+    <tr>
+      <th data-sortable="true">Student</th>
+      <th data-sortable="true">Service</th>
+      <th data-sortable="true">Order Status</th>
+      <th data-sortable="true">Start date - Close date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}" th:class="${client.dealStatus == 'ACTIVE'} ? active-line : ''">
+      <td>
+        <a th:href="@{'/admin/clients/'+${client.clientId}}">
+          <span th:text="${client.firstName} + ' ' +${client.lastName}"></span>
+        </a>
+      </td>
+      <td>
+        <span th:text="${client.consultancyName}" ></span>
+      </td>
+      <td>
+        <span th:text="${client.dealStatus}" ></span>
+      </td>
+      <td>
+        <span th:text="${client.dealCreateDate} + ' - '"></span>
+        <span th:text="${client.dealCloseDate != null} ? ${client.dealCloseDate} : '...'"></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+</body>
+</html>

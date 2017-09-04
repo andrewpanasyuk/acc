@@ -28,5 +28,7 @@ public interface ContractService {
 
     boolean existsContractByDealId(Long id);
 
+    boolean existsActiveContractByDeal(Deal deal);
+
     List<Payment> findAllRelatedPayments(Contract contract);
 }
