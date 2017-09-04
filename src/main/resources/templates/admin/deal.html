@@ -9,6 +9,16 @@
   <!--/*@thymesVar id="consultancy" type="ua.com.foxminded.accountingsystem.model.Consultancy"*/-->
   <!--/*@thymesVar id="consultancies" type="java.util.List<ua.com.foxminded.accountingsystem.model.Consultancy>"*/-->
   <div class="row">
+    <div class="col-sm-6 pull-right">
+      <div th:if="${contractCreatingError != null}" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <span th:text="${contractCreatingError}">Creating error</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-6">
       <div class="row">
         <div class="col-md-12">
@@ -165,6 +175,7 @@
       </div>
     </div>
   </div>
+
   <script type="text/javascript">
     /*<![CDATA[*/
     $('.datepicker').datepicker({

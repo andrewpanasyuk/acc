@@ -16,6 +16,7 @@ import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
+import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
 
 
 import java.time.LocalDate;
@@ -58,11 +59,18 @@ public class ContractServiceJPA implements ContractService {
     @Override
     @Transactional
     public Contract save(Contract contract) {
+
+        if (existsActiveContractByDeal(contract.getDeal())) {
+            throw new ActiveContractExistsException("Contract hasn't been created ! "
+                + "Current deal has already had an active contract !");
+        }
+
         if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
             Deal deal = contract.getDeal();
             deal.setStatus(DealStatus.ACTIVE);
             dealService.save(deal);
         }
+
         return contractRepository.save(contract);
     }
 
@@ -133,6 +141,10 @@ public class ContractServiceJPA implements ContractService {
         return contractRepository.existsContractByDealId(id);
     }
 
+    @Override
+    public boolean existsActiveContractByDeal(Deal deal) {
+        return contractRepository.existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(deal);
+    }
 
     @Override
     public List<Payment> findAllRelatedPayments(Contract contract) {
