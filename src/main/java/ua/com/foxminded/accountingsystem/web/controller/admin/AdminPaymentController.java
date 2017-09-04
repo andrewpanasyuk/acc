@@ -20,7 +20,7 @@ public class AdminPaymentController {
 
     @GetMapping
     public String getAllPayments(Model model) {
-        model.addAttribute("payments", paymentService.findAllPayments());
+        model.addAttribute("payments", paymentService.findPayments());
         return "admin/payments";
     }
 

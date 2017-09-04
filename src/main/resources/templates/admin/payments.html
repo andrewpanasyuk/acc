@@ -12,24 +12,26 @@
     <thead>
     <tr>
       <th data-sortable="true">Payment Id</th>
+      <th data-sortable="true">invoice Id</th>
       <th data-sortable="true">Payment Date</th>
-      <th data-sortable="true">Paid Consultancy</th>
       <th data-sortable="true">Payment Sum</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="payment : ${payments}">
       <td>
-        <span th:text="${payment.paymentId}" ></span>
+        <span th:text="${payment.id}" ></span>
       </td>
       <td>
-          <span th:text="${payment.paymentDate}"></span>
+        <a th:href="@{'/admin/invoices/'+${payment.invoiceId}}">
+          <span th:text="${payment.invoiceId}"></span>
+        </a>
       </td>
       <td>
-        <span th:text="${payment.paidConsultancy}" ></span>
+          <span th:text="${payment.datePaid}"></span>
       </td>
       <td>
-        <span th:text="${payment.paymentSum.amount} + ' ' + ${payment.paymentSum.currency}" ></span>
+        <span th:text="${payment.sum.amount} + ' ' + ${payment.sum.currency}" ></span>
       </td>
     </tr>
     </tbody>

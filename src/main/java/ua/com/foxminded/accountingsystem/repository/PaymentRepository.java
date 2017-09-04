@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.service.dto.CashInflowDto;
+import ua.com.foxminded.accountingsystem.service.dto.PaymentDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,11 +29,11 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     List<Payment> findAllByInvoiceContractOrderByDatePaid(Contract contract);
 
-    @Query("select new ua.com.foxminded.accountingsystem.service.dto.CashInflowDto"
-        + "(p.datePaid, s.name, p.id, p.sum) "
-        + "from Payment p inner join p.invoice.contract.deal.consultancy s "
-        + "order by s.name, p.datePaid")
-    List<CashInflowDto> findAllPayments();
+    @Query("select new ua.com.foxminded.accountingsystem.service.dto.PaymentDto"
+        + "(p.id, inv.id, p.datePaid, p.sum) "
+        + "from Payment p inner join p.invoice inv "
+        + "order by p.datePaid")
+    List<PaymentDto> findPayments();
 
 
 }
