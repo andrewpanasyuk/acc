@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <title>Internal server error</title>
+  <title>Error Page</title>
 
   <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
   <script type="text/javascript" src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -11,25 +12,18 @@
   <link href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
   <link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
   <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+
+<!--  <title>Error Page</title>
+  <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+  <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body>
 <div class="container">
-  <div class="row">
-    <div class="error-template">
-      <h1>Oops!</h1>
-      <h2>Internal server error</h2>
-      <div class="error-details">
-        Sorry, an internal server error has occured!<br/>
-      </div>
-      <div class="error-actions">
-        <a href="/" class="btn btn-primary">
-          <i class="icon-home icon-white"></i> Take Me Home </a>
-        <a href="/admin" class="btn btn-primary">
-          <i class="icon-home icon-white"></i> Admin </a>
-        <a href="mailto:support@foxminded.com.ua" class="btn btn-default">
-          <i class="icon-envelope"></i> Contact Support </a>
-      </div>
-    </div>
+  <div class="jumbotron alert-danger">
+    <h1>Oops... something went wrong.</h1>
+    <h2 th:text="${status + ' ' + error}"></h2>
+    <h3 th:text="${exception + ' ' + message}"></h3>
   </div>
 </div>
 </body>
