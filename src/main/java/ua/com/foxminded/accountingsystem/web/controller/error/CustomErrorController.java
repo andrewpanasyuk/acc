@@ -24,19 +24,6 @@ public class CustomErrorController implements ErrorController {
         this.errorAttributes = errorAttributes;
     }
 
-    private Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
-        RequestAttributes requestAttributes = new ServletRequestAttributes(request);
-        return errorAttributes.getErrorAttributes(requestAttributes, includeStackTrace);
-    }
-
-    private boolean getTraceParameter(HttpServletRequest request) {
-        String parameter = request.getParameter("trace");
-        if (parameter == null) {
-            return false;
-        }
-        return !"false".equals(parameter.toLowerCase());
-    }
-
     @RequestMapping(value = PATH)
     public String error(HttpServletRequest request, Model model) {
         Map<String, Object> body = getErrorAttributes(request, getTraceParameter(request));
@@ -55,6 +42,19 @@ public class CustomErrorController implements ErrorController {
     @Override
     public String getErrorPath() {
         return PATH;
+    }
+
+    private Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
+        RequestAttributes requestAttributes = new ServletRequestAttributes(request);
+        return errorAttributes.getErrorAttributes(requestAttributes, includeStackTrace);
+    }
+
+    private boolean getTraceParameter(HttpServletRequest request) {
+        String parameter = request.getParameter("trace");
+        if (parameter == null) {
+            return false;
+        }
+        return !"false".equals(parameter.toLowerCase());
     }
 
 }
