@@ -16,7 +16,6 @@
           <a href="#">
             <i class="fa fa-edit"></i> <span>Сделки</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-blue">2</small>
                <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
@@ -28,10 +27,6 @@
         <li>
           <a th:href="@{/admin/queues}">
             <i class="fa fa-spinner"></i> <span>Очередь</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-blue">5</small>
-              <small class="label pull-right bg-red">2</small>
-            </span>
           </a>
         </li>
         <li>
@@ -44,20 +39,10 @@
             <i class="fa fa-user"></i> <span>Менторы</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-book"></i>
-            <span>Договора</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li>
+          <a th:href="@{/admin/contracts}">
+            <i class="fa fa-user"></i> <span>Договора</span>
           </a>
-          <ul class="treeview-menu">
-            <li><a th:href="@{/admin/contracts}"><i class="fa fa-circle-o"></i> Все</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Активные</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Замороженные</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Закрытые</a></li>
-          </ul>
         </li>
         <li>
           <a th:href="@{/admin/consultancies}">
@@ -76,7 +61,6 @@
             <li><a th:href="@{/admin/invoices}"><i class="fa fa-circle-o"></i> Все</a></li>
             <li><a th:href="@{/admin/invoices/issue}"><i class="fa fa-circle-o"></i> Выставить</a></li>
             <li><a th:href="@{/admin/invoices/debt}"><i class="fa fa-circle-o"></i> Просроченные</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Закрытые</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -100,10 +84,7 @@
           </a>
         </li>
         <li class="header">Отчеты</li>
-        <li><a th:href="@{/admin/reports/cashflow}"><i class="fa fa-circle-o text-green"></i> <span>Движение денег</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+        <li><a th:href="@{/admin/reports/cashflow}"><i class="fa fa-table"></i> <span>Движение денег</span></a></li>
         <li class="header">Конфигурация</li>
         <li>
           <a th:href="@{/admin/extra-fields}">
