@@ -22,7 +22,7 @@
     <DEAL id="9" consultancy_id="2" status="NEW" client_id="8" open_date="2017-06-23" created_by="system"
           created_date="2017-07-11"/>
 
-    <CONTRACT id="1" contract_date="2017-01-24"  deal_id="1" employee_id="1" payment_type="PREPAY" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="1" contract_date="2017-01-24"  deal_id="1" employee_id="1" payment_type="PREPAY" price_id="5" employee_rate_id="2" close_type="null" created_by="system" created_date="2017-07-11" />
     <CONTRACT id="2" contract_date="2017-02-24"  deal_id="2" employee_id="1" payment_type="PREPAY" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
     <CONTRACT id="3" contract_date="2017-03-24"  deal_id="3" employee_id="2" payment_type="PREPAY" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
     <CONTRACT id="4" contract_date="2017-04-24"  deal_id="4" employee_id="2" payment_type="TRIAL" price_id="5" employee_rate_id="2" created_by="system" created_date="2017-07-11" />
@@ -39,5 +39,8 @@
     <CLIENT id="6" last_name="Vasilenko" first_name="Andrey" personal_account_id="6" created_by="system" created_date="2017-07-11" />
     <CLIENT id="7" last_name="Petrenko" first_name="Dmytro" personal_account_id="7" created_by="system" created_date="2017-07-11" />
     <CLIENT id="8" last_name="Vovchenko" first_name="Dmytro" personal_account_id="8" created_by="system" created_date="2017-07-11" />
+
+    <CONSULTANCY id="1" name="Group Mentoring" description="java description" created_by="system" created_date="2017-07-11"/>
+    <CONSULTANCY id="2" name="Personal Mentor" description="java description" created_by="system" created_date="2017-07-11"/>
 
 </dataset>
