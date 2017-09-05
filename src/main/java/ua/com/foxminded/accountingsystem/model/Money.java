@@ -19,7 +19,7 @@ public class Money implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "money_sequence")
-    @SequenceGenerator(name = "money_sequence", sequenceName = "money_sequence", initialValue = 100)
+    @SequenceGenerator(name = "money_sequence", sequenceName = "money_sequence")
     private long id;
 
     @Column(name = "amount")

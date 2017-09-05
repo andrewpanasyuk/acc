@@ -25,7 +25,7 @@ public class Payment extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_sequence")
-    @SequenceGenerator(name = "payment_sequence", sequenceName = "payment_sequence", initialValue = 50)
+    @SequenceGenerator(name = "payment_sequence", sequenceName = "payment_sequence")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

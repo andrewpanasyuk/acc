@@ -25,7 +25,7 @@ public class DealQueue extends AbstractAuditEntity implements Comparable<DealQue
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deal_queue_sequence")
-    @SequenceGenerator(name = "deal_queue_sequence", sequenceName = "deal_queue_sequence", initialValue = 50)
+    @SequenceGenerator(name = "deal_queue_sequence", sequenceName = "deal_queue_sequence")
     private Long id;
 
     @Column(name = "queuing_date")

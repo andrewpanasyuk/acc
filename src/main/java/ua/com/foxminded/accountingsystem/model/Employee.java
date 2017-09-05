@@ -24,7 +24,7 @@ public class Employee extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
-    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", initialValue = 50)
+    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence")
     private Long id;
 
     @Column(name = "first_name")

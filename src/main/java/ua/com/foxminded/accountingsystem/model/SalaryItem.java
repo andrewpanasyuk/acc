@@ -28,7 +28,7 @@ public class SalaryItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salary_item_sequence")
-    @SequenceGenerator(name = "salary_item_sequence", sequenceName = "salary_item_sequence", initialValue = 50)
+    @SequenceGenerator(name = "salary_item_sequence", sequenceName = "salary_item_sequence")
     private Long id;
 
     @JoinColumn(name = "employee_id", nullable = false)

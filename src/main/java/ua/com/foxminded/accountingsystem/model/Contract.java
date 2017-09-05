@@ -31,7 +31,7 @@ public class Contract extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_sequence")
-    @SequenceGenerator(name = "contract_sequence", sequenceName = "contract_sequence", initialValue = 50)
+    @SequenceGenerator(name = "contract_sequence", sequenceName = "contract_sequence")
     private Long id;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")

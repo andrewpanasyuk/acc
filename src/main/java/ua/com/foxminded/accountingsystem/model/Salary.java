@@ -31,7 +31,7 @@ public class Salary implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salary_sequence")
-    @SequenceGenerator(name = "salary_sequence", sequenceName = "salary_sequence", initialValue = 50)
+    @SequenceGenerator(name = "salary_sequence", sequenceName = "salary_sequence")
     private Long id;
 
     @Column(name = "date_salary", nullable = false)

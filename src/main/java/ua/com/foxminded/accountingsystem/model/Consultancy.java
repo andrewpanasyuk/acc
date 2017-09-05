@@ -30,7 +30,7 @@ public class Consultancy extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consultancy_sequence")
-    @SequenceGenerator(name = "consultancy_sequence", sequenceName = "consultancy_sequence", initialValue = 50)
+    @SequenceGenerator(name = "consultancy_sequence", sequenceName = "consultancy_sequence")
     private long id;
 
     @NotNull(message = "It is required field")

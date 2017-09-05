@@ -20,7 +20,7 @@ public class PersonalAccount implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personal_account_sequence")
-    @SequenceGenerator(name = "personal_account_sequence", sequenceName = "personal_account_sequence", initialValue = 50)
+    @SequenceGenerator(name = "personal_account_sequence", sequenceName = "personal_account_sequence")
     private Long id;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

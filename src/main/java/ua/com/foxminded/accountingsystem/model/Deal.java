@@ -26,7 +26,7 @@ public class Deal extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deal_sequence")
-    @SequenceGenerator(name = "deal_sequence", sequenceName = "deal_sequence", initialValue = 50)
+    @SequenceGenerator(name = "deal_sequence", sequenceName = "deal_sequence")
     private Long id;
 
     @Column(name = "open_date")

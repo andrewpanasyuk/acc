@@ -27,7 +27,7 @@ public class PersonalAccountMoneyTransfer extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personal_account_transfer_sequence")
-    @SequenceGenerator(name = "personal_account_transfer_sequence", sequenceName = "personal_account_transfer_sequence", initialValue = 50)
+    @SequenceGenerator(name = "personal_account_transfer_sequence", sequenceName = "personal_account_transfer_sequence")
     private Long id;
 
     @Column(name = "transfer_type")

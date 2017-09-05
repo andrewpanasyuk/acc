@@ -19,7 +19,7 @@ public class UserRole extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_role_sequence")
-    @SequenceGenerator(name = "user_role_sequence", sequenceName = "user_role_sequence", initialValue = 50)
+    @SequenceGenerator(name = "user_role_sequence", sequenceName = "user_role_sequence")
     private int id;
 
     @NotNull

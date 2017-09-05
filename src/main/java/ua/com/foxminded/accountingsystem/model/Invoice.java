@@ -26,7 +26,7 @@ public class Invoice extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_sequence")
-    @SequenceGenerator(name = "invoice_sequence", sequenceName = "invoice_sequence", initialValue = 50)
+    @SequenceGenerator(name = "invoice_sequence", sequenceName = "invoice_sequence")
     private Long id;
 
     @Column(name = "creation_date")

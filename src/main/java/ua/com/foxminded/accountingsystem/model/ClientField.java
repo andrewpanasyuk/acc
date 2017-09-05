@@ -18,7 +18,7 @@ public class ClientField extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_field_sequence")
-    @SequenceGenerator(name = "client_field_sequence", sequenceName = "client_field_sequence", initialValue = 50)
+    @SequenceGenerator(name = "client_field_sequence", sequenceName = "client_field_sequence")
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
