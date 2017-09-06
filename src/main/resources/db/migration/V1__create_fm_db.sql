@@ -5,7 +5,7 @@ create sequence consultancy_sequence start 1 increment 50;
 create sequence contract_sequence start 1 increment 50;
 create sequence deal_queue_sequence start 1 increment 50;
 create sequence deal_sequence start 1 increment 50;
-create sequence employee_field_sequence start 1 increment 10;
+create sequence employee_field_sequence start 1 increment 50;
 create sequence employee_field_value_sequence start 1 increment 1;
 create sequence employee_sequence start 1 increment 50;
 create sequence hibernate_sequence start 1 increment 1;
