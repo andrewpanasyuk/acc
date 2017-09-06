@@ -40,6 +40,9 @@ public class DealQueue extends AbstractAuditEntity implements Comparable<DealQue
     @JoinColumn(name = "deal_id")
     private Deal deal;
 
+    @Column(name = "removed")
+    private Boolean removed = false;
+
     public Long getId() {
         return id;
     }
@@ -70,6 +73,14 @@ public class DealQueue extends AbstractAuditEntity implements Comparable<DealQue
 
     public void setDeal(Deal deal) {
         this.deal = deal;
+    }
+
+    public Boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(Boolean removed) {
+        this.removed = removed;
     }
 
     @Override
