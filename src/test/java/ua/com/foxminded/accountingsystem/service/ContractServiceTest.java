@@ -71,6 +71,9 @@ public class ContractServiceTest {
         prepayContract.setPaymentType(PaymentType.PREPAY);
         postpayContract.setPaymentType(PaymentType.POSTPAY);
 
+        prepayContract.setPaymentDate(payDate);
+        postpayContract.setPaymentDate(payDate);
+
         prepayInvoice.setContract(prepayContract);
         postpayInvoice.setContract(postpayContract);
 
