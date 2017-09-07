@@ -110,7 +110,6 @@ public class DealQueueServiceJPA implements DealQueueService {
             dealQueue.setPriority(Priority.HIGH);
         }
         dealService.changeDealStatus(deal.getId(),DealStatus.WAITING);
-//        deal.setStatus(DealStatus.WAITING);
         dealQueue.setDeal(deal);
         dealQueueRepository.save(dealQueue);
         return dealQueue;

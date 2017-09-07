@@ -179,13 +179,9 @@ public class DealServiceJPA implements DealService {
 
     private boolean isChangingDealStatusAllowed(DealStatus oldStatus, DealStatus newStatus) {
 
-//        if ((oldStatus == DealStatus.NEW) &&
-//            (newStatus == DealStatus.ACTIVE || newStatus == DealStatus.WAITING ||
-//                newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED)) {
-//            return true;
-//        }
-
-        if ((oldStatus == DealStatus.NEW) && (newStatus == DealStatus.ACTIVE ))  {
+        if ((oldStatus == DealStatus.NEW) &&
+            (newStatus == DealStatus.ACTIVE || newStatus == DealStatus.WAITING ||
+                newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED)) {
             return true;
         }
 
