@@ -80,7 +80,7 @@ public class AdminContractController {
                 dealQueueService.delete(dealQueue);
             }
         } catch (ActiveContractExistsException e){
-            redirectAttributes.addFlashAttribute("contractCreatingError", e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/deals/" + contract.getDeal().getId();
         }
 

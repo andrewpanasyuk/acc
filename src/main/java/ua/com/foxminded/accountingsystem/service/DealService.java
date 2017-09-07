@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface DealService {
 
+    void changeDealStatus(Long id, DealStatus newStatus);
+
     Deal createDealByClientId(Long id);
 
     void delete(Deal deal);
@@ -17,10 +19,5 @@ public interface DealService {
 
     List<Deal> findAll();
 
-    void freeze(Long id);
-
     List<Deal> findDealsByStatus(DealStatus dealStatus);
-
-    void close(Deal deal, DealStatus dealStatus);
-
 }
