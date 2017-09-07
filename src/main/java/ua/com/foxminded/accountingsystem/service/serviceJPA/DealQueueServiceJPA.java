@@ -72,7 +72,8 @@ public class DealQueueServiceJPA implements DealQueueService {
     @Override
     public Map<Consultancy, List<DealQueue>> findAllGroupByConsultancy() {
         Map<Consultancy, List<DealQueue>> queuesByConsultancy = new HashMap<>();
-        List<DealQueue> dealQueues = dealQueueRepository.findAll();
+        /*List<DealQueue> dealQueues = dealQueueRepository.findAll();*/
+        List<DealQueue> dealQueues = dealQueueRepository.findAllByRemoved(false);
         Collections.sort(dealQueues);
         List<Consultancy> consultancies = consultancyRepository.findAll();
         consultancies.forEach(consultancy -> queuesByConsultancy.put(consultancy, new ArrayList<>()));
@@ -101,6 +102,10 @@ public class DealQueueServiceJPA implements DealQueueService {
 
         dealService.changeStatus(deal, checkedCause);
         dealQueueRepository.delete(dealQueue);
+        //dealService.close(deal, cause);
+        dealQueue.setRemoved(true);
+        dealQueueRepository.save(dealQueue);
+        //dealQueueRepository.delete(dealQueue);
     }
 
     @Override
