@@ -57,7 +57,8 @@ public class DealServiceJPA implements DealService {
                                                   " to " + newStatus + " is not allowed !");
         }
 
-        if ((oldStatus == DealStatus.NEW || oldStatus == DealStatus.WAITING)  && newStatus == DealStatus.ACTIVE) {
+        if ((oldStatus == DealStatus.NEW || oldStatus == DealStatus.WAITING || oldStatus == DealStatus.FROZEN)
+            && (newStatus == DealStatus.ACTIVE)) {
 
             deal.setStatus(newStatus);
             save(deal);
@@ -116,7 +117,6 @@ public class DealServiceJPA implements DealService {
 
             return;
         }
-
     }
 
     @Override
