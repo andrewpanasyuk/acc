@@ -46,13 +46,14 @@ public class DealServiceJPA implements DealService {
     public void changeDealStatus(Long id, DealStatus newStatus) {
 
         Deal deal = dealRepository.findOne(id);
-        DealStatus oldStatus = deal.getStatus();
 
         if (deal == null) {
             throw new ChangingDealStatusException("Could not find deal !");
         }
 
-        if (!isChangingDealStatusAllowed(deal.getStatus(), newStatus)) {
+        DealStatus oldStatus = deal.getStatus();
+
+        if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
             throw new ChangingDealStatusException("Changing deal status from " + oldStatus +
                                                   " to " + newStatus + " is not allowed !");
         }
