@@ -23,8 +23,8 @@
         <span th:text="${payment.id}" ></span>
       </td>
       <td>
-        <a th:href="@{'/admin/invoices/'+${payment.invoiceId}}">
-          <span th:text="${payment.invoiceId}"></span>
+        <a th:href="@{'/admin/invoices/'+${payment.invoice.id}}">
+          <span th:text="${payment.invoice.id}"></span>
         </a>
       </td>
       <td>

@@ -2,9 +2,9 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.PaymentService;
-import ua.com.foxminded.accountingsystem.service.dto.PaymentDto;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class PaymentServiceJPA implements PaymentService {
     }
 
     @Override
-    public List<PaymentDto> findPayments() {
-        return paymentRepository.findPayments();
+    public List<Payment> findPayments() {
+        return paymentRepository.findAllByOrderByDatePaid();
     }
 }
