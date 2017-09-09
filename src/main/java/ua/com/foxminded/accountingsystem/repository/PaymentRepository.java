@@ -28,4 +28,5 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     List<Payment> findAllByInvoiceContractOrderByDatePaid(Contract contract);
 
+    List<Payment> findAllByOrderByDatePaid();
 }
