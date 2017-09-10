@@ -98,40 +98,10 @@ public class AdminDealController {
         return "admin/deals";
     }
 
-    @GetMapping(value = "/{id}/freeze")
-    public String freezeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    @GetMapping(value = "/{id}/{cause}")
+    public String changeDealStatus(@PathVariable long id, @PathVariable DealStatus cause, RedirectAttributes redirectAttributes) {
         try {
-            dealService.changeDealStatus(dealService.findOne(id), DealStatus.FROZEN);
-        } catch (ChangingDealStatusException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        }
-        return "redirect:/admin/deals/" + id;
-    }
-
-    @GetMapping(value = "/{id}/refuse")
-    public String refuseDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        try {
-            dealService.changeDealStatus(dealService.findOne(id), DealStatus.REFUSED);
-        } catch (ChangingDealStatusException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        }
-        return "redirect:/admin/deals/" + id;
-    }
-
-    @GetMapping(value = "/{id}/reject")
-    public String rejectDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        try {
-            dealService.changeDealStatus(dealService.findOne(id), DealStatus.REJECTED);
-        } catch (ChangingDealStatusException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        }
-        return "redirect:/admin/deals/" + id;
-    }
-
-    @GetMapping(value = "/{id}/complete")
-    public String completeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        try {
-            dealService.changeDealStatus(dealService.findOne(id), DealStatus.COMPLETED);
+            dealService.changeDealStatus(dealService.findOne(id), cause);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
