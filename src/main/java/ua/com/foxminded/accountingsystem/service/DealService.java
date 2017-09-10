@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DealService {
 
-    void changeDealStatus(Long id, DealStatus newStatus);
+    void changeDealStatus(Deal deal, DealStatus newStatus);
 
     Deal createDealByClientId(Long id);
 

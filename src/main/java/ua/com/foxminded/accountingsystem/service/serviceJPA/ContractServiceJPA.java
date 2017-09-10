@@ -67,7 +67,7 @@ public class ContractServiceJPA implements ContractService {
         }
 
         if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
-            dealService.changeDealStatus(contract.getDeal().getId(), DealStatus.ACTIVE);
+            dealService.changeDealStatus(contract.getDeal(), DealStatus.ACTIVE);
         }
 
         return contractRepository.save(contract);
@@ -77,7 +77,6 @@ public class ContractServiceJPA implements ContractService {
     public Contract prepareNewByDealId(Long dealId) {
 
         Deal deal = dealService.findOne(dealId);
-        deal.setStatus(DealStatus.ACTIVE);
 
         Contract contract = new Contract();
 

@@ -101,7 +101,7 @@ public class AdminDealController {
     @GetMapping(value = "/{id}/freeze")
     public String freezeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.changeDealStatus(id, DealStatus.FROZEN);
+            dealService.changeDealStatus(dealService.findOne(id), DealStatus.FROZEN);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -111,7 +111,7 @@ public class AdminDealController {
     @GetMapping(value = "/{id}/refuse")
     public String refuseDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.changeDealStatus(id, DealStatus.REFUSED);
+            dealService.changeDealStatus(dealService.findOne(id), DealStatus.REFUSED);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -121,7 +121,7 @@ public class AdminDealController {
     @GetMapping(value = "/{id}/reject")
     public String rejectDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.changeDealStatus(id, DealStatus.REJECTED);
+            dealService.changeDealStatus(dealService.findOne(id), DealStatus.REJECTED);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -131,7 +131,7 @@ public class AdminDealController {
     @GetMapping(value = "/{id}/complete")
     public String completeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.changeDealStatus(id, DealStatus.COMPLETED);
+            dealService.changeDealStatus(dealService.findOne(id), DealStatus.COMPLETED);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }

@@ -23,6 +23,8 @@ import java.util.List;
 @Service
 public class DealServiceJPA implements DealService {
 
+    private final DealStatus NO_STATUS = null;
+
     private final DealRepository dealRepository;
     private final ClientRepository clientRepository;
     private final ContractRepository contractRepository;
@@ -43,34 +45,40 @@ public class DealServiceJPA implements DealService {
 
     @Override
     @Transactional
-    public void changeDealStatus(Long id, DealStatus newStatus) {
+    public void changeDealStatus(Deal deal, DealStatus newStatus) {
 
-        Deal deal = dealRepository.findOne(id);
-
-        if (deal == null) {
-            throw new ChangingDealStatusException("Could not find deal !");
+        if (deal == null || newStatus == null) {
+            throw new ChangingDealStatusException("Incorrect argument !");
         }
 
-        DealStatus oldStatus = deal.getStatus();
+        DealStatus oldStatus = null;
+        Deal refreshedDeal = null;
+
+        if (deal.getId() == null) {
+            oldStatus = deal.getStatus();
+        } else {
+            refreshedDeal = dealRepository.findOne(deal.getId());
+            if (refreshedDeal == null) {
+                throw new ChangingDealStatusException("Could not find deal !");
+            }
+
+            oldStatus = refreshedDeal.getStatus();
+        }
 
         if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
             throw new ChangingDealStatusException("Changing deal status from " + oldStatus +
                                                   " to " + newStatus + " is not allowed !");
         }
 
-        if ((oldStatus == DealStatus.NEW || oldStatus == DealStatus.WAITING || oldStatus == DealStatus.FROZEN)
-            && (newStatus == DealStatus.ACTIVE)) {
-
+        if ((deal.getId() == null) && (oldStatus == NO_STATUS) && (newStatus == DealStatus.NEW)) {
             deal.setStatus(newStatus);
-            save(deal);
-
-            return;
         }
 
-        if ((oldStatus == DealStatus.NEW || oldStatus == DealStatus.FROZEN) && (newStatus == DealStatus.WAITING)) {
+        if ((oldStatus == DealStatus.NEW || oldStatus == DealStatus.WAITING || oldStatus == DealStatus.FROZEN)
+            && (newStatus == DealStatus.ACTIVE || newStatus == DealStatus.WAITING)) {
 
-            deal.setStatus(newStatus);
-            save(deal);
+            refreshedDeal.setStatus(newStatus);
+            save(refreshedDeal);
 
             return;
         }
@@ -79,18 +87,18 @@ public class DealServiceJPA implements DealService {
             (newStatus == DealStatus.COMPLETED || newStatus == DealStatus.FROZEN ||
                 newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED)) {
 
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(id);
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(refreshedDeal.getId());
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
 
             if (newStatus != DealStatus.FROZEN) {
-                deal.setCloseDate(LocalDate.now());
+                refreshedDeal.setCloseDate(LocalDate.now());
             }
 
-            changeContractStatus(deal.getId(), newStatus);
-            deal.setStatus(newStatus);
-            save(deal);
+            changeRelatedContractStatus(refreshedDeal.getId(), newStatus);
+            refreshedDeal.setStatus(newStatus);
+            save(refreshedDeal);
 
             return;
         }
@@ -100,11 +108,11 @@ public class DealServiceJPA implements DealService {
                 newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED)) {
 
             if (newStatus != DealStatus.NEW && newStatus != DealStatus.FROZEN) {
-                deal.setCloseDate(LocalDate.now());
+                refreshedDeal.setCloseDate(LocalDate.now());
             }
 
-            deal.setStatus(newStatus);
-            save(deal);
+            refreshedDeal.setStatus(newStatus);
+            save(refreshedDeal);
 
             return;
         }
@@ -112,9 +120,9 @@ public class DealServiceJPA implements DealService {
         if ((oldStatus == DealStatus.NEW) &&
             (newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED)) {
 
-            deal.setCloseDate(LocalDate.now());
-            deal.setStatus(newStatus);
-            save(deal);
+            refreshedDeal.setCloseDate(LocalDate.now());
+            refreshedDeal.setStatus(newStatus);
+            save(refreshedDeal);
 
             return;
         }
@@ -125,7 +133,7 @@ public class DealServiceJPA implements DealService {
         Client client = clientRepository.findOne(id);
         Deal deal = new Deal();
         deal.setClient(client);
-        deal.setStatus(DealStatus.NEW);
+        changeDealStatus(deal, DealStatus.NEW);
         client.getDeals().add(deal);
         deal.setOpenDate(LocalDate.now());
         return deal;
@@ -156,7 +164,7 @@ public class DealServiceJPA implements DealService {
         return dealRepository.findDealsByStatus(dealStatus);
     }
 
-    private void changeContractStatus(Long id, DealStatus newStatus) {
+    private void changeRelatedContractStatus(Long id, DealStatus newStatus) {
 
         Contract contract = contractRepository.findContractByDealIdAndCloseTypeIsNull(id);
 
@@ -169,7 +177,7 @@ public class DealServiceJPA implements DealService {
             contract.setClosingDescription("freeze");
         }
 
-        if (newStatus == DealStatus.COMPLETED || newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED) {
+        if ((newStatus == DealStatus.COMPLETED) || (newStatus == DealStatus.REFUSED) || (newStatus == DealStatus.REJECTED)) {
             contract.setCloseType(CloseType.COMPLETED);
             contract.setClosingDescription("complete");
         }
@@ -179,6 +187,10 @@ public class DealServiceJPA implements DealService {
     }
 
     private boolean isChangingDealStatusAllowed(DealStatus oldStatus, DealStatus newStatus) {
+
+        if ((oldStatus == NO_STATUS) && (newStatus == DealStatus.NEW)) {
+            return true;
+        }
 
         if ((oldStatus == DealStatus.NEW) &&
             (newStatus == DealStatus.ACTIVE || newStatus == DealStatus.WAITING ||
