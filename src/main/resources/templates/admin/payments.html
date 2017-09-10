@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag" />
+</head>
+<body>
+<section layout:fragment="content">
+
+  <h3>Payments</h3>
+  <br/>
+  <table data-toggle="table" data-pagination="true" data-side-pagination="client" data-search="true">
+    <thead>
+    <tr>
+      <th data-sortable="true">Payment Id</th>
+      <th data-sortable="true">invoice Id</th>
+      <th data-sortable="true">Payment Date</th>
+      <th data-sortable="true">Payment Sum</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="payment : ${payments}">
+      <td>
+        <span th:text="${payment.id}" ></span>
+      </td>
+      <td>
+        <a th:href="@{'/admin/invoices/'+${payment.invoice.id}}">
+          <span th:text="${payment.invoice.id}"></span>
+        </a>
+      </td>
+      <td>
+          <span th:text="${payment.datePaid}"></span>
+      </td>
+      <td>
+        <span th:text="${payment.sum.amount} + ' ' + ${payment.sum.currency}" ></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+</body>
+</html>
