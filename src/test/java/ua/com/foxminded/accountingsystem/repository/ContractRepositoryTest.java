@@ -19,6 +19,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
 
     private static Contract contract1;
     private static Contract contract2;
+    private static Contract contract3;
     private static Contract postpay;
     private static Contract prepay;
     private static Contract trial;
@@ -100,6 +101,17 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract2.setCreatedBy("system");
         contract2.setCreatedDate(LocalDateTime.now());
 
+        contract3 = new Contract();
+        contract3.setId(52L);
+        contract3.setContractDate(LocalDate.of(2017, 06, 10));
+        contract3.setPaymentType(PaymentType.PREPAY);
+        contract3.setDeal(deal1);
+        contract3.setEmployee(employee2);
+        contract3.setEmployeeRate(contractEmployeeRate2);
+        contract3.setPrice(price2);
+        contract3.setCreatedBy("system");
+        contract3.setCreatedDate(LocalDateTime.now());
+
         postpay = new Contract();
         prepay = new Contract();
         trial = new Contract();
@@ -162,5 +174,12 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         assertThat(repository.findContractsForInvoicesCreation(24),
             hasItems(postpay, prepay));
     }
+
+    @Test
+    @DataSet(value = "contracts/contracts-for-one-deal.xml", cleanBefore = true)
+    public void findPreviousContractByDealTest(){
+        assertEquals(contract1, repository.findPreviousContractByDealId(contract3.getDeal().getId(), contract3.getContractDate()));
+    }
+
 
 }

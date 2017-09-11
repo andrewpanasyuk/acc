@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Deal;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ContractRepository extends JpaRepository<Contract, Long> {
@@ -23,4 +24,8 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     boolean existsContractByDeal(Deal deal);
 
     boolean existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(Deal deal);
+
+    @Query("SELECT c FROM Contract as c WHERE c.contractDate < ?2 " +
+        "AND c.deal.id = ?1")
+    Contract findPreviousContractByDealId(Long dealId, LocalDate contractDate);
 }
