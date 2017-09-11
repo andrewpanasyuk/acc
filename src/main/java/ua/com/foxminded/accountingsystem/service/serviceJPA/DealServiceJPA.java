@@ -48,7 +48,7 @@ public class DealServiceJPA implements DealService {
     public void changeDealStatus(Deal deal, DealStatus newStatus) {
 
         if (deal == null || newStatus == null) {
-            throw new ChangingDealStatusException("Incorrect argument !");
+            throw new ChangingDealStatusException("Incorrect argument in the method changeDealStatus !");
         }
 
         DealStatus oldStatus = null;
@@ -72,6 +72,8 @@ public class DealServiceJPA implements DealService {
 
         if ((deal.getId() == null) && (oldStatus == NO_STATUS) && (newStatus == DealStatus.NEW)) {
             deal.setStatus(newStatus);
+
+            return;
         }
 
         if ((oldStatus == DealStatus.NEW || oldStatus == DealStatus.WAITING || oldStatus == DealStatus.FROZEN)
