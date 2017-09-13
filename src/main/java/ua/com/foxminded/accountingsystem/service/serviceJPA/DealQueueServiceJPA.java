@@ -116,10 +116,9 @@ public class DealQueueServiceJPA implements DealQueueService {
     }
 
     private DealStatus getPreviousDealStatus(Deal deal) {
-        if (contractRepository.existsContractByDealId(deal.getId())) {
+        if (contractRepository.existsContractByDeal(deal)) {
             return DealStatus.FROZEN;
-        } else {
-            return DealStatus.NEW;
         }
+        return DealStatus.NEW;
     }
 }
