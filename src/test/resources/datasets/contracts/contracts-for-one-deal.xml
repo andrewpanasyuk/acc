@@ -16,5 +16,6 @@
     <EMPLOYEE id="51"  created_by="system" created_date="2017-07-11" />
 
     <CONTRACT id="50" contract_date="2017-06-01" payment_date="2017-07-12" deal_id="50" employee_id="50" payment_type="PREPAY" price_id="51" employee_rate_id="50" created_by="system" created_date="2017-07-11" />
-    <CONTRACT id="51" contract_date="2017-06-10" payment_date="2017-07-14" deal_id="50" employee_id="51" payment_type="POSTPAY" price_id="54" employee_rate_id="53"  created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="52" contract_date="2017-06-05" payment_date="2017-07-14" deal_id="50" employee_id="51" payment_type="PREPAY" price_id="54" employee_rate_id="53"  created_by="system" created_date="2017-07-11" />
+    <CONTRACT id="53" contract_date="2017-06-10" payment_date="2017-07-14" deal_id="50" employee_id="51" payment_type="PREPAY" price_id="54" employee_rate_id="53"  created_by="system" created_date="2017-07-11" />
 </dataset>
