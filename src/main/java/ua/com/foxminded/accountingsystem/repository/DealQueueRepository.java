@@ -13,5 +13,5 @@ public interface DealQueueRepository extends JpaRepository<DealQueue, Long> {
 
     List<DealQueue> findAllByRemoved(Boolean removed);
 
-    List<DealQueue> findAllByDealAndQueuingDate(Deal deal, LocalDate queuingDate);
+    List<DealQueue> findAllByDealAndQueuingDateOrderById(Deal deal, LocalDate queuingDate);
 }

@@ -2,17 +2,21 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.foxminded.accountingsystem.model.CloseType;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Deal;
+import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
+import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
@@ -32,13 +36,15 @@ public class ContractServiceJPA implements ContractService {
     private final ContractRepository contractRepository;
     private final DealService dealService;
     private final PaymentRepository paymentRepository;
+    private final DealQueueRepository dealQueueRepository;
 
 
     @Autowired
-    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService, PaymentRepository paymentRepository) {
+    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService, PaymentRepository paymentRepository, DealQueueRepository dealQueueRepository) {
         this.contractRepository = contractRepository;
         this.dealService = dealService;
         this.paymentRepository = paymentRepository;
+        this.dealQueueRepository = dealQueueRepository;
     }
 
     @Override
@@ -52,7 +58,39 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
+        Contract contract = contractRepository.findOne(id);
+        Deal deal = contract.getDeal();
+        List<DealQueue> dealQueues = dealQueueRepository.findAllByDealAndQueuingDateOrderById(deal, contract.getContractDate());
+
+        if (!dealQueues.isEmpty()) {
+            DealQueue dealQueue = dealQueues.get(0);
+            dealQueue.setRemoved(false);
+            dealQueueRepository.save(dealQueue);
+
+            deal.setStatus(DealStatus.WAITING);
+            dealService.save(deal);
+        }
+        else {
+            List<Contract> contracts = contractRepository.findPreviousContractsByDealId(new PageRequest(0, 1), deal.getId(), contract.getContractDate()).getContent();
+            if (!contracts.isEmpty()) {
+                CloseType contractCloseType = contracts.get(0).getCloseType();
+                if (!(contractCloseType == null)) {
+                    deal.setStatus(DealStatus.ACTIVE);
+                    dealService.save(deal);
+                }
+                else {
+                    deal.setStatus(matchDealStatusWithContractCloseType(contractCloseType));
+                    dealService.save(deal);
+                }
+            }
+            else {
+                deal.setStatus(DealStatus.NEW);
+                dealService.save(deal);
+            }
+        }
+
         contractRepository.delete(id);
     }
 
@@ -145,6 +183,20 @@ public class ContractServiceJPA implements ContractService {
     @Override
     public List<Payment> findAllRelatedPayments(Contract contract) {
         return paymentRepository.findAllByInvoiceContractOrderByDatePaid(contract);
+    }
+
+    private DealStatus matchDealStatusWithContractCloseType(CloseType closeType){
+
+        switch (closeType){
+            case FROZEN:
+                return DealStatus.FROZEN;
+            case CHANGE:
+                return DealStatus.ACTIVE;
+            case COMPLETED:
+                return DealStatus.COMPLETED;
+            default:
+                return DealStatus.COMPLETED;
+        }
     }
 }
 
