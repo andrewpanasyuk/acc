@@ -21,6 +21,7 @@ import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
+import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
 
 @Controller
@@ -31,14 +32,16 @@ public class AdminContractController {
     private final EmployeeService employeeService;
     private final DealService dealService;
     private final DealQueueService dealQueueService;
+    private final InvoiceService invoiceService;
 
     @Autowired
     public AdminContractController(ContractService contractService, EmployeeService employeeService,
-                                   DealService dealService, DealQueueService dealQueueService) {
+                                   DealService dealService, DealQueueService dealQueueService, InvoiceService invoiceService) {
         this.contractService = contractService;
         this.employeeService = employeeService;
         this.dealService = dealService;
         this.dealQueueService = dealQueueService;
+        this.invoiceService = invoiceService;
     }
 
     @GetMapping
@@ -61,14 +64,14 @@ public class AdminContractController {
         model
             .addAttribute("contract", contract)
             .addAttribute("employees", employeeService.findAll())
-            .addAttribute("payments", contractService.findAllRelatedPayments(contract));
+            .addAttribute("payments", contractService.findAllRelatedPayments(contract))
+            .addAttribute("invoices", invoiceService.findInvoicesByContract(contract));
         return "admin/contract";
     }
 
     @PutMapping
     public String save(@Valid Contract contract, BindingResult bindingResult, Model model,
                        RedirectAttributes redirectAttributes) {
-
         if (bindingResult.hasErrors()) {
             model.addAttribute("employees", employeeService.findAll());
             return "admin/contract";
@@ -84,7 +87,6 @@ public class AdminContractController {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/deals/" + contract.getDeal().getId();
         }
-
         return "redirect:/admin/contracts";
     }
 
