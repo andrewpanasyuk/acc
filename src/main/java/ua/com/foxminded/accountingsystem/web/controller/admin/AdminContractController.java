@@ -22,6 +22,7 @@ import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
+import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
 
 @Controller
@@ -76,8 +77,7 @@ public class AdminContractController {
             model.addAttribute("employees", employeeService.findAll());
             return "admin/contract";
         }
-
-        try {
+        try{
             contractService.save(contract);
             DealQueue dealQueue = dealQueueService.findQueueByDeal(contract.getDeal());
             if (dealQueue != null) {
