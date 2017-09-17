@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
+import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
 
 import java.util.List;
 
@@ -47,8 +49,13 @@ public class AdminInvoiceController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute Invoice invoice) {
-        invoiceService.save(invoice);
+    public String create(@ModelAttribute Invoice invoice, RedirectAttributes redirectAttributes) {
+        try {
+            invoiceService.save(invoice);
+        } catch (InvoiceException e) {
+            redirectAttributes.addFlashAttribute("invoiceError", e.getMessage());
+            return "redirect:/admin/contracts/" + invoice.getContract().getId();
+        }
         return "redirect:/admin/invoices";
     }
 
@@ -84,7 +91,6 @@ public class AdminInvoiceController {
         invoiceService.issueInvoice(invoice);
         return "redirect:/admin/invoices/issue";
     }
-
 
     @GetMapping(value = "/debt")
     public String getDebtInvoices(Model model) {

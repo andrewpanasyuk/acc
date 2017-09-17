@@ -2,8 +2,10 @@ package ua.com.foxminded.accountingsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
@@ -21,4 +23,10 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
         "AND FUNCTION('DAY', invoice.paymentPeriodTo) = ?1 " +
         "AND NOT EXISTS (SELECT si.invoice FROM SalaryItem AS si WHERE si.invoice.id = invoice.id) ")
     List<Invoice> findAllByCurrentDayAndNotAssignedToSalaryItemsAndLessThenCurrentDate(int day);
+
+    List<Invoice> findInvoicesByContract(Contract contract);
+
+    @Query("SELECT invoice FROM Invoice invoice WHERE invoice.contract.id = ?1 AND ?2 BETWEEN " +
+        "invoice.paymentPeriodFrom AND invoice.paymentPeriodTo")
+    Invoice findInvoiceByDate(long contractId, LocalDate date);
 }

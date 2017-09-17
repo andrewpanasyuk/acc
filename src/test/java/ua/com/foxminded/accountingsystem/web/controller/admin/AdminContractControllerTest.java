@@ -15,6 +15,7 @@ import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
+import ua.com.foxminded.accountingsystem.service.InvoiceService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ public class AdminContractControllerTest {
     private DealService dealService;
     @Mock
     private DealQueueService dealQueueService;
+    @Mock
+    private InvoiceService invoiceService;
 
     private AdminContractController controller;
 
@@ -57,7 +60,7 @@ public class AdminContractControllerTest {
 
     @Before
     public void init() {
-        controller = new AdminContractController(contractService, employeeService, dealService, dealQueueService);
+        controller = new AdminContractController(contractService, employeeService, dealService, dealQueueService, invoiceService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(contractService.findAll()).thenReturn(contracts);
         when(contractService.findOne(1L)).thenReturn(contract1);
