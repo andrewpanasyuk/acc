@@ -70,24 +70,13 @@ public class ContractServiceJPA implements ContractService {
             dealQueueRepository.save(dealQueue);
 
             deal.setStatus(DealStatus.WAITING);
-            dealService.save(deal);
+
         } else {
             List<Contract> contracts = contractRepository.findPreviousContractsByDealId(new PageRequest(0, 1), deal.getId(), contract.getContractDate()).getContent();
-            if (!contracts.isEmpty()) {
-                CloseType contractCloseType = contracts.get(0).getCloseType();
-                if (!(contractCloseType == null)) {
-                    deal.setStatus(DealStatus.ACTIVE);
-                    dealService.save(deal);
-                } else {
-                    deal.setStatus(matchDealStatusWithContractCloseType(contractCloseType));
-                    dealService.save(deal);
-                }
-            } else {
-                deal.setStatus(DealStatus.NEW);
-                dealService.save(deal);
-            }
+            deal.setStatus(chooseDealStatusByPreviousContracts(contracts));
         }
 
+        dealService.save(deal);
         contractRepository.delete(id);
     }
 
@@ -193,6 +182,21 @@ public class ContractServiceJPA implements ContractService {
         } else {
             return DealStatus.COMPLETED;
         }
+    }
+
+    private DealStatus chooseDealStatusByPreviousContracts(List<Contract> contracts){
+
+        if (!contracts.isEmpty()) {
+            CloseType contractCloseType = contracts.get(0).getCloseType();
+            if (!(contractCloseType == null)) {
+                return DealStatus.ACTIVE;
+            } else {
+                return matchDealStatusWithContractCloseType(contractCloseType);
+            }
+        } else {
+            return DealStatus.NEW;
+        }
+
     }
 }
 
