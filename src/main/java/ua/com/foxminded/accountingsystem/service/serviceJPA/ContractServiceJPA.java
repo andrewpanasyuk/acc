@@ -184,15 +184,14 @@ public class ContractServiceJPA implements ContractService {
 
     private DealStatus matchDealStatusWithContractCloseType(CloseType closeType){
 
-        switch (closeType){
-            case FROZEN:
-                return DealStatus.FROZEN;
-            case CHANGE:
-                return DealStatus.ACTIVE;
-            case COMPLETED:
-                return DealStatus.COMPLETED;
-            default:
-                return DealStatus.COMPLETED;
+        if (closeType == CloseType.FROZEN) {
+            return DealStatus.FROZEN;
+        } else if (closeType == CloseType.COMPLETED) {
+            return DealStatus.COMPLETED;
+        } else if (closeType == CloseType.CHANGE) {
+            return DealStatus.ACTIVE;
+        } else {
+            return DealStatus.COMPLETED;
         }
     }
 }
