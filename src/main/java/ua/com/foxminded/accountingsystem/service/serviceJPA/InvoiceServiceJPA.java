@@ -13,7 +13,6 @@ import ua.com.foxminded.accountingsystem.repository.InvoiceRepository;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,18 +32,21 @@ public class InvoiceServiceJPA implements InvoiceService {
         this.contractRepository = contractRepository;
     }
 
+    @Override
     public List<Invoice> findAll() {
         return invoiceRepository.findAll();
     }
 
+    @Override
     public Invoice findById(long id) {
         return invoiceRepository.findOne(id);
     }
 
+    @Override
     public Invoice save(Invoice invoice) {
         checkingDurationPeriod(invoice);
-        Invoice existingInvoiceByPaymentPeriodFrom = invoiceRepository.findInvoiceByDate(invoice.getContract().getId(), invoice.getPaymentPeriodFrom());
-        Invoice existingInvoiceByPaymentPeriodTo = invoiceRepository.findInvoiceByDate(invoice.getContract().getId(), invoice.getPaymentPeriodTo());
+        Invoice existingInvoiceByPaymentPeriodFrom = invoiceRepository.findInvoiceByDateWithinPaymentPeriod(invoice.getContract().getId(), invoice.getPaymentPeriodFrom());
+        Invoice existingInvoiceByPaymentPeriodTo = invoiceRepository.findInvoiceByDateWithinPaymentPeriod(invoice.getContract().getId(), invoice.getPaymentPeriodTo());
         if (existingInvoiceByPaymentPeriodFrom != null || existingInvoiceByPaymentPeriodTo != null){
             throw new InvoiceException("You have invoice for selected period");
         }
@@ -61,10 +63,12 @@ public class InvoiceServiceJPA implements InvoiceService {
         return true;
     }
 
+    @Override
     public void delete(Invoice invoice) {
         invoiceRepository.delete(invoice);
     }
 
+    @Override
     public Invoice createInvoiceByContractId(Long contractId) {
         Contract contract = contractRepository.findOne(contractId);
         Invoice invoice = new Invoice();
@@ -112,8 +116,8 @@ public class InvoiceServiceJPA implements InvoiceService {
     }
 
     @Override
-    public Invoice findInvoiceByDate(long contractId, LocalDate date) {
-        return invoiceRepository.findInvoiceByDate(contractId, date);
+    public Invoice findInvoiceByDateWithinPaymentPeriod(long contractId, LocalDate date) {
+        return invoiceRepository.findInvoiceByDateWithinPaymentPeriod(contractId, date);
     }
 
     @Override

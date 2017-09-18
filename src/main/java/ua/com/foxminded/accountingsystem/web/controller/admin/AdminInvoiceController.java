@@ -49,7 +49,7 @@ public class AdminInvoiceController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute Invoice invoice, RedirectAttributes redirectAttributes) {
+    public String saveInvoice(@ModelAttribute Invoice invoice, RedirectAttributes redirectAttributes) {
         try {
             invoiceService.save(invoice);
         } catch (InvoiceException e) {
