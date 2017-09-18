@@ -27,7 +27,7 @@ public interface InvoiceService {
 
     Invoice findLastInvoiceInActiveContractByDealId(Long dealId);
 
-    boolean existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(Contract contract, LocalDate date);
+    Invoice findInvoiceByDateWithinPaymentPeriod(long contractId, LocalDate date);
 
     List<Invoice> findInvoicesByContract(Contract contract);
 }

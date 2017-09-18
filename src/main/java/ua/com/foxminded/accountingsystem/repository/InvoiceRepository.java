@@ -26,5 +26,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
     List<Invoice> findInvoicesByContract(Contract contract);
 
-    boolean existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(Contract contract, LocalDate date);
+    @Query("SELECT invoice FROM Invoice invoice WHERE invoice.contract.id = ?1 AND ?2 BETWEEN " +
+        "invoice.paymentPeriodFrom AND invoice.paymentPeriodTo")
+    Invoice findInvoiceByDateWithinPaymentPeriod(long contractId, LocalDate date);
 }

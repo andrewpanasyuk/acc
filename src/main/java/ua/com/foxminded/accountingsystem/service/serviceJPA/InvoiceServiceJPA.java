@@ -44,12 +44,23 @@ public class InvoiceServiceJPA implements InvoiceService {
 
     @Override
     public Invoice save(Invoice invoice) {
-        boolean invoiceFrom = invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodFrom());
-        boolean invoiceTo = invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodTo());
-        if (invoiceFrom || invoiceTo){
+        checkingDurationPeriod(invoice);
+        Invoice existingInvoiceByPaymentPeriodFrom = invoiceRepository.findInvoiceByDateWithinPaymentPeriod(invoice.getContract().getId(), invoice.getPaymentPeriodFrom());
+        Invoice existingInvoiceByPaymentPeriodTo = invoiceRepository.findInvoiceByDateWithinPaymentPeriod(invoice.getContract().getId(), invoice.getPaymentPeriodTo());
+        if (existingInvoiceByPaymentPeriodFrom != null || existingInvoiceByPaymentPeriodTo != null){
             throw new InvoiceException("You have invoice for selected period");
         }
         return invoiceRepository.save(invoice);
+    }
+
+    private boolean checkingDurationPeriod(Invoice invoice) {
+        if (invoice.getPaymentPeriodFrom().plusMonths(1).minusDays(1).isBefore(invoice.getPaymentPeriodTo())) {
+            throw new InvoiceException("Period must be no more than 1 month (minus 1 day)!");
+        }
+        if (invoice.getPaymentPeriodFrom().isAfter(invoice.getPaymentPeriodTo())){
+            throw new InvoiceException("Invalid date range!");
+        }
+        return true;
     }
 
     @Override
@@ -105,8 +116,8 @@ public class InvoiceServiceJPA implements InvoiceService {
     }
 
     @Override
-    public boolean existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(Contract contract, LocalDate date) {
-        return invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(contract, date);
+    public Invoice findInvoiceByDateWithinPaymentPeriod(long contractId, LocalDate date) {
+        return invoiceRepository.findInvoiceByDateWithinPaymentPeriod(contractId, date);
     }
 
     @Override
