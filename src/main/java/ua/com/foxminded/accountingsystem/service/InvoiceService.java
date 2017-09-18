@@ -27,7 +27,7 @@ public interface InvoiceService {
 
     Invoice findLastInvoiceInActiveContractByDealId(Long dealId);
 
-    Invoice findInvoiceByDate(long contractId, LocalDate date);
+    Invoice findInvoiceByDateWithinPaymentPeriod(long contractId, LocalDate date);
 
     List<Invoice> findInvoicesByContract(Contract contract);
 }
