@@ -91,11 +91,25 @@ public class DealQueueServiceJPA implements DealQueueService {
     public void deleteQueue(Long id, DealStatus cause) {
         DealQueue dealQueue = dealQueueRepository.findOne(id);
         Deal deal = dealQueue.getDeal();
-        if (cause == null) {
-            dealService.changeDealStatus(deal, getPreviousDealStatus(deal));
-        } else {
-            dealService.changeDealStatus(deal, cause);
+        DealStatus checkedCause = cause;
+
+        if (checkedCause == null) {
+            checkedCause = getPreviousDealStatus(deal);
         }
+
+        if (checkedCause == DealStatus.NEW) {
+            dealService.makeNew(deal);
+        }
+        if (checkedCause == DealStatus.FROZEN) {
+            dealService.makeFrozen(deal);
+        }
+        if (checkedCause == DealStatus.REFUSED) {
+            dealService.makeRefused(deal);
+        }
+        if (checkedCause == DealStatus.REJECTED) {
+            dealService.makeRejected(deal);
+        }
+
         dealQueueRepository.delete(dealQueue);
     }
 
@@ -109,7 +123,7 @@ public class DealQueueServiceJPA implements DealQueueService {
         } else {
             dealQueue.setPriority(Priority.HIGH);
         }
-        dealService.changeDealStatus(deal,DealStatus.WAITING);
+        dealService.makeWaiting(deal);
         dealQueue.setDeal(deal);
         dealQueueRepository.save(dealQueue);
         return dealQueue;

@@ -101,17 +101,17 @@
             </div>
             <div class="btn-group" role="group" th:if="${deal.status.toString() !='FROZEN'} and
                 ${deal.status.toString() != 'NEW'} and ${deal.status.toString() != 'WAITING'}">
-              <a th:href="@{/admin/deals/{id}/FROZEN(id=${deal.id})}" class="btn btn-info">Freeze</a>
+              <a th:href="@{/admin/deals/{id}/freeze(id=${deal.id})}" class="btn btn-info">Freeze</a>
             </div>
             <div class="btn-group" role="group" th:if="${deal.closeDate == null}">
-              <a th:href="@{/admin/deals/{id}/REFUSED(id=${deal.id})}" class="btn btn-warning">Refuse</a>
+              <a th:href="@{/admin/deals/{id}/refuse(id=${deal.id})}" class="btn btn-warning">Refuse</a>
             </div>
             <div class="btn-group" role="group" th:if="${deal.closeDate == null}">
-              <a th:href="@{/admin/deals/{id}/REJECTED(id=${deal.id})}" class="btn btn-warning">Reject</a>
+              <a th:href="@{/admin/deals/{id}/reject(id=${deal.id})}" class="btn btn-warning">Reject</a>
             </div>
             <div class="btn-group" role="group"
                  th:if="${deal.closeDate == null} and ${deal.status.toString().equals('ACTIVE')}">
-              <a th:href="@{/admin/deals/{id}/COMPLETED(id=${deal.id})}" class="btn btn-primary">Complete</a>
+              <a th:href="@{/admin/deals/{id}/complete(id=${deal.id})}" class="btn btn-primary">Complete</a>
             </div>
           </div>
 

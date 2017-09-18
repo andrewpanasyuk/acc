@@ -98,10 +98,40 @@ public class AdminDealController {
         return "admin/deals";
     }
 
-    @GetMapping(value = "/{id}/{cause}")
-    public String changeDealStatus(@PathVariable long id, @PathVariable DealStatus cause, RedirectAttributes redirectAttributes) {
+    @GetMapping(value = "/{id}/freeze")
+    public String makeDealFrozen(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.changeDealStatus(dealService.findOne(id), cause);
+            dealService.makeFrozen(dealService.findOne(id));
+        } catch (ChangingDealStatusException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/admin/deals/" + id;
+    }
+
+    @GetMapping(value = "/{id}/refuse")
+    public String makeDealRefused(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            dealService.makeRefused(dealService.findOne(id));
+        } catch (ChangingDealStatusException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/admin/deals/" + id;
+    }
+
+    @GetMapping(value = "/{id}/reject")
+    public String makeDealRejected(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            dealService.makeRejected(dealService.findOne(id));
+        } catch (ChangingDealStatusException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/admin/deals/" + id;
+    }
+
+    @GetMapping(value = "/{id}/complete")
+    public String makeDealCompleted(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            dealService.makeCompleted(dealService.findOne(id));
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
