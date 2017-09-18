@@ -28,5 +28,5 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
     @Query("SELECT invoice FROM Invoice invoice WHERE invoice.contract.id = ?1 AND ?2 BETWEEN " +
         "invoice.paymentPeriodFrom AND invoice.paymentPeriodTo")
-    Invoice findInvoiceByDate(long contractId, LocalDate date);
+    Invoice findInvoiceByDateWithinPaymentPeriod(long contractId, LocalDate date);
 }
