@@ -1,7 +1,5 @@
 package ua.com.foxminded.accountingsystem.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
@@ -27,7 +25,5 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     boolean existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(Deal deal);
 
-    @Query(value = "SELECT c FROM Contract as c WHERE c.contractDate < ?2 " +
-        "AND c.deal.id = ?1 ORDER BY c.contractDate DESC")
-    Page<Contract> findPreviousContractsByDealId(Pageable pageable, Long dealId, LocalDate contractDate);
+    List<Contract> findAllByDealIdAndContractDateLessThanOrderByContractDateDesc(Long dealId, LocalDate contractDate);
 }

@@ -191,7 +191,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @Test
     @DataSet(value = "contracts/contracts-for-one-deal.xml", cleanBefore = true)
     public void findPreviousContractByDealTest(){
-        assertEquals(contract3, repository.findPreviousContractsByDealId(new PageRequest(0, 1), contract4.getDeal().getId(), contract4.getContractDate()).getContent().get(0));
+        assertEquals(contract3, repository.findAllByDealIdAndContractDateLessThanOrderByContractDateDesc(contract4.getDeal().getId(), contract4.getContractDate()).get(0));
     }
 
 

@@ -72,7 +72,7 @@ public class ContractServiceJPA implements ContractService {
             deal.setStatus(DealStatus.WAITING);
 
         } else {
-            List<Contract> contracts = contractRepository.findPreviousContractsByDealId(new PageRequest(0, 1), deal.getId(), contract.getContractDate()).getContent();
+            List<Contract> contracts = contractRepository.findAllByDealIdAndContractDateLessThanOrderByContractDateDesc(deal.getId(), contract.getContractDate());
             deal.setStatus(chooseDealStatusByPreviousContracts(contracts));
         }
 
