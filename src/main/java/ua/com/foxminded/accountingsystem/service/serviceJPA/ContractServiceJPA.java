@@ -71,21 +71,18 @@ public class ContractServiceJPA implements ContractService {
 
             deal.setStatus(DealStatus.WAITING);
             dealService.save(deal);
-        }
-        else {
+        } else {
             List<Contract> contracts = contractRepository.findPreviousContractsByDealId(new PageRequest(0, 1), deal.getId(), contract.getContractDate()).getContent();
             if (!contracts.isEmpty()) {
                 CloseType contractCloseType = contracts.get(0).getCloseType();
                 if (!(contractCloseType == null)) {
                     deal.setStatus(DealStatus.ACTIVE);
                     dealService.save(deal);
-                }
-                else {
+                } else {
                     deal.setStatus(matchDealStatusWithContractCloseType(contractCloseType));
                     dealService.save(deal);
                 }
-            }
-            else {
+            } else {
                 deal.setStatus(DealStatus.NEW);
                 dealService.save(deal);
             }
