@@ -13,7 +13,6 @@ import ua.com.foxminded.accountingsystem.repository.InvoiceRepository;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
