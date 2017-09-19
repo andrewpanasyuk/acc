@@ -81,12 +81,12 @@
             <div th:if="${contract.id == null}" th:remove="tag">
               <div class="col-xs-8" style="padding-left: 0">
                 <input th:value="*{price.amount > 0} ? *{price.amount}"
-                       th:id="*{'price.amount'}" th:name="*{'price.amount'}"
+                       th:id="price-amount" th:name="*{'price.amount'}"
                        type="number" class="form-control" required="required" min="0" max="2147483647"/>
                 <input type="hidden" th:field="*{price.id}"/>
               </div>
               <div class="col-xs-4" style="padding: 0">
-                <select th:field="*{price.currency}" class="form-control">
+                <select th:field="*{price.currency}" class="form-control" id="select-currency">
                   <option th:each="currencyTypeValue : ${T(ua.com.foxminded.accountingsystem.model.Currency).values()}"
                           th:value="${currencyTypeValue}"
                           th:text="${currencyTypeValue}"/>
@@ -211,6 +211,41 @@
     </div>
   </div>
 
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var currencyEl = $('#select-currency');
+    var amountEl = $('#price-amount');
+
+    var prices = [[${contract.deal.consultancy.prices}]].map(function (item) {
+      return {
+        key: item.currency.$name,
+        value: item.amount
+      };
+    });
+
+    for (var i = 0; i < prices.length; i++) {
+      var optionEl = $("<option></option>");
+      if (i === 0) {
+        optionEl.attr("selected", "selected");
+        amountEl.val(prices[i].value);
+      }
+    }
+
+    currencyEl.on('change', function () {
+      amountEl.val(prices[findCurrencyIndexInPrices(this.value)].value);
+    });
+
+    function findCurrencyIndexInPrices(currency) {
+      var index;
+      $.each(prices, function (key, value) {
+        if (currency === value.key) {
+          index = key;
+        }
+      });
+      return index;
+    }
+    /*]]>*/
+  </script>
   <script type="text/javascript">
     /*<![CDATA[*/
     $(function () {
