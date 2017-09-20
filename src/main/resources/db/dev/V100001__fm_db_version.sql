@@ -181,7 +181,7 @@ VALUES
     (4, 7, now() - interval '1 mon + 4 day', 3, 'PREPAY', 25, 26, now() - interval '4 day', NULL, NULL, 'system', '2017-07-11'),
     (5, 10, now() - interval '2 mon + 20 day', 2, 'TRIAL', 27, 28, NULL, now() - interval '2 mon + 11 day', 'COMPLETED', 'system', '2017-07-11'),
     (6, 10, now() - interval '2 mon + 13 day', 2, 'PREPAY', 27, 28, now() - interval '2 mon + 10 day', now() - interval '1 mon', 'FROZEN', 'system', '2017-07-11'),
-    (7, 11, now() - interval '8 day', 1, 'TRIAL', 29, 30, NULL, NULL, NULL, 'system', '2017-07-11'),
+    (7, 11, now() - interval '8 day', 1, 'TRIAL', 29, 30, NULL, now() - interval '2 day', 'COMPLETED', 'system', '2017-07-11'),
     (8, 11, now() - interval '1 day', 1, 'PREPAY', 29, 30, now() + interval '2 day', NULL, NULL, 'system', '2017-07-11'),
     (9, 8, now() - interval '7 mon', 3, 'PREPAY', 53, 54, now() - interval '6 mon', now() - interval '45 day', 'COMPLETED', 'system', '2017-07-11'),
     (10, 9, now() - interval '20 day', 2, 'PREPAY', 55, 56, now() + interval '10 day', now() - interval '5 day', 'FROZEN', 'system', '2017-07-11');
