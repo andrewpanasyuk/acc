@@ -99,9 +99,9 @@ public class AdminDealController {
     }
 
     @GetMapping(value = "/{id}/freeze")
-    public String makeDealFrozen(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    public String freezeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.makeFrozen(dealService.findOne(id));
+            dealService.changeStatus(dealService.findOne(id), DealStatus.FROZEN);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -109,9 +109,9 @@ public class AdminDealController {
     }
 
     @GetMapping(value = "/{id}/refuse")
-    public String makeDealRefused(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    public String refuseDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.makeRefused(dealService.findOne(id));
+            dealService.changeStatus(dealService.findOne(id), DealStatus.REFUSED);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -119,9 +119,9 @@ public class AdminDealController {
     }
 
     @GetMapping(value = "/{id}/reject")
-    public String makeDealRejected(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    public String rejectDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.makeRejected(dealService.findOne(id));
+            dealService.changeStatus(dealService.findOne(id), DealStatus.REJECTED);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -129,9 +129,9 @@ public class AdminDealController {
     }
 
     @GetMapping(value = "/{id}/complete")
-    public String makeDealCompleted(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    public String completeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
         try {
-            dealService.makeCompleted(dealService.findOne(id));
+            dealService.changeStatus(dealService.findOne(id), DealStatus.COMPLETED);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }

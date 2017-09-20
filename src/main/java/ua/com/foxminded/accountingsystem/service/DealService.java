@@ -7,19 +7,21 @@ import java.util.List;
 
 public interface DealService {
 
-    void makeNew(Deal deal);
+    void changeStatus(Deal deal, DealStatus dealStatus);
 
-    void makeActive(Deal deal);
+    void setNew(Deal deal);
 
-    void makeWaiting(Deal deal);
+    void setActive(Deal deal);
 
-    void makeFrozen(Deal deal);
+    void setWaiting(Deal deal);
 
-    void makeRefused(Deal deal);
+    void setFrozen(Deal deal);
 
-    void makeRejected(Deal deal);
+    void setRefused(Deal deal);
 
-    void makeCompleted(Deal deal);
+    void setRejected(Deal deal);
+
+    void setCompleted(Deal deal);
 
     Deal createDealByClientId(Long id);
 

@@ -44,14 +44,40 @@ public class DealServiceJPA implements DealService {
 
     @Override
     @Transactional
-    public void makeNew(Deal deal) {
+    public void changeStatus(Deal deal, DealStatus newStatus) {
 
-        if (deal == null) {
-            throw new ChangingDealStatusException("Argument in activate method is null !");
+        if (deal == null || newStatus == null) {
+            throw new ChangingDealStatusException("Argument in changeStatus method is null !");
         }
 
-        Deal refreshedDeal = dealRepository.findOne(deal.getId());
-        DealStatus oldStatus = refreshedDeal.getStatus();
+        if (newStatus == DealStatus.NEW) {
+            setNew(deal);
+        }
+        if (newStatus == DealStatus.ACTIVE) {
+            setActive(deal);
+        }
+        if (newStatus == DealStatus.WAITING) {
+            setWaiting(deal);
+        }
+        if (newStatus == DealStatus.FROZEN) {
+            setFrozen(deal);
+        }
+        if (newStatus == DealStatus.REFUSED) {
+            setRefused(deal);
+        }
+        if (newStatus == DealStatus.REJECTED) {
+            setRejected(deal);
+        }
+        if (newStatus == DealStatus.COMPLETED) {
+            setCompleted(deal);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void setNew(Deal deal) {
+
+        DealStatus oldStatus = deal.getStatus();
         DealStatus newStatus = DealStatus.NEW;
 
         if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
@@ -59,20 +85,18 @@ public class DealServiceJPA implements DealService {
                 " to " + newStatus + " is not allowed !");
         }
 
-        refreshedDeal.setStatus(newStatus);
-        save(refreshedDeal);
+        deal.setStatus(newStatus);
+
+        if (deal.getId() != null && oldStatus != null) {
+            save(deal);
+        }
     }
 
     @Override
     @Transactional
-    public void makeActive(Deal deal) {
+    public void setActive(Deal deal) {
 
-        if (deal == null) {
-            throw new ChangingDealStatusException("Argument in activate method is null !");
-        }
-
-        Deal refreshedDeal = dealRepository.findOne(deal.getId());
-        DealStatus oldStatus = refreshedDeal.getStatus();
+        DealStatus oldStatus = deal.getStatus();
         DealStatus newStatus = DealStatus.ACTIVE;
 
         if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
@@ -80,20 +104,15 @@ public class DealServiceJPA implements DealService {
                 " to " + newStatus + " is not allowed !");
         }
 
-        refreshedDeal.setStatus(newStatus);
-        save(refreshedDeal);
+        deal.setStatus(newStatus);
+        save(deal);
     }
 
     @Override
     @Transactional
-    public void makeWaiting(Deal deal) {
+    public void setWaiting(Deal deal) {
 
-        if (deal == null) {
-            throw new ChangingDealStatusException("Argument in wait method is null !");
-        }
-
-        Deal refreshedDeal = dealRepository.findOne(deal.getId());
-        DealStatus oldStatus = refreshedDeal.getStatus();
+        DealStatus oldStatus = deal.getStatus();
         DealStatus newStatus = DealStatus.WAITING;
 
         if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
@@ -101,20 +120,15 @@ public class DealServiceJPA implements DealService {
                 " to " + newStatus + " is not allowed !");
         }
 
-        refreshedDeal.setStatus(newStatus);
-        save(refreshedDeal);
+        deal.setStatus(newStatus);
+        save(deal);
     }
 
     @Override
     @Transactional
-    public void makeFrozen(Deal deal) {
+    public void setFrozen(Deal deal) {
 
-        if (deal == null) {
-            throw new ChangingDealStatusException("Argument in freeze method is null !");
-        }
-
-        Deal refreshedDeal = dealRepository.findOne(deal.getId());
-        DealStatus oldStatus = refreshedDeal.getStatus();
+        DealStatus oldStatus = deal.getStatus();
         DealStatus newStatus = DealStatus.FROZEN;
 
         if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
@@ -123,27 +137,22 @@ public class DealServiceJPA implements DealService {
         }
 
         if (oldStatus == DealStatus.ACTIVE) {
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(refreshedDeal.getId());
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
-            changeRelatedContractStatus(refreshedDeal, newStatus);
+            changeRelatedContractStatus(deal, newStatus);
         }
 
-        refreshedDeal.setStatus(newStatus);
-        save(refreshedDeal);
+        deal.setStatus(newStatus);
+        save(deal);
     }
 
     @Override
     @Transactional
-    public void makeRefused(Deal deal) {
+    public void setRefused(Deal deal) {
 
-        if (deal == null) {
-            throw new ChangingDealStatusException("Argument in refuse method is null !");
-        }
-
-        Deal refreshedDeal = dealRepository.findOne(deal.getId());
-        DealStatus oldStatus = refreshedDeal.getStatus();
+        DealStatus oldStatus = deal.getStatus();
         DealStatus newStatus = DealStatus.REFUSED;
 
         if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
@@ -152,28 +161,23 @@ public class DealServiceJPA implements DealService {
         }
 
         if (oldStatus == DealStatus.ACTIVE) {
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(refreshedDeal.getId());
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
-            changeRelatedContractStatus(refreshedDeal, newStatus);
+            changeRelatedContractStatus(deal, newStatus);
         }
 
-        refreshedDeal.setCloseDate(LocalDate.now());
-        refreshedDeal.setStatus(newStatus);
-        save(refreshedDeal);
+        deal.setCloseDate(LocalDate.now());
+        deal.setStatus(newStatus);
+        save(deal);
     }
 
     @Override
     @Transactional
-    public void makeRejected(Deal deal) {
+    public void setRejected(Deal deal) {
 
-        if (deal == null) {
-            throw new ChangingDealStatusException("Argument in reject method is null !");
-        }
-
-        Deal refreshedDeal = dealRepository.findOne(deal.getId());
-        DealStatus oldStatus = refreshedDeal.getStatus();
+        DealStatus oldStatus = deal.getStatus();
         DealStatus newStatus = DealStatus.REJECTED;
 
         if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
@@ -182,28 +186,23 @@ public class DealServiceJPA implements DealService {
         }
 
         if (oldStatus == DealStatus.ACTIVE) {
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(refreshedDeal.getId());
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
-            changeRelatedContractStatus(refreshedDeal, newStatus);
+            changeRelatedContractStatus(deal, newStatus);
         }
 
-        refreshedDeal.setCloseDate(LocalDate.now());
-        refreshedDeal.setStatus(newStatus);
-        save(refreshedDeal);
+        deal.setCloseDate(LocalDate.now());
+        deal.setStatus(newStatus);
+        save(deal);
     }
 
     @Override
     @Transactional
-    public void makeCompleted(Deal deal) {
+    public void setCompleted(Deal deal) {
 
-        if (deal == null) {
-            throw new ChangingDealStatusException("Argument in complete method is null !");
-        }
-
-        Deal refreshedDeal = dealRepository.findOne(deal.getId());
-        DealStatus oldStatus = refreshedDeal.getStatus();
+        DealStatus oldStatus = deal.getStatus();
         DealStatus newStatus = DealStatus.COMPLETED;
 
         if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
@@ -211,15 +210,15 @@ public class DealServiceJPA implements DealService {
                 " to " + newStatus + " is not allowed !");
         }
 
-        Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(refreshedDeal.getId());
+        Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
         if (lastInvoice != null) {
             salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
         }
 
-        changeRelatedContractStatus(refreshedDeal, newStatus);
-        refreshedDeal.setCloseDate(LocalDate.now());
-        refreshedDeal.setStatus(newStatus);
-        save(refreshedDeal);
+        changeRelatedContractStatus(deal, newStatus);
+        deal.setCloseDate(LocalDate.now());
+        deal.setStatus(newStatus);
+        save(deal);
     }
 
     @Override
@@ -227,7 +226,7 @@ public class DealServiceJPA implements DealService {
         Client client = clientRepository.findOne(id);
         Deal deal = new Deal();
         deal.setClient(client);
-        makeNew(deal);
+        changeStatus(deal, DealStatus.NEW);
         client.getDeals().add(deal);
         deal.setOpenDate(LocalDate.now());
         return deal;
