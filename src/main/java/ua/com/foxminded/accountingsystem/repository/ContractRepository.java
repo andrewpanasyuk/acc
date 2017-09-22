@@ -25,5 +25,5 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     boolean existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(Deal deal);
 
-    List<Contract> findAllByDealIdAndContractDateLessThanOrderByContractDateDesc(Long dealId, LocalDate contractDate);
+    List<Contract> findAllByDealAndContractDateLessThanOrderByContractDateDesc(Deal deal, LocalDate contractDate);
 }

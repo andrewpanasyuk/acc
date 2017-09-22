@@ -4,7 +4,6 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Commit;
 import ua.com.foxminded.accountingsystem.model.*;
 import ua.com.foxminded.accountingsystem.model.Contract;
@@ -191,7 +190,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
     @Test
     @DataSet(value = "contracts/contracts-for-one-deal.xml", cleanBefore = true)
     public void findPreviousContractByDealTest(){
-        assertEquals(contract3, repository.findAllByDealIdAndContractDateLessThanOrderByContractDateDesc(contract4.getDeal().getId(), contract4.getContractDate()).get(0));
+        assertEquals(contract3, repository.findAllByDealAndContractDateLessThanOrderByContractDateDesc(contract4.getDeal(), contract4.getContractDate()).get(0));
     }
 
 

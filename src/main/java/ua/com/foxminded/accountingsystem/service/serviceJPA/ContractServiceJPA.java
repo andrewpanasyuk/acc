@@ -2,7 +2,6 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.accountingsystem.model.CloseType;
@@ -64,16 +63,15 @@ public class ContractServiceJPA implements ContractService {
         Deal deal = contract.getDeal();
         List<DealQueue> dealQueues = dealQueueRepository.findAllByDealAndQueuingDateOrderById(deal, contract.getContractDate());
 
-        if (!dealQueues.isEmpty()) {
+        if (dealQueues.isEmpty()) {
+            List<Contract> contracts = contractRepository.findAllByDealAndContractDateLessThanOrderByContractDateDesc(deal, contract.getContractDate());
+            deal.setStatus(chooseDealStatusByPreviousContracts(contracts));
+        } else {
             DealQueue dealQueue = dealQueues.get(0);
             dealQueue.setRemoved(false);
             dealQueueRepository.save(dealQueue);
 
             deal.setStatus(DealStatus.WAITING);
-
-        } else {
-            List<Contract> contracts = contractRepository.findAllByDealIdAndContractDateLessThanOrderByContractDateDesc(deal.getId(), contract.getContractDate());
-            deal.setStatus(chooseDealStatusByPreviousContracts(contracts));
         }
 
         dealService.save(deal);
@@ -177,24 +175,23 @@ public class ContractServiceJPA implements ContractService {
             return DealStatus.FROZEN;
         } else if (closeType == CloseType.COMPLETED) {
             return DealStatus.COMPLETED;
-        } else if (closeType == CloseType.CHANGE) {
-            return DealStatus.ACTIVE;
         } else {
-            return DealStatus.COMPLETED;
+            return DealStatus.ACTIVE;
         }
     }
 
     private DealStatus chooseDealStatusByPreviousContracts(List<Contract> contracts){
 
-        if (!contracts.isEmpty()) {
+        if (contracts.isEmpty()) {
+            return DealStatus.NEW;
+        } else {
             CloseType contractCloseType = contracts.get(0).getCloseType();
-            if (!(contractCloseType == null)) {
+            if (contractCloseType == null) {
                 return DealStatus.ACTIVE;
             } else {
                 return matchDealStatusWithContractCloseType(contractCloseType);
             }
-        } else {
-            return DealStatus.NEW;
+
         }
 
     }
