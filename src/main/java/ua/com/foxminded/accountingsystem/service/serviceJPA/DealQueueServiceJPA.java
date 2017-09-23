@@ -100,7 +100,6 @@ public class DealQueueServiceJPA implements DealQueueService {
         }
 
         dealService.changeStatus(deal, checkedCause);
-        dealQueueRepository.delete(dealQueue);
         dealQueue.setRemoved(true);
         dealQueueRepository.save(dealQueue);
     }
