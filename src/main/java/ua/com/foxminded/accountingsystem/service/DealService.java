@@ -7,6 +7,22 @@ import java.util.List;
 
 public interface DealService {
 
+    void changeStatus(Deal deal, DealStatus dealStatus);
+
+    void setNew(Deal deal);
+
+    void setActive(Deal deal);
+
+    void setWaiting(Deal deal);
+
+    void setFrozen(Deal deal);
+
+    void setRefused(Deal deal);
+
+    void setRejected(Deal deal);
+
+    void setCompleted(Deal deal);
+
     Deal createDealByClientId(Long id);
 
     void delete(Deal deal);
@@ -17,10 +33,5 @@ public interface DealService {
 
     List<Deal> findAll();
 
-    void freeze(Long id);
-
     List<Deal> findDealsByStatus(DealStatus dealStatus);
-
-    void close(Deal deal, DealStatus dealStatus);
-
 }

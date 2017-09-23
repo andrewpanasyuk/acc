@@ -7,6 +7,7 @@ import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Priority;
+import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
 import ua.com.foxminded.accountingsystem.repository.ConsultancyRepository;
@@ -28,14 +29,17 @@ public class DealQueueServiceJPA implements DealQueueService {
     private final DealRepository dealRepository;
     private final ConsultancyRepository consultancyRepository;
     private final DealService dealService;
+    private final ContractRepository contractRepository;
 
     @Autowired
     public DealQueueServiceJPA(DealQueueRepository dealQueueRepository, DealRepository dealRepository,
-                               ConsultancyRepository consultancyRepository, DealService dealService) {
+                               ConsultancyRepository consultancyRepository, DealService dealService,
+                               ContractRepository contractRepository) {
         this.dealQueueRepository = dealQueueRepository;
         this.dealRepository = dealRepository;
         this.consultancyRepository = consultancyRepository;
         this.dealService = dealService;
+        this.contractRepository = contractRepository;
     }
 
     @Override
@@ -87,10 +91,19 @@ public class DealQueueServiceJPA implements DealQueueService {
     public void deleteQueue(Long id, DealStatus cause) {
         DealQueue dealQueue = dealQueueRepository.findOne(id);
         Deal deal = dealQueue.getDeal();
-        dealService.close(deal, cause);
+        DealStatus checkedCause;
+
+        if (cause == null) {
+            checkedCause = getPreviousDealStatus(deal);
+        } else {
+            checkedCause = cause;
+        }
+
+        dealService.changeStatus(deal, checkedCause);
         dealQueueRepository.delete(dealQueue);
     }
 
+    @Override
     public DealQueue createQueueByDealId(Long id) {
         Deal deal = dealRepository.findOne(id);
         DealQueue dealQueue = new DealQueue();
@@ -100,9 +113,16 @@ public class DealQueueServiceJPA implements DealQueueService {
         } else {
             dealQueue.setPriority(Priority.HIGH);
         }
-        deal.setStatus(DealStatus.WAITING);
+        dealService.changeStatus(deal, DealStatus.WAITING);
         dealQueue.setDeal(deal);
         dealQueueRepository.save(dealQueue);
         return dealQueue;
+    }
+
+    private DealStatus getPreviousDealStatus(Deal deal) {
+        if (contractRepository.existsContractByDeal(deal)) {
+            return DealStatus.FROZEN;
+        }
+        return DealStatus.NEW;
     }
 }
