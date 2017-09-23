@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.service.ClientService;
@@ -18,6 +19,7 @@ import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.ConsultancyService;
+import ua.com.foxminded.accountingsystem.service.exception.ChangingDealStatusException;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -97,9 +99,42 @@ public class AdminDealController {
     }
 
     @GetMapping(value = "/{id}/freeze")
-    public String freezeDeal(@PathVariable long id) {
-        salaryItemService.createPretermSalaryItem(invoiceService.findLastInvoiceInActiveContractByDealId(id), LocalDate.now());
-        dealService.freeze(id);
-        return "redirect:/admin/deals";
+    public String freezeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            dealService.changeStatus(dealService.findOne(id), DealStatus.FROZEN);
+        } catch (ChangingDealStatusException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/admin/deals/" + id;
+    }
+
+    @GetMapping(value = "/{id}/refuse")
+    public String refuseDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            dealService.changeStatus(dealService.findOne(id), DealStatus.REFUSED);
+        } catch (ChangingDealStatusException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/admin/deals/" + id;
+    }
+
+    @GetMapping(value = "/{id}/reject")
+    public String rejectDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            dealService.changeStatus(dealService.findOne(id), DealStatus.REJECTED);
+        } catch (ChangingDealStatusException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/admin/deals/" + id;
+    }
+
+    @GetMapping(value = "/{id}/complete")
+    public String completeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            dealService.changeStatus(dealService.findOne(id), DealStatus.COMPLETED);
+        } catch (ChangingDealStatusException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/admin/deals/" + id;
     }
 }

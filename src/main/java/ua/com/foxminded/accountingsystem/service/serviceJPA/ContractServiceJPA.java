@@ -66,9 +66,7 @@ public class ContractServiceJPA implements ContractService {
         }
 
         if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
-            Deal deal = contract.getDeal();
-            deal.setStatus(DealStatus.ACTIVE);
-            dealService.save(deal);
+            dealService.changeStatus(contract.getDeal(), DealStatus.ACTIVE);
         }
 
         return contractRepository.save(contract);
@@ -78,7 +76,6 @@ public class ContractServiceJPA implements ContractService {
     public Contract prepareNewByDealId(Long dealId) {
 
         Deal deal = dealService.findOne(dealId);
-        deal.setStatus(DealStatus.ACTIVE);
 
         Contract contract = new Contract();
 
@@ -102,7 +99,6 @@ public class ContractServiceJPA implements ContractService {
         contract.setPrice(price);
 
         return contract;
-
     }
 
     @Override
@@ -137,8 +133,8 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public boolean existsContractByDealId(Long id) {
-        return contractRepository.existsContractByDealId(id);
+    public boolean existsContractByDeal(Deal deal) {
+        return contractRepository.existsContractByDeal(deal);
     }
 
     @Override
