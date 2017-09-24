@@ -65,16 +65,14 @@ public class ContractServiceJPA implements ContractService {
 
         if (dealQueues.isEmpty()) {
             List<Contract> contracts = contractRepository.findAllByDealAndContractDateLessThanOrderByContractDateDesc(deal, contract.getContractDate());
-            deal.setStatus(chooseDealStatusByPreviousContracts(contracts));
+            dealService.changeStatus(deal, chooseDealStatusByPreviousContracts(contracts));
         } else {
             DealQueue dealQueue = dealQueues.get(0);
             dealQueue.setRemoved(false);
             dealQueueRepository.save(dealQueue);
 
-            deal.setStatus(DealStatus.WAITING);
+            dealService.changeStatus(deal, DealStatus.WAITING);
         }
-
-        dealService.save(deal);
         contractRepository.delete(id);
     }
 
