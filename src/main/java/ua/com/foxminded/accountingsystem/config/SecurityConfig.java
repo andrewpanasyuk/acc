@@ -49,24 +49,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/**").permitAll()
             .anyRequest().authenticated()
             .and()
-            .formLogin()
-            .loginPage("/")
-            .loginProcessingUrl("/login")
-            .usernameParameter("username")
-            .passwordParameter("password")
-            .successHandler(successAuthHandler)
-            .permitAll()
+                .formLogin()
+                    .loginPage("/")
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .successHandler(successAuthHandler)
+                .permitAll()
             .and()
-            .logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/")
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
             .and()
-            .csrf().disable();
+                .csrf().disable();
 
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
 }
