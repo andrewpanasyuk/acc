@@ -210,10 +210,10 @@ INSERT INTO payment (id, invoice_id, date_paid, sum_id, created_by, created_date
     (8, 9, now() - interval '2 mon + 11 day', 39, 'system', '2017-07-11'),
     (9, 10, now() - interval '1 mon + 10 day', 40, 'system', '2017-07-11');
 
-INSERT INTO deal_queue (id, queuing_date, priority, deal_id, created_by, created_date) VALUES
-    (1, now() - interval '3 day', 'NORMAL', 2, 'system', '2017-07-11'),
-    (2, now() - interval '3 day', 'NORMAL', 3, 'system', '2017-07-11'),
-    (3, now() - interval '4 day', 'NORMAL', 4, 'system', '2017-07-11');
+INSERT INTO deal_queue (id, queuing_date, priority, deal_id, removed, created_by, created_date) VALUES
+    (1, now() - interval '3 day', 'NORMAL', 2, FALSE, 'system', '2017-07-11'),
+    (2, now() - interval '3 day', 'NORMAL', 3, FALSE, 'system', '2017-07-11'),
+    (3, now() - interval '4 day', 'NORMAL', 4, FALSE, 'system', '2017-07-11');
 
 INSERT INTO salary(id, date_salary, date_from, date_to, employee_id, paid, total_amount_id) VALUES
     (1, now() - interval '2 mon' - interval '21 day', now() - interval '3 mon' - interval '21 day', now() - interval '2 mon' - interval '21 day', 1, TRUE, 47),

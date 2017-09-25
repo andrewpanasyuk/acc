@@ -19,6 +19,8 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
 
     private static Contract contract1;
     private static Contract contract2;
+    private static Contract contract3;
+    private static Contract contract4;
     private static Contract postpay;
     private static Contract prepay;
     private static Contract trial;
@@ -91,7 +93,7 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
 
         contract2 = new Contract();
         contract2.setId(51L);
-        contract2.setContractDate(LocalDate.of(2017, 06, 10));
+        contract2.setContractDate(LocalDate.of(2017, 06, 1));
         contract2.setPaymentType(PaymentType.POSTPAY);
         contract2.setDeal(deal2);
         contract2.setEmployee(employee2);
@@ -99,6 +101,28 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         contract2.setPrice(price2);
         contract2.setCreatedBy("system");
         contract2.setCreatedDate(LocalDateTime.now());
+
+        contract3 = new Contract();
+        contract3.setId(52L);
+        contract3.setContractDate(LocalDate.of(2017, 06, 5));
+        contract3.setPaymentType(PaymentType.PREPAY);
+        contract3.setDeal(deal1);
+        contract3.setEmployee(employee2);
+        contract3.setEmployeeRate(contractEmployeeRate2);
+        contract3.setPrice(price2);
+        contract3.setCreatedBy("system");
+        contract3.setCreatedDate(LocalDateTime.now());
+
+        contract4 = new Contract();
+        contract4.setId(53L);
+        contract4.setContractDate(LocalDate.of(2017, 06, 10));
+        contract4.setPaymentType(PaymentType.PREPAY);
+        contract4.setDeal(deal1);
+        contract4.setEmployee(employee2);
+        contract4.setEmployeeRate(contractEmployeeRate2);
+        contract4.setPrice(price2);
+        contract4.setCreatedBy("system");
+        contract4.setCreatedDate(LocalDateTime.now());
 
         postpay = new Contract();
         prepay = new Contract();
@@ -162,5 +186,12 @@ public class ContractRepositoryTest extends AbstractRepositoryTest<ContractRepos
         assertThat(repository.findContractsForInvoicesCreation(24),
             hasItems(postpay, prepay));
     }
+
+    @Test
+    @DataSet(value = "contracts/contracts-for-one-deal.xml", cleanBefore = true)
+    public void findPreviousContractByDealTest(){
+        assertEquals(contract3, repository.findAllByDealAndContractDateLessThanOrderByContractDateDesc(contract4.getDeal(), contract4.getContractDate()).get(0));
+    }
+
 
 }
