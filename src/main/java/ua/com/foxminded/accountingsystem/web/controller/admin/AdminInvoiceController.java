@@ -18,7 +18,6 @@ import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
 import ua.com.foxminded.accountingsystem.service.validator.InvoiceValidator;
-import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
 
 import java.util.List;
 
