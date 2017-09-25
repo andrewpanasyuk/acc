@@ -13,12 +13,12 @@ import ua.com.foxminded.accountingsystem.service.EmployeeFieldService;
 @RequestMapping("/admin/conf/extra-fields")
 public class AdminExtraFieldController {
 
+    public static final String EXTRA_FIELDS_PAGE = "/admin/conf/extra-fields";
     private final ClientFieldService clientFieldService;
     private final EmployeeFieldService employeeFieldService;
-    private final String EXTRA_FIELDS = "/admin/conf/extra-fields";
 
     @Autowired
-    public AdminExtraFieldController(ClientFieldService clientFieldService, EmployeeFieldService employeeFieldService){
+    public AdminExtraFieldController(ClientFieldService clientFieldService, EmployeeFieldService employeeFieldService) {
         this.clientFieldService = clientFieldService;
         this.employeeFieldService = employeeFieldService;
     }
@@ -27,30 +27,30 @@ public class AdminExtraFieldController {
     public String getAllFields(Model model) {
         model.addAttribute("clientFields", clientFieldService.findAll())
             .addAttribute("employeeFields", employeeFieldService.findAll());
-        return EXTRA_FIELDS;
+        return EXTRA_FIELDS_PAGE;
     }
 
     @PostMapping("/client")
     public String createClientField(@ModelAttribute ClientField clientField) {
         clientFieldService.create(clientField);
-        return "redirect:" + EXTRA_FIELDS;
+        return "redirect:" + EXTRA_FIELDS_PAGE;
     }
 
     @PostMapping("/employee")
     public String createEmployeeField(@ModelAttribute EmployeeField employeeField) {
         employeeFieldService.create(employeeField);
-        return "redirect:" + EXTRA_FIELDS;
+        return "redirect:" + EXTRA_FIELDS_PAGE;
     }
 
     @DeleteMapping("/client/{id}")
     public String removeClientField(@PathVariable long id) {
         clientFieldService.delete(id);
-        return "redirect:" + EXTRA_FIELDS;
+        return "redirect:" + EXTRA_FIELDS_PAGE;
     }
 
     @DeleteMapping("/employee/{id}")
     public String removeEmployeeField(@PathVariable long id) {
         employeeFieldService.delete(id);
-        return "redirect:" + EXTRA_FIELDS;
+        return "redirect:" + EXTRA_FIELDS_PAGE;
     }
 }

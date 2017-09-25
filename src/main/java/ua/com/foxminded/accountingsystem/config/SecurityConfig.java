@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import javax.sql.DataSource;
 
 @Configuration
@@ -50,24 +49,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/**").permitAll()
             .anyRequest().authenticated()
             .and()
-                .formLogin()
-                    .loginPage("/")
-                    .loginProcessingUrl("/login")
-                    .usernameParameter("username")
-                    .passwordParameter("password")
-                    .successHandler(successAuthHandler)
-                .permitAll()
+            .formLogin()
+            .loginPage("/")
+            .loginProcessingUrl("/login")
+            .usernameParameter("username")
+            .passwordParameter("password")
+            .successHandler(successAuthHandler)
+            .permitAll()
             .and()
-                .logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/")
+            .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/")
             .and()
-                .csrf().disable();
+            .csrf().disable();
 
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
