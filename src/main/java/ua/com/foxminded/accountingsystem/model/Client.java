@@ -46,6 +46,21 @@ public class Client extends AbstractAuditEntity {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PersonalAccount personalAccount;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "skype")
+    private String skype;
+
     public Client(){
 
     }
@@ -125,6 +140,46 @@ public class Client extends AbstractAuditEntity {
 
     public void setPersonalAccount(PersonalAccount personalAccount) {
         this.personalAccount = personalAccount;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getSkype() {
+        return skype;
+    }
+
+    public void setSkype(String skype) {
+        this.skype = skype;
     }
 
     @Override
