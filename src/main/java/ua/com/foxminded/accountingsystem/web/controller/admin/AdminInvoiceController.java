@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.web.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
+import ua.com.foxminded.accountingsystem.service.validator.InvoiceValidator;
 
 import java.util.List;
 
@@ -49,7 +51,15 @@ public class AdminInvoiceController {
     }
 
     @PostMapping
-    public String saveInvoice(@ModelAttribute Invoice invoice, RedirectAttributes redirectAttributes) {
+    public String saveInvoice(@ModelAttribute Invoice invoice, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        InvoiceValidator invoiceValidator = new InvoiceValidator();
+        invoiceValidator.validate(invoice, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("invoiceError", bindingResult.getGlobalError().getCode());
+            return "redirect:/admin/contracts/" + invoice.getContract().getId();
+        }
         try {
             invoiceService.save(invoice);
         } catch (InvoiceException e) {
