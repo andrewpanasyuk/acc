@@ -35,6 +35,51 @@
                        class="form-control"/>
               </div>
             </div>
+            <div class="form-group">
+              <div class="col-md-3 col-sm-3">
+                <label for="email">email : </label>
+              </div>
+              <div class="col-md-9 col-sm-9">
+                <input th:field="*{email}" th:value="${client.email}" name="email" id="email" type="text"
+                       class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3 col-sm-3">
+                <label for="country">country : </label>
+              </div>
+              <div class="col-md-9 col-sm-9">
+                <input th:field="*{country}" th:value="${client.country}" name="country" id="country" type="text"
+                       class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3 col-sm-3">
+                <label for="city">city : </label>
+              </div>
+              <div class="col-md-9 col-sm-9">
+                <input th:field="*{city}" th:value="${client.city}" name="city" id="city" type="text"
+                       class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3 col-sm-3">
+                <label for="phoneNumber">phone number : </label>
+              </div>
+              <div class="col-md-9 col-sm-9">
+                <input th:field="*{phoneNumber}" th:value="${client.phoneNumber}" name="phoneNumber" id="phoneNumber" type="text"
+                       class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3 col-sm-3">
+                <label for="skype">skype : </label>
+              </div>
+              <div class="col-md-9 col-sm-9">
+                <input th:field="*{skype}" th:value="${client.skype}" name="skype" id="skype" type="text"
+                       class="form-control"/>
+              </div>
+            </div>
             <hr style="width: 100%; color: grey; height: 1px; background-color:grey;"/>
             <div class="form-group" name="extraFields" th:each="extraField, iterItem : *{extraFields}">
               <input type="hidden" th:field="*{extraFields[__${iterItem.index}__].id}"/>

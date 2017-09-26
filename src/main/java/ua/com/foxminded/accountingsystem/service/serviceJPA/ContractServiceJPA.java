@@ -4,15 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.foxminded.accountingsystem.model.CloseType;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Deal;
+import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
+import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
@@ -32,13 +35,15 @@ public class ContractServiceJPA implements ContractService {
     private final ContractRepository contractRepository;
     private final DealService dealService;
     private final PaymentRepository paymentRepository;
+    private final DealQueueRepository dealQueueRepository;
 
 
     @Autowired
-    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService, PaymentRepository paymentRepository) {
+    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService, PaymentRepository paymentRepository, DealQueueRepository dealQueueRepository) {
         this.contractRepository = contractRepository;
         this.dealService = dealService;
         this.paymentRepository = paymentRepository;
+        this.dealQueueRepository = dealQueueRepository;
     }
 
     @Override
@@ -52,7 +57,22 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
+        Contract contract = contractRepository.findOne(id);
+        Deal deal = contract.getDeal();
+        List<DealQueue> dealQueues = dealQueueRepository.findAllByDealAndQueuingDateOrderById(deal, contract.getContractDate());
+
+        if (dealQueues.isEmpty()) {
+            List<Contract> contracts = contractRepository.findAllByDealAndContractDateLessThanOrderByContractDateDesc(deal, contract.getContractDate());
+            dealService.changeStatus(deal, chooseDealStatusByPreviousContracts(contracts));
+        } else {
+            DealQueue dealQueue = dealQueues.get(0);
+            dealQueue.setRemoved(false);
+            dealQueueRepository.save(dealQueue);
+
+            dealService.changeStatus(deal, DealStatus.WAITING);
+        }
         contractRepository.delete(id);
     }
 
@@ -145,6 +165,33 @@ public class ContractServiceJPA implements ContractService {
     @Override
     public List<Payment> findAllRelatedPayments(Contract contract) {
         return paymentRepository.findAllByInvoiceContractOrderByDatePaid(contract);
+    }
+
+    private DealStatus matchDealStatusWithContractCloseType(CloseType closeType){
+
+        if (closeType == CloseType.FROZEN) {
+            return DealStatus.FROZEN;
+        } else if (closeType == CloseType.COMPLETED) {
+            return DealStatus.COMPLETED;
+        } else {
+            return DealStatus.ACTIVE;
+        }
+    }
+
+    private DealStatus chooseDealStatusByPreviousContracts(List<Contract> contracts){
+
+        if (contracts.isEmpty()) {
+            return DealStatus.NEW;
+        } else {
+            CloseType contractCloseType = contracts.get(0).getCloseType();
+            if (contractCloseType == null) {
+                return DealStatus.ACTIVE;
+            } else {
+                return matchDealStatusWithContractCloseType(contractCloseType);
+            }
+
+        }
+
     }
 }
 
