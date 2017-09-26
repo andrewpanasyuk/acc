@@ -64,9 +64,16 @@
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="dealStatus">Status:</label>
               </div>
-              <div class="col-md-6 col-sm-4 col-xs-8">
+              <div class="col-md-6 col-sm-4 col-xs-8" th:if="${activeContractPaymentType == null}">
                 <input type="hidden" th:field="${deal.status}"/>
                 <output id="dealStatus" class="form-control" th:text="${deal.status}"/>
+              </div>
+              <div class="col-md-3 col-sm-4 col-xs-8" th:if="${activeContractPaymentType != null}">
+                <input type="hidden" th:field="${deal.status}"/>
+                <output id="dealStatus" class="form-control" th:text="${deal.status}"/>
+              </div>
+              <div class="col-md-3 col-sm-4 col-xs-8" th:if="${activeContractPaymentType != null}">
+                <output id="paymentType" class="form-control" th:text="${activeContractPaymentType}"/>
               </div>
             </div>
 

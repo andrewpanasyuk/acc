@@ -2,6 +2,7 @@ package ua.com.foxminded.accountingsystem.service;
 
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
 
 import java.util.List;
 
@@ -34,4 +35,6 @@ public interface DealService {
     List<Deal> findAll();
 
     List<Deal> findDealsByStatus(DealStatus dealStatus);
+
+    PaymentType getRelatedActiveContractPaymentType(Deal deal);
 }

@@ -148,8 +148,8 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public Contract findOpenedContractByDealId(Long dealId) {
-        return contractRepository.findContractByDealIdAndCloseTypeIsNull(dealId);
+    public Contract findActiveContractByDeal(Deal deal) {
+        return contractRepository.findContractByDealAndCloseDateIsNullAndCloseTypeIsNull(deal);
     }
 
     @Override

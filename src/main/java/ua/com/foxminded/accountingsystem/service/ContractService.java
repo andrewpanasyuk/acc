@@ -24,7 +24,7 @@ public interface ContractService {
 
     List<Contract> findAllByDeal(Deal deal);
 
-    Contract findOpenedContractByDealId(Long dealId);
+    Contract findActiveContractByDeal(Deal deal);
 
     boolean existsContractByDeal(Deal deal);
 
