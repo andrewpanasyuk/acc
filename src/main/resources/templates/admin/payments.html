@@ -8,13 +8,14 @@
 
   <h3>Payments</h3>
   <br/>
-  <table data-toggle="table" data-pagination="true" data-side-pagination="client" data-search="true">
+  <table data-toggle="table" data-pagination="true" data-side-pagination="client" data-search="true" data-sort-name="payment_date"
+       data-sort-order="desc">
     <thead>
     <tr>
-      <th data-sortable="true">Payment Id</th>
-      <th data-sortable="true">invoice Id</th>
-      <th data-sortable="true">Payment Date</th>
-      <th data-sortable="true">Payment Sum</th>
+      <th data-sortable="true" data-halign="center" data-align="center" class="col-xs-1">Payment Id</th>
+      <th data-field="invoice_id" data-halign="center" data-align="center" data-formatter="invoicesIdLinkFormatter" data-sortable="true" class="col-xs-1">Invoice Id </th>
+      <th data-field="payment_date" data-halign="center" data-align="center"  data-sortable="true">Payment Date</th>
+      <th data-sortable="true" data-halign="center" data-align="center" >Payment Sum</th>
     </tr>
     </thead>
     <tbody>
@@ -22,11 +23,7 @@
       <td>
         <span th:text="${payment.id}" ></span>
       </td>
-      <td>
-        <a th:href="@{'/admin/invoices/'+${payment.invoice.id}}">
-          <span th:text="${payment.invoice.id}"></span>
-        </a>
-      </td>
+      <td th:text="${payment.invoice.id}"/>
       <td>
           <span th:text="${payment.datePaid}"></span>
       </td>
