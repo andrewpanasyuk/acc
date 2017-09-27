@@ -203,6 +203,6 @@ public class ContractServiceTest {
         when(contractService.findActiveContractByDeal(deal)).thenReturn(testExceptionContract);
 
         expectedException.expect(ActiveContractExistsException.class);
-        Contract resultContract = contractService.saveByUser(testExceptionContract);
+        Contract resultContract = contractService.save(testExceptionContract);
     }
 }
