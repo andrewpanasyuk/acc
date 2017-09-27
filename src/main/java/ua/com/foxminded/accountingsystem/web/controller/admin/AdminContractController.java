@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
+import ua.com.foxminded.accountingsystem.service.exception.ContractCreatingException;
 
 import javax.validation.Valid;
 
@@ -73,13 +75,13 @@ public class AdminContractController {
             return "admin/contract";
         }
 
-        try{
-            contractService.save(contract);
+        try {
+            contractService.saveByUser(contract);
             DealQueue dealQueue = dealQueueService.findQueueByDeal(contract.getDeal());
             if (dealQueue != null) {
                 dealQueueService.delete(dealQueue);
             }
-        } catch (ActiveContractExistsException e){
+        } catch (ActiveContractExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/deals/" + contract.getDeal().getId();
         }
@@ -89,10 +91,29 @@ public class AdminContractController {
 
     @GetMapping("/new")
     public String newContract(@RequestParam long dealId, Model model) {
-        Contract contract = contractService.prepareNewByDealId(dealId);
+        Deal deal = dealService.findOne(dealId);
+        Contract contract = contractService.prepareNewByDeal(deal);
         model
             .addAttribute("contract", contract)
             .addAttribute("employees", employeeService.findAll());
+        return "admin/contract";
+    }
+
+    @GetMapping("/new/paid")
+    public String newPaidContractFromTrial(@RequestParam long dealId, Model model,
+                                           RedirectAttributes redirectAttributes) {
+        try {
+            Deal deal = dealService.findOne(dealId);
+            Contract contract = contractService.prepareNewPaidContractFromTrialByDeal(deal);
+            model
+                .addAttribute("contract", contract)
+                .addAttribute("employees", employeeService.findAll());
+
+        } catch (ContractCreatingException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/admin/deals/" + dealId;
+        }
+
         return "admin/contract";
     }
 }

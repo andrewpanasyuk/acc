@@ -10,15 +10,19 @@ import java.util.List;
 
 public interface ContractService {
 
+    void setCompleted(Contract contract, String cause);
+
     List<Contract> findAll();
 
     Contract findOne(Long id);
 
     void delete(Long id);
 
-    Contract save(Contract contract);
+    Contract saveByUser(Contract contract);
 
-    Contract prepareNewByDealId(Long dealId);
+    Contract prepareNewByDeal(Deal deal);
+
+    Contract prepareNewPaidContractFromTrialByDeal(Deal deal);
 
     List<Invoice> prepareIssueInvoices();
 

@@ -19,7 +19,10 @@ import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
+import ua.com.foxminded.accountingsystem.service.InvoiceService;
+import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
+import ua.com.foxminded.accountingsystem.service.exception.ContractCreatingException;
 
 
 import java.time.LocalDate;
@@ -36,14 +39,37 @@ public class ContractServiceJPA implements ContractService {
     private final DealService dealService;
     private final PaymentRepository paymentRepository;
     private final DealQueueRepository dealQueueRepository;
+    private final InvoiceService invoiceService;
+    private final SalaryItemService salaryItemService;
 
 
     @Autowired
-    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService, PaymentRepository paymentRepository, DealQueueRepository dealQueueRepository) {
+    public ContractServiceJPA(ContractRepository contractRepository, DealService dealService, PaymentRepository paymentRepository,
+                              DealQueueRepository dealQueueRepository, InvoiceService invoiceService, SalaryItemService salaryItemService) {
         this.contractRepository = contractRepository;
         this.dealService = dealService;
         this.paymentRepository = paymentRepository;
         this.dealQueueRepository = dealQueueRepository;
+        this.invoiceService = invoiceService;
+        this.salaryItemService = salaryItemService;
+    }
+
+    @Override
+    public void setCompleted(Contract contract, String cause) {
+
+        if (contract.getPaymentType() != PaymentType.TRIAL) {
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(contract.getDeal().getId());
+            if (lastInvoice != null) {
+                salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
+            }
+        }
+
+        contract.setCloseType(CloseType.COMPLETED);
+        contract.setClosingDescription(cause);
+        contract.setCloseDate(LocalDate.now());
+        if (contract.getId() != null) {
+            contractRepository.save(contract);
+        }
     }
 
     @Override
@@ -78,14 +104,23 @@ public class ContractServiceJPA implements ContractService {
 
     @Override
     @Transactional
-    public Contract save(Contract contract) {
+    public Contract saveByUser(Contract contract) {
 
         if (existsActiveContractByDeal(contract.getDeal())) {
-            throw new ActiveContractExistsException("Contract hasn't been created ! "
-                + "Current deal has already had an active contract !");
+
+            Contract activeContract = findActiveContractByDeal(contract.getDeal());
+
+            if (activeContract.getPaymentType() == PaymentType.TRIAL) {
+                setCompleted(activeContract, "Trial contract was closed and paid contract was created");
+            } else {
+                throw new ActiveContractExistsException("Contract hasn't been created ! "
+                    + "Current deal has already had an active contract !");
+            }
         }
 
-        if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
+        if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())
+                                     && contract.getDeal().getStatus() != DealStatus.ACTIVE) {
+
             dealService.changeStatus(contract.getDeal(), DealStatus.ACTIVE);
         }
 
@@ -93,9 +128,7 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public Contract prepareNewByDealId(Long dealId) {
-
-        Deal deal = dealService.findOne(dealId);
+    public Contract prepareNewByDeal(Deal deal) {
 
         Contract contract = new Contract();
 
@@ -119,6 +152,46 @@ public class ContractServiceJPA implements ContractService {
         contract.setPrice(price);
 
         return contract;
+    }
+
+    @Override
+    public Contract prepareNewPaidContractFromTrialByDeal(Deal deal) {
+
+        if (deal == null) {
+            throw new ContractCreatingException("Argument in prepareNewPaidContractFromTrialByDeal is null !");
+        }
+
+        Contract trialContract = findActiveContractByDeal(deal);
+
+        if (trialContract == null || trialContract.getPaymentType() != PaymentType.TRIAL) {
+            throw new ContractCreatingException("Active trial contract hasn't been found !");
+        }
+
+        Contract newPaidContract = new Contract();
+
+        Money newEmployeeRate = new Money();
+        Money trialEmployeeRate = trialContract.getEmployeeRate();
+        if (trialEmployeeRate != null) {
+            newEmployeeRate.setAmount(trialEmployeeRate.getAmount());
+            newEmployeeRate.setCurrency(trialEmployeeRate.getCurrency());
+        }
+
+        Money newPrice = new Money();
+        Money trialPrice = trialContract.getPrice();
+        if (trialPrice != null) {
+            newPrice.setAmount(trialPrice.getAmount());
+            newPrice.setCurrency(trialPrice.getCurrency());
+        }
+
+        newPaidContract.setContractDate(LocalDate.now());
+        newPaidContract.setDeal(deal);
+        newPaidContract.setPrice(newPrice);
+        newPaidContract.setPaymentType(PaymentType.PREPAY);
+        newPaidContract.setEmployee(trialContract.getEmployee());
+        newPaidContract.setEmployeeRate(newEmployeeRate);
+        newPaidContract.setPaymentDate(LocalDate.now());
+
+        return newPaidContract;
     }
 
     @Override
