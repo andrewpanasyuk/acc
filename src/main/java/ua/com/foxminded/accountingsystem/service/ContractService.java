@@ -18,7 +18,7 @@ public interface ContractService {
 
     void delete(Long id);
 
-    Contract saveByUser(Contract contract);
+    Contract save(Contract contract);
 
     Contract prepareNewByDeal(Deal deal);
 

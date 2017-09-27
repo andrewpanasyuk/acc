@@ -76,7 +76,7 @@ public class AdminContractController {
         }
 
         try {
-            contractService.saveByUser(contract);
+            contractService.save(contract);
             DealQueue dealQueue = dealQueueService.findQueueByDeal(contract.getDeal());
             if (dealQueue != null) {
                 dealQueueService.delete(dealQueue);
