@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/mainTemplate">
+<head>
+  <object th:include="admin/fragments/head :: bootstrap_table" th:remove="tag"/>
+</head>
+<body>
+<section layout:fragment="content">
+  <table data-toggle="table" data-class="table table-striped table-hover"
+         data-pagination="true" data-side-pagination="client" data-search="true" data-show-refresh="true"
+         data-query-params="queryParams" data-sort-name="id">
+    <thead>	
+    <tr>
+      <th data-field="id" data-halign="center" data-align="center" data-formatter="contractsIdLinkFormatter" data-sortable="true" class="col-xs-1">Contract</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Client</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Consultancy</th>
+      <th data-halign="center" data-align="left" data-sortable="true" data-sorter="nameSorter">Mentor</th>
+      <th data-halign="center" data-align="center" data-sortable="true" class="col-xs-2">Contract  date</th>
+      <th data-halign="center" data-align="center" data-sortable="true" class="col-xs-2">Days in trial</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
+    <tr th:each="contract : ${contracts}">
+      <td th:text="${contract.id}"/>
+      <td th:text="${contract.deal.client.firstName} + ' ' + ${contract.deal.client.lastName}"/>
+      <td th:text="${contract.deal.consultancy.name}"/>
+      <td th:text="${contract.employee.firstName} + ' ' + ${contract.employee.lastName}"/>
+      <td>
+      <a th:text="${contract.contractDate != null} ? ${#temporals.format(contract.contractDate, 'dd-MMM-yyyy')} : ''"></a>
+      </td>
+      <td th:with="trialDays=${T(java.time.temporal.ChronoUnit).DAYS.between(contract.contractDate, T(java.time.LocalDate).now())}" >
+		<span th:if="${trialDays &gt; 10}" class="label label-danger" th:text="${trialDays}"></span>
+	  	<span th:if="${trialDays &lt; 11}" th:text="${trialDays}"></span>
+	  </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+</body>
+</html>

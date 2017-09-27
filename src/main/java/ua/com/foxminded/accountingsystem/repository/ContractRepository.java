@@ -25,5 +25,8 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     boolean existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(Deal deal);
 
+	@Query("FROM Contract WHERE payment_type = 'TRIAL'")
+	List<Contract> findAllTrial();
+
     List<Contract> findAllByDealAndContractDateLessThanOrderByContractDateDesc(Deal deal, LocalDate contractDate);
 }
