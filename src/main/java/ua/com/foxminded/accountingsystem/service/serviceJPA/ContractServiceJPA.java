@@ -222,7 +222,7 @@ public class ContractServiceJPA implements ContractService {
 
     @Override
     public Contract findActiveContractByDeal(Deal deal) {
-        return contractRepository.findContractByDealAndCloseDateIsNullAndCloseTypeIsNull(deal);
+        return contractRepository.findContractByDealAndCloseTypeIsNull(deal);
     }
 
     @Override
@@ -232,7 +232,7 @@ public class ContractServiceJPA implements ContractService {
 
     @Override
     public boolean existsActiveContractByDeal(Deal deal) {
-        return contractRepository.existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(deal);
+        return contractRepository.existsContractByDealAndCloseTypeIsNull(deal);
     }
 
     @Override

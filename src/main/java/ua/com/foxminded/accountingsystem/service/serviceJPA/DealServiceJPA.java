@@ -260,7 +260,7 @@ public class DealServiceJPA implements DealService {
     @Override
     public PaymentType getRelatedActiveContractPaymentType(Deal deal) {
 
-        Contract contract = contractRepository.findContractByDealAndCloseDateIsNullAndCloseTypeIsNull(deal);
+        Contract contract = contractRepository.findContractByDealAndCloseTypeIsNull(deal);
 
         if (contract == null) {
             return null;
@@ -271,7 +271,7 @@ public class DealServiceJPA implements DealService {
 
     private void changeRelatedContractStatus(Deal deal, DealStatus newStatus) {
 
-        Contract contract = contractRepository.findContractByDealAndCloseDateIsNullAndCloseTypeIsNull(deal);
+        Contract contract = contractRepository.findContractByDealAndCloseTypeIsNull(deal);
 
         if (contract == null) {
             throw new ChangingDealStatusException("Could not find related contract !");
