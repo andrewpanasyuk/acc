@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 </head>
 <body>
@@ -90,12 +91,16 @@
         </li>
         <li class="header">Отчеты</li>
         <li><a th:href="@{/admin/reports/cashflow}"><i class="fa fa-table"></i> <span>Движение денег</span></a></li>
-        <li class="header">Конфигурация</li>
-        <li>
-          <a th:href="@{/admin/extra-fields}">
-            <i class="fa fa-edit"></i> <span>Доп. поля</span>
-          </a>
-        </li>
+
+        <div th:remove="tag" sec:authorize="hasAuthority('ADMIN')">
+          <li class="header">Конфигурация</li>
+          <li>
+            <a th:href="@{/admin/extra-fields}">
+              <i class="fa fa-edit"></i> <span>Доп. поля</span>
+            </a>
+          </li>
+        </div>
+
       </ul>
     </section>
     <script th:inline="javascript">
