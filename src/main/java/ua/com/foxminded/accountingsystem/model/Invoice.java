@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Validated
 @Table(name = "invoice")
 @Audited
 public class Invoice extends AbstractAuditEntity {

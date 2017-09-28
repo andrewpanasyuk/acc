@@ -44,9 +44,9 @@ public class InvoiceServiceJPA implements InvoiceService {
 
     @Override
     public Invoice save(Invoice invoice) {
-        boolean invoiceFrom = invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodFrom());
-        boolean invoiceTo = invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodTo());
-        if (invoiceFrom || invoiceTo){
+        boolean existsInvoiceFrom = invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodFrom());
+        boolean existsInvoiceTo = invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodTo());
+        if (existsInvoiceFrom || existsInvoiceTo) {
             throw new InvoiceException("You have invoice for selected period");
         }
         return invoiceRepository.save(invoice);
