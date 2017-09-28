@@ -30,5 +30,4 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findAllByPaymentType(PaymentType paymentType);
 
     List<Contract> findAllByDealAndContractDateLessThanOrderByContractDateDesc(Deal deal, LocalDate contractDate);
-
 }

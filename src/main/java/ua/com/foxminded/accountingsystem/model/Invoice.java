@@ -3,7 +3,6 @@ package ua.com.foxminded.accountingsystem.model;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
