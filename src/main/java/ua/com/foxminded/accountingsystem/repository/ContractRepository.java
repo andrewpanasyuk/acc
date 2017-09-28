@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Deal;
-import ua.com.foxminded.accountingsystem.model.Invoice;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,5 +26,4 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     boolean existsContractByDealAndCloseDateIsNullAndCloseTypeIsNull(Deal deal);
 
     List<Contract> findAllByDealAndContractDateLessThanOrderByContractDateDesc(Deal deal, LocalDate contractDate);
-
 }
