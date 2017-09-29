@@ -85,7 +85,7 @@ public class ContractServiceJPA implements ContractService {
                 + "Current deal has already had an active contract !");
         }
 
-        if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())){
+        if (contract.getId() == null && !contract.getContractDate().isAfter(LocalDate.now())) {
             dealService.changeStatus(contract.getDeal(), DealStatus.ACTIVE);
         }
 
@@ -167,12 +167,12 @@ public class ContractServiceJPA implements ContractService {
         return paymentRepository.findAllByInvoiceContractOrderByDatePaid(contract);
     }
 
-	@Override
-	public List<Contract> findAllByPaymentType(PaymentType paymentType) {
-		return contractRepository.findAllByPaymentType(paymentType);
-	}
+    @Override
+    public List<Contract> findAllByPaymentType(PaymentType paymentType) {
+        return contractRepository.findAllByPaymentType(paymentType);
+    }
 
-    private DealStatus matchDealStatusWithContractCloseType(CloseType closeType){
+    private DealStatus matchDealStatusWithContractCloseType(CloseType closeType) {
 
         if (closeType == CloseType.FROZEN) {
             return DealStatus.FROZEN;
@@ -183,7 +183,7 @@ public class ContractServiceJPA implements ContractService {
         }
     }
 
-    private DealStatus chooseDealStatusByPreviousContracts(List<Contract> contracts){
+    private DealStatus chooseDealStatusByPreviousContracts(List<Contract> contracts) {
 
         if (contracts.isEmpty()) {
             return DealStatus.NEW;

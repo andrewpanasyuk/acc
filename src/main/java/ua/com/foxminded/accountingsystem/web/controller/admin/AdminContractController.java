@@ -74,13 +74,13 @@ public class AdminContractController {
             return "admin/contract";
         }
 
-        try{
+        try {
             contractService.save(contract);
             DealQueue dealQueue = dealQueueService.findQueueByDeal(contract.getDeal());
             if (dealQueue != null) {
                 dealQueueService.delete(dealQueue);
             }
-        } catch (ActiveContractExistsException e){
+        } catch (ActiveContractExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/deals/" + contract.getDeal().getId();
         }
@@ -97,11 +97,10 @@ public class AdminContractController {
         return "admin/contract";
     }
 
-	@GetMapping("/trial")
-	public String getAllTrialContracts(Model model) {
-		model.addAttribute("title", "Contract management").addAttribute("contracts", contractService.findAllByPaymentType(PaymentType.TRIAL));
-		return "admin/contractsTrial";
-
-	}
+    @GetMapping("/trial")
+    public String getAllTrialContracts(Model model) {
+        model.addAttribute("title", "Contract management").addAttribute("contracts", contractService.findAllByPaymentType(PaymentType.TRIAL));
+        return "admin/contractsTrial";
+    }
 
 }
