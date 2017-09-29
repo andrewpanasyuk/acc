@@ -4,24 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.foxminded.accountingsystem.model.CloseType;
-import ua.com.foxminded.accountingsystem.model.Contract;
-import ua.com.foxminded.accountingsystem.model.Currency;
-import ua.com.foxminded.accountingsystem.model.Deal;
-import ua.com.foxminded.accountingsystem.model.DealQueue;
-import ua.com.foxminded.accountingsystem.model.Invoice;
-import ua.com.foxminded.accountingsystem.model.Money;
-import ua.com.foxminded.accountingsystem.model.DealStatus;
-import ua.com.foxminded.accountingsystem.model.Payment;
-import ua.com.foxminded.accountingsystem.model.PaymentType;
+import ua.com.foxminded.accountingsystem.model.*;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
-
-
+import ua.com.foxminded.accountingsystem.service.exception.ObjectCannotBeDeleted;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +50,12 @@ public class ContractServiceJPA implements ContractService {
     @Transactional
     public void delete(Long id) {
         Contract contract = contractRepository.findOne(id);
+        if (contract.getPaymentType() == PaymentType.TRIAL){
+            if (checkIfDealHasHistory(contract)) {
+                throw new ObjectCannotBeDeleted("Contract has already history and it cannot be deleted");
+            }
+        }
+
         Deal deal = contract.getDeal();
         List<DealQueue> dealQueues = dealQueueRepository.findAllByDealAndQueuingDateOrderById(deal, contract.getContractDate());
 
@@ -74,6 +70,13 @@ public class ContractServiceJPA implements ContractService {
             dealService.changeStatus(deal, DealStatus.WAITING);
         }
         contractRepository.delete(id);
+    }
+
+    private boolean checkIfDealHasHistory(Contract contract){
+        if (findAllByDeal(contract.getDeal()).size() > 1){
+            return true;
+        }
+        return false;
     }
 
     @Override
