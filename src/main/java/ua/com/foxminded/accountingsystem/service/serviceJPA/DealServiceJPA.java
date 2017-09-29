@@ -11,12 +11,10 @@ import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
-import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.exception.ChangingDealStatusException;
-
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
@@ -293,7 +291,7 @@ public class DealServiceJPA implements DealService {
 
         if (oldStatus == DealStatus.ACTIVE &&
             (newStatus == DealStatus.COMPLETED || newStatus == DealStatus.FROZEN ||
-                newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED)) {
+                newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED || newStatus == DealStatus.NEW)) {
             return true;
         }
 
