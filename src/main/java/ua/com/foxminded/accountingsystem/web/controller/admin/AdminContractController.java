@@ -1,7 +1,5 @@
 package ua.com.foxminded.accountingsystem.web.controller.admin;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +11,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import ua.com.foxminded.accountingsystem.model.Contract;
-import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
+import javax.validation.Valid;
 import ua.com.foxminded.accountingsystem.service.exception.ContractCreatingException;
 
 @Controller
@@ -76,10 +73,6 @@ public class AdminContractController {
         }
         try {
             contractService.save(contract);
-            DealQueue dealQueue = dealQueueService.findQueueByDeal(contract.getDeal());
-            if (dealQueue != null) {
-                dealQueueService.delete(dealQueue);
-            }
         } catch (ActiveContractExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/deals/" + contract.getDeal().getId();

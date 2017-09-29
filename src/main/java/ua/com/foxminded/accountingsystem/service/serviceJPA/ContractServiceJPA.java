@@ -22,6 +22,7 @@ import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
+import ua.com.foxminded.accountingsystem.service.exception.ObjectCannotBeDeletedException;
 import ua.com.foxminded.accountingsystem.service.exception.ContractCreatingException;
 
 
@@ -81,6 +82,12 @@ public class ContractServiceJPA implements ContractService {
     @Transactional
     public void delete(Long id) {
         Contract contract = contractRepository.findOne(id);
+        if (contract.getPaymentType() == PaymentType.TRIAL){
+            if (checkIfDealHasHistory(contract)) {
+                throw new ObjectCannotBeDeletedException("Contract has already history and it cannot be deleted");
+            }
+        }
+
         Deal deal = contract.getDeal();
         List<DealQueue> dealQueues = dealQueueRepository.findAllByDealAndQueuingDateOrderById(deal, contract.getContractDate());
 
@@ -95,6 +102,10 @@ public class ContractServiceJPA implements ContractService {
             dealService.changeStatus(deal, DealStatus.WAITING);
         }
         contractRepository.delete(id);
+    }
+
+    private boolean checkIfDealHasHistory(Contract contract){
+        return findAllByDeal(contract.getDeal()).size() > 1;
     }
 
     @Override
@@ -115,6 +126,13 @@ public class ContractServiceJPA implements ContractService {
 
         if (isDealActivationRequired(contract)) {
             dealService.changeStatus(contract.getDeal(), DealStatus.ACTIVE);
+        }
+
+        DealQueue dealQueue = dealQueueRepository.findByDealAndRemovedFalse(contract.getDeal());
+
+        if (dealQueue != null) {
+            dealQueue.setRemoved(true);
+            dealQueueRepository.save(dealQueue);
         }
 
         return contractRepository.save(contract);
