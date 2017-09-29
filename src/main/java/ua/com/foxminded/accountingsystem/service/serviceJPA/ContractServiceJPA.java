@@ -55,20 +55,24 @@ public class ContractServiceJPA implements ContractService {
     }
 
     @Override
-    public void setCompleted(Contract contract, String cause) {
+    public void close(Contract contract, CloseType closeType, String cause) {
 
         if (contract.getPaymentType() != PaymentType.TRIAL) {
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(contract.getDeal().getId());
-            if (lastInvoice != null) {
-                salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
-            }
+            createLastSalaryByContract(contract);
         }
 
-        contract.setCloseType(CloseType.COMPLETED);
+        contract.setCloseType(closeType);
         contract.setClosingDescription(cause);
         contract.setCloseDate(LocalDate.now());
         if (contract.getId() != null) {
             contractRepository.save(contract);
+        }
+    }
+
+    private void createLastSalaryByContract(Contract contract) {
+        Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(contract.getDeal().getId());
+        if (lastInvoice != null) {
+            salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
         }
     }
 
@@ -111,7 +115,7 @@ public class ContractServiceJPA implements ContractService {
             Contract activeContract = findActiveContractByDeal(contract.getDeal());
 
             if (activeContract.getPaymentType() == PaymentType.TRIAL) {
-                setCompleted(activeContract, "Trial contract was closed and paid contract was created");
+                close(activeContract, CloseType.COMPLETED, "Trial contract was closed and paid contract was created");
             } else {
                 throw new ActiveContractExistsException("Contract hasn't been created ! "
                     + "Current deal has already had an active contract !");
