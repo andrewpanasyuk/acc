@@ -5,6 +5,7 @@ import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
 
 import java.util.List;
 
@@ -31,4 +32,6 @@ public interface ContractService {
     boolean existsActiveContractByDeal(Deal deal);
 
     List<Payment> findAllRelatedPayments(Contract contract);
+
+    List<Contract> findAllByPaymentType(PaymentType paymentType);
 }

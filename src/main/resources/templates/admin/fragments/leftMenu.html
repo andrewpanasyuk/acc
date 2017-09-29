@@ -40,10 +40,18 @@
             <i class="fa fa-user"></i> <span>Менторы</span>
           </a>
         </li>
-        <li>
-          <a th:href="@{/admin/contracts}">
-            <i class="fa fa-user"></i> <span>Договора</span>
+ 		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i>
+            <span>Договора</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a th:href="@{/admin/contracts}"><i class="fa fa-circle-o"></i> Все</a></li>
+            <li><a th:href="@{/admin/contracts/trial}"><i class="fa fa-circle-o"></i> Тестовые</a></li>
+          </ul>
         </li>
         <li>
           <a th:href="@{/admin/consultancies}">
