@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
@@ -30,7 +31,6 @@ public class AdminContractController {
     private final EmployeeService employeeService;
     private final DealService dealService;
     private final DealQueueService dealQueueService;
-
 
     @Autowired
     public AdminContractController(ContractService contractService, EmployeeService employeeService,
@@ -98,8 +98,8 @@ public class AdminContractController {
     }
 
 	@GetMapping("/trial")
-	public String getDebtInvoices(Model model) {
-		model.addAttribute("title", "Contract management").addAttribute("contracts", contractService.findAllTrial());
+	public String getAllTrialContracts(Model model) {
+		model.addAttribute("title", "Contract management").addAttribute("contracts", contractService.findAllByPaymentType(PaymentType.TRIAL));
 		return "admin/contractsTrial";
 
 	}

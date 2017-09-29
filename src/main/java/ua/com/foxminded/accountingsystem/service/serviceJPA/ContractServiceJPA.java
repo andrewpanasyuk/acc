@@ -168,8 +168,8 @@ public class ContractServiceJPA implements ContractService {
     }
 
 	@Override
-	public List<Contract> findAllTrial() {
-		return contractRepository.findAllTrial();
+	public List<Contract> findAllByPaymentType(PaymentType paymentType) {
+		return contractRepository.findAllByPaymentType(paymentType);
 	}
 
     private DealStatus matchDealStatusWithContractCloseType(CloseType closeType){
