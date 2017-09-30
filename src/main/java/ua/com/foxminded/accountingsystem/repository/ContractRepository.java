@@ -18,6 +18,12 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
         "LEFT JOIN i.payment as p WHERE p.id IS NULL AND contract.id = c.id)")
     List<Contract> findContractsForInvoicesCreation(int payDay);
 
+    @Query("SELECT c FROM Contract as c " +
+        "WHERE c.deal = ?1 " +
+        "AND c.paymentType is ua.com.foxminded.accountingsystem.model.PaymentType.TRIAL " +
+        "AND c.closeType is NULL")
+    Contract findContractByDealAndPaymentTypeIsTrialAndCloseTypeIsNull(Deal deal);
+
     List<Contract> findAllByDealOrderByContractDateDesc(Deal deal);
 
     Contract findContractByDealAndCloseTypeIsNull(Deal deal);

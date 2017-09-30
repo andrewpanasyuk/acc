@@ -22,7 +22,7 @@ public interface ContractService {
 
     Contract save(Contract contract);
 
-    Contract prepareNewByDeal(Deal deal);
+    Contract prepareNewContractByDeal(Deal deal);
 
     Contract prepareNewPaidContractFromTrialByDeal(Deal deal);
 
@@ -31,6 +31,8 @@ public interface ContractService {
     List<Contract> findAllByDeal(Deal deal);
 
     Contract findActiveContractByDeal(Deal deal);
+
+    Contract findTrialActiveContractByDeal(Deal deal);
 
     boolean existsContractByDeal(Deal deal);
 

@@ -39,5 +39,5 @@ public interface DealService {
 
     List<Deal> findDealsByStatus(DealStatus dealStatus);
 
-    PaymentType getRelatedActiveContractPaymentType(Deal deal);
+    PaymentType findDealCurrentPaymentType(Deal deal);
 }

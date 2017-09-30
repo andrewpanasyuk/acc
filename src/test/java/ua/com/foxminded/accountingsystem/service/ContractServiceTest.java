@@ -174,7 +174,7 @@ public class ContractServiceTest {
 
     @Test
     public void checkIsPaidContractSimilarToTrialContract(){
-        when(contractService.findActiveContractByDeal(deal)).thenReturn(trialContract);
+        when(contractService.findTrialActiveContractByDeal(deal)).thenReturn(trialContract);
 
         Contract resultContract = contractService.prepareNewPaidContractFromTrialByDeal(deal);
 
