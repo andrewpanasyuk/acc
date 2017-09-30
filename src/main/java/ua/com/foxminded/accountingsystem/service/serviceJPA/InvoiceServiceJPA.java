@@ -44,8 +44,8 @@ public class InvoiceServiceJPA implements InvoiceService {
 
     @Override
     public Invoice save(Invoice invoice) {
-        boolean existsInvoiceFrom = invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodFrom());
-        boolean existsInvoiceTo = invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodTo());
+        boolean existsInvoiceFrom = invoiceRepository.existsInvoiceByContractAndPaymentPeriodFromLessThanEqualAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodFrom());
+        boolean existsInvoiceTo = invoiceRepository.existsInvoiceByContractAndPaymentPeriodFromLessThanEqualAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodTo(), invoice.getPaymentPeriodTo());
         if (existsInvoiceFrom || existsInvoiceTo) {
             throw new InvoiceException("You have invoice for selected period");
         }
@@ -102,11 +102,6 @@ public class InvoiceServiceJPA implements InvoiceService {
     @Override
     public Invoice findLastInvoiceInActiveContractByDealId(Long dealId) {
         return invoiceRepository.findFirstByContractDealIdOrderByCreationDateDesc(dealId);
-    }
-
-    @Override
-    public boolean existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(Contract contract, LocalDate date) {
-        return invoiceRepository.existsInvoiceByContractAndPaymentPeriodToGreaterThanEqual(contract, date);
     }
 
     @Override
