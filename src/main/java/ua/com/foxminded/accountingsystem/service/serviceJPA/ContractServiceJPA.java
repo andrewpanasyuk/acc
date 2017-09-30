@@ -240,7 +240,12 @@ public class ContractServiceJPA implements ContractService {
         return paymentRepository.findAllByInvoiceContractOrderByDatePaid(contract);
     }
 
-    private DealStatus matchDealStatusWithContractCloseType(CloseType closeType){
+    @Override
+    public List<Contract> findAllByPaymentType(PaymentType paymentType) {
+        return contractRepository.findAllByPaymentType(paymentType);
+    }
+
+    private DealStatus matchDealStatusWithContractCloseType(CloseType closeType) {
 
         if (closeType == CloseType.FROZEN) {
             return DealStatus.FROZEN;
@@ -251,7 +256,7 @@ public class ContractServiceJPA implements ContractService {
         }
     }
 
-    private DealStatus chooseDealStatusByPreviousContracts(List<Contract> contracts){
+    private DealStatus chooseDealStatusByPreviousContracts(List<Contract> contracts) {
 
         if (contracts.isEmpty()) {
             return DealStatus.NEW;
