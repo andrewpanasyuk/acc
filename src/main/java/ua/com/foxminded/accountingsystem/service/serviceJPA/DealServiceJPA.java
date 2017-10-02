@@ -289,9 +289,7 @@ public class DealServiceJPA implements DealService {
             return true;
         }
 
-        if (oldStatus == DealStatus.ACTIVE &&
-            (newStatus == DealStatus.COMPLETED || newStatus == DealStatus.FROZEN ||
-                newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED || newStatus == DealStatus.NEW)) {
+        if (oldStatus == DealStatus.ACTIVE) {
             return true;
         }
 
