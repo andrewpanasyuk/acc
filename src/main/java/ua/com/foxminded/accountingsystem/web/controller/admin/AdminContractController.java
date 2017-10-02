@@ -19,10 +19,7 @@ import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
-import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
-import ua.com.foxminded.accountingsystem.service.InvoiceService;
-import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
 
@@ -32,16 +29,14 @@ public class AdminContractController {
 
     private final ContractService contractService;
     private final EmployeeService employeeService;
-    private final DealService dealService;
     private final DealQueueService dealQueueService;
     private final InvoiceService invoiceService;
 
     @Autowired
     public AdminContractController(ContractService contractService, EmployeeService employeeService,
-                                   DealService dealService, DealQueueService dealQueueService, InvoiceService invoiceService) {
+                                   DealQueueService dealQueueService, InvoiceService invoiceService) {
         this.contractService = contractService;
         this.employeeService = employeeService;
-        this.dealService = dealService;
         this.dealQueueService = dealQueueService;
         this.invoiceService = invoiceService;
     }
@@ -78,7 +73,7 @@ public class AdminContractController {
             model.addAttribute("employees", employeeService.findAll());
             return "admin/contract";
         }
-        try{
+        try {
             contractService.save(contract);
             DealQueue dealQueue = dealQueueService.findQueueByDeal(contract.getDeal());
             if (dealQueue != null) {

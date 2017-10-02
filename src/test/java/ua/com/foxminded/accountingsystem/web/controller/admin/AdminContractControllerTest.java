@@ -33,8 +33,6 @@ public class AdminContractControllerTest {
     @Mock
     private EmployeeService employeeService;
     @Mock
-    private DealService dealService;
-    @Mock
     private DealQueueService dealQueueService;
     @Mock
     private InvoiceService invoiceService;
@@ -60,7 +58,7 @@ public class AdminContractControllerTest {
 
     @Before
     public void init() {
-        controller = new AdminContractController(contractService, employeeService, dealService, dealQueueService, invoiceService);
+        controller = new AdminContractController(contractService, employeeService, dealQueueService, invoiceService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(contractService.findAll()).thenReturn(contracts);
         when(contractService.findOne(1L)).thenReturn(contract1);
