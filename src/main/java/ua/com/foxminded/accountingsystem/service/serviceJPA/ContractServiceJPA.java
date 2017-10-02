@@ -20,7 +20,7 @@ import ua.com.foxminded.accountingsystem.repository.PaymentRepository;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
-import ua.com.foxminded.accountingsystem.service.exception.ObjectCannotBeDeleted;
+import ua.com.foxminded.accountingsystem.service.exception.ObjectCannotBeDeletedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class ContractServiceJPA implements ContractService {
         Contract contract = contractRepository.findOne(id);
         if (contract.getPaymentType() == PaymentType.TRIAL){
             if (checkIfDealHasHistory(contract)) {
-                throw new ObjectCannotBeDeleted("Contract has already history and it cannot be deleted");
+                throw new ObjectCannotBeDeletedException("Contract has already history and it cannot be deleted");
             }
         }
 
