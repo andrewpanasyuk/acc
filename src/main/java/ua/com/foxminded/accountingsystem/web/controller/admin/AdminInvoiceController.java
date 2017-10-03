@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
-import ua.com.foxminded.accountingsystem.service.validator.InvoiceValidator;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -51,20 +50,16 @@ public class AdminInvoiceController {
     }
 
     @PostMapping
-    public String saveInvoice(@ModelAttribute Invoice invoice, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
-        InvoiceValidator invoiceValidator = new InvoiceValidator();
-        invoiceValidator.validate(invoice, bindingResult);
+    public String saveInvoice(@ModelAttribute @Valid Invoice invoice, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("invoiceError", bindingResult.getGlobalError().getCode());
-            return "redirect:/admin/contracts/" + invoice.getContract().getId();
+            return "admin/invoice";
         }
         try {
             invoiceService.save(invoice);
         } catch (InvoiceException e) {
-            redirectAttributes.addFlashAttribute("invoiceError", e.getMessage());
-            return "redirect:/admin/contracts/" + invoice.getContract().getId();
+            bindingResult.reject("invoiceError", e.getMessage());
+            return "admin/invoice";
         }
         return "redirect:/admin/invoices";
     }

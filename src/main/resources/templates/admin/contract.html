@@ -6,14 +6,9 @@
 <body>
 <section layout:fragment="content">
   <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
+  <!--/*@thymesVar id="bindingResult" type="org.springframework.validation.BindingResult"*/-->
   <div class="row">
     <div class="col-md-6">
-      <div th:if="${invoiceError != null}" class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <span th:text="${invoiceError}">Invoice Error</span>
-      </div>
       <form id="saveContract" class="form-horizontal" th:object="${contract}"
             th:action="@{/admin/contracts/{id}(id=${contract.id})}" th:method="put">
         <input type="hidden" th:field="*{id}"/>

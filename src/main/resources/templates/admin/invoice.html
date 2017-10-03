@@ -9,14 +9,25 @@
   <div class="col-md-6">
     <form id="saveInvoice" th:action="@{/admin/invoices}" th:object="${invoice}" method="POST"
           class="form-horizontal">
+      <div th:if="${#fields.hasErrors('${invoice}')}" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span>&times;</span>
+        </button>
+        <p th:if="${#fields.hasErrors('*')}" th:errors="${invoice}"></p>
+        <!--<span th:text="${bindingResult.}">Invoice Error</span>-->
+        <!--<span th:if="${#fields.hasErrors('${invoice}')}">12345</span>-->
+      </div>
       <input type="hidden" th:field="*{id}"/>
+      <input type="hidden" th:field="*{contract.deal.client.id}"/>
+      <input type="hidden" th:field="*{contract.deal.client.firstName}"/>
+      <input type="hidden" th:field="*{contract.deal.client.lastName}"/>
       <div class="form-group">
         <div class="col-xs-4">
           <label>Client:</label>
         </div>
         <div class="col-xs-8">
-          <a th:href="@{/admin/clients/{id}(id=${invoice.contract.deal.client.id})}"
-             th:text="${invoice.contract.deal.client.firstName} + ' '  + ${invoice.contract.deal.client.lastName}"></a>
+          <a th:href="@{/admin/clients/{id}(id=*{contract.deal.client.id})}"
+             th:text="*{contract.deal.client.firstName} + ' '  + *{contract.deal.client.lastName}"></a>
         </div>
       </div>
 
@@ -25,9 +36,9 @@
           <label>Contract:</label>
         </div>
         <div class="col-xs-8">
-          <input type="hidden" th:field="${invoice.contract.id}"/>
-          <a th:href="@{/admin/contracts/{id}(id=${invoice.contract.id})}"
-             th:text="${invoice.contract.id}"></a>
+          <input type="hidden" th:field="*{contract.id}"/>
+          <a th:href="@{/admin/contracts/{id}(id=*{contract.id})}"
+             th:text="*{contract.id}"></a>
         </div>
       </div>
 
@@ -36,41 +47,53 @@
           <label>Consultancy:</label>
         </div>
         <div class="col-xs-8">
-          <a th:href="@{/admin/consultancies/{id}(id=${invoice.contract.deal.consultancy.id})}"
-             th:text="${invoice.contract.deal.consultancy.name}"></a>
+          <input type="hidden" th:field="*{contract.deal.consultancy.id}"/>
+          <input type="hidden" th:field="*{contract.deal.consultancy.name}"/>
+          <a th:href="@{/admin/consultancies/{id}(id=*{contract.deal.consultancy.id})}"
+             th:text="*{contract.deal.consultancy.name}"></a>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" th:classappend="*{#fields.hasErrors('creationDate')} ? 'bg-danger'">
         <div class="col-xs-4">
           <label>Creation date: </label>
         </div>
-        <div class="col-xs-4" th:if="${invoice.id != null}">
-          <output th:text="${invoice.creationDate}"></output>
+        <div class="col-xs-4" th:if="*{id != null}">
+          <p th:text="*{creationDate}"></p>
         </div>
-        <div class="col-xs-8" th:if="${invoice.id == null}">
+        <div class="col-xs-8" th:if="*{id == null}">
           <div class="col-xs-5" style="padding: 0">
-            <input class="form-control datepicker" data-provide="datepicker" th:field="${invoice.creationDate}"/>
+            <input class="form-control datepicker" data-provide="datepicker" th:field="*{creationDate}"/>
+            <p th:if="${#fields.hasErrors('creationDate')}" th:errors="*{creationDate}" style="padding-top: 10px"></p>
           </div>
           <div class="col-xs-1"></div>
           <div class="col-xs-5"></div>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group"
+           th:classappend="*{#fields.hasErrors('paymentPeriodFrom')} or *{#fields.hasErrors('paymentPeriodTo')} ? 'bg-danger': ''">
         <div class="col-xs-4">
           <label th:for="${#ids.next('paymentDate')}">Invoice period: </label>
         </div>
-        <div class="col-xs-8" th:if="${invoice.id != null}">
-          <output th:text="'from: ' + ${invoice.paymentPeriodFrom} + ' to: ' + ${invoice.paymentPeriodTo}"></output>
+        <div class="col-xs-8" th:if="*{id != null}">
+          <p th:text="'from: ' + *{paymentPeriodFrom} + ' to: ' + *{paymentPeriodTo}"></p>
         </div>
-        <div class="col-xs-8" th:if="${invoice.id == null}">
+        <div class="col-xs-8" th:if="*{id == null}">
           <div class="col-xs-5" style="padding: 0">
-            <input class="form-control datepicker" id="from" data-provide="datepicker" th:field="${invoice.paymentPeriodFrom}"/>
+            <input class="form-control datepicker" id="from" data-provide="datepicker" th:field="*{paymentPeriodFrom}"/>
           </div>
           <div class="col-xs-1" style="text-align: center"><span> - </span></div>
           <div class="col-xs-5" style="padding: 0">
-            <input id="to" class="form-control datepicker" data-provide="datepicker" th:field="${invoice.paymentPeriodTo}"/>
+            <input id="to" class="form-control datepicker" data-provide="datepicker" th:field="*{paymentPeriodTo}"/>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <p th:if="*{#fields.hasErrors('paymentPeriodFrom')}" th:errors="*{paymentPeriodFrom}"
+                 class="text-danger text-center" style="padding-top: 10px"></p>
+              <p th:if="*{#fields.hasErrors('paymentPeriodTo')}" th:errors="*{paymentPeriodTo}"
+                 class="text-danger text-center" style="padding-top: 10px"></p>
+            </div>
           </div>
         </div>
       </div>
@@ -79,18 +102,19 @@
           <label>Payment type:</label>
         </div>
         <div class="col-xs-8">
-          <output th:text="${invoice.contract.paymentType}"></output>
+          <input type="hidden" th:field="*{contract.paymentType}"/>
+          <p th:text="*{contract.paymentType}"></p>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" th:classappend="*{#fields.hasErrors('price')} ? 'bg-danger'">
         <div class="col-xs-4">
           <label>Payment amount:</label>
         </div>
-        <div class="col-xs-8" th:if="${invoice.id != null}">
-          <output th:text="${invoice.contract.price.amount} + ' ' + ${invoice.contract.price.currency}"></output>
+        <div class="col-xs-8" th:if="*{id != null}">
+          <p th:text="*{contract.price.amount} + ' ' + *{contract.price.currency}"></p>
         </div>
-        <div class="col-xs-8" th:if="${invoice.id == null}">
+        <div class="col-xs-8" th:if="*{id == null}">
           <div class="col-xs-5" style="padding: 0">
             <input th:value="*{price.amount > 0} ? *{price.amount}"
                    th:id="*{'price.amount'}" th:name="*{'price.amount'}"
@@ -105,9 +129,7 @@
                       th:text="${currencyTypeValue}"/>
             </select>
           </div>
-          <output th:if="${#fields.hasErrors('price')}" th:errors="${contract.price}" class="text-danger">Price
-            Error
-          </output>
+          <p th:if="${#fields.hasErrors('price')}" th:errors="${contract.price}" class="text-danger" style="padding-top: 10px">Price Error</p>
         </div>
       </div>
 
@@ -116,17 +138,17 @@
           <label>Employee payment: </label>
         </div>
         <div class="col-xs-8">
-          <output th:text="${invoice.employeePaid}"></output>
+          <p th:text="*{employeePaid}"></p>
         </div>
       </div>
-      <div class="form-group" th:if="${invoice.id != null}">
+      <div class="form-group" th:if="*{id != null}">
         <div class="col-sm-5">
           <label>Payment</label>
         </div>
         <div class="col-sm-7">
-        <span th:if="${invoice.payment != null}"
-              th:text="${invoice.payment.sum.amount} + ' ' + ${invoice.payment.sum.currency}"></span>
-          <button th:if="${invoice.payment == null}" type="button" class="btn btn-primary" data-toggle="modal"
+        <span th:if="*{payment != null}"
+              th:text="*{payment.sum.amount} + ' ' + *{payment.sum.currency}"></span>
+          <button th:if="*{payment == null}" type="button" class="btn btn-primary" data-toggle="modal"
                   data-target="#myModal">Add
           </button>
         </div>
