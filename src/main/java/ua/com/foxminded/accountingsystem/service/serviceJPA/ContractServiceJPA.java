@@ -113,14 +113,14 @@ public class ContractServiceJPA implements ContractService {
             }
         }
 
-        if (isChangingDealStatusToActiveRequired(contract)) {
+        if (isDealActivationRequired(contract)) {
             dealService.changeStatus(contract.getDeal(), DealStatus.ACTIVE);
         }
 
         return contractRepository.save(contract);
     }
 
-    private boolean isChangingDealStatusToActiveRequired(Contract contract) {
+    private boolean isDealActivationRequired(Contract contract) {
 
         return (contract.getId() == null
                 && !contract.getContractDate().isAfter(LocalDate.now())
