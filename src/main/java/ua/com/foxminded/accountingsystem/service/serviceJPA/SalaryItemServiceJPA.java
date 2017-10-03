@@ -2,10 +2,12 @@ package ua.com.foxminded.accountingsystem.service.serviceJPA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.SalaryItem;
 import ua.com.foxminded.accountingsystem.repository.SalaryItemRepository;
+import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 
 import java.time.LocalDate;
@@ -16,10 +18,12 @@ import java.util.List;
 public class SalaryItemServiceJPA implements SalaryItemService {
 
     private final SalaryItemRepository salaryItemRepository;
+    private final InvoiceService invoiceService;
 
     @Autowired
-    public SalaryItemServiceJPA(SalaryItemRepository salaryItemRepository) {
+    public SalaryItemServiceJPA(SalaryItemRepository salaryItemRepository, InvoiceService invoiceService) {
         this.salaryItemRepository = salaryItemRepository;
+        this.invoiceService = invoiceService;
     }
 
     private static long calculateEmployeePayment(Invoice invoice, LocalDate closureDate) {
@@ -48,7 +52,6 @@ public class SalaryItemServiceJPA implements SalaryItemService {
         return salaryItemRepository.findAll();
     }
 
-
     @Override
     public SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate) {
 
@@ -59,5 +62,11 @@ public class SalaryItemServiceJPA implements SalaryItemService {
             invoice.getPaymentPeriodFrom(), closureDate);
 
         return salaryItemRepository.save(salaryItem);
+    }
+
+    @Override
+    public void createSalaryItemByDeal(Deal deal) {
+        Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDeal(deal);
+        createPretermSalaryItem(lastInvoice, LocalDate.now());
     }
 }

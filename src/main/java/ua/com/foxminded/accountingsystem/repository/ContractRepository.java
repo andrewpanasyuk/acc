@@ -22,7 +22,7 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
         "WHERE c.deal = ?1 " +
         "AND c.paymentType is ua.com.foxminded.accountingsystem.model.PaymentType.TRIAL " +
         "AND c.closeType is NULL")
-    Contract findContractByDealAndPaymentTypeIsTrialAndCloseTypeIsNull(Deal deal);
+    Contract findTrialActiveContractByDeal(Deal deal);
 
     List<Contract> findAllByDealOrderByContractDateDesc(Deal deal);
 

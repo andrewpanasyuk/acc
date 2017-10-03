@@ -137,7 +137,7 @@ public class DealServiceJPA implements DealService {
         }
 
         if (oldStatus == DealStatus.ACTIVE) {
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDeal(deal);
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
@@ -189,7 +189,7 @@ public class DealServiceJPA implements DealService {
         }
 
         if (oldStatus == DealStatus.ACTIVE) {
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDeal(deal);
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
@@ -214,7 +214,7 @@ public class DealServiceJPA implements DealService {
         }
 
         if (oldStatus == DealStatus.ACTIVE) {
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDeal(deal);
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
@@ -238,7 +238,7 @@ public class DealServiceJPA implements DealService {
                 " to " + newStatus + " is not allowed !");
         }
 
-        Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
+        Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDeal(deal);
         if (lastInvoice != null) {
             salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
         }

@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.service;
 
+import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.SalaryItem;
 
@@ -17,6 +18,8 @@ public interface SalaryItemService {
     List<SalaryItem> findAll();
 
     SalaryItem createPretermSalaryItem(Invoice invoice, LocalDate closureDate);
+
+    void createSalaryItemByDeal(Deal deal);
 }
 
 

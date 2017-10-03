@@ -176,7 +176,7 @@ public class ContractServiceTest {
     public void checkIsPaidContractSimilarToTrialContract(){
         when(contractService.findTrialActiveContractByDeal(deal)).thenReturn(trialContract);
 
-        Contract resultContract = contractService.prepareNewPaidContractFromTrialByDeal(deal);
+        Contract resultContract = contractService.prepareNewPaidContractFromTrialByDealId(deal.getId());
 
         assertEquals(resultContract.getContractDate(), paidContract.getContractDate());
         assertEquals(resultContract.getDeal(), paidContract.getDeal());
@@ -193,7 +193,7 @@ public class ContractServiceTest {
         when(contractService.findActiveContractByDeal(deal)).thenReturn(testExceptionContract);
 
         expectedException.expect(ContractCreatingException.class);
-        Contract resultContract = contractService.prepareNewPaidContractFromTrialByDeal(deal);
+        Contract resultContract = contractService.prepareNewPaidContractFromTrialByDealId(deal.getId());
     }
 
     @Test

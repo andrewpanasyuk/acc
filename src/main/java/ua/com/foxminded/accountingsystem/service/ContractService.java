@@ -22,9 +22,9 @@ public interface ContractService {
 
     Contract save(Contract contract);
 
-    Contract prepareNewContractByDeal(Deal deal);
+    Contract prepareNewContractByDealId(Long dealId);
 
-    Contract prepareNewPaidContractFromTrialByDeal(Deal deal);
+    Contract prepareNewPaidContractFromTrialByDealId(Long dealId);
 
     List<Invoice> prepareIssueInvoices();
 

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
 import ua.com.foxminded.accountingsystem.model.Payment;
@@ -100,8 +101,8 @@ public class InvoiceServiceJPA implements InvoiceService {
     }
 
     @Override
-    public Invoice findLastInvoiceInActiveContractByDealId(Long dealId) {
-        return invoiceRepository.findFirstByContractDealIdOrderByCreationDateDesc(dealId);
+    public Invoice findLastInvoiceInActiveContractByDeal(Deal deal) {
+        return invoiceRepository.findFirstByContractDealOrderByCreationDateDesc(deal);
     }
 
     @Override
