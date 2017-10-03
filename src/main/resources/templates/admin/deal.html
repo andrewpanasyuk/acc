@@ -75,7 +75,8 @@
                 <label for="openDate">Open Date:</label>
               </div>
               <div class="col-md-6 col-sm-4 col-xs-8">
-                <input class="form-control datepicker" data-provide="datepicker" id="openDate" th:field="${deal.openDate}"/>
+                <input class="form-control datepicker" data-provide="datepicker" id="openDate"
+                       th:field="${deal.openDate}"/>
               </div>
             </div>
 
@@ -92,26 +93,52 @@
 
           <div class="btn-group btn-group-justified" role="group"
                th:if="${deal.id != null} and ${deal.closeDate == null}">
+
             <div class="btn-group" role="group" th:if="!${deal.status.toString().equals('ACTIVE')}">
               <a th:href="@{/admin/contracts/new?dealId={id}(id=${deal.id})}" class="btn btn-primary">New contract</a>
             </div>
+
             <div class="btn-group" role="group"
                  th:if="!${deal.status.toString().equals('WAITING')} and !${deal.status.toString().equals('ACTIVE')}">
               <a th:href="@{/admin/queues/new?dealId={id}(id=${deal.id})}" class="btn btn-primary">Queue</a>
             </div>
-            <div class="btn-group" role="group" th:if="${deal.status.toString() !='FROZEN'} and
-                ${deal.status.toString() != 'NEW'} and ${deal.status.toString() != 'WAITING'}">
-              <a th:href="@{/admin/deals/{id}/freeze(id=${deal.id})}" class="btn btn-info">Freeze</a>
-            </div>
+
             <div class="btn-group" role="group" th:if="${deal.closeDate == null}">
               <a th:href="@{/admin/deals/{id}/refuse(id=${deal.id})}" class="btn btn-warning">Refuse</a>
             </div>
+
             <div class="btn-group" role="group" th:if="${deal.closeDate == null}">
               <a th:href="@{/admin/deals/{id}/reject(id=${deal.id})}" class="btn btn-warning">Reject</a>
             </div>
+
             <div class="btn-group" role="group"
                  th:if="${deal.closeDate == null} and ${deal.status.toString().equals('ACTIVE')}">
               <a th:href="@{/admin/deals/{id}/complete(id=${deal.id})}" class="btn btn-primary">Complete</a>
+            </div>
+
+            <div class="btn-group" role="group" th:if="${deal.status.toString() !='FROZEN'} and
+                ${deal.status.toString() != 'NEW'} and ${deal.status.toString() != 'WAITING'}">
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#closeDateModal">Freeze
+              </button>
+              <div id="closeDateModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Choose freeze date</h4>
+                    </div>
+                    <form>
+                      <div class="modal-body">
+                        <input type="hidden" th:field="${deal.id}"/>
+                        <input type="date" name="closeDate" th:value="${T(java.time.LocalDate).now()}"/>
+                        <button type="submit" class="btn btn-info" formmethod="post" formaction="/admin/deals/freeze">
+                          Freeze
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

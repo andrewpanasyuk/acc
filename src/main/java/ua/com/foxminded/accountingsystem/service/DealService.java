@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.service;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface DealService {
@@ -16,6 +17,8 @@ public interface DealService {
     void setWaiting(Deal deal);
 
     void setFrozen(Deal deal);
+
+    void setFrozen(Deal deal, LocalDate closeDate);
 
     void setRefused(Deal deal);
 
