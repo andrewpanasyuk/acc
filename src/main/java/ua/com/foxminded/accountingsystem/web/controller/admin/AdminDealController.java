@@ -101,7 +101,7 @@ public class AdminDealController {
 
     @PostMapping(value = "/freeze")
     public String freezeDeal(@RequestParam("id") long id,
-                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate closeDate,
+                             @RequestParam("closeDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate closeDate,
                              RedirectAttributes redirectAttributes){
         try {
             dealService.setFrozen(dealService.findOne(id), closeDate);

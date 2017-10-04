@@ -130,7 +130,8 @@
                     <form>
                       <div class="modal-body">
                         <input type="hidden" th:field="${deal.id}"/>
-                        <input type="date" name="closeDate" th:value="${T(java.time.LocalDate).now()}"/>
+                        <input class="form-control datepicker" data-provide="datepicker" name="closeDate"
+                               th:value="${#dates.format(#dates.createNow(), 'dd-MM-yyyy')}"/>
                         <button type="submit" class="btn btn-info" formmethod="post" formaction="/admin/deals/freeze">
                           Freeze
                         </button>

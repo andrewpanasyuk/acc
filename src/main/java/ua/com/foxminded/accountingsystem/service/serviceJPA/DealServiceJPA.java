@@ -153,7 +153,7 @@ public class DealServiceJPA implements DealService {
     public void setFrozen(Deal deal, LocalDate closeDate) {
 
         if (deal == null) {
-            throw new ChangingDealStatusException("Deal in setFrozen method is null !");
+            throw new ChangingDealStatusException("Deal is null !");
         }
 
         DealStatus oldStatus = deal.getStatus();
