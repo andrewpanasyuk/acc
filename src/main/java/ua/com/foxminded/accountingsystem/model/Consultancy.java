@@ -58,6 +58,17 @@ public class Consultancy extends AbstractAuditEntity {
         employeeRate = new Money();
     }
 
+    public Money getPriceByCurrency(Currency currency) {
+
+        for (Money price : prices) {
+            if (price.getCurrency() == currency) {
+                return price;
+            }
+        }
+
+        return null;
+    }
+
     public long getId() {
         return id;
     }

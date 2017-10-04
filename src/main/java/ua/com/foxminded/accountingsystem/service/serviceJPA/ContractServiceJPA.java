@@ -132,35 +132,6 @@ public class ContractServiceJPA implements ContractService {
 
         Deal deal = dealService.findOne(dealId);
 
-        Contract contract = new Contract();
-
-        Money employeeRate = new Money();
-        employeeRate.setAmount(deal.getConsultancy().getEmployeeRate().getAmount());
-        employeeRate.setCurrency(Currency.UAH);
-
-        Money price = new Money();
-        for (Money curPrice : deal.getConsultancy().getPrices()) {
-            if (curPrice.getCurrency() == Currency.UAH) {
-                price.setAmount(curPrice.getAmount());
-            }
-        }
-        price.setCurrency(Currency.UAH);
-
-        contract.setPaymentType(PaymentType.PREPAY);
-        contract.setDeal(deal);
-        contract.setContractDate(LocalDate.now());
-        contract.setPaymentDate(LocalDate.now());
-        contract.setEmployeeRate(employeeRate);
-        contract.setPrice(price);
-
-        return contract;
-    }
-
-    @Override
-    public Contract prepareNewPaidContractFromTrialByDealId(Long dealId) {
-
-        Deal deal = dealService.findOne(dealId);
-
         if (deal == null) {
             throw new ContractCreatingException("Deal is null !");
         }
@@ -168,11 +139,32 @@ public class ContractServiceJPA implements ContractService {
         Contract trialContract = findTrialActiveContractByDeal(deal);
 
         if (trialContract == null) {
-            throw new ContractCreatingException("Active trial contract hasn't been found !");
+           return constructNewContractByDefault(deal);
+        } else {
+           return constructNewContractByTrialContract(deal, trialContract);
         }
+    }
 
-        return new Contract(LocalDate.now(), deal, new Money(trialContract.getPrice()), PaymentType.PREPAY,
-            trialContract.getEmployee(), new Money(trialContract.getEmployeeRate()), LocalDate.now());
+    private Contract constructNewContractByDefault(Deal deal) {
+
+        return new Contract(LocalDate.now(),
+                            deal,
+                            new Money(deal.getConsultancy().getPriceByCurrency(Currency.UAH)),
+                            PaymentType.PREPAY,
+                            null,
+                            new Money(deal.getConsultancy().getEmployeeRate()),
+                            LocalDate.now());
+    }
+
+    private Contract constructNewContractByTrialContract(Deal deal, Contract trialContract) {
+
+        return new Contract(LocalDate.now(),
+                            deal,
+                            new Money(trialContract.getPrice()),
+                            PaymentType.PREPAY,
+                            trialContract.getEmployee(),
+                            new Money(trialContract.getEmployeeRate()),
+                            LocalDate.now());
     }
 
     @Override

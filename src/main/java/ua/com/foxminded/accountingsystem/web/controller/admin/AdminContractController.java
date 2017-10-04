@@ -87,11 +87,17 @@ public class AdminContractController {
     }
 
     @GetMapping("/new")
-    public String newContract(@RequestParam long dealId, Model model) {
-        Contract contract = contractService.prepareNewByDealId(dealId);
-        model
-            .addAttribute("contract", contract)
-            .addAttribute("employees", employeeService.findAll());
+    public String newContract(@RequestParam long dealId, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            Contract contract = contractService.prepareNewContractByDealId(dealId);
+            model
+                .addAttribute("contract", contract)
+                .addAttribute("employees", employeeService.findAll());
+        } catch (ContractCreatingException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/admin/deals/" + dealId;
+        }
+
         return "admin/contract";
     }
 

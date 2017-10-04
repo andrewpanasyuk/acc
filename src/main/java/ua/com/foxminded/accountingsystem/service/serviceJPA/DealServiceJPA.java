@@ -8,6 +8,7 @@ import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Invoice;
+import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ClientRepository;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
@@ -285,9 +286,16 @@ public class DealServiceJPA implements DealService {
         return dealRepository.findDealsByStatus(dealStatus);
     }
 
+    public PaymentType findDealCurrentPaymentType(Deal deal) {
+
+        Contract contract = contractRepository.findContractByDealAndCloseTypeIsNull(deal);
+
+        return (contract == null ? null : contract.getPaymentType());
+    }
+
     private void changeRelatedContractStatus(Deal deal, LocalDate closeDate, DealStatus newStatus) {
 
-        Contract contract = contractRepository.findContractByDealIdAndCloseTypeIsNull(deal.getId());
+        Contract contract = contractRepository.findContractByDealAndCloseTypeIsNull(deal);
 
         if (contract == null) {
             throw new ChangingDealStatusException("Could not find related contract !");

@@ -107,7 +107,7 @@
 
             <div class="btn-group" role="group"
                  th:if="${deal.status.toString().equals('ACTIVE')} and ${dealCurrentPaymentType.toString().equals('TRIAL')}">
-              <a th:href="@{/admin/contracts/new/paid?dealId={id}(id=${deal.id})}" class="btn btn-primary">Start studying</a>
+              <a th:href="@{/admin/contracts/new?dealId={id}(id=${deal.id})}" class="btn btn-primary">Start studying</a>
             </div>
             <div class="btn-group" role="group"
                  th:if="!${deal.status.toString().equals('WAITING')} and !${deal.status.toString().equals('ACTIVE')}">

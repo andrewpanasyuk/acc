@@ -24,8 +24,6 @@ public interface ContractService {
 
     Contract prepareNewContractByDealId(Long dealId);
 
-    Contract prepareNewPaidContractFromTrialByDealId(Long dealId);
-
     List<Invoice> prepareIssueInvoices();
 
     List<Contract> findAllByDeal(Deal deal);
