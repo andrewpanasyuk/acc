@@ -1,5 +1,6 @@
 package ua.com.foxminded.accountingsystem.service;
 
+import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
 
@@ -25,4 +26,6 @@ public interface InvoiceService {
     Invoice issueInvoice(Invoice invoice);
 
     Invoice findLastInvoiceInActiveContractByDealId(Long dealId);
+
+    List<Invoice> findInvoicesByContract(Contract contract);
 }

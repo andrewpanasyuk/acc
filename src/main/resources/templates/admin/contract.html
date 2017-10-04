@@ -6,6 +6,7 @@
 <body>
 <section layout:fragment="content">
   <!--/*@thymesVar id="contract" type="ua.com.foxminded.accountingsystem.model.Contract"*/-->
+  <!--/*@thymesVar id="bindingResult" type="org.springframework.validation.BindingResult"*/-->
   <div class="row">
     <div class="col-md-6">
       <form id="saveContract" class="form-horizontal" th:object="${contract}"
@@ -167,6 +168,8 @@
       </form>
       <form id="deleteContract" th:action="@{/admin/contracts/{id}(id=${contract.id})}" th:method="delete">
       </form>
+      <form id="createInvoice" th:action="@{/admin/invoices/new}" name="contractID" value="${contract.id}">
+      </form>
       <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0">
         <div th:if="!${contract.id == null}" class="btn-group col-md-4 col-sm-4 col-xs-3" role="group"
              style="padding: 0">
@@ -185,9 +188,12 @@
           </div>
           <div th:if="${contract.id != null}" class="btn-group btn-group-justified" role="group">
             <div class="btn-group" role="group">
-              <div class="col-md-4">
-                <a th:href="@{/admin/contracts}" class="btn btn-default">Go Back</a>
-              </div>
+              <a th:href="@{/admin/contracts}" class="btn btn-default">Go Back</a>
+            </div>
+            <div class="btn-group" role="group">
+              <a th:if="!${contract.paymentType.toString().equals('TRIAL')}"
+                 th:href="@{/admin/invoices/new?contractID={id} (id=${contract.id})}" class="btn btn-primary">New
+                Invoice</a>
             </div>
           </div>
         </div>
@@ -202,6 +208,21 @@
               <span th:text="${payment.datePaid}"></span>
               <span th:text="': '"></span>
               <span th:text="${payment.sum.amount} + ' ' + ${payment.sum.currency}"></span>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div th:if="${invoices!= null and !invoices.empty}">
+        <h3>Invoice history</h3>
+        <ul id="history-list" class="list-group">
+          <div th:each="invoice : ${invoices}" th:remove="tag">
+            <li class="list-group-item">
+              <!--/*@thymesVar id="invoice" type="ua.com.foxminded.accountingsystem.model.Invoice"*/-->
+              <span th:text="${invoice.creationDate}"></span>
+              <span th:text="': '"></span>
+              <span th:text="'from: ' + ${invoice.paymentPeriodFrom} + ' to: ' + ${invoice.paymentPeriodTo}"></span>
             </li>
           </div>
         </ul>

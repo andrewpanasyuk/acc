@@ -11,6 +11,7 @@ import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.InvoiceRepository;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
+import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,26 +32,38 @@ public class InvoiceServiceJPA implements InvoiceService {
         this.contractRepository = contractRepository;
     }
 
+    @Override
     public List<Invoice> findAll() {
         return invoiceRepository.findAll();
     }
 
+    @Override
     public Invoice findById(long id) {
         return invoiceRepository.findOne(id);
     }
 
+    @Override
     public Invoice save(Invoice invoice) {
+        boolean existsInvoiceFrom = invoiceRepository.existsInvoiceByContractAndPaymentPeriodFromLessThanEqualAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodFrom(), invoice.getPaymentPeriodFrom());
+        boolean existsInvoiceTo = invoiceRepository.existsInvoiceByContractAndPaymentPeriodFromLessThanEqualAndPaymentPeriodToGreaterThanEqual(invoice.getContract(), invoice.getPaymentPeriodTo(), invoice.getPaymentPeriodTo());
+        if (existsInvoiceFrom || existsInvoiceTo) {
+            throw new InvoiceException("You have invoice for selected period");
+        }
         return invoiceRepository.save(invoice);
     }
 
+    @Override
     public void delete(Invoice invoice) {
         invoiceRepository.delete(invoice);
     }
 
+    @Override
     public Invoice createInvoiceByContractId(Long contractId) {
         Contract contract = contractRepository.findOne(contractId);
         Invoice invoice = new Invoice();
-        Money amountForInvoice = contract.getPrice();
+        Money money = new Money();
+        money.setAmount(contract.getPrice().getAmount());
+        money.setCurrency(contract.getPrice().getCurrency());
 
         LocalDate contractPaymentDate = contract.getPaymentDate();
         LocalDate currentDate = LocalDate.now();
@@ -59,7 +72,7 @@ public class InvoiceServiceJPA implements InvoiceService {
 
         invoice.setPaymentPeriodTo(paymentDate.minusDays(1L));
         invoice.setPaymentPeriodFrom(paymentDate.minusMonths(1L));
-        invoice.setPrice(amountForInvoice);
+        invoice.setPrice(money);
         invoice.setCreationDate(LocalDate.now());
         invoice.setContract(contract);
         return invoice;
@@ -89,5 +102,10 @@ public class InvoiceServiceJPA implements InvoiceService {
     @Override
     public Invoice findLastInvoiceInActiveContractByDealId(Long dealId) {
         return invoiceRepository.findFirstByContractDealIdOrderByCreationDateDesc(dealId);
+    }
+
+    @Override
+    public List<Invoice> findInvoicesByContract(Contract contract) {
+        return invoiceRepository.findInvoicesByContract(contract);
     }
 }
