@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.web.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -98,10 +99,12 @@ public class AdminDealController {
         return "admin/deals";
     }
 
-    @GetMapping(value = "/{id}/freeze")
-    public String freezeDeal(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/freeze")
+    public String freezeDeal(@RequestParam("id") long id,
+                             @RequestParam("closeDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate closeDate,
+                             RedirectAttributes redirectAttributes){
         try {
-            dealService.changeStatus(dealService.findOne(id), DealStatus.FROZEN);
+            dealService.setFrozen(dealService.findOne(id), closeDate);
         } catch (ChangingDealStatusException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }

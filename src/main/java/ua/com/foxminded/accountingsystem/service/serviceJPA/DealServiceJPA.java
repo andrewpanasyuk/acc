@@ -141,7 +141,35 @@ public class DealServiceJPA implements DealService {
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
-            changeRelatedContractStatus(deal, newStatus);
+            changeRelatedContractStatus(deal, LocalDate.now(), newStatus);
+        }
+
+        deal.setStatus(newStatus);
+        save(deal);
+    }
+
+    @Override
+    @Transactional
+    public void setFrozen(Deal deal, LocalDate closeDate) {
+
+        if (deal == null) {
+            throw new ChangingDealStatusException("Deal is null !");
+        }
+
+        DealStatus oldStatus = deal.getStatus();
+        DealStatus newStatus = DealStatus.FROZEN;
+
+        if (!isChangingDealStatusAllowed(oldStatus, newStatus)) {
+            throw new ChangingDealStatusException("Changing deal status from " + oldStatus +
+                " to " + newStatus + " is not allowed !");
+        }
+
+        if (oldStatus == DealStatus.ACTIVE) {
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
+            if (lastInvoice != null) {
+                salaryItemService.createPretermSalaryItem(lastInvoice, closeDate);
+            }
+            changeRelatedContractStatus(deal, closeDate, newStatus);
         }
 
         deal.setStatus(newStatus);
@@ -165,7 +193,7 @@ public class DealServiceJPA implements DealService {
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
-            changeRelatedContractStatus(deal, newStatus);
+            changeRelatedContractStatus(deal, LocalDate.now(), newStatus);
         }
 
         deal.setCloseDate(LocalDate.now());
@@ -190,7 +218,7 @@ public class DealServiceJPA implements DealService {
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
             }
-            changeRelatedContractStatus(deal, newStatus);
+            changeRelatedContractStatus(deal, LocalDate.now(), newStatus);
         }
 
         deal.setCloseDate(LocalDate.now());
@@ -215,7 +243,7 @@ public class DealServiceJPA implements DealService {
             salaryItemService.createPretermSalaryItem(lastInvoice, LocalDate.now());
         }
 
-        changeRelatedContractStatus(deal, newStatus);
+        changeRelatedContractStatus(deal, LocalDate.now(), newStatus);
         deal.setCloseDate(LocalDate.now());
         deal.setStatus(newStatus);
         save(deal);
@@ -257,7 +285,7 @@ public class DealServiceJPA implements DealService {
         return dealRepository.findDealsByStatus(dealStatus);
     }
 
-    private void changeRelatedContractStatus(Deal deal, DealStatus newStatus) {
+    private void changeRelatedContractStatus(Deal deal, LocalDate closeDate, DealStatus newStatus) {
 
         Contract contract = contractRepository.findContractByDealIdAndCloseTypeIsNull(deal.getId());
 
@@ -268,14 +296,15 @@ public class DealServiceJPA implements DealService {
         if (newStatus == DealStatus.FROZEN) {
             contract.setCloseType(CloseType.FROZEN);
             contract.setClosingDescription("freeze");
+            contract.setCloseDate(closeDate);
         }
 
         if (newStatus == DealStatus.COMPLETED || newStatus == DealStatus.REFUSED || newStatus == DealStatus.REJECTED) {
             contract.setCloseType(CloseType.COMPLETED);
             contract.setClosingDescription("complete");
+            contract.setCloseDate(closeDate);
         }
 
-        contract.setCloseDate(LocalDate.now());
         contractRepository.save(contract);
     }
 
