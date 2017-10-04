@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.web.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,7 +15,9 @@ import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
+import ua.com.foxminded.accountingsystem.service.exception.InvoiceException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -47,8 +50,17 @@ public class AdminInvoiceController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute Invoice invoice) {
-        invoiceService.save(invoice);
+    public String saveInvoice(@ModelAttribute @Valid Invoice invoice, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "admin/invoice";
+        }
+        try {
+            invoiceService.save(invoice);
+        } catch (InvoiceException e) {
+            bindingResult.reject("invoiceError", e.getMessage());
+            return "admin/invoice";
+        }
         return "redirect:/admin/invoices";
     }
 
@@ -84,7 +96,6 @@ public class AdminInvoiceController {
         invoiceService.issueInvoice(invoice);
         return "redirect:/admin/invoices/issue";
     }
-
 
     @GetMapping(value = "/debt")
     public String getDebtInvoices(Model model) {

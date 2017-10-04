@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.model;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.format.annotation.DateTimeFormat;
+import ua.com.foxminded.accountingsystem.util.constraints.MonthOrLessPeriod;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "invoice")
 @Audited
+@MonthOrLessPeriod(dateFrom = "paymentPeriodFrom", dateTo = "paymentPeriodTo")
 public class Invoice extends AbstractAuditEntity {
     private static final long serialVersionUID = 1L;
 
