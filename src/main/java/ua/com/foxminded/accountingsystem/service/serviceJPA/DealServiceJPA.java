@@ -166,7 +166,7 @@ public class DealServiceJPA implements DealService {
         }
 
         if (oldStatus == DealStatus.ACTIVE) {
-            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDealId(deal.getId());
+            Invoice lastInvoice = invoiceService.findLastInvoiceInActiveContractByDeal(deal);
             if (lastInvoice != null) {
                 salaryItemService.createPretermSalaryItem(lastInvoice, closeDate);
             }
@@ -286,6 +286,7 @@ public class DealServiceJPA implements DealService {
         return dealRepository.findDealsByStatus(dealStatus);
     }
 
+    @Override
     public PaymentType findDealCurrentPaymentType(Deal deal) {
 
         Contract contract = contractRepository.findContractByDealAndCloseTypeIsNull(deal);

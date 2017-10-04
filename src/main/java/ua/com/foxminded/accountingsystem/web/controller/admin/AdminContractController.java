@@ -22,6 +22,7 @@ import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.EmployeeService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
+import ua.com.foxminded.accountingsystem.service.exception.ContractCreatingException;
 
 @Controller
 @RequestMapping("/admin/contracts")
@@ -97,7 +98,6 @@ public class AdminContractController {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/deals/" + dealId;
         }
-
         return "admin/contract";
     }
 
