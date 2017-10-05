@@ -159,7 +159,7 @@
     <br/>
     <br/>
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="btn-group col-md-4 col-sm-6 col-xs-4" role="group">
+      <div th:if="${invoice.payment == null}" class="btn-group col-md-4 col-sm-6 col-xs-4" role="group">
         <button type="submit" class="btn btn-danger btn" onclick="$('#deleteInvoice').submit()">Delete</button>
       </div>
       <div class="pull-right col-md-8 col-sm-6 col-xs-8">
