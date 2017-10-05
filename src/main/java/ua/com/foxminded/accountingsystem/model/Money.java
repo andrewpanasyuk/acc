@@ -38,6 +38,11 @@ public class Money implements Serializable {
         this.currency = currency;
     }
 
+    public Money(Money money) {
+        this.amount = money.getAmount();
+        this.currency = money.getCurrency();
+    }
+
     public long getId() {
         return id;
     }

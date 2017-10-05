@@ -1,6 +1,7 @@
 package ua.com.foxminded.accountingsystem.service;
 
 
+import ua.com.foxminded.accountingsystem.model.CloseType;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
@@ -11,6 +12,8 @@ import java.util.List;
 
 public interface ContractService {
 
+    void close(Contract contract, CloseType closeType, String cause);
+
     List<Contract> findAll();
 
     Contract findOne(Long id);
@@ -19,13 +22,15 @@ public interface ContractService {
 
     Contract save(Contract contract);
 
-    Contract prepareNewByDealId(Long dealId);
+    Contract prepareNewContractByDealId(Long dealId);
 
     List<Invoice> prepareIssueInvoices();
 
     List<Contract> findAllByDeal(Deal deal);
 
-    Contract findOpenedContractByDealId(Long dealId);
+    Contract findActiveContractByDeal(Deal deal);
+
+    Contract findTrialActiveContractByDeal(Deal deal);
 
     boolean existsContractByDeal(Deal deal);
 

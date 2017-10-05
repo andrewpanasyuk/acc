@@ -83,6 +83,20 @@ public class Contract extends AbstractAuditEntity {
     @Column(name = "closing_description")
     private String closingDescription;
 
+    public Contract() {
+    }
+
+    public Contract(LocalDate contractDate, Deal deal, Money price, PaymentType paymentType,
+                    Employee employee, Money employeeRate, LocalDate paymentDate) {
+        this.contractDate = contractDate;
+        this.deal = deal;
+        this.price = price;
+        this.paymentType = paymentType;
+        this.employee = employee;
+        this.employeeRate = employeeRate;
+        this.paymentDate = paymentDate;
+    }
+
     public Long getId() {
         return id;
     }

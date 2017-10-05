@@ -74,7 +74,8 @@ public class AdminDealController {
         model.addAttribute("deal", deal)
             .addAttribute("title", "Deal: " + deal.getId())
             .addAttribute("consultancies", consultancyService.findAll())
-            .addAttribute("contracts", contractService.findAllByDeal(deal));
+            .addAttribute("contracts", contractService.findAllByDeal(deal))
+            .addAttribute("dealCurrentPaymentType", dealService.findDealCurrentPaymentType(deal));
         return "admin/deal";
     }
 

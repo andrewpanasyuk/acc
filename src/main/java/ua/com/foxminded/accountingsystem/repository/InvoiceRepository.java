@@ -3,6 +3,7 @@ package ua.com.foxminded.accountingsystem.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
+import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
         "AND invoice.paymentPeriodTo < current_date ))")
     List<Invoice> findDebtInvoices();
 
-    Invoice findFirstByContractDealIdOrderByCreationDateDesc(long dealId);
+    Invoice findFirstByContractDealOrderByCreationDateDesc(Deal deal);
 
     @Query("SELECT invoice FROM Invoice invoice WHERE invoice.paymentPeriodTo < CURRENT_DATE " +
         "AND FUNCTION('DAY', invoice.paymentPeriodTo) = ?1 " +

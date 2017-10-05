@@ -64,9 +64,16 @@
               <div class="col-md-2 col-sm-4 col-xs-4">
                 <label for="dealStatus">Status:</label>
               </div>
-              <div class="col-md-6 col-sm-4 col-xs-8">
+              <div class="col-md-6 col-sm-4 col-xs-8" th:if="${dealCurrentPaymentType == null}">
                 <input type="hidden" th:field="${deal.status}"/>
                 <output id="dealStatus" class="form-control" th:text="${deal.status}"/>
+              </div>
+              <div class="col-md-3 col-sm-4 col-xs-8" th:if="${dealCurrentPaymentType != null}">
+                <input type="hidden" th:field="${deal.status}"/>
+                <output id="dealStatus" class="form-control" th:text="${deal.status}"/>
+              </div>
+              <div class="col-md-3 col-sm-4 col-xs-8" th:if="${dealCurrentPaymentType != null}">
+                <output id="paymentType" class="form-control" th:text="${dealCurrentPaymentType}"/>
               </div>
             </div>
 
@@ -98,6 +105,10 @@
               <a th:href="@{/admin/contracts/new?dealId={id}(id=${deal.id})}" class="btn btn-primary">New contract</a>
             </div>
 
+            <div class="btn-group" role="group"
+                 th:if="${deal.status.toString().equals('ACTIVE')} and ${dealCurrentPaymentType.toString().equals('TRIAL')}">
+              <a th:href="@{/admin/contracts/new?dealId={id}(id=${deal.id})}" class="btn btn-primary">Start studying</a>
+            </div>
             <div class="btn-group" role="group"
                  th:if="!${deal.status.toString().equals('WAITING')} and !${deal.status.toString().equals('ACTIVE')}">
               <a th:href="@{/admin/queues/new?dealId={id}(id=${deal.id})}" class="btn btn-primary">Queue</a>
