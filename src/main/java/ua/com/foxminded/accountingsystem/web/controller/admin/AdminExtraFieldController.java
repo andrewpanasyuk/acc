@@ -13,7 +13,7 @@ import ua.com.foxminded.accountingsystem.service.EmployeeFieldService;
 @RequestMapping("/admin/conf/extra-fields")
 public class AdminExtraFieldController {
 
-    public static final String EXTRA_FIELDS_PAGE = "/admin/conf/extra-fields";
+    public static final String EXTRA_FIELDS_PAGE = "admin/extraFields";
     private final ClientFieldService clientFieldService;
     private final EmployeeFieldService employeeFieldService;
 
