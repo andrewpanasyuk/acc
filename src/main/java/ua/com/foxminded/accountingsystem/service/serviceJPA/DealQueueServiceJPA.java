@@ -13,6 +13,7 @@ import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
+
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;

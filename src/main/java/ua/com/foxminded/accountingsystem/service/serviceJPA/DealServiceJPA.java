@@ -16,6 +16,7 @@ import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.exception.ChangingDealStatusException;
+
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
