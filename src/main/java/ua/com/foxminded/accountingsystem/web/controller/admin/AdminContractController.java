@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.com.foxminded.accountingsystem.model.Contract;
-import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.service.ContractService;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
@@ -76,10 +75,6 @@ public class AdminContractController {
         }
         try {
             contractService.save(contract);
-            DealQueue dealQueue = dealQueueService.findQueueByDeal(contract.getDeal());
-            if (dealQueue != null) {
-                dealQueueService.delete(dealQueue);
-            }
         } catch (ActiveContractExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/deals/" + contract.getDeal().getId();

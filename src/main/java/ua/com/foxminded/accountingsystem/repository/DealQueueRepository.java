@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface DealQueueRepository extends JpaRepository<DealQueue, Long> {
 
-    DealQueue findByDeal(Deal deal);
+    DealQueue findByDealAndRemovedFalse(Deal deal);
 
     List<DealQueue> findAllByRemoved(Boolean removed);
 

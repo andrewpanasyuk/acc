@@ -9,9 +9,9 @@ import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
+import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
-import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
@@ -23,8 +23,6 @@ import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
 import ua.com.foxminded.accountingsystem.service.exception.ContractCreatingException;
-
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +80,11 @@ public class ContractServiceJPA implements ContractService {
     public void delete(Long id) {
         Contract contract = contractRepository.findOne(id);
         Deal deal = contract.getDeal();
+
+        if (contract.getPaymentType() == PaymentType.TRIAL && checkIfDealHasHistory(deal)){
+            throw new ContractCreatingException("Contract has already history and it cannot be deleted");
+        }
+
         List<DealQueue> dealQueues = dealQueueRepository.findAllByDealAndQueuingDateOrderById(deal, contract.getContractDate());
 
         if (dealQueues.isEmpty()) {
@@ -95,6 +98,10 @@ public class ContractServiceJPA implements ContractService {
             dealService.changeStatus(deal, DealStatus.WAITING);
         }
         contractRepository.delete(id);
+    }
+
+    private boolean checkIfDealHasHistory(Deal deal){
+        return contractRepository.countContractsByDeal(deal) > 1;
     }
 
     @Override
@@ -115,6 +122,13 @@ public class ContractServiceJPA implements ContractService {
 
         if (isDealActivationRequired(contract)) {
             dealService.changeStatus(contract.getDeal(), DealStatus.ACTIVE);
+        }
+
+        DealQueue dealQueue = dealQueueRepository.findByDealAndRemovedFalse(contract.getDeal());
+
+        if (dealQueue != null) {
+            dealQueue.setRemoved(true);
+            dealQueueRepository.save(dealQueue);
         }
 
         return contractRepository.save(contract);

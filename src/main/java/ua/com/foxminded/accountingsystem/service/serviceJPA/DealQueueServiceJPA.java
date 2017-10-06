@@ -7,10 +7,10 @@ import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
 import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Priority;
+import ua.com.foxminded.accountingsystem.repository.ConsultancyRepository;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
 import ua.com.foxminded.accountingsystem.repository.DealQueueRepository;
 import ua.com.foxminded.accountingsystem.repository.DealRepository;
-import ua.com.foxminded.accountingsystem.repository.ConsultancyRepository;
 import ua.com.foxminded.accountingsystem.service.DealQueueService;
 import ua.com.foxminded.accountingsystem.service.DealService;
 
@@ -83,7 +83,7 @@ public class DealQueueServiceJPA implements DealQueueService {
 
     @Override
     public DealQueue findQueueByDeal(Deal deal) {
-        return dealQueueRepository.findByDeal(deal);
+        return dealQueueRepository.findByDealAndRemovedFalse(deal);
     }
 
     @Transactional
