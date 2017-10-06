@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,4 +34,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findAllByPaymentType(PaymentType paymentType);
 
     List<Contract> findAllByDealAndContractDateLessThanOrderByContractDateDesc(Deal deal, LocalDate contractDate);
+
+    int countContractsByDeal(Deal deal);
 }

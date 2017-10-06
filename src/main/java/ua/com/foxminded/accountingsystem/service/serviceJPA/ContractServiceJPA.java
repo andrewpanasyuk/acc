@@ -9,9 +9,9 @@ import ua.com.foxminded.accountingsystem.model.Contract;
 import ua.com.foxminded.accountingsystem.model.Currency;
 import ua.com.foxminded.accountingsystem.model.Deal;
 import ua.com.foxminded.accountingsystem.model.DealQueue;
+import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Invoice;
 import ua.com.foxminded.accountingsystem.model.Money;
-import ua.com.foxminded.accountingsystem.model.DealStatus;
 import ua.com.foxminded.accountingsystem.model.Payment;
 import ua.com.foxminded.accountingsystem.model.PaymentType;
 import ua.com.foxminded.accountingsystem.repository.ContractRepository;
@@ -22,10 +22,7 @@ import ua.com.foxminded.accountingsystem.service.DealService;
 import ua.com.foxminded.accountingsystem.service.InvoiceService;
 import ua.com.foxminded.accountingsystem.service.SalaryItemService;
 import ua.com.foxminded.accountingsystem.service.exception.ActiveContractExistsException;
-import ua.com.foxminded.accountingsystem.service.exception.ObjectCannotBeDeletedException;
 import ua.com.foxminded.accountingsystem.service.exception.ContractCreatingException;
-
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,13 +79,12 @@ public class ContractServiceJPA implements ContractService {
     @Transactional
     public void delete(Long id) {
         Contract contract = contractRepository.findOne(id);
-        if (contract.getPaymentType() == PaymentType.TRIAL){
-            if (checkIfDealHasHistory(contract)) {
-                throw new ObjectCannotBeDeletedException("Contract has already history and it cannot be deleted");
-            }
+        Deal deal = contract.getDeal();
+
+        if (contract.getPaymentType() == PaymentType.TRIAL && checkIfDealHasHistory(deal)){
+            throw new ContractCreatingException("Contract has already history and it cannot be deleted");
         }
 
-        Deal deal = contract.getDeal();
         List<DealQueue> dealQueues = dealQueueRepository.findAllByDealAndQueuingDateOrderById(deal, contract.getContractDate());
 
         if (dealQueues.isEmpty()) {
@@ -104,8 +100,8 @@ public class ContractServiceJPA implements ContractService {
         contractRepository.delete(id);
     }
 
-    private boolean checkIfDealHasHistory(Contract contract){
-        return findAllByDeal(contract.getDeal()).size() > 1;
+    private boolean checkIfDealHasHistory(Deal deal){
+        return contractRepository.countContractsByDeal(deal) > 1;
     }
 
     @Override
